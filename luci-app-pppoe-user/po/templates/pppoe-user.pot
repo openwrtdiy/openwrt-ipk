@@ -1,0 +1,44 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "PPPoE User"
+msgstr ""
+
+msgid "PPPoE MWAN Rules"
+msgstr ""
+
+msgid "The PPPoE server is a broadband access authentication server that prevents ARP spoofing."
+msgstr ""
+
+msgid "Users Manager"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Account"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "IP address"
+msgstr ""
+
+msgid "Automatically"
+msgstr ""
+
+msgid "Valid Period"
+msgstr ""
+
+msgid "Remarks"
+msgstr ""
+
+msgid "Online Users"
+msgstr ""
+
+msgid "Forced Offline"
+msgstr ""
+
+msgid "Expire Users"
+msgstr ""

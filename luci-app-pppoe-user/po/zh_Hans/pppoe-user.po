@@ -1,0 +1,41 @@
+msgid "PPPoE User"
+msgstr "PPPoE 用户管理"
+
+msgid "PPPoE MWAN Rules"
+msgstr "拨号分流规则"
+
+msgid "The PPPoE server is a broadband access authentication server that prevents ARP spoofing."
+msgstr "PPPoE服务器是一个宽带接入认证服务器，可以防止ARP欺骗."
+
+msgid "Users Manager"
+msgstr "用户管理"
+
+msgid "Enabled"
+msgstr "启用"
+
+msgid "Account"
+msgstr "账号"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "IP address"
+msgstr "IP 地址"
+
+msgid "Automatically"
+msgstr "自动分配"
+
+msgid "Valid Period"
+msgstr "有效期"
+
+msgid "Remarks"
+msgstr "备注"
+
+msgid "Online Users"
+msgstr "在线用户"
+
+msgid "Forced Offline"
+msgstr "强制下线"
+
+msgid "Expire Users"
+msgstr "到期用户"
