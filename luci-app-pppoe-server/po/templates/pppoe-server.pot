@@ -1,0 +1,104 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "PPPoE Server"
+msgstr ""
+
+msgid "The PPPoE server is a broadband access authentication server that prevents ARP spoofing."
+msgstr ""
+
+msgid "PPPoE Server status"
+msgstr ""
+
+msgid "Current Condition"
+msgstr ""
+
+msgid "General settings"
+msgstr ""
+
+msgid "Enable or disable the PPPoE server"
+msgstr ""
+
+msgid "Client Interface"
+msgstr ""
+
+msgid "Listen in this interface"
+msgstr ""
+
+msgid "Server IP"
+msgstr ""
+
+msgid "PPPoE Server IP address.default: 10.0.1.1"
+msgstr ""
+
+msgid "Client IP"
+msgstr ""
+
+msgid "PPPoE Client IP address.default: 10.0.1.100-254"
+msgstr ""
+
+msgid "DNS IP address1"
+msgstr ""
+
+msgid "DNS IP address2"
+msgstr ""
+
+msgid "Set the PPPoE server to default DNS server, which is not required."
+msgstr ""
+
+msgid "Set the PPPoE server to default DNS server, which is not required."
+msgstr ""
+
+msgid "Client upper limit"
+msgstr ""
+
+msgid "Specify how many clients can connect to the server simultaneously."
+msgstr ""
+
+msgid "You may not be able to access the Internet if you don't set it up properly.default: 1492"
+msgstr ""
+
+msgid "is_nat"
+msgstr ""
+
+msgid "Interface"
+msgstr ""
+
+msgid "Specify interface forwarding traffic."
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
+msgid "Log save path, default: /var/log/pppoe-server.log"
+msgstr ""
+
+msgid "Users Manager"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "User name"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "IP address"
+msgstr ""
+
+msgid "Automatically"
+msgstr ""
+
+msgid "Online Users"
+msgstr ""
+
+msgid "Forced offline"
+msgstr ""
+
+msgid "NOT RUNNING"
+msgstr ""
+
+msgid "RUNNING"
+msgstr ""
