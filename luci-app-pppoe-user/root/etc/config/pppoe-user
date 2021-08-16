@@ -1,0 +1,7 @@
+
+config user
+	option enabled '1'
+	option username 'guest'
+	option password '123456'
+	option ipaddress '*'
+

@@ -1,0 +1,69 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "PPPoE Users Manager"
+msgstr ""
+
+msgid "Users Manager"
+msgstr ""
+
+msgid "The PPPoE server is a broadband access authentication server that prevents ARP spoofing."
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Account"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "IP address"
+msgstr ""
+
+msgid "CIDR address"
+msgstr ""
+
+msgid "Automatically"
+msgstr ""
+
+msgid "Valid Period"
+msgstr ""
+
+msgid "Remarks"
+msgstr ""
+
+msgid "Online Users"
+msgstr ""
+
+msgid "Forced Offline"
+msgstr ""
+
+msgid "Expire Users"
+msgstr ""
+
+msgid "Renewal Reminder"
+msgstr ""
+
+msgid "Real-time download"
+msgstr ""
+
+msgid "Real-time upload"
+msgstr ""
+
+msgid "Rules policy"
+msgstr ""
+
+msgid "Online Time"
+msgstr ""
+
+msgid "Offline Time"
+msgstr ""
+
+msgid "Download Rate"
+msgstr ""
+
+msgid "Upload Rate"
+msgstr ""
+

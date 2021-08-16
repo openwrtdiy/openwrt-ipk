@@ -1,0 +1,11 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@pppoe-user[-1]
+	add ucitrack pppoe-user
+	set ucitrack.@pppoe-user[-1].init=pppoe-user
+	commit ucitrack
+EOF
+
+rm -f /tmp/luci-indexcache
+exit 0
