@@ -1,0 +1,14 @@
+
+config user
+	option enabled '1'
+	option username 'guest'
+	option provider '*'
+	option password '123456'
+	option ipaddress '*'
+	option sqm '0'
+	option download '10000'
+	option upload '10000'
+	option qdisc 'cake'
+	option script 'piece_of_cake.qos'
+	option linklayer 'ethernet'
+	option connect '100'

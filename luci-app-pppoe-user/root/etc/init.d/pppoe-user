@@ -1,0 +1,59 @@
+#!/bin/sh /etc/rc.common
+
+START=60
+
+CONFIG="*"
+CHAP_SECRETS=/var/etc/chap-secrets
+TEMP=/tmp/$CONFIG.tmp
+
+setup_users() {
+	config_get enabled $1 enabled
+	[ "$enabled" -eq 0 ] && return 0
+	config_get username $1 username
+	config_get provider $1 provider
+	config_get password $1 password
+	config_get ipaddress $1 ipaddress
+	[ -n "$username" -a -n "$password" ] && echo "$username $CONFIG $password $ipaddress" >> $CHAP_SECRETS
+	config_get sqm $1 sqm
+	config_get download $1 download
+	config_get upload $1 upload
+	config_get qdisc $1 qdisc
+	config_get script $1 script
+	config_get linklayer $1 linklayer
+	 uci del sqm.eth1
+         uci set sqm.$username=queue
+         uci set sqm.$username.download=$download
+         uci set sqm.$username.upload=$upload
+         uci set sqm.$username.qdisc=$qdisc
+         uci set sqm.$username.debug_logging=0
+         uci set sqm.$username.verbosity=5
+         uci set sqm.$username.script=$script
+         uci set sqm.$username.qdisc_advanced=0
+         uci set sqm.$username.linklayer=$linklayer
+         uci set sqm.$username.overhead=0
+         uci set sqm.$username.enabled=$sqm
+         uci commit sqm
+	 /etc/init.d/sqm reload
+}
+
+del_user()
+{
+	cat $CHAP_SECRETS | grep -v $CONFIG > $TEMP
+	cat $TEMP > $CHAP_SECRETS
+	rm $TEMP
+}
+
+start() {
+	config_load pppoe-user
+	enabled=$(config_t_get service enabled)
+	[ "$enabled" -eq 0 ]  && exit 0
+	del_user
+	config_foreach setup_users user
+	ln -sfn $CHAP_SECRETS /etc/ppp/chap-secrets
+	chmod 600 /var/etc/chap-secrets
+}
+
+stop() {
+	del_user
+	killall -q pppoe-user
+}
