@@ -14,7 +14,7 @@ o.readonly = true
 o = s:option(Value, "upload", translate("Download (kbit/s)"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
-o.default = '1024'
+o.default = '1050'
 o:value("1050", "1 M")
 o:value("2100", "2 M")
 o:value("3150", "3 M")
@@ -40,7 +40,7 @@ o.datatype = "uinteger"
 o = s:option(Value, "download", translate("Upload (kbit/s)"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
-o.default = '1024'
+o.default = '1050'
 o:value("1050", "1 M")
 o:value("2100", "2 M")
 o:value("3150", "3 M")
