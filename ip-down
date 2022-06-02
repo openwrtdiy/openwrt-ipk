@@ -1,0 +1,26 @@
+#!/bin/sh
+
+LOGOUT_TIME="$(date "+%Y-%m-%d %H:%M:%S")"
+CONFIG="pppoe-server"
+CONFIG_PATH=/var/etc/${CONFIG}
+SESSION_PATH=${CONFIG_PATH}/session
+
+USERNAME=${PEERNAME}
+IFACE=${1}
+TTY=${2}
+SPEED=${3}
+LOCALIP=${4}
+PEERIP=${5}
+REMOTEIP=${6}
+BYTES_SENT=${BYTES_SENT}
+BYTES_RCVD=${BYTES_RCVD}
+CONNECT_TIME=${CONNECT_TIME}
+
+rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
+rm -f /var/run/${IFACE}.pid
+
+uci del sqm.$USERNAME.interface
+uci commit sqm
+/usr/lib/sqm/run.sh start
+
+echo `date +'%Y-%m-%d %T'` $USERNAME offline >> /var/log/pppoe-user-log
