@@ -1,7 +1,7 @@
 m = Map("pppoe-user", translate("User Manager"))
 
 local count = luci.sys.exec("grep -c 'config user' /etc/config/pppoe-user")
-s = m:section(TypedSection, "user", translate("total number of users [ " .. count .. "]"))
+s = m:section(TypedSection, "user", translate("User count [ " .. count .. "]"))
 s.addremove = true
 s.anonymous = true
 s.nodescriptions = true
@@ -28,7 +28,7 @@ o.placeholder = translate("Password")
 o.password = true
 o.rmempty = false
 
-o = s:option(Value, "ipaddress", translate("IP Address"))
+o = s:option(Value, "ipaddress", translate("IP address"))
 o.placeholder = translate("Automatically")
 o.datatype = "ipaddr"
 o.rmempty = true
@@ -38,12 +38,12 @@ function o.cfgvalue(e, t)
 end
 function o.remove(e, t) Value.write(e, t, "*") end
 
-o = s:option(Value, "macaddress", translate("MAC-Address"))
+o = s:option(Value, "macaddress", translate("MAC address"))
 o.placeholder = translate("Manual")
 o.datatype = "macaddr"
 o.rmempty = true
 
-o = s:option(Value, "expires", translate("Expires"))
+o = s:option(Value, "expires", translate("Expire date"))
 o.placeholder = translate("Expires")
 o.rmempty = true
 

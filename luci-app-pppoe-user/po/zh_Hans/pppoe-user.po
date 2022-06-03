@@ -4,8 +4,8 @@ msgstr "拨号用户管理"
 msgid "User Manager"
 msgstr "用户管理"
 
-msgid "total number of users"
-msgstr "用户总数"
+msgid "User count"
+msgstr "用户数"
 
 msgid "Enabled"
 msgstr "启用"
@@ -37,6 +37,9 @@ msgstr "到期时间"
 msgid "Traffic Control"
 msgstr "流量控制"
 
+msgid "Smart Queue Management"
+msgstr "智能队列管理"
+
 msgid "QoS"
 msgstr "限速"
 
@@ -54,6 +57,9 @@ msgstr "队列脚本"
 
 msgid "Link Layer"
 msgstr "链路层"
+
+msgid "Connections"
+msgstr "连接数"
 
 msgid "Auth Log"
 msgstr "授权日志"

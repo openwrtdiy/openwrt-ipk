@@ -8,7 +8,7 @@ msgstr ""
 msgid "User Manager"
 msgstr ""
 
-msgid "total number of users"
+msgid "User count"
 msgstr ""
 
 msgid "Enabled"
@@ -41,6 +41,9 @@ msgstr ""
 msgid "Traffic Control"
 msgstr ""
 
+msgid "Smart Queue Management"
+msgstr ""
+
 msgid "QoS"
 msgstr ""
 
@@ -57,6 +60,9 @@ msgid "Queue Script"
 msgstr ""
 
 msgid "Link Layer"
+msgstr ""
+
+msgid "Connections"
 msgstr ""
 
 msgid "Auth Log"
