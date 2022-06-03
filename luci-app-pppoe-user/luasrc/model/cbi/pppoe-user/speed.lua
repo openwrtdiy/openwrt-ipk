@@ -1,6 +1,6 @@
-m = Map("pppoe-user",  translate("Smart Queue Management"))
+m = Map("pppoe-user")
 
-s = m:section(TypedSection, "user", translate(" "))
+s = m:section(TypedSection, "user", translate("Smart Queue Management"))
 s.anonymous = true
 s.template = "cbi/tblsection"
 
