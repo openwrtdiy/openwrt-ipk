@@ -68,6 +68,9 @@ msgstr ""
 msgid "Online User"
 msgstr ""
 
+msgid "Login Time"
+msgstr ""
+
 msgid "Forced Offline"
 msgstr ""
 
