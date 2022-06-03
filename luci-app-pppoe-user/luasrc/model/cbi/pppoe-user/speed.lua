@@ -1,17 +1,17 @@
-m = Map("pppoe-user",  translate("Smart Queue Management"), translate("With SQM you can enable traffic shaping, better mixing (Fair Queueing), active queue length management (AQM) and prioritisation on one network interface."))
+m = Map("pppoe-user",  translate("Smart Queue Management"))
 
 s = m:section(TypedSection, "user", translate(" "))
 s.anonymous = true
 s.template = "cbi/tblsection"
 
-o = s:option(Flag, "sqm", translate("SQM"))
+o = s:option(Flag, "sqm", translate("QoS"))
 o.rmempty = true
 
 o = s:option(Value, "username", translate("User Name"))
 o.placeholder = translate("username")
 o.readonly = true
 
-o = s:option(Value, "upload", translate("Download (kbit/s)"))
+o = s:option(Value, "upload", translate("Download speed"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
 o.default = '1050'
@@ -37,7 +37,7 @@ o:value("525000", "500 M")
 o:value("1050000", "1000 M")
 o.datatype = "uinteger"
 
-o = s:option(Value, "download", translate("Upload (kbit/s)"))
+o = s:option(Value, "download", translate("Upload speed"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
 o.default = '1050'

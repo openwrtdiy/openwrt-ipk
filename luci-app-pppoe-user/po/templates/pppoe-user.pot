@@ -1,10 +1,11 @@
+
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-msgid "PPPoE Users Manager"
+msgid "PPPoE User Manager"
 msgstr ""
 
-msgid "Users Manager"
+msgid "User Manager"
 msgstr ""
 
 msgid "User Name"
@@ -37,7 +38,16 @@ msgstr ""
 msgid "Remarks"
 msgstr ""
 
-msgid "Online Users"
+msgid "Traffic Control"
+msgstr ""
+
+msgid "total number of users"
+msgstr ""
+
+msgid "User Status"
+msgstr ""
+
+msgid "Online User"
 msgstr ""
 
 msgid "Forced Offline"
@@ -64,12 +74,24 @@ msgstr ""
 msgid "Offline Time"
 msgstr ""
 
-msgid "Download Rate"
-msgstr ""
-
-msgid "Upload Rate"
-msgstr ""
-
 msgid "Auth Log"
+msgstr ""
+
+msgid "QoS"
+msgstr ""
+
+msgid "Download speed"
+msgstr ""
+
+msgid "Upload speed"
+msgstr ""
+
+msgid "Queuing Rules"
+msgstr ""
+
+msgid "Queue Script"
+msgstr ""
+
+msgid "Link Layer"
 msgstr ""
 

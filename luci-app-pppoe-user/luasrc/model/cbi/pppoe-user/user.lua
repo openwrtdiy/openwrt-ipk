@@ -1,7 +1,7 @@
 m = Map("pppoe-user", translate("User Manager"))
 
 local count = luci.sys.exec("grep -c 'config user' /etc/config/pppoe-user")
-s = m:section(TypedSection, "user", translate("Users [ " .. count .. "]"))
+s = m:section(TypedSection, "user", translate("total number of users [ " .. count .. "]"))
 s.addremove = true
 s.anonymous = true
 s.nodescriptions = true

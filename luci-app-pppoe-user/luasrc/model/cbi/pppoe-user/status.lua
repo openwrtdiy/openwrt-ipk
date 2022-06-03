@@ -1,4 +1,3 @@
-
 m = Map("pppoe-user", translate("User Status"))
 
 s = m:section(TypedSection, "user", translate(""))
