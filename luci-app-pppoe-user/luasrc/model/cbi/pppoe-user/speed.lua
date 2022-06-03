@@ -8,11 +8,11 @@ o = s:option(Flag, "qos", translate("QoS"))
 o.rmempty = true
 o.default = 1
 
-o = s:option(Value, "username", translate("User Name"))
+o = s:option(DummyValue, "username", translate("User Name"))
 o.placeholder = translate("username")
 o.readonly = true
 
-o = s:option(Value, "upload", translate("Download speed"))
+o = s:option(ListValue, "upload", translate("Download speed"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
 o.default = '1050'
@@ -38,7 +38,7 @@ o:value("525000", "500 M")
 o:value("1050000", "1000 M")
 o.datatype = "uinteger"
 
-o = s:option(Value, "download", translate("Upload speed"))
+o = s:option(ListValue, "download", translate("Upload speed"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
 o.default = '1050'
