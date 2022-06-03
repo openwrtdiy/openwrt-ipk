@@ -17,12 +17,11 @@ if fs.access(session_path) then
     end
 end
 
-local count = luci.sys.exec("top -bn1 | grep 'pppd plugin pppoe.so' | grep -v 'grep' | wc -l")
-
 f = Map("pppoe-user")
 f.reset = false
 f.submit = false
 
+local count = luci.sys.exec("top -bn1 | grep 'pppd plugin pppoe.so' | grep -v 'grep' | wc -l")
 t = f:section(Table, sessions, translate("Online User [ " .. count .. "]"))
 t:option(DummyValue, "username", translate("Username"))
 t:option(DummyValue, "mac", translate("MAC address"))
@@ -30,9 +29,9 @@ t:option(DummyValue, "interface", translate("Interface"))
 t:option(DummyValue, "ip", translate("IP address"))
 t:option(DummyValue, "login_time", translate("Login Time"))
 
-_kill = t:option(Button, "_kill", translate("Forced offline"))
-_kill.inputstyle = "reset"
-function _kill.write(t, s)
+kill = t:option(Button, "kill", translate("Forced offline"))
+kill.inputstyle = "reset"
+function kill.write(t, s)
     luci.util.execi("rm -f " .. t.map:get(s, "session_file"))
     null, t.tag_error[t] = luci.sys.process.signal(t.map:get(s, "pid"), 9)
     luci.http.redirect(o.build_url("admin/services/pppoe-user/online"))
