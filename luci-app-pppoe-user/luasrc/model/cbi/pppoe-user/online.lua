@@ -17,7 +17,7 @@ if fs.access(session_path) then
     end
 end
 
-f = Map("pppoe-user")
+f = SimpleForm("")
 f.reset = false
 f.submit = false
 
