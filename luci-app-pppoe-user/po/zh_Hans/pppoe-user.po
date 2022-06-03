@@ -1,18 +1,20 @@
-
-msgid "PPPoE User Manager"
-msgstr "PPPoE 用户管理"
+msgid "PPPoE User Management"
+msgstr "拨号用户管理"
 
 msgid "User Manager"
 msgstr "用户管理"
 
-msgid "User Name"
-msgstr "用户名"
-
-msgid "The PPPoE server is a broadband access authentication server that prevents ARP spoofing."
-msgstr "PPPoE服务器是一个宽带接入认证服务器，可以防止ARP欺骗."
+msgid "total number of users"
+msgstr "用户总数"
 
 msgid "Enabled"
 msgstr "启用"
+
+msgid "User Name"
+msgstr "用户名"
+
+msgid "Service Name"
+msgstr "服务名称"
 
 msgid "Account"
 msgstr "账号"
@@ -23,56 +25,17 @@ msgstr "密码"
 msgid "IP address"
 msgstr "IP 地址"
 
-msgid "CIDR address"
-msgstr "CIDR 地址"
-
 msgid "Automatically"
 msgstr "自动分配"
 
-msgid "Valid Period"
-msgstr "有效期"
+msgid "MAC address"
+msgstr "MAC 地址"
 
-msgid "Remarks"
-msgstr "备注"
+msgid "Expire date"
+msgstr "到期时间"
 
 msgid "Traffic Control"
 msgstr "流量控制"
-
-msgid "total number of users"
-msgstr "用户总数"
-
-msgid "User Status"
-msgstr "用户状态"
-
-msgid "Online User"
-msgstr "在线用户"
-
-msgid "Forced Offline"
-msgstr "强制下线"
-
-msgid "Expire Users"
-msgstr "到期用户"
-
-msgid "Renewal Reminder"
-msgstr "续订提醒"
-
-msgid "Real-time download"
-msgstr "实时下载"
-
-msgid "Real-time upload"
-msgstr "实时上传"
-
-msgid "Rules policy"
-msgstr "规则策略"
-
-msgid "Online Time"
-msgstr "在线时间"
-
-msgid "Offline Time"
-msgstr "离线时间"
-
-msgid "Auth Log"
-msgstr "授权日志"
 
 msgid "QoS"
 msgstr "限速"
@@ -91,4 +54,13 @@ msgstr "队列脚本"
 
 msgid "Link Layer"
 msgstr "链路层"
+
+msgid "Auth Log"
+msgstr "授权日志"
+
+msgid "Online User"
+msgstr "在线用户"
+
+msgid "Forced Offline"
+msgstr "强制下线"
 

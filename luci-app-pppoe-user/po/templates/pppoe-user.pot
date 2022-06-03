@@ -2,19 +2,22 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-msgid "PPPoE User Manager"
+msgid "PPPoE User Management"
 msgstr ""
 
 msgid "User Manager"
 msgstr ""
 
-msgid "User Name"
-msgstr ""
-
-msgid "The PPPoE server is a broadband access authentication server that prevents ARP spoofing."
+msgid "total number of users"
 msgstr ""
 
 msgid "Enabled"
+msgstr ""
+
+msgid "User Name"
+msgstr ""
+
+msgid "Service Name"
 msgstr ""
 
 msgid "Account"
@@ -26,55 +29,16 @@ msgstr ""
 msgid "IP address"
 msgstr ""
 
-msgid "CIDR address"
-msgstr ""
-
 msgid "Automatically"
 msgstr ""
 
-msgid "Valid Period"
+msgid "MAC address"
 msgstr ""
 
-msgid "Remarks"
+msgid "Expire date"
 msgstr ""
 
 msgid "Traffic Control"
-msgstr ""
-
-msgid "total number of users"
-msgstr ""
-
-msgid "User Status"
-msgstr ""
-
-msgid "Online User"
-msgstr ""
-
-msgid "Forced Offline"
-msgstr ""
-
-msgid "Expire Users"
-msgstr ""
-
-msgid "Renewal Reminder"
-msgstr ""
-
-msgid "Real-time download"
-msgstr ""
-
-msgid "Real-time upload"
-msgstr ""
-
-msgid "Rules policy"
-msgstr ""
-
-msgid "Online Time"
-msgstr ""
-
-msgid "Offline Time"
-msgstr ""
-
-msgid "Auth Log"
 msgstr ""
 
 msgid "QoS"
@@ -93,5 +57,14 @@ msgid "Queue Script"
 msgstr ""
 
 msgid "Link Layer"
+msgstr ""
+
+msgid "Auth Log"
+msgstr ""
+
+msgid "Online User"
+msgstr ""
+
+msgid "Forced Offline"
 msgstr ""
 
