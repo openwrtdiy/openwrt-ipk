@@ -4,7 +4,7 @@ s = m:section(TypedSection, "user", translate(" "))
 s.anonymous = true
 s.template = "cbi/tblsection"
 
-o = s:option(Flag, "sqm", translate("QoS"))
+o = s:option(Flag, "qos", translate("QoS"))
 o.rmempty = true
 o.default = 1
 

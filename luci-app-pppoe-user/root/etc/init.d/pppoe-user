@@ -14,7 +14,7 @@ setup_users() {
 	config_get password $1 password
 	config_get ipaddress $1 ipaddress
 	[ -n "$username" -a -n "$password" ] && echo "$username $autofill $password $ipaddress" >> $CHAP_SECRETS
-	config_get sqm $1 sqm
+	config_get qos $1 qos
 	config_get download $1 download
 	config_get upload $1 upload
 	config_get qdisc $1 qdisc
@@ -31,7 +31,7 @@ setup_users() {
          uci set sqm.$username.qdisc_advanced=0
          uci set sqm.$username.linklayer=$linklayer
          uci set sqm.$username.overhead=0
-         uci set sqm.$username.enabled=$sqm
+         uci set sqm.$username.enabled=$qos
          uci commit sqm
 	 /etc/init.d/sqm reload
 }

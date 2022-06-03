@@ -5,7 +5,7 @@ config user
 	option provider '*'
 	option password '12345678'
 	option ipaddress '*'
-	option sqm '1'
+	option qos '1'
 	option download '1050'
 	option upload '1050'
 	option qdisc 'cake'
