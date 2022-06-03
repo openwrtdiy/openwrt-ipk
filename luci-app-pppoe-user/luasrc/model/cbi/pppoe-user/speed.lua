@@ -6,6 +6,7 @@ s.template = "cbi/tblsection"
 
 o = s:option(Flag, "sqm", translate("QoS"))
 o.rmempty = true
+o.default = 1
 
 o = s:option(Value, "username", translate("User Name"))
 o.placeholder = translate("username")
@@ -81,10 +82,5 @@ o:value("none", translate("none"))
 o:value("ethernet", translate("ethernet"))
 o:value("atm", translate("atm"))
 o.default = "ethernet"
-
-o = s:option(Value, "connect", translate("Connections"))
-o.placeholder = translate("connect")
-o.rmempty = true
-o.default = "1000"
 
 return m

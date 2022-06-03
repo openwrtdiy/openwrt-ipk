@@ -62,9 +62,6 @@ msgstr ""
 msgid "Link Layer"
 msgstr ""
 
-msgid "Connections"
-msgstr ""
-
 msgid "Auth Log"
 msgstr ""
 

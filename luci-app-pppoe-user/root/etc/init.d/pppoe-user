@@ -2,9 +2,9 @@
 
 START=60
 
-CONFIG="*"
+autofill="*"
 CHAP_SECRETS=/var/etc/chap-secrets
-TEMP=/tmp/$CONFIG.tmp
+TEMP=/tmp/$autofill.tmp
 
 setup_users() {
 	config_get enabled $1 enabled
@@ -13,7 +13,7 @@ setup_users() {
 	config_get provider $1 provider
 	config_get password $1 password
 	config_get ipaddress $1 ipaddress
-	[ -n "$username" -a -n "$password" ] && echo "$username $CONFIG $password $ipaddress" >> $CHAP_SECRETS
+	[ -n "$username" -a -n "$password" ] && echo "$username $autofill $password $ipaddress" >> $CHAP_SECRETS
 	config_get sqm $1 sqm
 	config_get download $1 download
 	config_get upload $1 upload
@@ -38,7 +38,7 @@ setup_users() {
 
 del_user()
 {
-	cat $CHAP_SECRETS | grep -v $CONFIG > $TEMP
+	cat $CHAP_SECRETS | grep -v $autofill > $TEMP
 	cat $TEMP > $CHAP_SECRETS
 	rm $TEMP
 }

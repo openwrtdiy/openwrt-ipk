@@ -58,9 +58,6 @@ msgstr "队列脚本"
 msgid "Link Layer"
 msgstr "链路层"
 
-msgid "Connections"
-msgstr "连接数"
-
 msgid "Auth Log"
 msgstr "授权日志"
 
