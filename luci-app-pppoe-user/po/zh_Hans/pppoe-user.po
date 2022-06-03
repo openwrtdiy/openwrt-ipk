@@ -64,6 +64,9 @@ msgstr "拨号日志"
 msgid "Online User"
 msgstr "在线用户"
 
+msgid "Login Time"
+msgstr "登录时间"
+
 msgid "Forced Offline"
 msgstr "强制下线"
 
