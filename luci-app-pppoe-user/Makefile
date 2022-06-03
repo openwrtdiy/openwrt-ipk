@@ -5,7 +5,7 @@ LUCI_TITLE:=LuCI support for PPPoE User Manager
 LUCI_DEPENDS:=+luci-compat +rp-pppoe-server +sqm-scripts
 LUCI_PKGARCH:=all
 PKG_VERSION:=1
-PKG_RELEASE:=2022-05-29
+PKG_RELEASE:=2022-06-03
 
 define Package/luci-app-pppoe-user/preinst
 #!/bin/sh

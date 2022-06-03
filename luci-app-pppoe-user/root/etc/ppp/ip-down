@@ -23,4 +23,4 @@ uci del sqm.$USERNAME.interface
 uci commit sqm
 /usr/lib/sqm/run.sh start
 
-echo `date +'%Y-%m-%d %T'` $USERNAME offline >> /var/log/pppoe-user-log
+echo $USERNAME `date +'%Y-%m-%d %T'` offline >> /var/log/pppoe-user-log

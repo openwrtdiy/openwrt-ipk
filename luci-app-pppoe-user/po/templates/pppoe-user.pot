@@ -62,7 +62,7 @@ msgstr ""
 msgid "Link Layer"
 msgstr ""
 
-msgid "Auth Log"
+msgid "PPPoE Log"
 msgstr ""
 
 msgid "Online User"

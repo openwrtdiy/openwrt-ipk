@@ -55,4 +55,4 @@ uci set sqm.$USERNAME.interface=$IFACE
 uci commit sqm
 /usr/lib/sqm/run.sh start
 
-echo `date +'%Y-%m-%d %T'` $USERNAME $MAC $PEERIP online >> /var/log/pppoe-user-log
+echo $USERNAME $MAC $PEERIP `date +'%Y-%m-%d %T'` online >> /var/log/pppoe-user-log

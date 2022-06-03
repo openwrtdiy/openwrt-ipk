@@ -58,8 +58,8 @@ msgstr "队列脚本"
 msgid "Link Layer"
 msgstr "链路层"
 
-msgid "Auth Log"
-msgstr "授权日志"
+msgid "PPPoE Log"
+msgstr "拨号日志"
 
 msgid "Online User"
 msgstr "在线用户"
