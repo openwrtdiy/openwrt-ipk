@@ -4,9 +4,8 @@ s = m:section(TypedSection, "user", translate("Traffic Control"), translate("Spe
 s.anonymous = true
 s.template = "cbi/tblsection"
 
-o = s:option(Flag, "qos", translate("QoS"))
+o = s:option(Flag, "sqm", translate("QoS"))
 o.rmempty = true
-o.default = 1
 
 o = s:option(DummyValue, "username", translate("User Name"))
 o.placeholder = translate("username")
