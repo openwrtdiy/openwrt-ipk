@@ -1,6 +1,6 @@
 #!/bin/sh /etc/rc.common
 
-START=60
+START=97
 
 CONFIG="*"
 CHAP_SECRETS=/var/etc/chap-secrets
@@ -33,7 +33,7 @@ setup_users() {
          uci set sqm.$username.overhead=0
          uci set sqm.$username.enabled=$sqm
          uci commit sqm
-	 /etc/init.d/sqm reload
+	 /etc/init.d/sqm start
 }
 
 del_user()
