@@ -15,26 +15,6 @@ setup_user() {
 	config_get password $1 password
 	config_get ipaddress $1 ipaddress
 	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
-	config_get sqm $1 sqm
-	config_get download $1 download
-	config_get upload $1 upload
-	config_get qdisc $1 qdisc
-	config_get script $1 script
-	config_get linklayer $1 linklayer
-	 uci del sqm.eth1
-         uci set sqm.$username=queue
-         uci set sqm.$username.download=$download
-         uci set sqm.$username.upload=$upload
-         uci set sqm.$username.qdisc=$qdisc
-         uci set sqm.$username.debug_logging=0
-         uci set sqm.$username.verbosity=5
-         uci set sqm.$username.script=$script
-         uci set sqm.$username.qdisc_advanced=0
-         uci set sqm.$username.linklayer=$linklayer
-         uci set sqm.$username.overhead=0
-         uci set sqm.$username.enabled=$sqm
-         uci commit sqm
-	 /etc/init.d/sqm start
 }
 
 del_user()

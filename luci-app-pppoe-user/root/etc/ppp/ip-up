@@ -1,7 +1,7 @@
 #!/bin/sh
 
 LOGIN_TIME="$(date "+%Y-%m-%d %H:%M:%S")"
-CONFIG="pppoe-server"
+CONFIG="pppoe-user"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
 
@@ -14,7 +14,7 @@ PEERIP=${5}
 REMOTEIP=${6}
 
 PID="$(cat /var/run/${IFACE}.pid 2>/dev/null)"
-MAC=$(top -bn1 | grep -v grep | grep "${CONFIG}" | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){6}" | cut -d : -f 2,2-7)
+MAC=$(top -bn1 | grep -v grep | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){6}" | cut -d : -f 2,2-7)
 
 mkdir -p ${SESSION_PATH}
 
@@ -30,29 +30,5 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	    "login_time": "${LOGIN_TIME}"
 	}
 EOF
-
-#只能单用户使用
-cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cut -d '.' -sf 2)
-[ -n "$cfgid" ] && {
-	HAS_LOGIN=$(ls ${SESSION_PATH} | grep "^${USERNAME}\.ppp" | grep -v "${IFACE}")
-	[ -n "$HAS_LOGIN" ] && {
-		#踢出之前的用户
-		KO_IFACE=$(echo $HAS_LOGIN | awk -F '.' '{print $2}')
-		KO_PID=$(cat /var/run/${KO_IFACE}.pid 2>/dev/null)
-		[ -n "$KO_PID" ] && kill -9 ${KO_PID} >/dev/null 2>&1
-		rm -f ${SESSION_PATH}/${HAS_LOGIN}
-		rm -f /var/run/${KO_IFACE}.pid
-	}
-	routes=$(uci -q get ${CONFIG}.${cfgid}.routes)
-	[ -n "$routes" ] && {
-		for router in ${routes}; do
-			route add -net ${router} dev ${IFACE} >/dev/null 2>&1
-		done
-	}
-}
-
-uci set sqm.$USERNAME.interface=$IFACE
-uci commit sqm
-/usr/lib/sqm/run.sh start
 
 echo $USERNAME $MAC $PEERIP `date +'%Y-%m-%d %T'` online >> /var/log/pppoe-user-log
