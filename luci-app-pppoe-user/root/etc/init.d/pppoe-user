@@ -1,19 +1,20 @@
 #!/bin/sh /etc/rc.common
 
-START=97
+START=99
 
 CONFIG="*"
 CHAP_SECRETS=/var/etc/chap-secrets
 TEMP=/tmp/$CONFIG.tmp
 
-setup_users() {
+setup_user() {
 	config_get enabled $1 enabled
 	[ "$enabled" -eq 0 ] && return 0
 	config_get username $1 username
-	config_get provider $1 provider
+	config_get servicename $1 servicename
+	[ -n "${servicename}" ] || servicename="*"
 	config_get password $1 password
 	config_get ipaddress $1 ipaddress
-	[ -n "$username" -a -n "$password" ] && echo "$username $CONFIG $password $ipaddress" >> $CHAP_SECRETS
+	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
 	config_get sqm $1 sqm
 	config_get download $1 download
 	config_get upload $1 upload
@@ -45,10 +46,8 @@ del_user()
 
 start() {
 	config_load pppoe-user
-	enabled=$(config_t_get service enabled)
-	[ "$enabled" -eq 0 ]  && exit 0
 	del_user
-	config_foreach setup_users user
+	config_foreach setup_user user
 	ln -sfn $CHAP_SECRETS /etc/ppp/chap-secrets
 	chmod 600 /var/etc/chap-secrets
 }
