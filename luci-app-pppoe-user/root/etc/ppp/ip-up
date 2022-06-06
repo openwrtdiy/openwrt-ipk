@@ -1,9 +1,10 @@
 #!/bin/sh
 
-LOGIN_TIME="$(date "+%Y-%m-%d %H:%M:%S")"
 CONFIG="pppoe-user"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
+RENEWAL_DATE="$(uci show ${CONFIG} | grep -n -A4 "${PEERNAME}" | grep -e "\.expires=" | cut -d '=' -sf 2 | cut -d "'" -sf 2)"
+LOGIN_TIME="$(TZ=CST-8 date "+%Y-%m-%d %H:%M:%S")"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
@@ -27,8 +28,9 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	    "ip": "${PEERIP}",
 	    "mac": "${MAC}",
 	    "pid": "${PID}",
+	    "renewal_date": "${RENEWAL_DATE}",
 	    "login_time": "${LOGIN_TIME}"
 	}
 EOF
 
-echo $USERNAME $MAC $PEERIP `date +'%Y-%m-%d %T'` online >> /var/log/pppoe-user-log
+echo $USERNAME $MAC $PEERIP $LOGIN_TIME online >> /var/log/pppoe-user.log
