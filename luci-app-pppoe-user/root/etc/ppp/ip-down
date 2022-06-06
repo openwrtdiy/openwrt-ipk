@@ -19,4 +19,4 @@ CONNECT_TIME=${CONNECT_TIME}
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
 
-echo $USERNAME $LOGOUT_TIME Offline >> /var/log/pppoe-user.log
+echo $USERNAME $LOGOUT_TIME Offline [ Connect time $CONNECT_TIME, Sent $BYTES_SENT bytes, Received $BYTES_RCVD bytes. ]  >> /var/log/pppoe-user.log
