@@ -8,7 +8,7 @@ t.rmempty = true
 t.rows = 30
 function t.cfgvalue()
 	if nixio.fs.access("/var/log/pppoe-user-log") then
-		local logs = luci.util.execi("cat /var/log/pppoe-user-log |tail -100")
+		local logs = luci.util.execi("cat /var/log/pppoe-user.log |tail -100")
 		local s = ""
 		for line in logs do
 			s = line .. "\n" .. s
