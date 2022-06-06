@@ -27,6 +27,7 @@ t:option(DummyValue, "username", translate("Username"))
 t:option(DummyValue, "mac", translate("MAC address"))
 t:option(DummyValue, "interface", translate("Interface"))
 t:option(DummyValue, "ip", translate("IP address"))
+t:option(DummyValue, "renewal_date", translate("Renewal date"))
 t:option(DummyValue, "login_time", translate("Login Time"))
 
 kill = t:option(Button, "kill", translate("Forced offline"))

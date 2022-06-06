@@ -38,6 +38,9 @@ msgstr ""
 msgid "Expire date"
 msgstr ""
 
+msgid "Renewal date"
+msgstr ""
+
 msgid "Traffic Control"
 msgstr ""
 

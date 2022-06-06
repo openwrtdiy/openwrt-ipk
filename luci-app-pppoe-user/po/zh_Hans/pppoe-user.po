@@ -34,6 +34,9 @@ msgstr "MAC 地址"
 msgid "Expire date"
 msgstr "到期时间"
 
+msgid "Renewal date"
+msgstr "续费日期"
+
 msgid "Traffic Control"
 msgstr "流量控制"
 
