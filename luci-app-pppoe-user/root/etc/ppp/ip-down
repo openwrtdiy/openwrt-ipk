@@ -19,4 +19,7 @@ CONNECT_TIME=${CONNECT_TIME}
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
 
+uci del sqm.$PEERNAME.interface
+uci commit sqm
+
 echo $USERNAME $LOGOUT_TIME Offline [ Connect time $CONNECT_TIME, Sent $BYTES_SENT bytes, Received $BYTES_RCVD bytes. ]  >> /var/log/pppoe-user.log
