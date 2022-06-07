@@ -43,7 +43,7 @@ msgstr "流量控制"
 msgid "Smart Queue Management"
 msgstr "智能队列管理"
 
-msgid "QoS"
+msgid "SQM"
 msgstr "限速"
 
 msgid "Download speed"

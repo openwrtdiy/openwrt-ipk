@@ -4,8 +4,9 @@ s = m:section(TypedSection, "user", translate("Traffic Control"), translate("Spe
 s.anonymous = true
 s.template = "cbi/tblsection"
 
-o = s:option(Flag, "sqm", translate("QoS"))
+o = s:option(Flag, "sqm", translate("SQM"))
 o.rmempty = true
+o.default = 1
 
 o = s:option(DummyValue, "username", translate("User Name"))
 o.placeholder = translate("username")
@@ -14,12 +15,7 @@ o.readonly = true
 o = s:option(ListValue, "upload", translate("Download speed"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
-o.default = '31500'
-o:value("1050", "1 M")
-o:value("2100", "2 M")
-o:value("3150", "3 M")
-o:value("4200", "4 M")
-o:value("5250", "5 M")
+o.default = '105000'
 o:value("10500", "10 M")
 o:value("21000", "20 M")
 o:value("31500", "30 M")
@@ -40,12 +36,7 @@ o.datatype = "uinteger"
 o = s:option(ListValue, "download", translate("Upload speed"))
 o.placeholder = translate("Speed kbit/s")
 o.rmempty = true
-o.default = '31500'
-o:value("1050", "1 M")
-o:value("2100", "2 M")
-o:value("3150", "3 M")
-o:value("4200", "4 M")
-o:value("5250", "5 M")
+o.default = '105000'
 o:value("10500", "10 M")
 o:value("21000", "20 M")
 o:value("31500", "30 M")

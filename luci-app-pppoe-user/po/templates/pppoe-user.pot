@@ -47,7 +47,7 @@ msgstr ""
 msgid "Smart Queue Management"
 msgstr ""
 
-msgid "QoS"
+msgid "SQM"
 msgstr ""
 
 msgid "Download speed"
