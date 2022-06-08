@@ -3,7 +3,7 @@
 		"title": "RP PPPoE Server Plus",
 		"action": {
 			"type": "cbi",
-			"path": "rp-pppoe-server-plus",
+			"path": "rp-pppoe-server-plus/server",
 			"post": { "cbi.submit": true }
 		},
 		"depends": {
