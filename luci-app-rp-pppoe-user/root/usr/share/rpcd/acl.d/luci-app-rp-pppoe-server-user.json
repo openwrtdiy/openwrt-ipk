@@ -1,0 +1,11 @@
+{
+	"luci-app-rp-pppoe-server-user": {
+		"description": "Grant UCI access for luci-app-rp-pppoe-server-user",
+		"read": {
+			"uci": [ "pppoe-user" ]
+		},
+		"write": {
+			"uci": [ "pppoe-user" ]
+		}
+	}
+}

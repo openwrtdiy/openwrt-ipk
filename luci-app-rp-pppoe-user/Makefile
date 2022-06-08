@@ -7,7 +7,7 @@ LUCI_PKGARCH:=all
 PKG_VERSION:=1
 PKG_RELEASE:=2022-06-05
 
-define Package/luci-app-pppoe-user/preinst
+define Package/luci-app-rp-pppoe-server-user/preinst
 #!/bin/sh
 rm -rf $${IPKG_INSTROOT}/etc/config/pppoe-user >/dev/null 2>&1
 rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoe-user >/dev/null 2>&1
