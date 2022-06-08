@@ -12,9 +12,13 @@ SPEED=${3}
 LOCALIP=${4}
 PEERIP=${5}
 REMOTEIP=${6}
-BYTES_SENT=${BYTES_SENT}
-BYTES_RCVD=${BYTES_RCVD}
-CONNECT_TIME=${CONNECT_TIME}
+
+Sent=`echo "scale=2;$BYTES_SENT/1024/1024"|bc`
+Received=`echo "scale=2;$BYTES_RCVD/1024/1024"|bc`
+Connect=$CONNECT_TIME
+sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
+sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
+ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
 
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
@@ -22,4 +26,4 @@ rm -f /var/run/${IFACE}.pid
 uci del sqm.$PEERNAME.interface
 uci commit sqm
 
-echo $USERNAME $LOGOUT_TIME Offline [ Connect time $CONNECT_TIME, Sent $BYTES_SENT bytes, Received $BYTES_RCVD bytes. ]  >> /var/log/pppoe-client.log
+echo $USERNAME $LOGOUT_TIME Offline Sent: $Sent MB, Received: $Received MB, Connect: $Connect, Sum bytes: $sum MB, Average speed: $ave KB/s >> /var/log/pppoe-client.log
