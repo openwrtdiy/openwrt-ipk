@@ -1,4 +1,4 @@
-m = Map("rp-pppoe-client")
+m = Map("pppoe-client")
 
 s = m:section(TypedSection, "user", translate("Traffic Control"), translate("Speed kbit/s"))
 s.anonymous = true
@@ -6,7 +6,6 @@ s.template = "cbi/tblsection"
 
 o = s:option(Flag, "sqm", translate("SQM"))
 o.rmempty = true
-o.default = 1
 
 o = s:option(DummyValue, "username", translate("User Name"))
 o.placeholder = translate("username")

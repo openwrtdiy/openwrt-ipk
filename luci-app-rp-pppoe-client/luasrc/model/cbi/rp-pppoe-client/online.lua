@@ -3,7 +3,7 @@ local fs = require "nixio.fs"
 local jsonc = require "luci.jsonc"
 
 local sessions = {}
-local session_path = "/var/etc/rp-pppoe-client/session"
+local session_path = "/var/etc/pppoe-client/session"
 if fs.access(session_path) then
     for filename in fs.dir(session_path) do
         local session_file = session_path .. "/" .. filename
