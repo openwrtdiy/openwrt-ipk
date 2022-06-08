@@ -1,6 +1,7 @@
 {
 	"admin/services/rp-pppoe-server-plus": {
 		"title": "RP PPPoE Server Plus",
+		"order": 60,
 		"action": {
 			"type": "cbi",
 			"path": "rp-pppoe-server-plus/server",
@@ -9,6 +10,53 @@
 		"depends": {
 			"acl": [ "luci-app-rp-pppoe-server-plus" ],
 			"uci": { "pppoe": true }
+		}
+	},
+
+	"admin/services/rp-pppoe-server-plus": {
+		"title": "RP PPPoE Server Plus",
+		"order": 10,
+		"action": {
+			"type": "cbi",
+			"path": "rp-pppoe-server-plus/server",
+			"post": { "cbi.submit": true }
+		}
+	},
+
+	"admin/services/rp-pppoe-server-plus": {
+		"title": "RP PPPoE Server Plus",
+		"order": 20,
+		"action": {
+			"type": "cbi",
+			"path": "rp-pppoe-server-plus/pppd",
+			"post": { "cbi.submit": true }
+		}
+	},
+
+	"admin/services/rp-pppoe-server-plus": {
+		"title": "RP PPPoE Server Plus",
+		"order": 30,
+		"action": {
+			"type": "cbi",
+			"path": "rp-pppoe-server-plus/firewall",
+			"post": { "cbi.submit": true }
+		}
+	},
+
+	"admin/services/rp-pppoe-server-plus": {
+		"title": "RP PPPoE Server Plus",
+		"order": 40,
+		"action": {
+			"type": "cbi",
+			"path": "rp-pppoe-server-plus/log",
+	},
+
+	"admin/services/rp-pppoe-server-plus": {
+		"title": "RP PPPoE Server Plus",
+		"order": 50,
+		"action": {
+			"type": "cbi",
+			"path": "rp-pppoe-server-plus/online",
 		}
 	}
 }
