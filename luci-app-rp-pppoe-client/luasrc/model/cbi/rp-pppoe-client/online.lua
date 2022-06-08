@@ -3,7 +3,7 @@ local fs = require "nixio.fs"
 local jsonc = require "luci.jsonc"
 
 local sessions = {}
-local session_path = "/var/etc/rp-pppoe-server-user/session"
+local session_path = "/var/etc/rp-pppoe-client/session"
 if fs.access(session_path) then
     for filename in fs.dir(session_path) do
         local session_file = session_path .. "/" .. filename
@@ -35,7 +35,7 @@ kill.inputstyle = "reset"
 function kill.write(t, s)
     luci.util.execi("rm -f " .. t.map:get(s, "session_file"))
     null, t.tag_error[t] = luci.sys.process.signal(t.map:get(s, "pid"), 9)
-    luci.http.redirect(o.build_url("admin/services/rp-pppoe-server-user/online"))
+    luci.http.redirect(o.build_url("admin/services/rp-pppoe-client/online"))
 end
 
 return f

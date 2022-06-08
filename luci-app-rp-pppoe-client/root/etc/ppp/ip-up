@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONFIG="rp-pppoe-server-user"
+CONFIG="pppoe-client"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
 LOGIN_TIME="$(TZ=CST-8 date "+%Y-%m-%d %H:%M:%S")"
@@ -36,4 +36,4 @@ uci set sqm.$PEERNAME.interface=$IFACE
 uci commit sqm
 /usr/lib/sqm/run.sh start
 
-echo $USERNAME $LOGIN_TIME Online $MAC $PEERIP >> /var/log/rp-pppoe-server-user.log
+echo $USERNAME $LOGIN_TIME Online $MAC $PEERIP >> /var/log/rp-pppoe-client.log

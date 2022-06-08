@@ -45,7 +45,7 @@ del_user()
 }
 
 start() {
-	config_load pppoe-user
+	config_load pppoe-client
 	del_user
 	config_foreach setup_user user
 	ln -sfn $CHAP_SECRETS /etc/ppp/chap-secrets
@@ -54,5 +54,5 @@ start() {
 
 stop() {
 	del_user
-	killall -q pppoe-user
+	killall -q pppoe-client
 }

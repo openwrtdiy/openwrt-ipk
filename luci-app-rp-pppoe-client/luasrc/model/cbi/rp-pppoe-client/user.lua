@@ -1,6 +1,6 @@
-m = Map("rp-pppoe-server-user", translate("User Manager"))
+m = Map("rp-pppoe-client", translate("User Manager"))
 
-local count = luci.sys.exec("grep -c 'config user' /etc/config/pppoe-user")
+local count = luci.sys.exec("grep -c 'config user' /etc/config/pppoe-client")
 s = m:section(TypedSection, "user", translate("User count [ " .. count .. "]"), translate("Brief introduction of dial-up user management"))
 s.addremove = true
 s.anonymous = true

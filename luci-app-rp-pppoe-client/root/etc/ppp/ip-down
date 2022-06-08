@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONFIG="rp-pppoe-server-user"
+CONFIG="pppoe-client"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
 LOGOUT_TIME="$(TZ=CST-8 date "+%Y-%m-%d %H:%M:%S")"
@@ -22,4 +22,4 @@ rm -f /var/run/${IFACE}.pid
 uci del sqm.$PEERNAME.interface
 uci commit sqm
 
-echo $USERNAME $LOGOUT_TIME Offline [ Connect time $CONNECT_TIME, Sent $BYTES_SENT bytes, Received $BYTES_RCVD bytes. ]  >> /var/log/rp-pppoe-server-user.log
+echo $USERNAME $LOGOUT_TIME Offline [ Connect time $CONNECT_TIME, Sent $BYTES_SENT bytes, Received $BYTES_RCVD bytes. ]  >> /var/log/rp-pppoe-client.log

@@ -1,4 +1,4 @@
-m = Map("rp-pppoe-server-user")
+m = Map("rp-pppoe-client")
 
 s = m:section(TypedSection, "user", translate("Traffic Control"), translate("Speed kbit/s"))
 s.anonymous = true
