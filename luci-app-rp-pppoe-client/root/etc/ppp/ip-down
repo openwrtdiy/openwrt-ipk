@@ -22,4 +22,4 @@ rm -f /var/run/${IFACE}.pid
 uci del sqm.$PEERNAME.interface
 uci commit sqm
 
-echo $USERNAME $LOGOUT_TIME Offline [ Connect time $CONNECT_TIME, Sent $BYTES_SENT bytes, Received $BYTES_RCVD bytes. ]  >> /var/log/rp-pppoe-client.log
+echo $USERNAME $LOGOUT_TIME Offline [ Connect time $CONNECT_TIME, Sent $BYTES_SENT bytes, Received $BYTES_RCVD bytes. ]  >> /var/log/pppoe-client.log
