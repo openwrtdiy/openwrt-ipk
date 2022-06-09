@@ -18,10 +18,10 @@ s.anonymous = true
 
 e = s:option(Flag, "enabled", translate("Enable"), translate("Enable PPPoE Server"))
 e.rmempty = false
-e.default = 0
+e.default = 1
 
 o = s:option(Value, "interface", translate("Interface"), translate("Interface on which to listen."))
-o.template = "cbi/network_ifacelist"
+o.template = "cbi/network_netlist"
 o.nocreate = true
 
 o = s:option(Value, "ac_name", translate("Access Concentrator Name"), translate("Set access concentrator name"))

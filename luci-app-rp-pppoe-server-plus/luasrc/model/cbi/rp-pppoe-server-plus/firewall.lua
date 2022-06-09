@@ -7,6 +7,7 @@ local m, s, o
 m = Map("pppoe", translate("Roaring Penguin PPPoE Server Plus"))
 
 s = m:section(TypedSection, "firewall")
+s.addremove = true
 s.anonymous = true
 
 o = s:option(Value, "conntrackmax", translate("Maximum number of connections"))
