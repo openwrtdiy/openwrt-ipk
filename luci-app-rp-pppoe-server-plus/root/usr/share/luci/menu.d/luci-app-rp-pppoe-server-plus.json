@@ -47,7 +47,7 @@
 		"title": "RP PPPoE Server Plus",
 		"order": 40,
 		"action": {
-			"type": "cbi",
+			"type": "form",
 			"path": "rp-pppoe-server-plus/log",
 	},
 
