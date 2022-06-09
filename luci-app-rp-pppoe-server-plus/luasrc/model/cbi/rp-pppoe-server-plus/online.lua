@@ -24,8 +24,8 @@ end
 local count = luci.sys.exec("top -bn1 | grep 'pppd plugin pppoe.so' | grep -v 'grep' | wc -l")
 t = f:section(Table, e, translate("Online [ " .. count .. "]"))
 t:option(DummyValue, "username", translate("Account"))
-t:option(DummyValue, "CIP", translate("IP address"))
 t:option(DummyValue, "MAC", translate("MAC address"))
+t:option(DummyValue, "CIP", translate("IP address"))
 t:option(DummyValue, "GATEWAY", translate("Server IP"))
 
 kill = t:option(Button, "_kill", translate("Forced offline"))
