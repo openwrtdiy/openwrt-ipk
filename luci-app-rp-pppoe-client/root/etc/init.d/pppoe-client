@@ -23,18 +23,19 @@ setup_user() {
 	config_get script $1 script
 	config_get linklayer $1 linklayer
 
-	del sqm.eth1
-	set sqm.$username=queue
-	set sqm.$username.enabled=$sqm
-	set sqm.$username.download=$download
-	set sqm.$username.upload=$upload
-	set sqm.$username.qdisc=$qdisc
-	set sqm.$username.debug_logging=0
-	set sqm.$username.verbosity=5
-	set sqm.$username.script=$script
-	set sqm.$username.qdisc_advanced=0
-	set sqm.$username.linklayer=$linklayer
-	set sqm.$username.overhead=0
+	uci del sqm.eth1
+        uci set sqm.$username=queue
+        uci set sqm.$username.download=$download
+        uci set sqm.$username.upload=$upload
+        uci set sqm.$username.qdisc=$qdisc
+        uci set sqm.$username.debug_logging=0
+        uci set sqm.$username.verbosity=5
+        uci set sqm.$username.script=$script
+        uci set sqm.$username.qdisc_advanced=0
+        uci set sqm.$username.linklayer=$linklayer
+        uci set sqm.$username.overhead=0
+        uci set sqm.$username.enabled=$sqm
+        uci commit sqm
 }
 
 del_user()
