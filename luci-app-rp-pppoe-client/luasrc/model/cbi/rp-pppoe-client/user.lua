@@ -5,6 +5,7 @@ s = m:section(TypedSection, "user", translate("User count [ " .. count .. "]"), 
 s.addremove = true
 s.anonymous = true
 s.nodescriptions = true
+s.sortable  = true
 s.template = "cbi/tblsection"
 
 o = s:option(Flag, "enabled", translate("Enabled"))
