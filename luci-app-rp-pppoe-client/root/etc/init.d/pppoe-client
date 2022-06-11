@@ -2,9 +2,7 @@
 
 START=99
 
-CONFIG="*"
 CHAP_SECRETS=/etc/ppp/chap-secrets
-TEMP=/tmp/$CONFIG.tmp
 
 setup_user() {
 	local cfg="$1"
@@ -18,20 +16,17 @@ setup_user() {
 	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
 }
 
-del_user()
-{
-	cat $CHAP_SECRETS | grep -v $CONFIG > $TEMP
-	cat $TEMP > $CHAP_SECRETS
-	rm $TEMP
+delete_user() {
+	rm -rf $CHAP_SECRETS
 }
 
 start() {
 	config_load pppoe-client
-	del_user
+	delete_user
 	config_foreach setup_user user
 }
 
 stop() {
-	del_user
+	delete_user
 	killall -q pppoe-client
 }
