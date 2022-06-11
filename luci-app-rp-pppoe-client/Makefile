@@ -2,7 +2,7 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Roaring Penguin PPPoE Client User Manager
-LUCI_DEPENDS:=+luci-compat +rp-pppoe-server
+LUCI_DEPENDS:=+luci-compat +rp-pppoe-server +sqm-scripts
 LUCI_PKGARCH:=all
 PKG_RELEASE:=2022-06-11
 PKG_VERSION:=1
