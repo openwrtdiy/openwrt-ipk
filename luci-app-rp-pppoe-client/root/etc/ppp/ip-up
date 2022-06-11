@@ -32,8 +32,4 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	}
 EOF
 
-uci set sqm.$PEERNAME.interface=$IFACE
-uci commit sqm
-/usr/lib/sqm/run.sh start
-
 echo $USERNAME $LOGIN_TIME Online $MAC $PEERIP >> /var/log/pppoe-client.log
