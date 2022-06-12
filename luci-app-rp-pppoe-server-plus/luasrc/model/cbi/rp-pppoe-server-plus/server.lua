@@ -27,7 +27,7 @@ o.nocreate = true
 o = s:option(Value, "ac_name", translate("Access Concentrator Name"), translate("Set access concentrator name"))
 o.optional = true
 
-o = s:option(Value, "service_name", translate("Service Name"), translate("Advertise specified service-name"))
+o = s:option(DynamicList, "service_name", translate("Service Name"), translate("Advertise specified service-name"))
 o.optional = true
 
 o = s:option(Value, "maxsessionsperpeer", translate("Maximum sessions per peer"), translate("Limit to 'n' sessions/MAC address"))
