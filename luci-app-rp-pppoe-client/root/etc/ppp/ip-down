@@ -23,4 +23,8 @@ ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
 
+uci del sqm.$PEERNAME.interface
+uci commit sqm
+rm -f /var/run/sqm/${IFACE}.state
+
 echo $USERNAME $LOGOUT_TIME Offline Sent: $Sent MB, Received: $Received MB, Connect: $Connect, Sum bytes: $sum MB, Average speed: $ave KB/s >> /var/log/pppoe-client.log

@@ -14,7 +14,7 @@ PEERIP=${5}
 REMOTEIP=${6}
 
 PID="$(cat /var/run/${IFACE}.pid 2>/dev/null)"
-MAC=$(top -bn1 | grep -v grep | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){6}" | cut -d : -f 2,2-7)
+MAC=$(top -bn1 | grep -v grep | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){6}")
 
 mkdir -p ${SESSION_PATH}
 
@@ -31,5 +31,9 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	    "login_time": "${LOGIN_TIME}"
 	}
 EOF
+
+uci set sqm.$PEERNAME.interface=$IFACE
+uci commit sqm
+/usr/lib/sqm/run.sh start
 
 echo $USERNAME $LOGIN_TIME Online $MAC $PEERIP >> /var/log/pppoe-client.log
