@@ -61,8 +61,8 @@ msgstr "队列脚本"
 msgid "Link Layer"
 msgstr "链路层"
 
-msgid "PPPoE Log"
-msgstr "拨号日志"
+msgid "PPPoE User Status"
+msgstr "拨号用户状态"
 
 msgid "Online User"
 msgstr "在线用户"
@@ -73,3 +73,5 @@ msgstr "登录时间"
 msgid "Forced Offline"
 msgstr "强制下线"
 
+msgid "User Log"
+msgstr "用户日志"
