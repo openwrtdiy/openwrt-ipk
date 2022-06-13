@@ -65,7 +65,7 @@ msgstr ""
 msgid "Link Layer"
 msgstr ""
 
-msgid "PPPoE Log"
+msgid "PPPoE User Status"
 msgstr ""
 
 msgid "Online User"
@@ -77,3 +77,5 @@ msgstr ""
 msgid "Forced Offline"
 msgstr ""
 
+msgid "User Log"
+msgstr ""
