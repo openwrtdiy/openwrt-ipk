@@ -30,12 +30,12 @@ t:option(DummyValue, "ip", translate("IP address"))
 t:option(DummyValue, "renewal_date", translate("Renewal date"))
 t:option(DummyValue, "login_time", translate("Login Time"))
 
-kill = t:option(Button, "kill", translate("Forced offline"))
+kill = t:option(Button, "kill", translate("Forced Offline"))
 kill.inputstyle = "reset"
 function kill.write(t, s)
     luci.util.execi("rm -f " .. t.map:get(s, "session_file"))
     null, t.tag_error[t] = luci.sys.process.signal(t.map:get(s, "pid"), 9)
-    luci.http.redirect(o.build_url("admin/services/rp-pppoe-client/online"))
+    luci.http.redirect(o.build_url("admin/status/userstatus/onlineuser"))
 end
 
 return f
