@@ -1,6 +1,6 @@
 m = Map("pppoe-client")
 
-s = m:section(TypedSection, "user", translate("Traffic Control"), translate("Speed kbit/s"))
+s = m:section(TypedSection, "user", translate(""), translate("After completing the change of user bandwidth parameters, the online user account must be kicked off the line, and the new speed limit parameter will take effect!"))
 s.anonymous = true
 s.template = "cbi/tblsection"
 

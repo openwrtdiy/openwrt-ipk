@@ -8,6 +8,9 @@ msgstr ""
 msgid "User Manager"
 msgstr ""
 
+msgid "Account opening instructions column content"
+msgstr ""
+
 msgid "User count"
 msgstr ""
 
@@ -47,7 +50,7 @@ msgstr ""
 msgid "Traffic Control"
 msgstr ""
 
-msgid "Smart Queue Management"
+msgid "After completing the change of user bandwidth parameters, the online user account must be kicked off the line, and the new speed limit parameter will take effect!"
 msgstr ""
 
 msgid "QoS"

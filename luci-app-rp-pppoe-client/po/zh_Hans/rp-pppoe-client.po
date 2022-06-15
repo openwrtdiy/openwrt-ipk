@@ -4,6 +4,9 @@ msgstr "拨号用户管理"
 msgid "User Manager"
 msgstr "用户管理"
 
+msgid "Account opening instructions column content"
+msgstr "开户须知栏目内容"
+
 msgid "User count"
 msgstr "用户数"
 
@@ -43,8 +46,8 @@ msgstr "拨号用户限速"
 msgid "Traffic Control"
 msgstr "流量控制"
 
-msgid "Smart Queue Management"
-msgstr "智能队列管理"
+msgid "After completing the change of user bandwidth parameters, the online user account must be kicked off the line, and the new speed limit parameter will take effect!"
+msgstr "完成用户带宽参数更改后，必须将在线用户账号踢下线，新的限速参数才会生效！"
 
 msgid "QoS"
 msgstr "限速"
