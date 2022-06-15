@@ -3,6 +3,7 @@
 START=99
 
 CHAP_SECRETS=/etc/ppp/chap-secrets
+chmod 600 /etc/ppp/*-secrets
 
 setup_user() {
 	local cfg="$1"
