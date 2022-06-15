@@ -37,13 +37,16 @@ msgstr "到期时间"
 msgid "Renewal date"
 msgstr "续费日期"
 
+msgid "PPPoE User Speed Limit"
+msgstr "拨号用户限速"
+
 msgid "Traffic Control"
 msgstr "流量控制"
 
 msgid "Smart Queue Management"
 msgstr "智能队列管理"
 
-msgid "SQM"
+msgid "QoS"
 msgstr "限速"
 
 msgid "Download speed"

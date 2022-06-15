@@ -41,13 +41,16 @@ msgstr ""
 msgid "Renewal date"
 msgstr ""
 
+msgid "PPPoE User Speed Limit"
+msgstr ""
+
 msgid "Traffic Control"
 msgstr ""
 
 msgid "Smart Queue Management"
 msgstr ""
 
-msgid "SQM"
+msgid "QoS"
 msgstr ""
 
 msgid "Download speed"
