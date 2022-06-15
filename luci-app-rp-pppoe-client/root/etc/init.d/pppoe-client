@@ -28,11 +28,10 @@ setup_user() {
         uci set sqm.$username.download=$download >/dev/null 2>&1
         uci set sqm.$username.upload=$upload >/dev/null 2>&1
         uci set sqm.$username.qdisc=$qdisc >/dev/null 2>&1
+        uci set sqm.$username.script=$script >/dev/null 2>&1
+        uci set sqm.$username.linklayer=$linklayer >/dev/null 2>&1
         uci set sqm.$username.debug_logging=0 >/dev/null 2>&1
         uci set sqm.$username.verbosity=5 >/dev/null 2>&1
-        uci set sqm.$username.script=$script >/dev/null 2>&1
-        uci set sqm.$username.qdisc_advanced=0 >/dev/null 2>&1
-        uci set sqm.$username.linklayer=$linklayer >/dev/null 2>&1
         uci set sqm.$username.overhead=0 >/dev/null 2>&1
         uci commit sqm
 }
