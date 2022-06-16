@@ -3,8 +3,9 @@
 CONFIG="pppoe-client"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
-RENEWAL_DATE="$(uci show ${CONFIG} | grep -n -A4 "${PEERNAME}" | grep -e "\.expires=" | cut -d '=' -sf 2 | cut -d "'" -sf 2)"
-LOGIN_TIME="$(TZ=CST-8 date "+%Y-%m-%d %H:%M:%S")"
+LOGIN_TIME="$(date "+%Y-%m-%d %H:%M:%S")"
+USERCONUT="$(uci show ${CONFIG} | grep "@user" | grep "${PEERNAME}" | cut -d '.' -sf 2)"
+RENEWAL_DATE="$(uci show ${CONFIG}."${USERCONUT}".expires | grep "expires" | cut -d '=' -sf 2 | cut -d "'" -sf 2)"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
@@ -28,8 +29,8 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	    "ip": "${PEERIP}",
 	    "mac": "${MAC}",
 	    "pid": "${PID}",
-	    "renewal_date": "${RENEWAL_DATE}",
-	    "login_time": "${LOGIN_TIME}"
+	    "login_time": "${LOGIN_TIME}",
+	    "renewal_date": "${RENEWAL_DATE}"
 	}
 EOF
 
@@ -37,4 +38,4 @@ uci set sqm.$PEERNAME.interface=$IFACE
 uci commit sqm
 /usr/lib/sqm/run.sh start $IFACE
 
-echo $USERNAME $LOGIN_TIME Online $MAC $PEERIP >> /var/log/pppoe-client.log
+echo $USERNAME $MAC $IFACE $PEERIP Online $LOGIN_TIME >> /var/log/pppoe-client.log
