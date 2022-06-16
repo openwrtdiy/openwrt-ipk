@@ -3,6 +3,7 @@
 CONFIG="pppoe-client"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
+RENEWAL_DATE="$(uci show ${CONFIG} | grep -n -A4 "${PEERNAME}" | grep -e "\.expires=" | cut -d '=' -sf 2 | cut -d "'" -sf 2)"
 LOGIN_TIME="$(TZ=CST-8 date "+%Y-%m-%d %H:%M:%S")"
 
 USERNAME=${PEERNAME}
@@ -14,7 +15,7 @@ PEERIP=${5}
 REMOTEIP=${6}
 
 PID="$(cat /var/run/${IFACE}.pid 2>/dev/null)"
-MAC=$(top -bn1 | grep -v grep | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){6}")
+MAC=$(top -bn1 | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){6}" | cut -d : -f 2,2-7)
 
 mkdir -p ${SESSION_PATH}
 
