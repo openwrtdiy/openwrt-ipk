@@ -7,7 +7,5 @@ uci -q batch <<-EOF >/dev/null
 	commit ucitrack
 EOF
 
-chmod 0600 /etc/ppp/chap-secrets /etc/ppp/pap-secrets
-
 rm -f /tmp/luci-indexcache
 exit 0
