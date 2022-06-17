@@ -86,5 +86,14 @@ msgstr ""
 msgid "Forced Offline"
 msgstr ""
 
-msgid "User Log"
+msgid "Downtime User"
+msgstr ""
+
+msgid "Bandwidth"
+msgstr ""
+
+msgid "Account opening date"
+msgstr ""
+
+msgid "PPPoE Log"
 msgstr ""

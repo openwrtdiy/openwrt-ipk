@@ -82,5 +82,14 @@ msgstr "续费日期"
 msgid "Forced Offline"
 msgstr "强制下线"
 
-msgid "User Log"
-msgstr "用户日志"
+msgid "Downtime User"
+msgstr "停机用户"
+
+msgid "Bandwidth"
+msgstr "带宽"
+
+msgid "Account opening date"
+msgstr "开户日期"
+
+msgid "pppoE Log"
+msgstr "拨号日志"
