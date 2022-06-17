@@ -3,7 +3,7 @@
 CONFIG="pppoe-client"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
-LOGOUT_TIME="$(TZ=CST-8 date "+%Y-%m-%d %H:%M:%S")"
+DOWNTIME="$(date "+%Y-%m-%d %H:%M:%S")"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
@@ -12,9 +12,6 @@ SPEED=${3}
 LOCALIP=${4}
 PEERIP=${5}
 REMOTEIP=${6}
-
-rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
-rm -f /var/run/${IFACE}.pid
 
 Sent=`echo "scale=2;$BYTES_SENT/1024/1024"|bc`
 Received=`echo "scale=2;$BYTES_RCVD/1024/1024"|bc`
@@ -27,4 +24,7 @@ uci del sqm.$PEERNAME.interface
 uci commit sqm
 /usr/lib/sqm/run.sh stop $IFACE
 
-echo $USERNAME $LOGOUT_TIME Offline Sent: $Sent MB, Received: $Received MB, Connect: $Connect, Sum bytes: $sum MB, Average speed: $ave KB/s >> /var/log/pppoe-client.log
+rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
+rm -f /var/run/${IFACE}.pid
+
+echo $USERNAME $DOWNTIME Offline Sent: $Sent MB, Received: $Received MB, Connect: $Connect, Sum bytes: $sum MB, Average speed: $ave KB/s >> /var/log/pppoe-client.log

@@ -41,9 +41,6 @@ msgstr ""
 msgid "Expire date"
 msgstr ""
 
-msgid "Renewal date"
-msgstr ""
-
 msgid "PPPoE User Speed Limit"
 msgstr ""
 
@@ -77,7 +74,13 @@ msgstr ""
 msgid "Online User"
 msgstr ""
 
-msgid "Login Time"
+msgid "Up Time"
+msgstr ""
+
+msgid "Down Time"
+msgstr ""
+
+msgid "Renewal date"
 msgstr ""
 
 msgid "Forced Offline"

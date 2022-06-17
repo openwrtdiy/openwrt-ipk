@@ -37,9 +37,6 @@ msgstr "MAC 地址"
 msgid "Expire date"
 msgstr "到期时间"
 
-msgid "Renewal date"
-msgstr "续费日期"
-
 msgid "PPPoE User Speed Limit"
 msgstr "拨号用户限速"
 
@@ -73,8 +70,14 @@ msgstr "拨号用户状态"
 msgid "Online User"
 msgstr "在线用户"
 
-msgid "Login Time"
-msgstr "登录时间"
+msgid "Up Time"
+msgstr "上线时间"
+
+msgid "Down Time"
+msgstr "下线时间"
+
+msgid "Renewal date"
+msgstr "续费日期"
 
 msgid "Forced Offline"
 msgstr "强制下线"
