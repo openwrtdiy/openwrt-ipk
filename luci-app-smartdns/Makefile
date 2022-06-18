@@ -1,14 +1,18 @@
-# This is free software, licensed under the Apache License, Version 2.0 .
+# 
+# Copyright 2018-2022 Nick Peng <pymumu@gmail.com>
+# Licensed to the public under the GPL V3 License.
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=Luci for smartdns server
+LUCI_TITLE:=LuCI for smartdns
+LUCI_DESCRIPTION:=Provides Luci for smartdns
 LUCI_DEPENDS:=+smartdns +luci-compat
 LUCI_PKGARCH:=all
 
-PKG_NAME:=luci-app-smartdns
-PKG_VERSION:=1
-PKG_RELEASE:=3
+PKG_LICENSE:=GPL-3.0-or-later
+PKG_MAINTAINER:=Nick Peng <pymumu@gmail.com>
+PKG_VERSION:=2022-06-18
+PKG_RELEASE:=1
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
