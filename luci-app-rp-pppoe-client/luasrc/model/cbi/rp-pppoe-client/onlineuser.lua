@@ -28,7 +28,6 @@ t:option(DummyValue, "mac", translate("MAC address"))
 t:option(DummyValue, "interface", translate("Interface"))
 t:option(DummyValue, "ip", translate("IP address"))
 t:option(DummyValue, "uptime", translate("Up Time"))
-t:option(DummyValue, "downtime", translate("Down Time"))
 t:option(DummyValue, "renewaldate", translate("Renewal date"))
 
 kill = t:option(Button, "kill", translate("Forced Offline"))

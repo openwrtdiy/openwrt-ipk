@@ -1,11 +1,9 @@
 #!/bin/sh
 
+UPTIME="$(date "+%Y-%m-%d %H:%M:%S")"
 CONFIG="pppoe-client"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
-UPTIME="$(date "+%Y-%m-%d %H:%M:%S")"
-USERCONUT="$(uci show ${CONFIG} | grep "@user" | grep "${PEERNAME}" | cut -d '.' -sf 2)"
-RENEWALDATE="$(uci show ${CONFIG}."${USERCONUT}".expires | grep "expires" | cut -d '=' -sf 2 | cut -d "'" -sf 2)"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
@@ -35,8 +33,26 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	}
 EOF
 
+cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cut -d '.' -sf 2)
+[ -n "$cfgid" ] && {
+	HAS_LOGIN=$(ls ${SESSION_PATH} | grep "^${USERNAME}\.ppp" | grep -v "${IFACE}")
+	[ -n "$HAS_LOGIN" ] && {
+		KO_IFACE=$(echo $HAS_LOGIN | awk -F '.' '{print $2}')
+		KO_PID=$(cat /var/run/${KO_IFACE}.pid 2>/dev/null)
+		[ -n "$KO_PID" ] && kill -9 ${KO_PID} >/dev/null 2>&1
+		rm -f ${SESSION_PATH}/${HAS_LOGIN}
+		rm -f /var/run/${KO_IFACE}.pid
+	}
+}
+
 uci set sqm.$PEERNAME.interface=$IFACE
 uci commit sqm
 /usr/lib/sqm/run.sh start $IFACE
 
 echo $USERNAME $MAC $IFACE $PEERIP Online $UPTIME >> /var/log/pppoe-client.log
+
+SCRIPT="/usr/share/${CONFIG}/ip-up.d/${USERNAME}"
+[ -s "$SCRIPT" ] && {
+	[ ! -x "$SCRIPT" ] && chmod 0755 "$SCRIPT"
+	"$SCRIPT" "$@"
+}
