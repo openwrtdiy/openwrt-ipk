@@ -10,14 +10,10 @@ s = m:section(TypedSection, "firewall")
 s.addremove = true
 s.anonymous = true
 
-o = s:option(Value, "conntrackmax", translate("Maximum number of connections"))
-o.datatype = "port"
-o.default = 16384
-
-o = s:option(Flag, "ENISO", translate("Isolate Firewall"))
+o = s:option(Flag, "ENNAT", translate("Enabled NAT"))
 o.rmempty = false
 
-o = s:option(Flag, "ENNAT", translate("Enabled NAT"))
+o = s:option(Flag, "ENISO", translate("Isolate Firewall"))
 o.rmempty = false
 
 o = s:option(ListValue, "export_interface", translate("Export Interface"), translate("Specify interface forwarding traffic."))
@@ -34,5 +30,9 @@ for _, iface in ipairs(ifaces) do
     end
 end
 o:depends("ENNAT", "1")
+
+o = s:option(Value, "conntrackmax", translate("Maximum number of connections"))
+o.datatype = "port"
+o.default = 16384
 
 return m
