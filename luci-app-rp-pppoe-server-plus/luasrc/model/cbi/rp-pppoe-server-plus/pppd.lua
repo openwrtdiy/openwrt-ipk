@@ -1,5 +1,5 @@
 local m, s, o
-m = Map("pppoe", translate("PPPD Options File"))
+m = Map("pppoe-server", translate("PPPD Options File"))
 
 s = m:section(TypedSection, "pppd")
 s.addremove = true
