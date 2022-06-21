@@ -10,9 +10,9 @@ else
 	status = translate("<b><font color=\"red\">Not running</font></b>")
 end
 
-m = Map("pppoe", translate("Roaring Penguin PPPoE Server Plus"), translate("PPPoE Server Configuration"))
+m = Map("pppoe-server", translate("Roaring Penguin PPPoE Server Plus"), translate("PPPoE Server Configuration"))
 
-s = m:section(TypedSection, "pppoe_server")
+s = m:section(TypedSection, "server")
 s.description = translate("Running State : " .. status .. "</br></br>")
 s.anonymous = true
 
