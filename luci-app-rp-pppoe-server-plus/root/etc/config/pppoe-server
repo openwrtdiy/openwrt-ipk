@@ -20,6 +20,7 @@ config server
 config pppd
 	option pap 'refuse-pap'
 	option chap 'require-chap'
+	option mschapv2 'require-mschap-v2'
 	option authmode 'auth'
 	option ipv6 '-ipv6'
 	option lcp_echo_interval '10'
@@ -28,6 +29,7 @@ config pppd
 	option mtu '1492'
 	option msdns1 '8.8.8.8'
 	option msdns2 '1.1.1.1'
+	option logfile '/dev/null'
 
 config firewall
 	option ENNAT '0'
