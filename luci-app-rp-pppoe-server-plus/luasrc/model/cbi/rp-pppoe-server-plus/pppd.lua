@@ -56,7 +56,8 @@ o.placeholder = translate("1.1.1.1")
 o.datatype = "ipaddr"
 o.default = "1.1.1.1"
 
-o = s:option(Value, "log", translate("Log"),translate("Log save path, default: /var/log/pppoe-server.log"))
+o = s:option(Value, "logfile", translate("Log file"),translate("Log save path, default: /var/log/pppoe-server.log"))
+o.default = "/dev/null"
 
 s:option(Flag, "more", translate("More Options"), translate("Options for advanced users"))
 
