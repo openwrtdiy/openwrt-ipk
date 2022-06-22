@@ -1,7 +1,8 @@
 # PPP options for the PPPoE server
 # LIC: GPL
-require-mschap-v2
+refuse-pap
 require-chap
+require-mschap-v2
 auth
 noipv6
 lcp-echo-interval 10
@@ -10,3 +11,4 @@ mru 1492
 mtu 1492
 ms-dns 8.8.8.8
 ms-dns 1.1.1.1
+logfile /dev/null
