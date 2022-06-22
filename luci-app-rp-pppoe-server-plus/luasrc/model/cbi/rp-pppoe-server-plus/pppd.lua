@@ -2,7 +2,7 @@ local m, s, o
 m = Map("pppoe-server", translate("PPPD Options File"))
 
 s = m:section(TypedSection, "pppd")
-s.addremove = true
+s.addremove = false
 s.anonymous = true
 
 o = s:option(ListValue, "pap", translate("PAP"))
