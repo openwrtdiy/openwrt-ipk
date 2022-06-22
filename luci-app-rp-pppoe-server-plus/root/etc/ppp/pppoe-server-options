@@ -4,7 +4,7 @@ refuse-pap
 require-chap
 require-mschap-v2
 auth
-noipv6
+-ipv6
 lcp-echo-interval 10
 lcp-echo-failure 2
 mru 1492
