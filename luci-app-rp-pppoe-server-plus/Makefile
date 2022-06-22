@@ -10,13 +10,18 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Roaring Penguin PPPoE Server Plus
 LUCI_DEPENDS:=+luci-compat +rp-pppoe-server +libpcap
 PKG_LICENSE:=GPL-2.0-or-later
-PKG_VERSION:=2022-06-21
+PKG_VERSION:=2022-06-22
 PKG_RELEASE:=1
 
 define Package/luci-app-rp-pppoe-server-plus/preinst
 #!/bin/sh
 rm -rf $${IPKG_INSTROOT}/etc/config/pppoe >/dev/null 2>&1
 rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoe-server >/dev/null 2>&1
+rm -rf $${IPKG_INSTROOT}/etc/ppp/pppoe-server-options >/dev/null 2>&1
+chmod 600 /etc/config/pppoe-server
+chmod 755 /etc/init.d/pppoe-server
+chmod 600 /etc/ppp/*-secrets
+chmod 600 /etc/ppp/pppoe-server-options
 exit 0
 endef
 
