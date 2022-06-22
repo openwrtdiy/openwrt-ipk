@@ -13,6 +13,13 @@ PKG_LICENSE:=GPL-2.0-or-later
 PKG_VERSION:=2022-06-21
 PKG_RELEASE:=1
 
+define Package/luci-app-rp-pppoe-server-plus/preinst
+#!/bin/sh
+rm -rf $${IPKG_INSTROOT}/etc/config/pppoe-server >/dev/null 2>&1
+rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoe-server >/dev/null 2>&1
+exit 0
+endef
+
 include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature

@@ -74,6 +74,6 @@ start_service() {
 service_triggers() {
     procd_add_reload_trigger "pppoe-server"
 
-    config_load pppoe
+    config_load pppoe-server
     config_foreach pppoe_triggers server
 }
