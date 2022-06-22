@@ -1,7 +1,7 @@
 local uci = luci.model.uci.cursor()
 local utl = require "luci.util"
 
-f = Map("pppoe")
+f = Map("pppoe-server")
 
 local e = {}
 local o = require "luci.dispatcher"

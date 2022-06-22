@@ -15,7 +15,7 @@ PKG_RELEASE:=1
 
 define Package/luci-app-rp-pppoe-server-plus/preinst
 #!/bin/sh
-rm -rf $${IPKG_INSTROOT}/etc/config/pppoe-server >/dev/null 2>&1
+rm -rf $${IPKG_INSTROOT}/etc/config/pppoe >/dev/null 2>&1
 rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoe-server >/dev/null 2>&1
 exit 0
 endef
