@@ -9,7 +9,7 @@
 		},
 		"depends": {
 			"acl": [ "luci-app-rp-pppoe-server-plus" ],
-			"uci": { "pppoe-server": true }
+			"uci": { "pppoe": true }
 		}
 	},
 
