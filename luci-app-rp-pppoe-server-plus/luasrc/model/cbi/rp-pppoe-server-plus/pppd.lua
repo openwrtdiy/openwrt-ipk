@@ -15,7 +15,7 @@ o:value("refuse-chap", translate("reject"))
 o:value("require-chap", translate("accept"))
 o.default = "require-chap"
 
-o = s:option(ListValue, "mschap-v2", translate("MSCHAP-V2"))
+o = s:option(ListValue, "mschapv2", translate("MSCHAP-V2"))
 o:value("refuse-mschap-v2", translate("reject"))
 o:value("require-mschap-v2", translate("accept"))
 o.default = "require-mschap-v2"
@@ -68,5 +68,4 @@ o = s:option(Value, "mswins2", translate("IPv4 WINS Server 2"), translate("Set t
 o.datatype = "ipaddr"
 o:depends("more", "1")
 
-o.rmempty = false
 return m
