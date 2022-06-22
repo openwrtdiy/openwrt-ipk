@@ -23,6 +23,7 @@ o.default = "require-mschap-v2"
 o = s:option(ListValue, "authmode", translate("Auth Mode"))
 o:value("login", translate("login"))
 o:value("auth", translate("auth"))
+o:value("noauth", translate("noauth"))
 o.default = "auth"
 
 o = s:option(ListValue, "ipv6", translate("IPv6 Supported"))
