@@ -4,7 +4,7 @@ local sys = require "luci.sys"
 local ifaces = sys.net:devices()
 
 local m, s, o
-m = Map("pppoe-server", translate("Roaring Penguin PPPoE Server Plus"))
+m = Map("pppoe", translate("Roaring Penguin PPPoE Server Plus"))
 
 s = m:section(TypedSection, "firewall")
 s.addremove = true
