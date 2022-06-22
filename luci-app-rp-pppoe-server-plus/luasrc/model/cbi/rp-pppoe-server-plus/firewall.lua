@@ -7,7 +7,7 @@ local m, s, o
 m = Map("pppoe-server", translate("Roaring Penguin PPPoE Server Plus"))
 
 s = m:section(TypedSection, "firewall")
-s.addremove = true
+s.addremove = false
 s.anonymous = true
 
 o = s:option(Flag, "ENNAT", translate("Enabled NAT"))
