@@ -4,6 +4,7 @@
 START=50
 STOP=50
 USE_PROCD=1
+OPTIONS_FILE=/etc/ppp/pppoe-server-options
 
 pppoe_triggers() {
     local cfg="$1"
@@ -66,9 +67,49 @@ pppoe_instance() {
     procd_close_instance
 }
 
+pppoe_pppd() {
+    local cfg="$1"
+    local pap chap mschap authmode ipv6 lcp_echo_interval lcp_echo_failure mru mtu msdns1 msdns2 log more mswins1 mswins2
+    config_get pap "$cfg" pap
+    config_get chap "$cfg" chap
+    config_get mschap "$cfg" mschap
+    config_get authmode "$cfg" authmode
+    config_get ipv6 "$cfg" ipv6
+    config_get lcp_echo_interval "$cfg" lcp_echo_interval
+    config_get lcp_echo_failure "$cfg" lcp_echo_failure
+    config_get mru "$cfg" mru
+    config_get mtu "$cfg" mtu
+    config_get msdns1 "$cfg" msdns1
+    config_get msdns2 "$cfg" msdns2
+    config_get log "$cfg" log
+    config_get more "$cfg" more
+    config_get mswins1 "$cfg" mswins1
+    config_get mswins2 "$cfg" mswins2
+
+cat <<-EOF > ${OPTIONS_FILE}
+	# PPP options for the PPPoE server
+	# LIC: GPL
+	${pap}
+	${chap}
+	${authmode}
+	${ipv6}
+	lcp-echo-interval ${lcp_echo_interval}
+	lcp-echo-failure ${lcp_echo_failure}
+	mru ${mru}
+	mtu ${mtu}
+	ms-dns ${msdns1}
+	ms-dns ${msdns2}
+EOF
+
+    procd_open_pppd
+    procd_set_param respawn
+    procd_close_pppd
+}
+
 start_service() {
     config_load pppoe-server
     config_foreach pppoe_instance server
+    config_foreach pppoe_pppd pppd
 }
 
 service_triggers() {
@@ -76,4 +117,5 @@ service_triggers() {
 
     config_load pppoe-server
     config_foreach pppoe_triggers server
+    config_foreach pppoe_triggers pppd
 }
