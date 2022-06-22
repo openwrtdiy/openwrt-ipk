@@ -8,7 +8,7 @@ config server
 	option maxsessionsperpeer '1'
 	option localip '10.0.0.1'
 	option firstremoteip '10.67.15.1'
-	option maxsessions '1024'
+	option maxsessions '2046'
 	option optionsfile '/etc/ppp/pppoe-server-options'
 	option randomsessions '1'
 	option unit '1'
