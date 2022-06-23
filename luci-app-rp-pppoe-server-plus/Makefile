@@ -17,10 +17,10 @@ define Package/luci-app-rp-pppoe-server-plus/preinst
 #!/bin/sh
 rm -rf $${IPKG_INSTROOT}/etc/config/pppoe >/dev/null 2>&1
 rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoe-server >/dev/null 2>&1
-chmod 600 /etc/config/pppoe-server
-chmod 755 /etc/init.d/pppoe-server
-chmod 600 /etc/ppp/*-secrets
-chmod 600 /etc/ppp/pppoe-server-options
+chmod 600 $${IPKG_INSTROOT}/etc/config/pppoe-server >/dev/null 2>&1
+chmod 755 $${IPKG_INSTROOT}/etc/init.d/pppoe-server >/dev/null 2>&1
+chmod 600 $${IPKG_INSTROOT}/etc/ppp/*-secrets >/dev/null 2>&1
+chmod 600 $${IPKG_INSTROOT}/etc/ppp/pppoe-server-options >/dev/null 2>&1
 exit 0
 endef
 
