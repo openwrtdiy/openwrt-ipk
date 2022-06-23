@@ -31,7 +31,7 @@ t:option(DummyValue, "MAC", translate("MAC address"))
 t:option(DummyValue, "CIP", translate("IP address"))
 t:option(DummyValue, "GATEWAY", translate("Server IP"))
 
-kill = t:option(Button, "kill", translate("Forced offline"))
+kill = t:option(Button, "kill", translate("Forced Offline"))
 kill.inputstyle = "reset"
 function kill.write(e, t)
     null, e.tag_error[t] = luci.sys.process.signal(e.map:get(t, "PID"), 9)
