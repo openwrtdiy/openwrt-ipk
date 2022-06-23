@@ -30,6 +30,7 @@ config pppd
 	option msdns1 '8.8.8.8'
 	option msdns2 '1.1.1.1'
 	option logfile '/dev/null'
+	option debug '#debug'
 
 config firewall
 	option ENNAT '0'
