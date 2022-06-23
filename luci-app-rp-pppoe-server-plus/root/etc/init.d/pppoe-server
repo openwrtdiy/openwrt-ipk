@@ -69,7 +69,7 @@ pppoe_instance() {
 
 pppoe_pppd() {
     local cfg="$1"
-    local pap chap mschapv2 authmode ipv6 lcp_echo_interval lcp_echo_failure mru mtu msdns1 msdns2 logfile more mswins1 mswins2
+    local pap chap mschapv2 authmode ipv6 lcp_echo_interval lcp_echo_failure mru mtu msdns1 msdns2 logfile debug more mswins1 mswins2
     config_get pap "$cfg" pap
     config_get chap "$cfg" chap
     config_get mschapv2 "$cfg" mschapv2
@@ -82,6 +82,7 @@ pppoe_pppd() {
     config_get msdns1 "$cfg" msdns1
     config_get msdns2 "$cfg" msdns2
     config_get logfile "$cfg" logfile
+    config_get debug "$cfg" debug
     config_get more "$cfg" more
     config_get mswins1 "$cfg" mswins1
     config_get mswins2 "$cfg" mswins2
@@ -101,6 +102,7 @@ cat <<-EOF > ${OPTIONS_FILE}
 	ms-dns ${msdns1}
 	ms-dns ${msdns2}
 	logfile ${logfile}
+	${debug}
 EOF
 }
 
