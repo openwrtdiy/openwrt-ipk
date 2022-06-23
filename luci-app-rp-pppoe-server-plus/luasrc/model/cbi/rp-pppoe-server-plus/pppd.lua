@@ -47,14 +47,35 @@ o = s:option(Value, "mtu", translate("mtu"), translate("You may not be able to a
 o.placeholder = translate("1492")
 o.default = "1492"
 
-o = s:option(Value, "msdns1", translate("IPv4 DNS Server 1"), translate("Set the PPPoE server to default DNS server, which is not required."))
+o = s:option(Value, "msdns1", translate("IPv4 DNS Server 1"), translate("Set the PPPoE server to default DNS server. Please note: When choosing to use SmartDNS resolution service, be sure to enable firewall DNS port forwarding!"))
 o.placeholder = translate("8.8.8.8")
 o.datatype = "ipaddr"
+o:value("10.0.0.1", translate("SmartDNS Redirect 10.0.0.1"))
+o:value("1.1.1.1", translate("Cloudflare DNS 1.1.1.1"))
+o:value("1.0.0.1", translate("Cloudflare DNS 1.0.0.1"))
+o:value("8.8.8.8", translate("Google DNS 8.8.8.8"))
+o:value("8.8.4.4", translate("Google DNS 8.8.4.4"))
+o:value("9.9.9.9", translate("Quad9 DNS 9.9.9.9"))
+o:value("149.112.112.112", translate("Quad9 DNS 149.112.112.112"))
+o:value("208.67.222.222", translate("OpenDNS 208.67.222.222"))
+o:value("208.67.220.220", translate("OpenDNS 208.67.220.220"))
+o:value("223.5.5.5", translate("AliDNS 223.5.5.5"))
+o:value("223.6.6.6", translate("AliDNS 223.6.6.6"))
 o.default = "8.8.8.8"
 
 o = s:option(Value, "msdns2", translate("IPv4 DNS Server 2"), translate("Set the PPPoE server to default DNS server, which is not required."))
 o.placeholder = translate("1.1.1.1")
 o.datatype = "ipaddr"
+o:value("1.1.1.1", translate("Cloudflare DNS 1.1.1.1"))
+o:value("1.0.0.1", translate("Cloudflare DNS 1.0.0.1"))
+o:value("8.8.8.8", translate("Google DNS 8.8.8.8"))
+o:value("8.8.4.4", translate("Google DNS 8.8.4.4"))
+o:value("9.9.9.9", translate("Quad9 DNS 9.9.9.9"))
+o:value("149.112.112.112", translate("Quad9 DNS 149.112.112.112"))
+o:value("208.67.222.222", translate("OpenDNS 208.67.222.222"))
+o:value("208.67.220.220", translate("OpenDNS 208.67.220.220"))
+o:value("223.5.5.5", translate("AliDNS 223.5.5.5"))
+o:value("223.6.6.6", translate("AliDNS 223.6.6.6"))
 o.default = "1.1.1.1"
 
 o = s:option(Value, "logfile", translate("Log file"),translate("Log save path, default: /var/log/pppoe-server.log"))
