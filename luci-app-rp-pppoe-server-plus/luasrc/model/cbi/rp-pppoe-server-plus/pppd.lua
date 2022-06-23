@@ -88,6 +88,7 @@ o:value("114.114.114.114", translate("114DNS 114.114.114.114"))
 o:value("114.114.115.115", translate("114DNS 114.114.115.115"))
 o:value("101.101.101.101", translate("Quad101 DNS 101.101.101.101"))
 o:value("101.102.103.104", translate("Quad101 DNS 101.102.103.104"))
+o:value("10.0.0.1", translate("SmartDNS Redirect 10.0.0.1"))
 o.default = "1.1.1.1"
 
 o = s:option(Value, "logfile", translate("Log file"),translate("Log save path, default: /var/log/pppoe-server.log"))
