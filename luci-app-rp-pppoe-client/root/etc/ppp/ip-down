@@ -22,7 +22,6 @@ ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
 
 uci del sqm.$PEERNAME.interface
 uci commit sqm
-/usr/lib/sqm/run.sh stop $IFACE
 
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
