@@ -94,6 +94,11 @@ o.default = "1.1.1.1"
 o = s:option(Value, "logfile", translate("Log file"),translate("Log save path, default: /var/log/pppoe-server.log"))
 o.default = "/dev/null"
 
+o = s:option(ListValue, "debug", translate("PPPoE Debug"),translate("pppd will log the contents of all control packets sent or received in a readable form.  The packets are logged through syslog with facility daemon and level debug."))
+o:value("#debug", translate("Disabled"))
+o:value("debug", translate("Enable"))
+o.default = "#debug"
+
 s:option(Flag, "more", translate("More Options"), translate("Options for advanced users"))
 
 o = s:option(Value, "mswins1", translate("IPv4 WINS Server 1"), translate("Set the PPPoE server to default DNS server, which is not required."))
