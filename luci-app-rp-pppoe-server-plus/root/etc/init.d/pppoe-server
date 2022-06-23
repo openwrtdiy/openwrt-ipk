@@ -102,10 +102,6 @@ cat <<-EOF > ${OPTIONS_FILE}
 	ms-dns ${msdns2}
 	logfile ${logfile}
 EOF
-
-    procd_open_pppd
-    procd_set_param respawn
-    procd_close_pppd
 }
 
 start_service() {
