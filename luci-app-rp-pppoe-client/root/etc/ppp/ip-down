@@ -20,14 +20,14 @@ sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
 sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
 ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
 
+rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
+rm -f /var/run/${IFACE}.pid
+
 uci del sqm.$PEERNAME.interface
 uci commit sqm
 /usr/lib/sqm/run.sh stop $IFACE
 
-rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
-rm -f /var/run/${IFACE}.pid
-
-echo $USERNAME $DOWNTIME Offline Sent: $Sent MB, Received: $Received MB, Connect: $Connect, Sum bytes: $sum MB, Average speed: $ave KB/s >> /var/log/pppoe/offlineusername.log
+echo $USERNAME $IFACE $DOWNTIME Offline >> /var/log/offlineusername.log
 
 SCRIPT="/usr/share/${CONFIG}/ip-down.d/${USERNAME}"
 [ -s "$SCRIPT" ] && {

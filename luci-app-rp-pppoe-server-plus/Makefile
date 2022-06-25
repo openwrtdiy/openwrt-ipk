@@ -17,9 +17,11 @@ define Package/luci-app-rp-pppoe-server-plus/preinst
 #!/bin/sh
 rm -rf $${IPKG_INSTROOT}/etc/config/pppoe >/dev/null 2>&1
 rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoe-server >/dev/null 2>&1
-cp -rf /usr/lib/pppd/2.4.7/rp-pppoe.so /usr/lib/pppd/2.4.7/pppoe.so
-cp -rf /usr/lib/pppd/2.4.8/rp-pppoe.so /usr/lib/pppd/2.4.8/pppoe.so
-cp -rf /usr/lib/pppd/2.4.9/rp-pppoe.so /usr/lib/pppd/2.4.9/pppoe.so
+cp -p /usr/lib/pppd/2.4.7/rp-pppoe.so /usr/lib/pppd/2.4.7/pppoe.so
+cp -p /usr/lib/pppd/2.4.8/rp-pppoe.so /usr/lib/pppd/2.4.8/pppoe.so
+cp -p /usr/lib/pppd/2.4.9/rp-pppoe.so /usr/lib/pppd/2.4.9/pppoe.so
+chmod 600 /etc/config/pppoe-server
+chmod 755 /etc/init.d/pppoe-server
 exit 0
 endef
 
