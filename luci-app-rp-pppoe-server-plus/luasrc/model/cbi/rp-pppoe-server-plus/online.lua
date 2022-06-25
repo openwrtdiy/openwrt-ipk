@@ -5,7 +5,7 @@ f = Map("pppoe-server")
 
 local e = {}
 local o = require "luci.dispatcher"
-local a = luci.util.execi("top -bn1 | grep 'pppd plugin pppoe.so' | grep -v 'grep'")
+local a = luci.util.execi("top -bn1 | grep 'pppd plugin rp-pppoe.so' | grep -v 'grep'")
 for t in a do
     local a, h, s, o = t:match("^ *(%d+) +.+rp_pppoe_sess [0-9]+:+([A-Fa-f0-9]+:[A-Fa-f0-9]+:[A-Fa-f0-9]+:[A-Fa-f0-9]+:[A-Fa-f0-9]+:[A-Fa-f0-9]+[A-Fa-f0-9]) +.+options +(%S.-%S)%:(%S.-%S) ")
     local t = tonumber(a)
