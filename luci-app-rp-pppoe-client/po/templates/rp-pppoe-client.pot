@@ -95,5 +95,9 @@ msgstr ""
 msgid "Account opening date"
 msgstr ""
 
-msgid "PPPoE Log"
+msgid "Online Log"
 msgstr ""
+
+msgid "Offline Log"
+msgstr ""
+

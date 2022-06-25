@@ -7,8 +7,8 @@ t = f:field(TextValue, "conf")
 t.rmempty = true
 t.rows = 30
 function t.cfgvalue()
-	if nixio.fs.access("/var/log/pppoe-client.log") then
-		local logs = luci.util.execi("cat /var/log/pppoe-client.log |tail -100")
+	if nixio.fs.access("/var/log/pppoe/onlineusername.log") then
+		local logs = luci.util.execi("cat /var/log/pppoe/onlineusername.log |tail -200")
 		local s = ""
 		for line in logs do
 			s = line .. "\n" .. s

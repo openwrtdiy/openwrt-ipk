@@ -7,7 +7,8 @@ function index()
 	entry({"admin", "status", "userstatus"}, alias("admin", "status", "userstatus", "onlineuser"), _("PPPoE User Status"), 999)
 	entry({"admin", "status", "userstatus", "onlineuser"}, form("rp-pppoe-client/onlineuser"), _("Online User"), 1).leaf = true
 	entry({"admin", "status", "userstatus", "downtimeuser"}, form("rp-pppoe-client/downtimeuser"), _("Downtime User"), 2).leaf = true
-	entry({"admin", "status", "userstatus", "pppoelog"}, form("rp-pppoe-client/pppoelog"), _("PPPoE Log"), 3).leaf = true
+	entry({"admin", "status", "userstatus", "onlinelog"}, form("rp-pppoe-client/onlinelog"), _("Online Log"), 3).leaf = true
+	entry({"admin", "status", "userstatus", "offlinelog"}, form("rp-pppoe-client/offlinelog"), _("Offline Log"), 4).leaf = true
 
 	entry({"admin", "services", "rp-pppoe-client"}, alias("admin", "services", "rp-pppoe-client", "user"), _("PPPoE User Management"), 99)
 	entry({"admin", "services", "rp-pppoe-client", "user"}, cbi("rp-pppoe-client/user"), _("User Manager")).leaf = true

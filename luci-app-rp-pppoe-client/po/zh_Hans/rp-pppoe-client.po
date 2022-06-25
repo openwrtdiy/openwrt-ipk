@@ -91,5 +91,9 @@ msgstr "带宽"
 msgid "Account opening date"
 msgstr "开户日期"
 
-msgid "pppoE Log"
-msgstr "拨号日志"
+msgid "Online Log"
+msgstr "上线日志"
+
+msgid "Offline Log"
+msgstr "下线日志"
+

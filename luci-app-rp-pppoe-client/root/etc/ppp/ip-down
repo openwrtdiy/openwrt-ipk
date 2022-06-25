@@ -27,7 +27,7 @@ uci commit sqm
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
 
-echo $USERNAME $DOWNTIME Offline Sent: $Sent MB, Received: $Received MB, Connect: $Connect, Sum bytes: $sum MB, Average speed: $ave KB/s >> /var/log/pppoe-client.log
+echo $USERNAME $DOWNTIME Offline Sent: $Sent MB, Received: $Received MB, Connect: $Connect, Sum bytes: $sum MB, Average speed: $ave KB/s >> /var/log/pppoe/offlineusername.log
 
 SCRIPT="/usr/share/${CONFIG}/ip-down.d/${USERNAME}"
 [ -s "$SCRIPT" ] && {

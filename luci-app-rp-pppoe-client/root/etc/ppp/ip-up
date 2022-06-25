@@ -49,7 +49,7 @@ uci set sqm.$PEERNAME.interface=$IFACE
 uci commit sqm
 /usr/lib/sqm/run.sh start $IFACE
 
-echo $USERNAME $MAC $IFACE $PEERIP Online $UPTIME >> /var/log/pppoe-client.log
+echo $USERNAME $MAC $IFACE $PEERIP Online $UPTIME >> /var/log/pppoe/onlineusername.log
 
 SCRIPT="/usr/share/${CONFIG}/ip-up.d/${USERNAME}"
 [ -s "$SCRIPT" ] && {
