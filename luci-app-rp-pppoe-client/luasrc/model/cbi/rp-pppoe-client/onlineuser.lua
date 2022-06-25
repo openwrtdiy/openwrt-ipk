@@ -33,6 +33,7 @@ t:option(DummyValue, "renewaldate", translate("Renewal date"))
 kill = t:option(Button, "kill", translate("Forced Offline"))
 kill.inputstyle = "reset"
 function kill.write(t, s)
+    luci.util.execi("/usr/lib/sqm/run.sh stop $interface")
     luci.util.execi("rm -f " .. t.map:get(s, "session_file"))
     null, t.tag_error[t] = luci.sys.process.signal(t.map:get(s, "pid"), 9)
     luci.http.redirect(o.build_url("admin/status/userstatus/onlineuser"))
