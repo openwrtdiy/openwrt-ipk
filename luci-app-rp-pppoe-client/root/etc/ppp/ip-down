@@ -27,7 +27,7 @@ uci del sqm.$PEERNAME.interface
 uci commit sqm
 /usr/lib/sqm/run.sh stop $IFACE
 
-echo $USERNAME $IFACE $DOWNTIME Offline >> /var/log/offlineusername.log
+echo $USERNAME $DOWNTIME Offline >> /var/log/offlineusername.log
 
 SCRIPT="/usr/share/${CONFIG}/ip-down.d/${USERNAME}"
 [ -s "$SCRIPT" ] && {
