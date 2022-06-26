@@ -9,4 +9,5 @@ function index()
 	entry({"admin", "services", "rp-pppoe-server-plus", "pppd"}, cbi("rp-pppoe-server-plus/pppd"),_("Advanced Settings"),20).leaf = true
 	entry({"admin", "services", "rp-pppoe-server-plus", "firewall"}, cbi("rp-pppoe-server-plus/firewall"),_("Firewall Settings"),30).leaf = true
 	entry({"admin", "services", "rp-pppoe-server-plus", "log"}, form("rp-pppoe-server-plus/log"), _("Logging"), 40).leaf = true
+	entry({"admin", "services", "rp-pppoe-server-plus", "online"}, form("rp-pppoe-server-plus/online"),_("Online"),50).leaf = true
 end
