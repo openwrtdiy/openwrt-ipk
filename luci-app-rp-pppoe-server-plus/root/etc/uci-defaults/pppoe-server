@@ -1,0 +1,14 @@
+#!/bin/sh
+
+chmod 0600 /etc/config/pppoe-server
+chmod 0755 /etc/init.d/pppoe-server
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@pppoe-server[-1]
+	add ucitrack pppoe-server
+	set ucitrack.@pppoe-server[-1].init=pppoe-server
+	commit ucitrack
+EOF
+
+rm -rf /tmp/luci-*cache
+exit 0

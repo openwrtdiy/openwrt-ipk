@@ -21,18 +21,6 @@ rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoe-server >/dev/null 2>&1
 exit 0
 endef
 
-define Package/luci-app-rp-pppoe-server-plus/prerm
-#!/bin/sh
-chmod 600 /etc/config/pppoe-server
-exit 0
-endef
-
-define Package/luci-app-rp-pppoe-server-plus/postrm
-#!/bin/sh
-chmod 755 /etc/init.d/pppoe-server
-exit 0
-endef
-
 include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
