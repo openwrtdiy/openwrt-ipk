@@ -33,6 +33,7 @@ setup_user() {
         uci set sqm.$username.verbosity=5 >/dev/null 2>&1
         uci set sqm.$username.overhead=0 >/dev/null 2>&1
         uci commit sqm
+        chmod 600 /etc/ppp/*-secrets
 }
 
 delete_user() {
