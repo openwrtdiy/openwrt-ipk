@@ -2,7 +2,7 @@
 
 chmod 0600 /etc/config/pppoe-server
 chmod 0755 /etc/init.d/pppoe-server
-chmod 0600 /etc/ppp/*-secrets /etc/ppp/pppoe-server-options
+chmod 0600 /etc/ppp/pppoe-server-options
 cp -p /usr/lib/pppd/2.4.9/pppoe.so /usr/lib/pppd/2.4.9/rp-pppoe.so
 
 uci -q batch <<-EOF >/dev/null
