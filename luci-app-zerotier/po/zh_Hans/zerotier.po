@@ -81,11 +81,11 @@ msgstr "本地LAN局域网访问ZeroTier"
 
 #: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:27
 msgid "remote access lan"
-msgstr "远程访问本地LAN局域网"
+msgstr "允许远程访问本地LAN局域网"
 
 #: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:26
 msgid "remote access wan"
-msgstr "远程访问本地WAN广域网"
+msgstr "允许远程访问本地WAN广域网"
 
 #: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:25
 msgid "wan access zerotier"

@@ -24,6 +24,11 @@ endef
 define Package/luci-app-rp-pppoe-server-plus/prerm
 #!/bin/sh
 chmod 600 /etc/config/pppoe-server
+exit 0
+endef
+
+define Package/luci-app-rp-pppoe-server-plus/postrm
+#!/bin/sh
 chmod 755 /etc/init.d/pppoe-server
 exit 0
 endef
