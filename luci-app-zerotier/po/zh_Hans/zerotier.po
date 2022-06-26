@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh_Hans\n"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:31
+msgid ""
+"<input type=\"button\" class=\"cbi-button cbi-button-apply\" value="
+"\"Zerotier.com\" onclick=\"window.open('https://my.zerotier.com/network')\" /"
+">"
+msgstr ""
+"<input type=\"button\" class=\"cbi-button cbi-button-apply\" value="
+"\"Zerotier.com\" onclick=\"window.open('https://my.zerotier.com/network')\" /"
+">"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:17
+msgid "Auto NAT Clients"
+msgstr "自动允许客户端NAT"
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:12
+msgid "Base Setting"
+msgstr "基础设置"
+
+#: applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm:20
+msgid "Collecting data..."
+msgstr "收集数据......"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:32
+msgid "Create or manage your zerotier network, and auth clients who could access"
+msgstr "点击跳转到Zerotier官网管理平台，新建或者管理网络，并允许客户端接入访问你私人网路（新接入的节点默认不允许访问）"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:9
+msgid "Enable"
+msgstr "启用"
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:13
+msgid "Interface Info"
+msgstr "接口信息"
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:14
+msgid "Manual Config"
+msgstr "手动配置"
+
+#: applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm:10
+msgid "NOT RUNNING"
+msgstr "未运行"
+
+#: applications/luci-app-zerotier/luasrc/view/zerotier/zerotier_status.htm:7
+msgid "RUNNING"
+msgstr "运行中"
+
+#: applications/luci-app-zerotier/luasrc/controller/zerotier.lua:10
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:2
+msgid "ZeroTier"
+msgstr "ZeroTier"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:13
+msgid "ZeroTier Network ID"
+msgstr "ZeroTier 网络 ID"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:21
+msgid "Zerotier access control"
+msgstr "Zerotier 访问控制"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:2
+msgid "Zerotier is an open source, cross-platform and easy to use virtual LAN"
+msgstr "ZeroTier 是一个开源、跨平台且易于使用的虚拟局域网"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:24
+msgid "lan access zerotier"
+msgstr "本地LAN局域网访问ZeroTier"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:27
+msgid "remote access lan"
+msgstr "允许远程访问本地LAN局域网"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:26
+msgid "remote access wan"
+msgstr "允许远程访问本地WAN广域网"
+
+#: applications/luci-app-zerotier/luasrc/model/cbi/zerotier/settings.lua:25
+msgid "wan access zerotier"
+msgstr "本地WAN广域网访问ZeroTier"
