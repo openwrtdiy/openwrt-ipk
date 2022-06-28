@@ -124,6 +124,38 @@ o.rempty      = true
 o = s:taboption("settings", Value, "rr_ttl_reply_max", translate("Domain Reply TTL Max"), translate("Maximum Reply TTL for all domain result."))
 o.rempty      = true
 
+---- log-level
+o = s:taboption("settings", ListValue, "log_level", translate("Log Level"))
+o:value("fatal", translate("fatal"))
+o:value("error", translate("error"))
+o:value("warn", translate("warn"))
+o:value("notice", translate("notice"))
+o:value("info", translate("info"))
+o:value("debug", translate("debug"))
+o.default     = "error"
+o.rempty      = false
+
+---- log-size
+o = s:taboption("settings", ListValue, "log_size", translate("Log Size"))
+o:value("128k", translate("128k size"))
+o:value("256k", translate("256k size"))
+o:value("512k", translate("512k size"))
+o:value("1024k", translate("1024k size"))
+o.default     = "128k"
+o.rempty      = false
+
+---- log-num
+o = s:taboption("settings", Value, "log_num", translate("Log Num"))
+o.placeholder = translate("2")
+o.default     = 2
+o.rempty      = true
+
+---- log-file
+o = s:taboption("settings", Value, "log_file", translate("Log File"))
+o.placeholder = translate("/var/log/smartdns.log")
+o.default = "/var/log/smartdns.log"
+o.rempty      = true
+
 ---- second dns server
 ---- Eanble
 o = s:taboption("seconddns", Flag, "seconddns_enabled", translate("Enable"), translate("Enable or disable second DNS server."))
