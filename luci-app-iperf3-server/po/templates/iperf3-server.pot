@@ -1,0 +1,26 @@
+msgid "iPerf3 - The ultimate speed test tool for TCP, UDP and SCTP"
+msgstr ""
+
+msgid "Port"
+msgstr ""
+
+msgid "iPerf3 Server"
+msgstr ""
+
+msgid "Enable iPerf3 Servers"
+msgstr ""
+
+msgid "Server Settings"
+msgstr ""
+
+msgid "Set up Multi-iPerf3 Servers"
+msgstr ""
+
+msgid "Start delay"
+msgstr ""
+
+msgid "iPerf3 Server listening port"
+msgstr ""
+
+msgid "Extra Options"
+msgstr ""
