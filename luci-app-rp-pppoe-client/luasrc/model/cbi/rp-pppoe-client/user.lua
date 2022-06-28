@@ -44,6 +44,10 @@ o.placeholder = translate("Manual")
 o.datatype = "macaddr"
 o.rmempty = true
 
+o = s:option(Value, "expires", translate("Expire date"))
+o.placeholder = translate("Expires")
+o.rmempty = true
+
 o = s:option(ListValue, "upload", translate("Download speed"))
 o.datatype = "uinteger"
 o.rmempty = true
@@ -107,9 +111,5 @@ o:value("735000", "700 M")
 o:value("840000", "800 M")
 o:value("945000", "900 M")
 o:value("1050000", "1000 Mbps")
-
-o = s:option(Value, "expires", translate("Expire date"))
-o.placeholder = translate("Expires")
-o.rmempty = true
 
 return m
