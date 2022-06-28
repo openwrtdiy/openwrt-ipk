@@ -25,7 +25,7 @@ f = SimpleForm("")
 f.reset = false
 f.submit = false
 
-local count = luci.sys.exec("top -bn1 | grep 'pppd plugin pppoe.so' | grep -v 'grep' | wc -l")
+local count = luci.sys.exec("top -bn1 | grep 'pppd plugin .*pppoe.so' | grep -v 'grep' | wc -l")
 t = f:section(Table, e, translate("Online [ " .. count .. "]"))
 t:option(DummyValue, "MAC", translate("MAC address"))
 t:option(DummyValue, "CIP", translate("IP address"))
