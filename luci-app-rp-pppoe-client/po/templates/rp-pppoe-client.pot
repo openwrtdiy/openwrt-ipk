@@ -86,6 +86,21 @@ msgstr ""
 msgid "Forced Offline"
 msgstr ""
 
+msgid "Realtime Traffic"
+msgstr ""
+
+msgid "Realtime Upload"
+msgstr ""
+
+msgid "Realtime Download"
+msgstr ""
+
+msgid "Total Uploads"
+msgstr ""
+
+msgid "Total Downloads"
+msgstr ""
+
 msgid "Downtime User"
 msgstr ""
 
