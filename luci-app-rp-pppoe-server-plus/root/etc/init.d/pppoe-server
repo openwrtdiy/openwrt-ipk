@@ -59,6 +59,18 @@ pppoe_instance() {
 	[ "$sync" = "1" ] && append OPTIONS "-s"
     fi
 
+    uci set firewall.pppoezone=zone
+    uci set firewall.pppoezone.name=pppoe
+    uci set firewall.pppoezone.input=ACCEPT
+    uci set firewall.pppoezone.output=ACCEPT
+    uci set firewall.pppoezone.forward=DROP
+    uci set firewall.pppoezone.device=ppp+
+    uci set firewall.pppoeforwarding=forwarding
+    uci set firewall.pppoeforwarding.src=pppoe
+    uci set firewall.pppoeforwarding.dest=wan
+    uci commit firewall
+    /etc/init.d/firewall reload
+
     procd_open_instance
     procd_set_param command /usr/sbin/pppoe-server -F -k $OPTIONS
     procd_set_param respawn
@@ -106,10 +118,33 @@ cat <<-EOF > ${OPTIONS_FILE}
 EOF
 }
 
+pppoe_firewall() {
+    local cfg="$1"
+    local isolation conntrackmax
+    config_get isolation "$cfg" isolation
+    config_get conntrackmax "$cfg" conntrackmax
+
+    uci set firewall.pppoerule=rule
+    uci set firewall.pppoerule.name=Disable-Access-Gateway
+    uci set firewall.pppoerule.proto='tcp udp'
+    uci set firewall.pppoerule.src=*
+    uci set firewall.pppoerule.device=ppp+
+    uci set firewall.pppoerule.direction=in
+    uci set firewall.pppoerule.dest_port='22 80 2019 8090'
+    uci set firewall.pppoerule.target=DROP
+    uci set firewall.pppoerule.enabled=${isolation}
+    uci commit firewall
+    /etc/init.d/firewall reload
+
+    sed -i '/net.netfilter.nf_conntrack_max/d' /etc/sysctl.d/11-nf-conntrack.conf
+    echo "net.netfilter.nf_conntrack_max=${conntrackmax}" >> /etc/sysctl.d/11-nf-conntrack.conf
+}
+
 start_service() {
     config_load pppoe-server
     config_foreach pppoe_instance server
     config_foreach pppoe_pppd pppd
+    config_foreach pppoe_firewall firewall
 }
 
 service_triggers() {
@@ -118,4 +153,5 @@ service_triggers() {
     config_load pppoe-server
     config_foreach pppoe_triggers server
     config_foreach pppoe_triggers pppd
+    config_foreach pppoe_triggers firewall
 }

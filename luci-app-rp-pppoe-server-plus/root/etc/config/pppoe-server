@@ -33,6 +33,5 @@ config pppd
 	option debug '#debug'
 
 config firewall
-	option ENNAT '0'
-	option ENISO '0'
-	option conntrackmax '16384'
+	option isolation '1'
+	option conntrackmax '655350'
