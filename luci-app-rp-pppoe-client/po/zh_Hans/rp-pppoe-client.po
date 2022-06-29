@@ -82,6 +82,21 @@ msgstr "续费日期"
 msgid "Forced Offline"
 msgstr "强制下线"
 
+msgid "Realtime Traffic"
+msgstr "实时流量"
+
+msgid "Realtime Upload"
+msgstr "实时上传"
+
+msgid "Realtime Download"
+msgstr "实时下载"
+
+msgid "Total Uploads"
+msgstr "总上传量"
+
+msgid "Total Downloads"
+msgstr "总下载量"
+
 msgid "Downtime User"
 msgstr "停机用户"
 
