@@ -146,7 +146,7 @@ o.rempty      = false
 
 ---- log-num
 o = s:taboption("settings", Value, "log_num", translate("Log Num"))
-o.placeholder = translate("2")
+o.datatype = "range(1,9)"
 o.default     = 2
 o.rempty      = true
 
