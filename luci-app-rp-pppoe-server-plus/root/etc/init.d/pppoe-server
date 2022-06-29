@@ -138,6 +138,7 @@ pppoe_firewall() {
 
     sed -i '/net.netfilter.nf_conntrack_max/d' /etc/sysctl.d/11-nf-conntrack.conf
     echo "net.netfilter.nf_conntrack_max=${conntrackmax}" >> /etc/sysctl.d/11-nf-conntrack.conf
+    /etc/init.d/sysctl restart
 }
 
 start_service() {
