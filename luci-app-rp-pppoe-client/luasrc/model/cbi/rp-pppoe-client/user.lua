@@ -15,15 +15,6 @@ o = s:option(Value, "username", translate("User Name"))
 o.placeholder = translate("Username")
 o.rmempty = true
 
-o = s:option(Value, "servicename", translate("Service Name"))
-o.placeholder = translate("Service Name")
-o.readonly = true
-function o.cfgvalue(e, t)
-    value = e.map:get(t, "servicename")
-    return value == "*" and "" or value
-end
-function o.remove(e, t) Value.write(e, t, "*") end
-
 o = s:option(Value, "password", translate("Password"))
 o.placeholder = translate("Password")
 o.password = true
