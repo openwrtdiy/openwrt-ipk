@@ -40,7 +40,7 @@ o.placeholder = translate("10.0.0.1")
 o.datatype = "ipaddr"
 
 o = s:option(Value, "firstremoteip", translate("First remote IP"), translate("Set start address of remote IP pool"))
-o.placeholder = translate("10.67.15.1")
+o.placeholder = translate("10.67.16.1")
 o.datatype = "ipaddr"
 
 o = s:option(Value, "maxsessions", translate("Maximum sessions"), translate("Allow 'num' concurrent sessions"))
