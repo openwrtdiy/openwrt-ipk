@@ -36,17 +36,36 @@ o.optional = true
 o.datatype = "uinteger"
 
 o = s:option(Value, "localip", translate("IP of listening side"), translate("Set local IP address"))
-o.placeholder = translate("10.0.0.1")
+o:value("10.0.0.1")
+o:value("10.255.255.1")
+o:value("172.16.0.1")
+o:value("172.31.255.1")
+o:value("192.168.0.1")
+o:value("192.168.255.1")
 o.datatype = "ipaddr"
+o.default = "10.0.0.1"
 
 o = s:option(Value, "firstremoteip", translate("First remote IP"), translate("Set start address of remote IP pool"))
-o.placeholder = translate("10.67.16.1")
+o:value("10.10.0.1")
+o:value("10.10.16.1")
+o:value("10.50.0.1")
+o:value("10.50.16.1")
+o:value("10.67.0.1")
+o:value("10.67.16.1")
+o:value("10.100.0.1")
+o:value("10.100.16.1")
+o:value("10.150.0.1")
+o:value("10.150.16.1")
+o:value("10.200.0.1")
+o:value("10.200.16.1")
+o:value("10.250.0.1")
+o:value("10.250.16.1")
 o.datatype = "ipaddr"
+o.default = "10.67.16.1"
 
 o = s:option(Value, "maxsessions", translate("Maximum sessions"), translate("Allow 'num' concurrent sessions"))
-o.placeholder = translate("64")
 o.optional = true
-o.datatype = "uinteger"
+o.datatype = "range(64,4096)"
 o.default = 64
 
 o = s:option(Value, "optionsfile", translate("Options file"), translate("Use PPPD options from specified file"))
