@@ -92,6 +92,8 @@ o:value("10.0.0.1", translate("SmartDNS Redirect 10.0.0.1"))
 o.default = "1.1.1.1"
 
 o = s:option(Value, "logfile", translate("Log file"),translate("Log save path, default: /var/log/pppoe-server.log"))
+o:value("/dev/null")
+o:value("/var/log/pppoe-server.log")
 o.default = "/dev/null"
 
 o = s:option(ListValue, "debug", translate("PPPoE Debug"),translate("pppd will log the contents of all control packets sent or received in a readable form.  The packets are logged through syslog with facility daemon and level debug."))
