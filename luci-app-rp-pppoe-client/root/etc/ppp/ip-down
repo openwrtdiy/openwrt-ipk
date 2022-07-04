@@ -13,13 +13,6 @@ LOCALIP=${4}
 PEERIP=${5}
 REMOTEIP=${6}
 
-Sent=`echo "scale=2;$BYTES_SENT/1024/1024"|bc`
-Received=`echo "scale=2;$BYTES_RCVD/1024/1024"|bc`
-Connect=$CONNECT_TIME
-sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
-sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
-ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
-
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
 
@@ -28,9 +21,3 @@ uci commit sqm
 /usr/lib/sqm/run.sh stop $IFACE
 
 echo $USERNAME $DOWNTIME Offline >> /var/log/offlineusername.log
-
-SCRIPT="/usr/share/${CONFIG}/ip-down.d/${USERNAME}"
-[ -s "$SCRIPT" ] && {
-	[ ! -x "$SCRIPT" ] && chmod 0755 "$SCRIPT"
-	"$SCRIPT" "$@"
-}
