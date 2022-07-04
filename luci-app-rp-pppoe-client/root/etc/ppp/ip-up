@@ -50,9 +50,3 @@ uci commit sqm
 /usr/lib/sqm/run.sh start $IFACE
 
 echo $USERNAME $MAC $IFACE $PEERIP $UPTIME Online >> /var/log/onlineusername.log
-
-SCRIPT="/usr/share/${CONFIG}/ip-up.d/${USERNAME}"
-[ -s "$SCRIPT" ] && {
-	[ ! -x "$SCRIPT" ] && chmod 0755 "$SCRIPT"
-	"$SCRIPT" "$@"
-}
