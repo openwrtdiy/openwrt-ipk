@@ -1,5 +1,5 @@
 --
--- Copyright (C) 2018-2020 Ruilin Peng (Nick) <pymumu@gmail.com>.
+-- Copyright (C) 2018-2022 Ruilin Peng (Nick) <pymumu@gmail.com>.
 --
 -- smartdns is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -103,29 +103,43 @@ o.rempty      = false
 
 ---- cache-size
 o = s:taboption("settings", Value, "cache_size", translate("Cache Size"), translate("DNS domain result cache size"))
+o.placeholder = "512"
+o.default     = 512
 o.rempty      = true
 
 ---- rr-ttl
 o = s:taboption("settings", Value, "rr_ttl", translate("Domain TTL"), translate("TTL for all domain result."))
+o.placeholder = "600"
+o.default     = 600
 o.rempty      = true
 
 ---- rr-ttl-min
 o = s:taboption("settings", Value, "rr_ttl_min", translate("Domain TTL Min"), translate("Minimum TTL for all domain result."))
 o.rempty      = true
-o.placeholder = "600"
-o.default     = 600
+o.placeholder = "60"
+o.default     = 60
 o.optional    = true
 
 ---- rr-ttl-max
 o = s:taboption("settings", Value, "rr_ttl_max", translate("Domain TTL Max"), translate("Maximum TTL for all domain result."))
+o.placeholder = "600"
+o.default     = 600
 o.rempty      = true
 
 ---- rr-ttl-reply-max
 o = s:taboption("settings", Value, "rr_ttl_reply_max", translate("Domain Reply TTL Max"), translate("Maximum Reply TTL for all domain result."))
+o.placeholder = "60"
+o.default     = 60
+o.rempty      = true
+
+---- max-reply-ip-num
+o = s:taboption("settings", Value, "max_reply_ip_num", translate("Max Reply IP Num"), translate("Maximum number of IPs returned to the client"))
+o.datatype = "range(1,16)"
+o.default     = 1
 o.rempty      = true
 
 ---- log-level
-o = s:taboption("settings", ListValue, "log_level", translate("Log Level"))
+o = s:taboption("settings", ListValue, "log_level", translate("log level"))
 o:value("fatal", translate("fatal"))
 o:value("error", translate("error"))
 o:value("warn", translate("warn"))
@@ -136,22 +150,22 @@ o.default     = "error"
 o.rempty      = false
 
 ---- log-size
-o = s:taboption("settings", ListValue, "log_size", translate("Log Size"))
-o:value("128k", translate("128k size"))
-o:value("256k", translate("256k size"))
-o:value("512k", translate("512k size"))
-o:value("1024k", translate("1024k size"))
+o = s:taboption("settings", ListValue, "log_size", translate("log size"))
+o:value("128k")
+o:value("256k")
+o:value("512k")
+o:value("1024k")
 o.default     = "128k"
 o.rempty      = false
 
 ---- log-num
-o = s:taboption("settings", Value, "log_num", translate("Log Num"))
+o = s:taboption("settings", Value, "log_num", translate("log num"))
 o.datatype = "range(1,9)"
 o.default     = 2
 o.rempty      = true
 
 ---- log-file
-o = s:taboption("settings", Value, "log_file", translate("Log File"))
+o = s:taboption("settings", Value, "log_file", translate("log file"))
 o.placeholder = translate("/var/log/smartdns.log")
 o.default = "/var/log/smartdns.log"
 o.rempty      = true
@@ -375,4 +389,3 @@ o.write = function()
 end
 
 return m
-
