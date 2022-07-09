@@ -11,7 +11,7 @@ s.anonymous = true
 
 o = s:option(Flag, "isolation", translate("Disable Access Gateway"), translate("Forbid dial-up users to access the PPPoE server management background"))
 o.rmempty = false
-o.default = 1
+o.default = 0
 
 o = s:option(Value, "conntrackmax", translate("Maximum number of connections"), translate("Adjust the maximum number of active connections"))
 o.datatype = "range(16384,4194304)"

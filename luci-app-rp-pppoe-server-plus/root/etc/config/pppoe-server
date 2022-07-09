@@ -33,5 +33,5 @@ config pppd
 	option debug '#debug'
 
 config firewall
-	option isolation '1'
+	option isolation '0'
 	option conntrackmax '524288'
