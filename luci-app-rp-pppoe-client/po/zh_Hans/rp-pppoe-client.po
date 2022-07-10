@@ -85,6 +85,9 @@ msgstr "强制下线"
 msgid "Realtime Traffic"
 msgstr "实时流量"
 
+msgid "Connect"
+msgstr "连接数"
+
 msgid "Realtime Upload"
 msgstr "实时上传"
 

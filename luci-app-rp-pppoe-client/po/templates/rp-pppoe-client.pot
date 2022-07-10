@@ -89,6 +89,9 @@ msgstr ""
 msgid "Realtime Traffic"
 msgstr ""
 
+msgid "Connect"
+msgstr ""
+
 msgid "Realtime Upload"
 msgstr ""
 
