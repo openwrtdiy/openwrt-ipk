@@ -33,7 +33,7 @@ o.optional = true
 o = s:option(Value, "maxsessionsperpeer", translate("Maximum sessions per peer"), translate("Limit to 'n' sessions/MAC address"))
 o.placeholder = translate("0")
 o.optional = true
-o.datatype = "uinteger"
+o.datatype = "range(0,9)"
 
 o = s:option(Value, "localip", translate("IP of listening side"), translate("Set local IP address"))
 o:value("10.0.0.1")
@@ -79,19 +79,19 @@ o.optional = true
 o = s:option(Value, "unit", translate("Unit"), translate("Pass 'unit' option to pppd"))
 o.placeholder = translate("0")
 o.optional = true
-o.datatype = "uinteger"
+o.datatype = "range(0,9)"
 o.default = 0
 
 o = s:option(Value, "offset", translate("Offset"), translate("Assign session numbers starting at offset+1"))
 o.placeholder = translate("0")
 o.optional = true
-o.datatype = "uinteger"
+o.datatype = "range(0,9)"
 o.default = 0
 
 o = s:option(Value, "timeout", translate("Timeout"), translate("Specify inactivity timeout in seconds"))
 o.placeholder = translate("60")
 o.optional = true
-o.datatype = "uinteger"
+o.datatype = "range(60,180)"
 o.default = 60
 
 o = s:option(Value, "mss", translate("MSS"), translate("Clamp incoming and outgoing MSS options"))
