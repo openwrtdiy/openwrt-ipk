@@ -61,7 +61,7 @@ o:value("10.200.16.1")
 o:value("10.250.0.1")
 o:value("10.250.16.1")
 o.datatype = "ipaddr"
-o.default = "10.67.16.1"
+o.default = "10.67.0.1"
 
 o = s:option(Value, "maxsessions", translate("Maximum sessions"), translate("Allow 'num' concurrent sessions"))
 o.optional = true
