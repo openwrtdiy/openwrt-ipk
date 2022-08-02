@@ -69,7 +69,7 @@ o:value("114.114.114.114", translate("114DNS 114.114.114.114"))
 o:value("114.114.115.115", translate("114DNS 114.114.115.115"))
 o:value("101.101.101.101", translate("Quad101 DNS 101.101.101.101"))
 o:value("101.102.103.104", translate("Quad101 DNS 101.102.103.104"))
-o.default = "10.0.0.1"
+o.default = "8.8.8.8"
 
 o = s:option(Value, "msdns2", translate("IPv4 DNS Server 2"), translate("Set the PPPoE server to default DNS server, which is not required."))
 o.placeholder = translate("1.1.1.1")

@@ -27,7 +27,7 @@ config pppd
 	option lcp_echo_failure '5'
 	option mru '1492'
 	option mtu '1492'
-	option msdns1 '10.0.0.1'
+	option msdns1 '8.8.8.8'
 	option msdns2 '1.1.1.1'
 	option logfile '/dev/null'
 	option debug '#debug'
