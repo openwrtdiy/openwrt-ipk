@@ -81,7 +81,7 @@ o.datatype = "uinteger"
 o = s:option(ListValue, "qdisc", translate("Queuing Rules"))
 o:value("fq_codel", translate("fq_codel"))
 o:value("cake", translate("cake"))
-o.default = "cake"
+o.default = "fq_codel"
 
 o = s:option(ListValue, "script", translate("Queue Script"))
 o:value("layer_cake.qos", translate("layer_cake.qos"))
