@@ -8,6 +8,6 @@ config user
 	option qos '1'
 	option download '10500'
 	option upload '10500'
-	option qdisc 'cake'
+	option qdisc 'fq_codel'
 	option script 'piece_of_cake.qos'
 	option linklayer 'ethernet'
