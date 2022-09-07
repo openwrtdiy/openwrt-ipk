@@ -21,7 +21,7 @@ setup_user() {
 	config_get qdisc $1 qdisc
 	[ -n "${qdisc}" ] || qdisc="fq_codel"
 	config_get script $1 script
-	[ -n "${script}" ] || script="piece_of_cake.qos"
+	[ -n "${script}" ] || script="simple.qos"
 	config_get linklayer $1 linklayer
 	[ -n "${linklayer}" ] || linklayer="ethernet"
 
@@ -35,7 +35,7 @@ setup_user() {
         uci set sqm.$username.linklayer=$linklayer >/dev/null 2>&1
         uci set sqm.$username.debug_logging=0 >/dev/null 2>&1
         uci set sqm.$username.verbosity=5 >/dev/null 2>&1
-        uci set sqm.$username.overhead=0 >/dev/null 2>&1
+        uci set sqm.$username.overhead=44 >/dev/null 2>&1
         uci commit sqm
         chmod 600 /etc/ppp/*-secrets
 }
