@@ -87,6 +87,7 @@ o = s:option(ListValue, "script", translate("Queue Script"))
 o:value("layer_cake.qos", translate("layer_cake.qos"))
 o:value("piece_of_cake.qos", translate("piece_of_cake.qos"))
 o:value("simple.qos", translate("simple.qos"))
+o:value("simple_pppoe.qos", translate("simple_pppoe.qos"))
 o:value("simplest.qos", translate("simplest.qos"))
 o:value("simplest_tbf.qos", translate("simplest_tbf.qos"))
 o.default = "simple.qos"
