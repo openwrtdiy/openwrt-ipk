@@ -81,7 +81,7 @@ o.datatype = "uinteger"
 o = s:option(ListValue, "qdisc", translate("Queuing Rules"))
 o:value("fq_codel", translate("fq_codel"))
 o:value("cake", translate("cake"))
-o.default = "fq_codel"
+o.default = "cake"
 
 o = s:option(ListValue, "script", translate("Queue Script"))
 o:value("layer_cake.qos", translate("layer_cake.qos"))
@@ -90,7 +90,7 @@ o:value("simple.qos", translate("simple.qos"))
 o:value("simple_pppoe.qos", translate("simple_pppoe.qos"))
 o:value("simplest.qos", translate("simplest.qos"))
 o:value("simplest_tbf.qos", translate("simplest_tbf.qos"))
-o.default = "simple.qos"
+o.default = "piece_of_cake.qos"
 
 o = s:option(ListValue, "linklayer", translate("Link Layer"))
 o:value("none", translate("none"))
