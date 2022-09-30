@@ -2,11 +2,11 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Roaring Penguin PPPoE Client User Manager
-LUCI_DEPENDS:=+luci-compat +rp-pppoe-server
+LUCI_DEPENDS:=+luci-compat
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
 PKG_RELEASE:=1
-PKG_DATE:=2022-09-18
+PKG_DATE:=2022-09-30
 
 define Package/luci-app-rp-pppoe-client/preinst
 #!/bin/sh
