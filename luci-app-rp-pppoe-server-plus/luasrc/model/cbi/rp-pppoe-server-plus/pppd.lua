@@ -31,21 +31,21 @@ o:value("-ipv6", translate("reject"))
 o:value("+ipv6", translate("accept"))
 o.default = "-ipv6"
 
-o = s:option(Value, "lcp_echo_interval", translate("lcp-echo-interval"), translate("Send relevant instructions to the PPPoE server regularly to check whether the connection is normal!"))
+o = s:option(Value, "lcp_echo_interval", translate("LCP Echo Interval"), translate("Send relevant instructions to the PPPoE server regularly to check whether the connection is normal!"))
 o.placeholder = translate("10")
 o.datatype = "range(10,60)"
-o.default = "15"
+o.default = "10"
 
-o = s:option(Value, "lcp_echo_failure", translate("lcp-echo-failure"), translate("The number of times to send relevant commands to the PPPoE server"))
+o = s:option(Value, "lcp_echo_failure", translate("LCP Echo Failure"), translate("The number of times to send relevant commands to the PPPoE server"))
 o.placeholder = translate("2")
 o.datatype = "range(2,10)"
-o.default = "5"
+o.default = "2"
 
-o = s:option(Value, "mru", translate("mru"), translate("You may not be able to access the Internet if you don't set it up properly.default: 1492"))
+o = s:option(Value, "mtu", translate("MTU"), translate("You may not be able to access the Internet if you don't set it up properly.default: 1492"))
 o.placeholder = translate("1492")
 o.default = "1492"
 
-o = s:option(Value, "mtu", translate("mtu"), translate("You may not be able to access the Internet if you don't set it up properly.default: 1492"))
+o = s:option(Value, "mru", translate("MRU"), translate("You may not be able to access the Internet if you don't set it up properly.default: 1492"))
 o.placeholder = translate("1492")
 o.default = "1492"
 
