@@ -6,7 +6,7 @@ LUCI_DEPENDS:=+luci-compat
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
 PKG_RELEASE:=1
-PKG_DATE:=2022-09-30
+PKG_DATE:=2022-11-15
 
 define Package/luci-app-rp-pppoe-client/preinst
 #!/bin/sh

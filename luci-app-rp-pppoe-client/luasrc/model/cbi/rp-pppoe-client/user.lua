@@ -37,7 +37,7 @@ o.rmempty = true
 
 o = s:option(Value, "expires", translate("Expire date"))
 o.placeholder = translate("Expires")
-o.datatype = "range(20220601,20231231)"
+o.datatype = "range(20220901,20231231)"
 o.rmempty = true
 
 o = s:option(ListValue, "upload", translate("Download speed"))
