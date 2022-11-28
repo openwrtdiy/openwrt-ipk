@@ -67,7 +67,7 @@ msgstr ""
 msgid "Link Layer"
 msgstr ""
 
-msgid "Online User Status"
+msgid "Broadband User Status"
 msgstr ""
 
 msgid "Online User"
