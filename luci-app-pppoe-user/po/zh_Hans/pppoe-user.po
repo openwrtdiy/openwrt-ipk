@@ -64,8 +64,8 @@ msgstr "队列脚本"
 msgid "Link Layer"
 msgstr "链路层"
 
-msgid "Broadband Account State"
-msgstr "宽带账号状态"
+msgid "Online User Status"
+msgstr "在线用户状态"
 
 msgid "Online User"
 msgstr "在线用户"
