@@ -34,4 +34,4 @@ config pppd
 
 config firewall
 	option isolation '0'
-	option conntrackmax '524288'
+	option conntrackmax '1048576'

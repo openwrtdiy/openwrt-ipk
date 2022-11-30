@@ -22,6 +22,6 @@ o:value("524288", translate("524288 Memory 16GB"))
 o:value("1048576", translate("1048576 Memory 32GB"))
 o:value("2097152", translate("2097152 Memory 64GB"))
 o:value("4194304", translate("4194304 Memory 128GB"))
-o.default = 16384
+o.default = 65536
 
 return m
