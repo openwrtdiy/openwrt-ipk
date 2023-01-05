@@ -45,8 +45,4 @@ cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cu
 	}
 }
 
-uci set sqm.$PEERNAME.interface=$IFACE
-uci commit sqm
-/usr/lib/sqm/run.sh start $IFACE
-
 echo $USERNAME $MAC $IFACE $PEERIP $UPTIME Online >> /var/log/onlineusername.log

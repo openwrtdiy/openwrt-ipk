@@ -13,7 +13,4 @@ function index()
 
 	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("Broadband Account Management"), 99)
 	entry({"admin", "services", "pppoe-user", "user"}, cbi("pppoe-user/user"), _("User Manager")).leaf = true
-
-	entry({"admin", "network", "bandwidth"}, alias("admin", "network", "bandwidth", "speed"), _("Broadband account speed limit"), 999)
-	entry({"admin", "network", "bandwidth", "speed"}, cbi("pppoe-user/speed"), _("Traffic Control")).leaf = true
 end

@@ -83,7 +83,7 @@ o:value("1100000", "1000 Mbps")
 
 o = s:option(Value, "expires", translate("Expire date"))
 o.placeholder = translate("Expires")
-o.datatype = "range(20220901,20231231)"
+o.datatype = "range(20221101,20231231)"
 o.rmempty = true
 
 return m

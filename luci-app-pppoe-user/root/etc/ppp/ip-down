@@ -16,8 +16,4 @@ REMOTEIP=${6}
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/${IFACE}.pid
 
-uci del sqm.$PEERNAME.interface
-uci commit sqm
-/usr/lib/sqm/run.sh stop $IFACE
-
 echo $USERNAME $DOWNTIME Offline >> /var/log/offlineusername.log
