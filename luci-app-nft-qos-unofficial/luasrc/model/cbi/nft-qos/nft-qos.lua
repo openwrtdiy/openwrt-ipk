@@ -94,10 +94,6 @@ if has_ipv6 then
 	o:depends("limit_type","dynamic")
 end
 
-o = s:taboption("limit", DynamicList, "limit_whitelist", translate("White List for Limit Rate"))
-o.datatype = "ipaddr"
-o:depends("limit_enable","1")
-
 --
 -- limit speed by mac address
 --
@@ -194,23 +190,17 @@ if limit_mac_enable == "1" then
 	o.datatype = "macaddr"
 
 	o = x:option(Value, "drate", translate("Download Rate"))
-	o.default = def_rate_dl or '50'
+	o.default = def_rate_dl or '128'
 	o.size = 4
 	o.datatype = "uinteger"
-
-	o = x:option(ListValue, "drunit", translate("Unit"))
-	o.default = def_unit_dl or "kbytes"
-	o:value("bytes", "Bytes/s")
-	o:value("kbytes", "KBytes/s")
-	o:value("mbytes", "MBytes/s")
 
 	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.default = def_rate_ul or '50'
+	o.default = def_rate_ul or '128'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = x:option(ListValue, "urunit", translate("Unit"))
-	o.default = def_unit_ul or "kbytes"
+	o = x:option(ListValue, "unit", translate("Unit"))
+	o.default = def_unit or "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
