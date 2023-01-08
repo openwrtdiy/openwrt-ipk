@@ -32,7 +32,6 @@ s.anonymous = true
 
 s:tab("limit", translate("Limit Rate by IP Address"))
 s:tab("limitmac", translate("Limit Rate by Mac Address"))
-s:tab("priority", translate("Traffic Priority"))
 
 --
 -- Static
@@ -107,17 +106,6 @@ o.default = limit_mac_enable or o.enabled
 o.rmempty = false
 
 --
--- Priority
---
-o = s:taboption("priority", Flag, "priority_enable", translate("Enable Traffic Priority"), translate("Enable this feature"))
-o.default = enable_priority or o.enabled
-o.rmempty = false
-
-o = s:taboption("priority", ListValue, "priority_netdev", translate("Default Network Interface"), translate("Network Interface for Traffic Shaping, e.g. br-lan, eth0.1, eth0, etc."))
-o:depends("priority_enable", "1")
-wa.cbi_add_networks(o)
-
---
 -- Static Limit Rate - Download Rate
 --
 if limit_enable == "1" and limit_type == "static" then
@@ -184,46 +172,6 @@ if limit_enable == "1" and limit_type == "static" then
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
-
-end
-
---
--- Traffic Priority Settings
---
-if enable_priority == "1" then
-
-	s = m:section(TypedSection, "priority", translate("Traffic Priority Settings"))
-	s.anonymous = true
-	s.addremove = true
-	s.template = "cbi/tblsection"
-
-	o = s:option(ListValue, "protocol", translate("Protocol"))
-	o.default = "tcp"
-	o:value("tcp", "TCP")
-	o:value("udp", "UDP")
-	o:value("udplite", "UDP-Lite")
-	o:value("sctp", "SCTP")
-	o:value("dccp", "DCCP")
-
-	o = s:option(ListValue, "priority", translate("Priority"))
-	o.default = "1"
-	o:value("-400", "1")
-	o:value("-300", "2")
-	o:value("-225", "3")
-	o:value("-200", "4")
-	o:value("-150", "5")
-	o:value("-100", "6")
-	o:value("0", "7")
-	o:value("50", "8")
-	o:value("100", "9")
-	o:value("225", "10")
-	o:value("300", "11")
-
-	o = s:option(Value, "service", translate("Service"), translate("e.g. https, 23, (separator is comma)"))
-	o.default = '?'
-
-	o = s:option(Value, "comment", translate("Comment"))
-	o.default = '?'
 
 end
 
