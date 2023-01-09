@@ -255,3 +255,12 @@ msgstr ""
 #: applications/luci-app-nft-qos-unofficial/luasrc/view/nft-qos/rate.htm:44
 msgid "kB"
 msgstr ""
+
+msgid "Limit Rate by IP Address"
+msgstr ""
+
+msgid "Limit Rate by Mac Address"
+msgstr ""
+
+msgid "Limit Rate Options"
+msgstr ""
