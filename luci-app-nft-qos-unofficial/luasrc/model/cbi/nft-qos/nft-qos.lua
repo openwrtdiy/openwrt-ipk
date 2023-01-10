@@ -197,12 +197,18 @@ if limit_mac_enable == "1" then
 	o.size = 4
 	o.datatype = "uinteger"
 
+	o = x:option(ListValue, "drunit", translate("Unit"))
+	o.default = def_unit or "kbytes"
+	o:value("bytes", "Bytes/s")
+	o:value("kbytes", "KBytes/s")
+	o:value("mbytes", "MBytes/s")
+
 	o = x:option(Value, "urate", translate("Upload Rate"))
 	o.default = def_rate_ul or '128'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = x:option(ListValue, "unit", translate("Unit"))
+	o = x:option(ListValue, "urunit", translate("Unit"))
 	o.default = def_unit or "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
