@@ -48,7 +48,7 @@ if limit_ip_enable == "1" then
 
 	o = x:option(Value, "hostname", translate("Hostname"))
 	o.datatype = "hostname"
-	o.default = 'undefined'
+	o.default = ''
 
 	if has_ipv6 then
 		o = x:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
@@ -60,15 +60,53 @@ if limit_ip_enable == "1" then
 		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
 	end
 
-	o = x:option(Value, "drate", translate("Download Rate"))
+	o = x:option(ListValue, "drate", translate("Download Rate"))
 	o.default = def_rate_dl or '128'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("11000", "10 Mbps")
+	o:value("22000", "20 M")
+	o:value("33000", "30 M")
+	o:value("44000", "40 M")
+	o:value("55000", "50 M")
+	o:value("66000", "60 M")
+	o:value("77000", "70 M")
+	o:value("88000", "80 M")
+	o:value("99000", "90 M")
+	o:value("110000", "100 Mbps")
+	o:value("220000", "200 M")
+	o:value("330000", "300 M")
+	o:value("440000", "400 M")
+	o:value("550000", "500 M")
+	o:value("660000", "600 M")
+	o:value("770000", "700 M")
+	o:value("880000", "800 M")
+	o:value("990000", "900 M")
+	o:value("1100000", "1000 Mbps")
 
-	o = x:option(Value, "urate", translate("Upload Rate"))
+	o = x:option(ListValue, "urate", translate("Upload Rate"))
 	o.default = def_rate_ul or '128'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("11000", "10 Mbps")
+	o:value("22000", "20 M")
+	o:value("33000", "30 M")
+	o:value("44000", "40 M")
+	o:value("55000", "50 M")
+	o:value("66000", "60 M")
+	o:value("77000", "70 M")
+	o:value("88000", "80 M")
+	o:value("99000", "90 M")
+	o:value("110000", "100 Mbps")
+	o:value("220000", "200 M")
+	o:value("330000", "300 M")
+	o:value("440000", "400 M")
+	o:value("550000", "500 M")
+	o:value("660000", "600 M")
+	o:value("770000", "700 M")
+	o:value("880000", "800 M")
+	o:value("990000", "900 M")
+	o:value("1100000", "1000 Mbps")
 
 	o = x:option(ListValue, "unit", translate("Unit"))
 	o.default = def_unit or "kbytes"
@@ -96,10 +134,29 @@ if limit_mac_enable == "1" then
 	o.rmempty = true
 	o.datatype = "macaddr"
 
-	o = x:option(Value, "drate", translate("Download Rate"))
+	o = x:option(ListValue, "drate", translate("Download Rate"))
 	o.default = def_rate_dl or '128'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("11000", "10 Mbps")
+	o:value("22000", "20 M")
+	o:value("33000", "30 M")
+	o:value("44000", "40 M")
+	o:value("55000", "50 M")
+	o:value("66000", "60 M")
+	o:value("77000", "70 M")
+	o:value("88000", "80 M")
+	o:value("99000", "90 M")
+	o:value("110000", "100 Mbps")
+	o:value("220000", "200 M")
+	o:value("330000", "300 M")
+	o:value("440000", "400 M")
+	o:value("550000", "500 M")
+	o:value("660000", "600 M")
+	o:value("770000", "700 M")
+	o:value("880000", "800 M")
+	o:value("990000", "900 M")
+	o:value("1100000", "1000 Mbps")
 
 	o = x:option(ListValue, "drunit", translate("Unit"))
 	o.default = def_unit or "kbytes"
@@ -107,10 +164,29 @@ if limit_mac_enable == "1" then
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
 
-	o = x:option(Value, "urate", translate("Upload Rate"))
+	o = x:option(ListValue, "urate", translate("Upload Rate"))
 	o.default = def_rate_ul or '128'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("11000", "10 Mbps")
+	o:value("22000", "20 M")
+	o:value("33000", "30 M")
+	o:value("44000", "40 M")
+	o:value("55000", "50 M")
+	o:value("66000", "60 M")
+	o:value("77000", "70 M")
+	o:value("88000", "80 M")
+	o:value("99000", "90 M")
+	o:value("110000", "100 Mbps")
+	o:value("220000", "200 M")
+	o:value("330000", "300 M")
+	o:value("440000", "400 M")
+	o:value("550000", "500 M")
+	o:value("660000", "600 M")
+	o:value("770000", "700 M")
+	o:value("880000", "800 M")
+	o:value("990000", "900 M")
+	o:value("1100000", "1000 Mbps")
 
 	o = x:option(ListValue, "urunit", translate("Unit"))
 	o.default = def_unit or "kbytes"
