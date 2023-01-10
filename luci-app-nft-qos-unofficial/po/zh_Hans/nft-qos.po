@@ -263,10 +263,10 @@ msgid "kB"
 msgstr "kB"
 
 msgid "Limit Rate by IP Address"
-msgstr "开启IP流控"
+msgstr "IP地址流控"
 
 msgid "Limit Rate by Mac Address"
-msgstr "开启MAC流控"
+msgstr "MAC地址流控"
 
 msgid "Limit Rate Options"
 msgstr "流控选项"

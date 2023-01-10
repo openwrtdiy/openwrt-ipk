@@ -23,21 +23,21 @@ s.anonymous = true
 s:tab("limitopt", translate("Limit Rate Options"))
 
 --
--- Static
+-- Enable IP address rate limiting
 --
 o = s:taboption("limitopt", Flag, "limit_ip_enable", translate("Limit Rate by IP Address"), translate("Enable Limit Rate Feature"))
 o.default = limit_ip_enable or o.disabled
 o.rmempty = false
 
 --
--- limit speed by mac address
+-- Enable Mac address rate limiting
 --
 o = s:taboption("limitopt", Flag, "limit_mac_enable", translate("Limit Rate by Mac Address"), translate("Enable Limit Rate Feature"))
 o.default = limit_mac_enable or o.disabled
 o.rmempty = false
 
 --
--- Static Limit Rate - Download Rate
+-- IP address speed limit
 --
 if limit_ip_enable == "1" then
 
@@ -79,7 +79,7 @@ if limit_ip_enable == "1" then
 end
 
 --
--- Static By Mac Address
+-- Mac address speed limit
 --
 if limit_mac_enable == "1" then
 
