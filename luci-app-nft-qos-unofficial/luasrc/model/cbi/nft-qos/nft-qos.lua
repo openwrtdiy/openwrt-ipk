@@ -11,9 +11,6 @@ local def_rate_ul = uci:get("nft-qos", "default", "static_rate_ul")
 local def_unit_dl = uci:get("nft-qos", "default", "static_unit_dl")
 local def_unit_ul = uci:get("nft-qos", "default", "static_unit_ul")
 
-local def_up = uci:get("nft-qos", "default", "dynamic_bw_up")
-local def_down = uci:get("nft-qos", "default", "dynamic_bw_down")
-
 local limit_enable = uci:get("nft-qos", "default", "limit_enable")
 local limit_mac_enable = uci:get("nft-qos", "default", "limit_mac_enable")
 local limit_type = uci:get("nft-qos", "default", "limit_type")
@@ -43,7 +40,6 @@ o = s:taboption("limitopt", ListValue, "limit_type", translate("Limit Type"), tr
 o.default = limit_static or "static"
 o:depends("limit_enable","1")
 o:value("static", "Static")
-o:value("dynamic", "Dynamic")
 
 o = s:taboption("limitopt", Value, "static_rate_dl", translate("Default Download Rate"), translate("Default value for download rate"))
 o.datatype = "uinteger"
@@ -68,34 +64,6 @@ o:depends("limit_type","static")
 o:value("bytes", "Bytes/s")
 o:value("kbytes", "KBytes/s")
 o:value("mbytes", "MBytes/s")
-
---
--- Dynamic
---
-o = s:taboption("limitopt", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Default value for download bandwidth"))
-o.default = def_up or '100'
-o.datatype = "uinteger"
-o:depends("limit_type","dynamic")
-
-o = s:taboption("limitopt", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Default value for upload bandwidth"))
-o.default = def_down or '100'
-o.datatype = "uinteger"
-o:depends("limit_type","dynamic")
-
-o = s:taboption("limitopt", Value, "dynamic_cidr", translate("Target Network (IPv4/MASK)"), translate("Network to be applied, e.g. 192.168.1.0/24, 10.2.0.0/16, etc."))
-o.datatype = "cidr4"
-ipc.routes({ family = 4, type = 1 }, function(rt) o.default = rt.dest end)
-o:depends("limit_type","dynamic")
-
-if has_ipv6 then
-	o = s:taboption("limitopt", Value, "dynamic_cidr6", translate("Target Network6 (IPv6/MASK)"), translate("Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."))
-	o.datatype = "cidr6"
-	o:depends("limit_type","dynamic")
-end
-
-o = s:taboption("limitopt", DynamicList, "limit_whitelist", translate("White List for Limit Rate"))
-o.datatype = "ipaddr"
-o:depends("limit_enable","1")
 
 --
 -- limit speed by mac address
