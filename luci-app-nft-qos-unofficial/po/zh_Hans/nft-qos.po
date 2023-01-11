@@ -262,11 +262,14 @@ msgstr "例如https, 23（用逗号分隔）"
 msgid "kB"
 msgstr "kB"
 
-msgid "Limit Rate by IP Address"
+msgid "IP flow control options"
+msgstr "IP流控选项"
+
+msgid "MAC flow control options"
+msgstr "MAC流控选项"
+
+msgid "IP address speed limit"
 msgstr "IP地址流控"
 
-msgid "Limit Rate by Mac Address"
+msgid "MAC address speed limit"
 msgstr "MAC地址流控"
-
-msgid "Limit Rate Options"
-msgstr "流控选项"
