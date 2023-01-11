@@ -56,6 +56,7 @@ if limit_ip_enable == "1" then
 	end
 
 	o = x:option(ListValue, "drate", translate("Download Rate"))
+	o:value("1", "1 kbytes")
 	o:value("110", "1 M")
 	o:value("550", "5 M")
 	o:value("1100", "10 Mbps")
@@ -79,6 +80,7 @@ if limit_ip_enable == "1" then
 	o:value("110000", "1000 Mbps")
 
 	o = x:option(ListValue, "urate", translate("Upload Rate"))
+	o:value("1", "1 kbytes")
 	o:value("110", "1 M")
 	o:value("550", "5 M")
 	o:value("1100", "10 Mbps")
@@ -100,12 +102,6 @@ if limit_ip_enable == "1" then
 	o:value("88000", "800 M")
 	o:value("99000", "900 M")
 	o:value("110000", "1000 Mbps")
-
-	o = x:option(ListValue, "unit", translate("Unit"))
-	o.default = def_unit or "kbytes"
-	o:value("bytes", "Bytes/s")
-	o:value("kbytes", "KBytes/s")
-	o:value("mbytes", "MBytes/s")
 
 end
 
@@ -137,6 +133,7 @@ if limit_mac_enable == "1" then
 	o.datatype = "macaddr"
 
 	o = x:option(ListValue, "drate", translate("Download Rate"))
+	o:value("1", "1 kbytes")
 	o:value("110", "1 M")
 	o:value("550", "5 M")
 	o:value("1100", "10 Mbps")
@@ -160,6 +157,7 @@ if limit_mac_enable == "1" then
 	o:value("110000", "1000 Mbps")
 
 	o = x:option(ListValue, "urate", translate("Upload Rate"))
+	o:value("1", "1 kbytes")
 	o:value("110", "1 M")
 	o:value("550", "5 M")
 	o:value("1100", "10 Mbps")
@@ -181,12 +179,6 @@ if limit_mac_enable == "1" then
 	o:value("88000", "800 M")
 	o:value("99000", "900 M")
 	o:value("110000", "1000 Mbps")
-
-	o = x:option(ListValue, "unit", translate("Unit"))
-	o.default = def_unit or "kbytes"
-	o:value("bytes", "Bytes/s")
-	o:value("kbytes", "KBytes/s")
-	o:value("mbytes", "MBytes/s")
 
 end
 
