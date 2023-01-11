@@ -247,11 +247,14 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-msgid "Limit Rate by IP Address"
+msgid "IP flow control options"
 msgstr ""
 
-msgid "Limit Rate by Mac Address"
+msgid "MAC flow control options"
 msgstr ""
 
-msgid "Limit Rate Options"
+msgid "IP address speed limit"
+msgstr ""
+
+msgid "MAC address speed limit"
 msgstr ""
