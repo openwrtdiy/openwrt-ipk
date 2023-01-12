@@ -26,12 +26,12 @@ end
 function _action_rate(rv, n)
 	local c = nixio.fs.access("/proc/net/ipv6_route") and
 		io.popen("nft list chain inet nft-qos-monitor " .. n .. " 2>/dev/null") or
-		io.popen("nft list chain hostname nft-qos-monitor " .. n .. " 2>/dev/null")
+		io.popen("nft list chain ip nft-qos-monitor " .. n .. " 2>/dev/null")
 
 	if c then
 		for l in c:lines() do
 			local _, i, p, b = l:match(
-				'^%s+hostname ([^%s]+) ([^%s]+) counter packets (%d+) bytes (%d+)'
+				'^%s+ip ([^%s]+) ([^%s]+) counter packets (%d+) bytes (%d+)'
 			)
 			if i and p and b then
 				-- handle expression
