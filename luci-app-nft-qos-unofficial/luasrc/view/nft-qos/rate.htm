@@ -19,13 +19,13 @@
 		var bytes_pre;
 		var obj = { };
 		obj.chain = rl.chain;
-		obj.ipaddr = rl.expr[em].match.right;
+		obj.hostname = rl.expr[em].match.right;
 		obj.bytes = rl.expr[ec].counter.bytes;
 		obj.packets = rl.expr[ec].counter.packets;
 		obj.rate = 0;
 
-		if (RC[obj.chain] && RC[obj.chain][obj.ipaddr])
-				bytes_pre = RC[obj.chain][obj.ipaddr];
+		if (RC[obj.chain] && RC[obj.chain][obj.hostname])
+				bytes_pre = RC[obj.chain][obj.hostname];
 		else
 				bytes_pre = 0;
 
@@ -33,7 +33,7 @@
 
 		if (!RC[obj.chain])
 				RC[obj.chain] = { };
-		RC[obj.chain][obj.ipaddr] = obj.bytes;
+		RC[obj.chain][obj.hostname] = obj.bytes;
 
 		if (!ra[obj.chain])
 				ra[obj.chain] = [ ];
@@ -56,7 +56,7 @@
 		ra.sort(function(a, b) { return b.rate - a.rate });
 		for (var i = 0; i < ra.length; i++) {
 			rs.push([
-				ra[i].ipaddr,
+				ra[i].hostname,
 				bytes_label(ra[i].rate) + '/s',
 				bytes_label(ra[i].bytes),
 				'%s Pkts.'.format(ra[i].packets),
@@ -131,7 +131,7 @@
 	<div class="cbi-section-node">
 		<div class="table" id="rate_table_dl">
 			<div class="tr table-titles">
-				<div class="th col-2 hide-xs"><%:IP Address%></div>
+				<div class="th col-2 hide-xs"><%:HOSTNAME%></div>
 				<div class="th col-2"><%:Download Rate%></div>
 				<div class="th col-7"><%:Bytes Total%></div>
 				<div class="th col-7"><%:Packets Total%></div>
@@ -150,7 +150,7 @@
 	<div class="cbi-section-node">
 		<div class="table" id="rate_table_ul">
 			<div class="tr table-titles">
-				<div class="th col-2 hide-xs"><%:IP Address%></div>
+				<div class="th col-2 hide-xs"><%:HOSTNAME%></div>
 				<div class="th col-2"><%:Upload Rate%></div>
 				<div class="th col-7"><%:Bytes Total%></div>
 				<div class="th col-7"><%:Packets Total%></div>
