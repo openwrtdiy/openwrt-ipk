@@ -13,11 +13,19 @@ setup_user() {
 	[ -n "${servicename}" ] || servicename="*"
 	config_get password $1 password
 	config_get ipaddress $1 ipaddress
+	config_get macaddress $1 macaddress
 	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
 	config_get qos $1 qos
 	[ -n "${qos}" ] || qos="1"
 	config_get download $1 download
 	config_get upload $1 upload
+
+	uci set nft-qos.$username=client >/dev/null 2>&1
+	uci set nft-qos.$username.hostname=$username >/dev/null 2>&1
+	uci set nft-qos.$username.macaddr=$macaddress >/dev/null 2>&1
+	uci set nft-qos.$username.urate=$upload >/dev/null 2>&1
+	uci set nft-qos.$username.drate=$download >/dev/null 2>&1
+	uci commit nft-qos
 
         chmod 600 /etc/ppp/*-secrets
 }
@@ -36,3 +44,4 @@ stop() {
 	delete_user
 	killall -q pppoe-user
 }
+
