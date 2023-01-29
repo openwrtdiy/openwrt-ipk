@@ -4,16 +4,15 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI for smartdns unofficial
-LUCI_DESCRIPTION:=Provides Luci for smartdns unofficial
-LUCI_DEPENDS:=+smartdns
-LUCI_PKGARCH:=all
-
 PKG_LICENSE:=GPL-3.0-or-later
 PKG_MAINTAINER:=Nick Peng <pymumu@gmail.com>
-PKG_VERSION:=1.2022.38
-PKG_RELEASE:=2
-PKG_DATE:=2022-11-16
+PKG_VERSION:=1.2022.40
+PKG_RELEASE:=1
+
+LUCI_TITLE:=LuCI for smartdns
+LUCI_DESCRIPTION:=Provides Luci for smartdns
+LUCI_DEPENDS:=+smartdns
+LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/config
 # shown in make menuconfig <Help>
