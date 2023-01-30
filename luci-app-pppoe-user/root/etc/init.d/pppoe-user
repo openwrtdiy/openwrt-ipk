@@ -20,14 +20,13 @@ setup_user() {
 	config_get download $1 download
 	config_get upload $1 upload
 
-	uci set nft-qos.$username=client >/dev/null 2>&1
-	uci set nft-qos.$username.hostname=$username >/dev/null 2>&1
-	uci set nft-qos.$username.macaddr=$macaddress >/dev/null 2>&1
-	uci set nft-qos.$username.urate=$upload >/dev/null 2>&1
-	uci set nft-qos.$username.drate=$download >/dev/null 2>&1
+	uci set nft-qos.$username=client
+	uci set nft-qos.$username.hostname=$username
+	uci set nft-qos.$username.macaddr=$macaddress
+	uci set nft-qos.$username.urate=$upload
+	uci set nft-qos.$username.drate=$download
 	uci set nft-qos.default.limit_mac_enable=1
 	uci commit nft-qos
-	/etc/init.d/nft-qos restart
 
         chmod 600 /etc/ppp/*-secrets
 }
