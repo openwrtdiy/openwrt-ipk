@@ -20,20 +20,18 @@ setup_user() {
 	config_get download $1 download
 	config_get upload $1 upload
 
-	uci set nft-qos.$username=client
-	uci set nft-qos.$username.hostname=$username
-	uci set nft-qos.$username.macaddr=$macaddress
-	uci set nft-qos.$username.urate=$upload
-	uci set nft-qos.$username.drate=$download
-	uci set nft-qos.default.limit_mac_enable=1
-	uci commit nft-qos
-	/etc/init.d/nft-qos start
+	nft add table bridge nft-qos-mac
+	nft add chain bridge nft-qos-mac upload { type filter hook prerouting priority 0\; }
+	nft add chain bridge nft-qos-mac download { type filter hook postrouting priority 0\; }
+	nft insert rule bridge nft-qos-mac upload ether saddr $macaddress limit rate over $upload kbytes/second counter drop
+	nft insert rule bridge nft-qos-mac download ether daddr $macaddress limit rate over $download kbytes/second counter drop
 
         chmod 600 /etc/ppp/*-secrets
 }
 
 delete_user() {
 	rm -rf $CHAP_SECRETS
+	nft delete table bridge nft-qos-mac 2>/dev/null
 }
 
 start() {

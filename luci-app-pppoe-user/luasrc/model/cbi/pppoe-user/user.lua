@@ -91,6 +91,23 @@ o:value("100000", "800 M")
 o:value("112500", "900 M")
 o:value("125000", "1000 Mbps")
 
+o = s:option(Value, "connect", translate("Connections"))
+o.placeholder = translate("Connection limit")
+o.datatype = "range(64,65536)"
+o.rmempty = true
+o.default = 1024
+o:value("64", "64")
+o:value("128", "128")
+o:value("256", "256")
+o:value("512", "512")
+o:value("1024", "30 M")
+o:value("2048", "60 M")
+o:value("4096", "100 M")
+o:value("8192", "200 M")
+o:value("16384", "300 M")
+o:value("32768", "400 M")
+o:value("65536", "500 M")
+
 o = s:option(Value, "expires", translate("Expire date"))
 o.placeholder = translate("Expires")
 o.datatype = "range(20230101,20231231)"

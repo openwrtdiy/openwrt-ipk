@@ -88,7 +88,10 @@ msgstr ""
 msgid "Realtime Traffic"
 msgstr ""
 
-msgid "Connect"
+msgid "Connections"
+msgstr ""
+
+msgid "Connection limit"
 msgstr ""
 
 msgid "Realtime Upload"
