@@ -110,7 +110,7 @@ o:value("65536", "500 M")
 
 o = s:option(Value, "expires", translate("Expire date"))
 o.placeholder = translate("Expires")
-o.datatype = "range(20230101,20231231)"
+o.datatype = "range(20221101,20231231)"
 o.rmempty = true
 
 return m
