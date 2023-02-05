@@ -20,18 +20,18 @@ setup_user() {
 	config_get download $1 download
 	config_get upload $1 upload
 
-	nft add table bridge pppoe-qos-ip
-	nft add chain bridge pppoe-qos-ip upload "{type filter hook prerouting priority 0; policy accept;}"
-	nft add chain bridge pppoe-qos-ip download "{type filter hook postrouting priority 0; policy accept;}"
-	nft insert rule bridge pppoe-qos-ip upload ip saddr "$ipaddress" limit rate over "$upload" kbytes/second counter drop
-	nft insert rule bridge pppoe-qos-ip download ip daddr "$ipaddress" limit rate over "$download" kbytes/second counter drop
+	nft add table bridge pppoe-qos
+	nft add chain bridge pppoe-qos upload "{type filter hook prerouting priority 0; policy accept;}"
+	nft add chain bridge pppoe-qos download "{type filter hook postrouting priority 0; policy accept;}"
+	nft insert rule bridge pppoe-qos upload ip saddr "$ipaddress" limit rate over "$upload" kbytes/second counter drop
+	nft insert rule bridge pppoe-qos download ip daddr "$ipaddress" limit rate over "$download" kbytes/second counter drop
 
         chmod 600 /etc/ppp/*-secrets
 }
 
 delete_user() {
 	rm -rf $CHAP_SECRETS
-	nft delete table bridge pppoe-qos-ip 2>/dev/null
+	nft delete table bridge pppoe-qos 2>/dev/null
 }
 
 start() {
