@@ -19,19 +19,31 @@ setup_user() {
 	[ -n "${qos}" ] || qos="1"
 	config_get download $1 download
 	config_get upload $1 upload
+	config_get qdisc $1 qdisc
+	[ -n "${qdisc}" ] || qdisc="fq_codel"
+	config_get script $1 script
+	[ -n "${script}" ] || script="simple.qos"
+	config_get linklayer $1 linklayer
+	[ -n "${linklayer}" ] || linklayer="ethernet"
 
-	nft add table ip pppoe-qos
-	nft add chain ip pppoe-qos upload "{type filter hook prerouting priority 0; policy accept;}"
-	nft add chain ip pppoe-qos download "{type filter hook postrouting priority 0; policy accept;}"
-	nft insert rule ip pppoe-qos upload ip saddr "$ipaddress" limit rate over "$upload" kbytes/second counter drop
-	nft insert rule ip pppoe-qos download ip daddr "$ipaddress" limit rate over "$download" kbytes/second counter drop
+	uci del sqm.eth1 >/dev/null 2>&1
+        uci set sqm.$username=queue >/dev/null 2>&1
+        uci set sqm.$username.enabled=$qos >/dev/null 2>&1
+        uci set sqm.$username.download=$download >/dev/null 2>&1
+        uci set sqm.$username.upload=$upload >/dev/null 2>&1
+        uci set sqm.$username.qdisc=$qdisc >/dev/null 2>&1
+        uci set sqm.$username.script=$script >/dev/null 2>&1
+        uci set sqm.$username.linklayer=$linklayer >/dev/null 2>&1
+        uci set sqm.$username.debug_logging=0 >/dev/null 2>&1
+        uci set sqm.$username.verbosity=5 >/dev/null 2>&1
+        uci set sqm.$username.overhead=44 >/dev/null 2>&1
+        uci commit sqm
 
         chmod 600 /etc/ppp/*-secrets
 }
 
 delete_user() {
 	rm -rf $CHAP_SECRETS
-	nft delete table ip pppoe-qos 2>/dev/null
 }
 
 start() {

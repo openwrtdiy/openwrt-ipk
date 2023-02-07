@@ -10,17 +10,20 @@ function index()
 	entry({"admin", "status", "userstatus", "downtimeuser"}, form("pppoe-user/downtimeuser"), _("Downtime User"), 3).leaf = true
 	entry({"admin", "status", "userstatus", "onlinelog"}, form("pppoe-user/onlinelog"), _("Online Log"), 4).leaf = true
 	entry({"admin", "status", "userstatus", "offlinelog"}, form("pppoe-user/offlinelog"), _("Offline Log"), 5).leaf = true
-	entry({"admin", "status", "userstatus", "rate"}, template("nft-qos/rate"), _("Rate"), 6).leaf = true
+	entry({"admin", "status", "userstatus", "rate"}, template("pppoe/rate"), _("Rate"), 6).leaf = true
 	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
 
 	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("Broadband Account Management"), 99)
 	entry({"admin", "services", "pppoe-user", "user"}, cbi("pppoe-user/user"), _("User Manager")).leaf = true
+
+	entry({"admin", "network", "bandwidth"}, alias("admin", "network", "bandwidth", "speed"), _("Broadband account speed limit"), 100)
+	entry({"admin", "network", "bandwidth", "speed"}, cbi("pppoe-user/speed"), _("Traffic Control")).leaf = true
 end
 
 function _action_rate(rv, n)
 	local c = nixio.fs.access("/proc/net/ipv6_route") and
-		io.popen("nft list chain inet nft-qos-monitor " .. n .. " 2>/dev/null") or
-		io.popen("nft list chain ip nft-qos-monitor " .. n .. " 2>/dev/null")
+		io.popen("nft list chain inet pppoe-qos-monitor " .. n .. " 2>/dev/null") or
+		io.popen("nft list chain ip pppoe-qos-monitor " .. n .. " 2>/dev/null")
 
 	if c then
 		for l in c:lines() do
@@ -32,7 +35,7 @@ function _action_rate(rv, n)
 				rv[#rv + 1] = {
 					rule = {
 						family = "inet",
-						table = "nft-qos-monitor",
+						table = "pppoe-qos-monitor",
 						chain = n,
 						handle = 0,
 						expr = {

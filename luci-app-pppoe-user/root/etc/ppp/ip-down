@@ -14,6 +14,11 @@ PEERIP=${5}
 REMOTEIP=${6}
 
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
-rm -f /var/run/${IFACE}.pid
 
-echo $USERNAME $DOWNTIME Offline >> /var/log/offlineusername.log
+/usr/lib/sqm/run.sh stop $IFNAME
+uci del sqm.$PEERNAME.interface
+uci commit sqm
+
+rm -f /var/run/$IFNAME.pid
+
+echo $PEERNAME $IFNAME $5 $DOWNTIME Offline >> /var/log/offlineusername.log
