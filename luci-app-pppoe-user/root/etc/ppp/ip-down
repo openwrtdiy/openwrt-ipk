@@ -1,4 +1,23 @@
 #!/bin/sh
+#
+# This script is run by the pppd _after_ the link is brought down.
+# It should be used to delete routes, unset IP addresses etc.
+#
+# This script is called with the following arguments:
+#    Arg  Name               Example
+#    $1   Interface name     ppp0
+#    $2   The tty            ttyS1
+#    $3   The link speed     38400
+#    $4   Local IP number    12.34.56.78
+#    $5   Peer  IP number    12.34.56.99
+#
+
+#
+# The  environment is cleared before executing this script
+# so the path must be reset
+#
+PATH=/usr/sbin:/sbin:/usr/bin:/bin
+export PATH
 
 DOWNTIME="$(date "+%Y-%m-%d %H:%M:%S")"
 CONFIG="pppoe-user"
@@ -13,12 +32,26 @@ LOCALIP=${4}
 PEERIP=${5}
 REMOTEIP=${6}
 
-rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
+echo time: `date -d today +%F_%T` Offline >> /var/log/offlineusername.log
+echo username: $PEERNAME >> /var/log/offlineusername.log
+echo interface: $IFNAME >> /var/log/offlineusername.log
+echo device: $DEVICE  >> /var/log/offlineusername.log
+echo clientIP: $IPREMOTE >> /var/log/offlineusername.log
+echo connect time: $CONNECT_TIME s >> /var/log/offlineusername.log
+echo bytes sent: $BYTES_SENT B >> /var/log/offlineusername.log
+echo bytes rcvd: $BYTES_RCVD B >> /var/log/offlineusername.log
+sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
+sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
+echo bytes sum: $sum MB >> /var/log/offlineusername.log
+ave=`echo “scale=2;$sum_bytes/1024/$CONNECT_TIME”|bc`
+echo average speed: $ave KB/s >> /var/log/offlineusername.log
+echo  >> /var/log/offlineusername.log
 
 /usr/lib/sqm/run.sh stop $IFNAME
 uci del sqm.$PEERNAME.interface
 uci commit sqm
 
+rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/$IFNAME.pid
 
-echo $PEERNAME $IFNAME $5 $DOWNTIME Offline >> /var/log/offlineusername.log
+exit 0
