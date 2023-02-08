@@ -6,7 +6,7 @@ LUCI_DEPENDS:=+luci-compat +kmod-nft-netdev +kmod-nft-bridge +nftables
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
 PKG_RELEASE:=1
-PKG_DATE:=2023-02-07
+PKG_DATE:=2023-02-08
 
 define Package/luci-app-pppoe-user/preinst
 #!/bin/sh
