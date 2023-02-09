@@ -36,18 +36,9 @@ o.datatype = "macaddr"
 o.rmempty = true
 
 o = s:option(ListValue, "upload", translate("Upload speed"))
-o.size = 4
+o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
-o:value("1100", "1 Mbps")
-o:value("2200", "2 M")
-o:value("3300", "3 M")
-o:value("4400", "4 M")
-o:value("5500", "5 M")
-o:value("6600", "6 M")
-o:value("7700", "7 M")
-o:value("8800", "8 M")
-o:value("9900", "9 M")
 o:value("11000", "10 Mbps")
 o:value("22000", "20 M")
 o:value("33000", "30 M")
@@ -69,18 +60,9 @@ o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
 
 o = s:option(ListValue, "download", translate("Download speed"))
-o.size = 4
+o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
-o:value("1100", "1 Mbps")
-o:value("2200", "2 M")
-o:value("3300", "3 M")
-o:value("4400", "4 M")
-o:value("5500", "5 M")
-o:value("6600", "6 M")
-o:value("7700", "7 M")
-o:value("8800", "8 M")
-o:value("9900", "9 M")
 o:value("11000", "10 Mbps")
 o:value("22000", "20 M")
 o:value("33000", "30 M")
@@ -103,9 +85,9 @@ o:value("1100000", "1000 Mbps")
 
 o = s:option(Value, "connect", translate("Connections"))
 o.placeholder = translate("Connection limit")
+o.default = "1024"
 o.datatype = "range(64,65536)"
 o.rmempty = true
-o.default = 1024
 o:value("64", "64")
 o:value("128", "128")
 o:value("256", "256")

@@ -14,6 +14,8 @@ o.readonly = true
 
 o = s:option(ListValue, "upload", translate("Upload speed"))
 o.placeholder = translate("Speed kbit/s")
+o.default = "33000"
+o.datatype = "uinteger"
 o.rmempty = true
 o:value("11000", "10 Mbps")
 o:value("22000", "20 M")
@@ -34,10 +36,11 @@ o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
-o.datatype = "uinteger"
 
 o = s:option(ListValue, "download", translate("Download speed"))
 o.placeholder = translate("Speed kbit/s")
+o.default = "33000"
+o.datatype = "uinteger"
 o.rmempty = true
 o:value("11000", "10 Mbps")
 o:value("22000", "20 M")
@@ -58,7 +61,6 @@ o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
-o.datatype = "uinteger"
 
 o = s:option(ListValue, "qdisc", translate("Queuing Rules"))
 o:value("fq_codel", translate("fq_codel"))
