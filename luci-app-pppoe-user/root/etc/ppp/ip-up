@@ -20,7 +20,9 @@
 PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
-UPTIME="$(date "+%Y-%m-%d %H:%M:%S")"
+PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
+PPPOE_LOG=/var/log/pppoeuserlog
+PPPOE_LOG_FILE=${PPPOE_LOG}/$PEERNAME.log
 CONFIG="pppoe-user"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
@@ -36,10 +38,14 @@ REMOTEIP=${6}
 PID="$(cat /var/run/${IFACE}.pid 2>/dev/null)"
 MAC=$(top -bn1 | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){6}" | cut -d : -f 2,2-7)
 
-echo >> /var/log/onlineusername.log
-echo username: $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE time: `date -d today +%F_%T` Online >> /var/log/onlineusername.log
-
+mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
+
+echo >> /var/log/onlineusername.log
+echo $PPPOE_TIME Online $PEERNAME $IFNAME $DEVICE $IPREMOTE >> /var/log/onlineusername.log
+
+echo >> $PPPOE_LOG_FILE
+sed -i "1i\\$PPPOE_TIME Online $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE\n" $PPPOE_LOG_FILE
 
 cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	{

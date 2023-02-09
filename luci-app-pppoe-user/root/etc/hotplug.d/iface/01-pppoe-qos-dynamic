@@ -1,13 +1,10 @@
 #!/bin/sh
-#
-# Copyright 2018 rosysong@rosinson.com
-#
 
 export initscript="pppoe-qos-dynamic"
 
 . /lib/functions.sh
-. /lib/nft-qos/core.sh
-. /lib/nft-qos/dynamic.sh
+. /lib/pppoe-qos/core.sh
+. /lib/pppoe-qos/dynamic.sh
 
 NFT_QOS_DYNAMIC_ON=
 

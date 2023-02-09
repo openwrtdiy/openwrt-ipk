@@ -1,7 +1,4 @@
 #!/bin/sh
-#
-# Copyright (C) 2018 rosysong@rosinson.com
-#
 
 # for uci_validate_section()
 . /lib/functions/procd.sh

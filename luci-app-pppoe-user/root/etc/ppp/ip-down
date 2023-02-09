@@ -19,7 +19,9 @@
 PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
-DOWNTIME="$(date "+%Y-%m-%d %H:%M:%S")"
+PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
+PPPOE_LOG=/var/log/pppoeuserlog
+PPPOE_LOG_FILE=${PPPOE_LOG}/$PEERNAME.log
 CONFIG="pppoe-user"
 CONFIG_PATH=/var/etc/${CONFIG}
 SESSION_PATH=${CONFIG_PATH}/session
@@ -32,20 +34,18 @@ LOCALIP=${4}
 PEERIP=${5}
 REMOTEIP=${6}
 
-echo time: `date -d today +%F_%T` Offline >> /var/log/offlineusername.log
-echo username: $PEERNAME >> /var/log/offlineusername.log
-echo interface: $IFNAME >> /var/log/offlineusername.log
-echo device: $DEVICE  >> /var/log/offlineusername.log
-echo clientIP: $IPREMOTE >> /var/log/offlineusername.log
-echo connect time: $CONNECT_TIME s >> /var/log/offlineusername.log
-echo bytes sent: $BYTES_SENT B >> /var/log/offlineusername.log
-echo bytes rcvd: $BYTES_RCVD B >> /var/log/offlineusername.log
+echo >> /var/log/offlineusername.log
+echo $PPPOE_TIME Offline $PEERNAME $IFNAME $DEVICE $IPREMOTE Connection Times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD >> /var/log/offlineusername.log
+
+sed -i "1i\\$PPPOE_TIME Offline $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" $PPPOE_LOG_FILE
+sed -i "2i\\connect time: $CONNECT_TIME s" $PPPOE_LOG_FILE
+sed -i "3i\\bytes sent: $BYTES_SENT B" $PPPOE_LOG_FILE
+sed -i "4i\\bytes rcvd: $BYTES_RCVD B" $PPPOE_LOG_FILE
 sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
 sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
-echo bytes sum: $sum MB >> /var/log/offlineusername.log
-ave=`echo “scale=2;$sum_bytes/1024/$CONNECT_TIME”|bc`
-echo average speed: $ave KB/s >> /var/log/offlineusername.log
-echo  >> /var/log/offlineusername.log
+sed -i "5i\\bytes sum: $sum MB" $PPPOE_LOG_FILE
+ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
+sed -i "6i\\average speed: $ave KB/s\n" $PPPOE_LOG_FILE
 
 /usr/lib/sqm/run.sh stop $IFNAME
 uci del sqm.$PEERNAME.interface

@@ -2,7 +2,7 @@
 
 export initscript="pppoe-qos-monitor"
 
-. /lib/nft-qos/monitor.sh
+. /lib/pppoe-qos/monitor.sh
 
 logger -t pppoe-qos-monitor "ACTION=$ACTION, MACADDR=$MACADDR, IPADDR=$IPADDR, HOSTNAME=$HOSTNAME"
 

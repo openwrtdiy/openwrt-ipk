@@ -1,9 +1,4 @@
 #!/bin/sh
-#
-# Copyright (C) 2018 rosysong@rosinson.com
-#
-
-. /lib/nft-qos/core.sh
 
 qosdef_monitor_get_ip_handle() { # <family> <chain> <ip>
 	echo $(nft -a list chain $1 pppoe-qos-monitor $2 2>/dev/null | grep $3 | awk '{print $11}')
