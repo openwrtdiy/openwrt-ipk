@@ -42,10 +42,10 @@ mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
 
 echo >> /var/log/onlineusername.log
-echo $PPPOE_TIME Online $PEERNAME $IFNAME $DEVICE $IPREMOTE >> /var/log/onlineusername.log
+echo $PPPOE_TIME Online $PEERNAME $IFNAME $DEVICE $IPREMOTE $MAC >> /var/log/onlineusername.log
 
 echo >> $PPPOE_LOG_FILE
-sed -i "1i\\$PPPOE_TIME Online $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE\n" $PPPOE_LOG_FILE
+sed -i "1i\\$PPPOE_TIME Online $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC\n" $PPPOE_LOG_FILE
 
 cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	{
@@ -56,7 +56,7 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	    "ip": "${PEERIP}",
 	    "mac": "${MAC}",
 	    "pid": "${PID}",
-	    "uptime": "${UPTIME}",
+	    "uptime": "${PPPOE_TIME}",
 	    "downtime": "${DOWNTIME}",
 	    "renewaldate": "${RENEWALDATE}"
 	}

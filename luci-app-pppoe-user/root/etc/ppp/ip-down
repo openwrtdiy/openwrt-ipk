@@ -19,6 +19,9 @@
 PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
+uci del sqm.$PEERNAME.interface
+uci commit sqm
+
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
 PPPOE_LOG=/var/log/pppoeuserlog
 PPPOE_LOG_FILE=${PPPOE_LOG}/$PEERNAME.log
@@ -46,10 +49,6 @@ sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
 sed -i "5i\\bytes sum: $sum MB" $PPPOE_LOG_FILE
 ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
 sed -i "6i\\average speed: $ave KB/s\n" $PPPOE_LOG_FILE
-
-/usr/lib/sqm/run.sh stop $IFNAME
-uci del sqm.$PEERNAME.interface
-uci commit sqm
 
 rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
 rm -f /var/run/$IFNAME.pid
