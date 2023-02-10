@@ -21,7 +21,7 @@ PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
-PPPOE_LOG=/var/log/pppoeuserlog
+PPPOE_LOG=/var/log/pppoeuser
 PPPOE_LOG_FILE=${PPPOE_LOG}/$PEERNAME.log
 CONFIG="pppoe-user"
 CONFIG_PATH=/var/etc/${CONFIG}
