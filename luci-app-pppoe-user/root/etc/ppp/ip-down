@@ -47,18 +47,9 @@ sed -i "5i\\bytes sum: $sum MB" $PPPOE_LOG_FILE
 ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
 sed -i "6i\\average speed: $ave KB/s\n" $PPPOE_LOG_FILE
 
-kill -INT "cat /var/run/$IFNAME.pid"
-
-rm -f ${SESSION_PATH}/${USERNAME}.${IFACE}
-
 uci del sqm.$PEERNAME.interface
 uci commit sqm
 
-#/usr/lib/sqm/run.sh stop $IFNAME
-
-rm -f /var/run/sqm/$IFNAME.state
-rm -f /var/run/sqm/$IFNAME.iptables.log
-
-#rm -f /var/run/$IFNAME.pid
+/usr/lib/sqm/run.sh stop $IFNAME
 
 exit 0
