@@ -21,11 +21,13 @@ PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
-PPPOE_LOG=/var/log/pppoeuser
-PPPOE_LOG_FILE=${PPPOE_LOG}/$PEERNAME.log
+PPPOE_LOG="/var/log/pppoeuser"
+PPPOE_LOG_FILE="${PPPOE_LOG}/$PEERNAME.log"
 CONFIG="pppoe-user"
-CONFIG_PATH=/var/etc/${CONFIG}
-SESSION_PATH=${CONFIG_PATH}/session
+CONFIG_PATH="/var/etc/${CONFIG}"
+SESSION_PATH="${CONFIG_PATH}/session"
+CFGID="$(uci show $CONFIG | grep $PEERNAME | cut -d '.' -sf 2)"
+RENEWALDATE="$(uci get $CONFIG.$CFGID.expires)"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
@@ -35,30 +37,29 @@ LOCALIP=${4}
 PEERIP=${5}
 REMOTEIP=${6}
 
-PID="$(cat /var/run/${IFACE}.pid 2>/dev/null)"
-MAC=$(top -bn1 | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){6}" | cut -d : -f 2,2-7)
+PID="$(cat /var/run/${IFNAME}.pid 2>/dev/null)"
+MAC="$(top -bn1 | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){6}" | cut -d : -f 2,2-7)"
 
 mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
 
 echo >> /var/log/onlineusername.log
-echo $PPPOE_TIME Online $PEERNAME $IFNAME $DEVICE $IPREMOTE $MAC >> /var/log/onlineusername.log
+echo "$PPPOE_TIME Online $PEERNAME $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/onlineusername.log
 
+echo "$PPPOE_TIME Online $PEERNAME interface: $IFNAME pid: $PID device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC" >> $PPPOE_LOG_FILE
 echo >> $PPPOE_LOG_FILE
-sed -i "1i\\$PPPOE_TIME Online $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC\n" $PPPOE_LOG_FILE
 
 cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	{
 	    "username": "${USERNAME}",
+	    "mac": "${MAC}",
+	    "pid": "${PID}",
 	    "interface": "${IFACE}",
 	    "tty": "${TTY}",
 	    "speed": "${SPEED}",
 	    "ip": "${PEERIP}",
-	    "mac": "${MAC}",
-	    "pid": "${PID}",
 	    "uptime": "${PPPOE_TIME}",
-	    "downtime": "${DOWNTIME}",
-	    "renewaldate": "${RENEWALDATE}"
+	    "updated": "${RENEWALDATE}"
 	}
 EOF
 
@@ -68,7 +69,7 @@ cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cu
 	[ -n "$HAS_LOGIN" ] && {
 		KO_IFACE=$(echo $HAS_LOGIN | awk -F '.' '{print $2}')
 		KO_PID=$(cat /var/run/${KO_IFACE}.pid 2>/dev/null)
-		[ -n "$KO_PID" ] && kill -9 ${KO_PID} >/dev/null 2>&1
+		[ -n "$KO_PID" ] && kill -15 ${KO_PID} >/dev/null 2>&1
 		rm -f ${SESSION_PATH}/${HAS_LOGIN}
 		rm -f /var/run/${KO_IFACE}.pid
 	}

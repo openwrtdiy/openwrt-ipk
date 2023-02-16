@@ -76,8 +76,8 @@ msgstr "上线时间"
 msgid "Down Time"
 msgstr "下线时间"
 
-msgid "Renewal date"
-msgstr "续费日期"
+msgid "Renewal Date"
+msgstr "续订日期"
 
 msgid "Forced Offline"
 msgstr "强制下线"
@@ -118,3 +118,5 @@ msgstr "上线日志"
 msgid "Offline Log"
 msgstr "下线日志"
 
+msgid "Process ID"
+msgstr "进程 ID"

@@ -79,7 +79,7 @@ msgstr ""
 msgid "Down Time"
 msgstr ""
 
-msgid "Renewal date"
+msgid "Renewal Date"
 msgstr ""
 
 msgid "Forced Offline"
@@ -121,3 +121,5 @@ msgstr ""
 msgid "Offline Log"
 msgstr ""
 
+msgid "Process ID"
+msgstr ""

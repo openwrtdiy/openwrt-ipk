@@ -20,32 +20,25 @@ PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
-PPPOE_LOG=/var/log/pppoeuser
-PPPOE_LOG_FILE=${PPPOE_LOG}/$PEERNAME.log
-CONFIG="pppoe-user"
-CONFIG_PATH=/var/etc/${CONFIG}
-SESSION_PATH=${CONFIG_PATH}/session
+PPPOE_LOG="/var/log/pppoeuser"
+PPPOE_LOG_FILE="${PPPOE_LOG}/$PEERNAME.log"
+SESSION_PATH="/var/etc/pppoe-user/session"
 
-USERNAME=${PEERNAME}
-IFACE=${1}
-TTY=${2}
-SPEED=${3}
-LOCALIP=${4}
-PEERIP=${5}
-REMOTEIP=${6}
+rm -f ${SESSION_PATH}/${PEERNAME}.${IFNAME}
 
 echo >> /var/log/offlineusername.log
-echo $PPPOE_TIME Offline $PEERNAME $IFNAME $DEVICE $IPREMOTE Connection Times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD >> /var/log/offlineusername.log
+echo "$PPPOE_TIME Offline $PEERNAME $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /var/log/offlineusername.log
 
-sed -i "1i\\$PPPOE_TIME Offline $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" $PPPOE_LOG_FILE
-sed -i "2i\\connect time: $CONNECT_TIME s" $PPPOE_LOG_FILE
-sed -i "3i\\bytes sent: $BYTES_SENT B" $PPPOE_LOG_FILE
-sed -i "4i\\bytes rcvd: $BYTES_RCVD B" $PPPOE_LOG_FILE
+echo "$PPPOE_TIME Offline $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" >> $PPPOE_LOG_FILE
+echo "Connect time: $CONNECT_TIME minutes" >> $PPPOE_LOG_FILE
+echo "Sent: $BYTES_SENT bytes" >> $PPPOE_LOG_FILE
+echo "Received: $BYTES_RCVD bytes" >> $PPPOE_LOG_FILE
 sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
 sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
-sed -i "5i\\bytes sum: $sum MB" $PPPOE_LOG_FILE
+echo "Bytes sum: $sum MB" >> $PPPOE_LOG_FILE
 ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
-sed -i "6i\\average speed: $ave KB/s\n" $PPPOE_LOG_FILE
+echo "Average speed: $ave KB/s" >> $PPPOE_LOG_FILE
+echo >> $PPPOE_LOG_FILE
 
 uci del sqm.$PEERNAME.interface
 uci commit sqm
