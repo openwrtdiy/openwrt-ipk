@@ -1,6 +1,6 @@
 #!/bin/sh /etc/rc.common
 
-START=99
+START=40
 
 CHAP_SECRETS=/etc/ppp/chap-secrets
 
@@ -14,7 +14,6 @@ setup_user() {
 	config_get password $1 password
 	config_get ipaddress $1 ipaddress
 	config_get macaddress $1 macaddress
-	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
 	config_get qos $1 qos
 	[ -n "${qos}" ] || qos="1"
 	config_get download $1 download
@@ -26,21 +25,24 @@ setup_user() {
 	config_get linklayer $1 linklayer
 	[ -n "${linklayer}" ] || linklayer="ethernet"
 
-	uci del sqm.eth1 >/dev/null 2>&1
-        uci set sqm.$username=queue >/dev/null 2>&1
-        uci set sqm.$username.enabled=$qos >/dev/null 2>&1
-        uci set sqm.$username.download=$upload >/dev/null 2>&1
-        uci set sqm.$username.upload=$download >/dev/null 2>&1
-        uci set sqm.$username.qdisc=$qdisc >/dev/null 2>&1
-        uci set sqm.$username.script=$script >/dev/null 2>&1
-        uci set sqm.$username.linklayer=$linklayer >/dev/null 2>&1
-        uci set sqm.$username.debug_logging=0 >/dev/null 2>&1
-        uci set sqm.$username.verbosity=5 >/dev/null 2>&1
-        uci set sqm.$username.overhead=44 >/dev/null 2>&1
-        uci commit sqm >/dev/null 2>&1
+	touch ${CHAP_SECRETS}
+	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
+        chmod 600 /etc/ppp/*-secrets
+
+	uci del sqm.eth1
+        uci set sqm.$username=queue
+        uci set sqm.$username.enabled=$qos
+        uci set sqm.$username.download=$upload
+        uci set sqm.$username.upload=$download
+        uci set sqm.$username.qdisc=$qdisc
+        uci set sqm.$username.script=$script
+        uci set sqm.$username.linklayer=$linklayer
+        uci set sqm.$username.debug_logging=0
+        uci set sqm.$username.verbosity=5
+        uci set sqm.$username.overhead=44
+        uci commit sqm
         /etc/init.d/sqm restart
 
-        chmod 600 /etc/ppp/*-secrets
 }
 
 delete_user() {
