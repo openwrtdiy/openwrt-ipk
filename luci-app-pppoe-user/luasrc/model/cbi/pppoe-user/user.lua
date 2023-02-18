@@ -36,6 +36,12 @@ o.placeholder = translate("Manual")
 o.datatype = "macaddr"
 o.rmempty = true
 
+o = s:option(ListValue, "package", translate("Broadband Package"))
+o.default = "family"
+o.rmempty = true
+o:value("family", "Family")
+o:value("office", "Office")
+
 o = s:option(ListValue, "upload", translate("Upload speed"))
 o.default = "33000"
 o.datatype = "uinteger"

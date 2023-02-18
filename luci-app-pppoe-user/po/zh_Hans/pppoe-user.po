@@ -64,8 +64,8 @@ msgstr "队列脚本"
 msgid "Link Layer"
 msgstr "链路层"
 
-msgid "Broadband User Status"
-msgstr "宽带用户状态"
+msgid "User Status"
+msgstr "用户状态"
 
 msgid "Online User"
 msgstr "在线用户"
@@ -120,3 +120,12 @@ msgstr "下线日志"
 
 msgid "Process ID"
 msgstr "进程 ID"
+
+msgid "Broadband Package"
+msgstr "宽带套餐"
+
+msgid "Family"
+msgstr "家庭"
+
+msgid "Office"
+msgstr "办公"

@@ -67,7 +67,7 @@ msgstr ""
 msgid "Link Layer"
 msgstr ""
 
-msgid "Broadband User Status"
+msgid "User Status"
 msgstr ""
 
 msgid "Online User"
@@ -122,4 +122,13 @@ msgid "Offline Log"
 msgstr ""
 
 msgid "Process ID"
+msgstr ""
+
+msgid "Broadband Package"
+msgstr ""
+
+msgid "Family"
+msgstr ""
+
+msgid "Office"
 msgstr ""

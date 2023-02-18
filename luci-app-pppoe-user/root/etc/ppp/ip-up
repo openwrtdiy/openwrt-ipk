@@ -27,11 +27,12 @@ CONFIG="pppoe-user"
 CONFIG_PATH="/var/etc/${CONFIG}"
 SESSION_PATH="${CONFIG_PATH}/session"
 CFGID="$(uci show $CONFIG | grep $PEERNAME | cut -d '.' -sf 2)"
-RENEWALDATE="$(uci get $CONFIG.$CFGID.expires)"
+USER_PACKAGE="$(uci get $CONFIG.$CFGID.package)"
 USER_QOS="$(uci get $CONFIG.$CFGID.qos)"
 USER_DOWNLOAD="$(uci get $CONFIG.$CFGID.download)"
 USER_UPLOAD="$(uci get $CONFIG.$CFGID.upload)"
 USER_CONNECT="$(uci get $CONFIG.$CFGID.connect)"
+RENEWAL_DATE="$(uci get $CONFIG.$CFGID.expires)"
 
 SQM_ENABLED="$(uci get $CONFIG.$CFGID.qos)"
 SQM_INTERFACE="$IFNAME"
@@ -73,8 +74,9 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	    "tty": "${TTY}",
 	    "speed": "${SPEED}",
 	    "ip": "${PEERIP}",
+	    "package": "${USER_PACKAGE}",
 	    "uptime": "${PPPOE_TIME}",
-	    "updated": "${RENEWALDATE}"
+	    "updated": "${RENEWAL_DATE}"
 	}
 EOF
 

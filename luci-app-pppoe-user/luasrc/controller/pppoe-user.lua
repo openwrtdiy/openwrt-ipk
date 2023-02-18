@@ -4,7 +4,7 @@ function index()
 	if not nixio.fs.access("/etc/config/pppoe-user") then
 		return
 	end
-	entry({"admin", "status", "userstatus"}, alias("admin", "status", "userstatus", "onlineuser"), _("Broadband User Status"), 999)
+	entry({"admin", "status", "userstatus"}, alias("admin", "status", "userstatus", "onlineuser"), _("User Status"), 999)
 	entry({"admin", "status", "userstatus", "onlineuser"}, form("pppoe-user/onlineuser"), _("Online User"), 1).leaf = true
 	entry({"admin", "status", "userstatus", "realtimetraffic"}, form("pppoe-user/realtimetraffic"), _("Realtime Traffic"), 2).leaf = true
 	entry({"admin", "status", "userstatus", "downtimeuser"}, form("pppoe-user/downtimeuser"), _("Downtime User"), 3).leaf = true
