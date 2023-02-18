@@ -17,6 +17,9 @@ o.placeholder = translate("Speed kbit/s")
 o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
+o:value("1100", "1 Mbps")
+o:value("3300", "3 M")
+o:value("6600", "6 M")
 o:value("11000", "10 Mbps")
 o:value("22000", "20 M")
 o:value("33000", "30 M")
@@ -42,6 +45,9 @@ o.placeholder = translate("Speed kbit/s")
 o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
+o:value("1100", "1 Mbps")
+o:value("3300", "3 M")
+o:value("6600", "6 M")
 o:value("11000", "10 Mbps")
 o:value("22000", "20 M")
 o:value("33000", "30 M")
