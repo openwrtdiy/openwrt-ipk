@@ -3,19 +3,9 @@
 export initscript="pppoe-qos-dynamic"
 
 . /lib/functions.sh
-. /lib/pppoe-qos/core.sh
-. /lib/pppoe-qos/dynamic.sh
 
-NFT_QOS_DYNAMIC_ON=
-
-qosdef_check_if_dynamic() {
-	[ $limit_enable -eq 1 -a \
-	  "$limit_type" = "dynamic" ] && \
-	    NFT_QOS_DYNAMIC_ON="y"
-}
-
-
-logger -t pppoe-qos-dynamic "ACTION=$ACTION, MACADDR=$MACADDR, IPADDR=$IPADDR, HOSTNAME=$HOSTNAME"
+PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
+echo "$PPPOE_TIME Track INTERFACE=$INTERFACE, DEVICE=$DEVICE, MACADDR=$MACADDR, IPADDR=$IPADDR, HOSTNAME=$HOSTNAME ACTION=$ACTION" >> /var/log/interface.log
 
 case "$ACTION" in
 	add | update | remove)

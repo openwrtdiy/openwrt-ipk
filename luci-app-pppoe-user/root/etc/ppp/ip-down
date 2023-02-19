@@ -26,8 +26,8 @@ SESSION_PATH="/var/etc/pppoe-user/session"
 
 rm -f ${SESSION_PATH}/${PEERNAME}.${IFNAME}
 
-echo >> /var/log/offlineusername.log
-echo "$PPPOE_TIME Offline $PEERNAME $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /var/log/offlineusername.log
+echo >> /var/log/pppoelog.log
+echo "$PPPOE_TIME Offline $PEERNAME $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /var/log/pppoelog.log
 
 echo "$PPPOE_TIME Offline $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" >> $PPPOE_LOG_FILE
 echo "Connect time: $CONNECT_TIME minutes" >> $PPPOE_LOG_FILE
@@ -42,6 +42,9 @@ echo >> $PPPOE_LOG_FILE
 
 uci del sqm.$PEERNAME
 uci commit sqm
+
+#/etc/init.d/sqm reload
+#/etc/init.d/sqm restart
 
 /usr/lib/sqm/run.sh stop $IFNAME
 

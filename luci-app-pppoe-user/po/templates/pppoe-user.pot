@@ -115,10 +115,7 @@ msgstr ""
 msgid "Account opening date"
 msgstr ""
 
-msgid "Online Log"
-msgstr ""
-
-msgid "Offline Log"
+msgid "PPPoE Log"
 msgstr ""
 
 msgid "Process ID"
@@ -131,4 +128,7 @@ msgid "Family"
 msgstr ""
 
 msgid "Office"
+msgstr ""
+
+msgid "Interface Log"
 msgstr ""

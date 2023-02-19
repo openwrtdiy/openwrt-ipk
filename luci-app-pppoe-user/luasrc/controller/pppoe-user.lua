@@ -8,8 +8,8 @@ function index()
 	entry({"admin", "status", "userstatus", "onlineuser"}, form("pppoe-user/onlineuser"), _("Online User"), 1).leaf = true
 	entry({"admin", "status", "userstatus", "realtimetraffic"}, form("pppoe-user/realtimetraffic"), _("Realtime Traffic"), 2).leaf = true
 	entry({"admin", "status", "userstatus", "downtimeuser"}, form("pppoe-user/downtimeuser"), _("Downtime User"), 3).leaf = true
-	entry({"admin", "status", "userstatus", "onlinelog"}, form("pppoe-user/onlinelog"), _("Online Log"), 4).leaf = true
-	entry({"admin", "status", "userstatus", "offlinelog"}, form("pppoe-user/offlinelog"), _("Offline Log"), 5).leaf = true
+	entry({"admin", "status", "userstatus", "pppoelog"}, form("pppoe-user/pppoelog"), _("PPPoE Log"), 4).leaf = true
+	entry({"admin", "status", "userstatus", "interfacelog"}, form("pppoe-user/interfacelog"), _("Interface Log"), 5).leaf = true
 	entry({"admin", "status", "userstatus", "rate"}, template("pppoe-qos/rate"), _("Rate"), 6).leaf = true
 	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
 
