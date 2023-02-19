@@ -26,7 +26,6 @@ SESSION_PATH="/var/etc/pppoe-user/session"
 
 rm -f ${SESSION_PATH}/${PEERNAME}.${IFNAME}
 
-echo >> /var/log/pppoelog.log
 echo "$PPPOE_TIME Offline $PEERNAME $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /var/log/pppoelog.log
 
 echo "$PPPOE_TIME Offline $PEERNAME interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" >> $PPPOE_LOG_FILE

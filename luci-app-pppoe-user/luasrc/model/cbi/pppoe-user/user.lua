@@ -13,6 +13,7 @@ o.rmempty = false
 
 o = s:option(Value, "username", translate("User Name"))
 o.placeholder = translate("Username")
+o.default = os.date("%y%m%d%H%M%S")
 o.rmempty = true
 
 o = s:option(Value, "password", translate("Password"))
@@ -36,8 +37,7 @@ o.placeholder = translate("Manual")
 o.datatype = "macaddr"
 o.rmempty = true
 
-o = s:option(ListValue, "package", translate("Broadband Package"))
-o.default = "family"
+o = s:option(Value, "package", translate("Broadband Package"))
 o.rmempty = true
 o:value("family", "Family")
 o:value("office", "Office")

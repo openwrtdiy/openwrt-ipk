@@ -59,7 +59,6 @@ MAC="$(top -bn1 | grep pppoe-server | grep "${PID}" | grep -E -o "[0-9A-Fa-f]{2}
 mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
 
-echo >> /var/log/pppoelog.log
 echo "$PPPOE_TIME Online $PEERNAME $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/pppoelog.log
 
 echo "$PPPOE_TIME Online $PEERNAME interface: $IFNAME pid: $PID device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC" >> $PPPOE_LOG_FILE
