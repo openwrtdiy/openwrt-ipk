@@ -39,12 +39,8 @@ ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
 echo "Average speed: $ave KB/s" >> $PPPOE_LOG_FILE
 echo >> $PPPOE_LOG_FILE
 
-uci del sqm.$PEERNAME
-uci commit sqm
-
-#/etc/init.d/sqm reload
-#/etc/init.d/sqm restart
-
-/usr/lib/sqm/run.sh stop $IFNAME
+#uci del sqm.$PEERNAME
+#uci commit sqm
+#/usr/lib/sqm/run.sh stop $IFNAME
 
 exit 0

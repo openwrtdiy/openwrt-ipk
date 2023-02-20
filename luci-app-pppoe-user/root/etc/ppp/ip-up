@@ -34,16 +34,16 @@ USER_UPLOAD="$(uci get $CONFIG.$CFGID.upload)"
 USER_CONNECT="$(uci get $CONFIG.$CFGID.connect)"
 RENEWAL_DATE="$(uci get $CONFIG.$CFGID.expires)"
 
-SQM_ENABLED="$(uci get $CONFIG.$CFGID.qos)"
-SQM_INTERFACE="$IFNAME"
-SQM_DOWNLOAD="$(uci get $CONFIG.$CFGID.upload)"
-SQM_UPLOAD="$(uci get $CONFIG.$CFGID.download)"
-SQM_QDISC="$(uci get $CONFIG.$CFGID.qdisc)"
-SQM_SCRIPT="$(uci get $CONFIG.$CFGID.script)"
-SQM_LINKLAYER="$(uci get $CONFIG.$CFGID.linklayer)"
-SQM_DEBUG_LOGGING="0"
-SQM_VERBOSITY="5"
-SQM_OVERHEAD="44"
+#SQM_ENABLED="$(uci get $CONFIG.$CFGID.qos)"
+#SQM_INTERFACE="$IFNAME"
+#SQM_DOWNLOAD="$(uci get $CONFIG.$CFGID.upload)"
+#SQM_UPLOAD="$(uci get $CONFIG.$CFGID.download)"
+#SQM_QDISC="$(uci get $CONFIG.$CFGID.qdisc)"
+#SQM_SCRIPT="$(uci get $CONFIG.$CFGID.script)"
+#SQM_LINKLAYER="$(uci get $CONFIG.$CFGID.linklayer)"
+#SQM_DEBUG_LOGGING="0"
+#SQM_VERBOSITY="5"
+#SQM_OVERHEAD="44"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
@@ -91,19 +91,19 @@ cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cu
 	}
 }
 
-uci del sqm.eth1
-uci set sqm.$PEERNAME=queue
-uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
-uci set sqm.$PEERNAME.interface=$IFNAME
-uci set sqm.$PEERNAME.download=$SQM_DOWNLOAD
-uci set sqm.$PEERNAME.upload=$SQM_UPLOAD
-uci set sqm.$PEERNAME.qdisc=$SQM_QDISC
-uci set sqm.$PEERNAME.script=$SQM_SCRIPT
-uci set sqm.$PEERNAME.linklayer=$SQM_LINKLAYER
-uci set sqm.$PEERNAME.debug_logging=$SQM_DEBUG_LOGGING
-uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
-uci set sqm.$PEERNAME.overhead=$SQM_OVERHEAD
-uci commit sqm
-/usr/lib/sqm/run.sh start $IFNAME
+#uci del sqm.eth1
+#uci set sqm.$PEERNAME=queue
+#uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
+#uci set sqm.$PEERNAME.interface=$IFNAME
+#uci set sqm.$PEERNAME.download=$SQM_DOWNLOAD
+#uci set sqm.$PEERNAME.upload=$SQM_UPLOAD
+#uci set sqm.$PEERNAME.qdisc=$SQM_QDISC
+#uci set sqm.$PEERNAME.script=$SQM_SCRIPT
+#uci set sqm.$PEERNAME.linklayer=$SQM_LINKLAYER
+#uci set sqm.$PEERNAME.debug_logging=$SQM_DEBUG_LOGGING
+#uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
+#uci set sqm.$PEERNAME.overhead=$SQM_OVERHEAD
+#uci commit sqm
+#/usr/lib/sqm/run.sh start $IFNAME
 
 exit 0
