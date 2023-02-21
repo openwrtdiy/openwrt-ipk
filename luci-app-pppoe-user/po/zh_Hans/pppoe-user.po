@@ -124,11 +124,17 @@ msgstr "进程 ID"
 msgid "Broadband Package"
 msgstr "宽带套餐"
 
+msgid "Please choose"
+msgstr "请选择"
+
 msgid "Family"
 msgstr "家庭"
 
 msgid "Office"
 msgstr "办公"
+
+msgid "Free"
+msgstr "免费"
 
 msgid "Interface Information"
 msgstr "接口信息"

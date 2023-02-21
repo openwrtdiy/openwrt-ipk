@@ -127,10 +127,16 @@ msgstr ""
 msgid "Broadband Package"
 msgstr ""
 
+msgid "Please choose"
+msgstr ""
+
 msgid "Family"
 msgstr ""
 
 msgid "Office"
+msgstr ""
+
+msgid "Free"
 msgstr ""
 
 msgid "Interface Information"

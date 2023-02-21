@@ -39,11 +39,11 @@ o.rmempty = true
 
 o = s:option(ListValue, "package", translate("Broadband Package"))
 o.rmempty = true
-o:value("family", "Family")
-o:value("office", "Office")
+o:value("family", translate("Family"))
+o:value("office", translate("Office"))
+o:value("free", translate("Free"))
 
 o = s:option(ListValue, "upload", translate("Upload speed"))
-o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
 o:value("1100", "1 Mbps")
@@ -70,7 +70,6 @@ o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
 
 o = s:option(ListValue, "download", translate("Download speed"))
-o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
 o:value("1100", "1 Mbps")
@@ -97,9 +96,6 @@ o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
 
 o = s:option(ListValue, "connect", translate("Connections"))
-o.placeholder = translate("Connection limit")
-o.default = "1024"
-o.datatype = "range(64,65536)"
 o.rmempty = true
 o:value("64", "64")
 o:value("128", "128")
