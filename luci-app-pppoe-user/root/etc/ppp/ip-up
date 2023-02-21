@@ -55,7 +55,7 @@ REMOTEIP=${6}
 
 PID="$(cat /var/run/${IFNAME}.pid 2>/dev/null)"
 #MAC="$(top -bn1 | grep pppoe-server | grep "${PID}" | awk '{print $13}' | cut -d : -f 2,2-7)"
-MAC="$(top -bn1 | grep pppoe-server | grep "${IPREMOTE}" | awk  '{print $13}' | cut -d : -f 2,2-7)"
+MAC="$(top -bn1 | grep pppoe-server | grep "${IPREMOTE}" | awk '{print $13}' | cut -d : -f 2,2-7)"
 
 mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
