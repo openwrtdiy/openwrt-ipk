@@ -112,8 +112,11 @@ msgstr "带宽"
 msgid "Account opening date"
 msgstr "开户日期"
 
-msgid "PPPoE Log"
-msgstr "拨号日志"
+msgid "Online Log"
+msgstr "上线日志"
+
+msgid "Offline Log"
+msgstr "下线日志"
 
 msgid "Process ID"
 msgstr "进程 ID"
@@ -126,6 +129,12 @@ msgstr "家庭"
 
 msgid "Office"
 msgstr "办公"
+
+msgid "Interface Information"
+msgstr "接口信息"
+
+msgid "Network Information"
+msgstr "网络信息"
 
 msgid "Interface Log"
 msgstr "接口日志"

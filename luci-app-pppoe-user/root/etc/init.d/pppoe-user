@@ -16,8 +16,6 @@ setup_user() {
 	config_get ipaddress $1 ipaddress
 	config_get macaddress $1 macaddress
 	config_get package $1 package
-	config_get qos $1 qos
-	[ -n "${qos}" ] || qos="1"
 	config_get download $1 download
 	config_get upload $1 upload
 	config_get connect $1 connect

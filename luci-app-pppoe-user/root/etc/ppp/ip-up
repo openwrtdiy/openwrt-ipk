@@ -28,13 +28,13 @@ CONFIG_PATH="/var/etc/${CONFIG}"
 SESSION_PATH="${CONFIG_PATH}/session"
 CFGID="$(uci show $CONFIG | grep $PEERNAME | cut -d '.' -sf 2)"
 USER_PACKAGE="$(uci get $CONFIG.$CFGID.package)"
-USER_QOS="$(uci get $CONFIG.$CFGID.qos)"
+USER_QOS="$(uci get $CONFIG.$CFGID.enabled)"
 USER_DOWNLOAD="$(uci get $CONFIG.$CFGID.download)"
 USER_UPLOAD="$(uci get $CONFIG.$CFGID.upload)"
 USER_CONNECT="$(uci get $CONFIG.$CFGID.connect)"
 RENEWAL_DATE="$(uci get $CONFIG.$CFGID.expires)"
 
-#SQM_ENABLED="$(uci get $CONFIG.$CFGID.qos)"
+#SQM_ENABLED="$(uci get $CONFIG.$CFGID.enabled)"
 #SQM_INTERFACE="$IFNAME"
 #SQM_DOWNLOAD="$(uci get $CONFIG.$CFGID.upload)"
 #SQM_UPLOAD="$(uci get $CONFIG.$CFGID.download)"
@@ -55,12 +55,13 @@ REMOTEIP=${6}
 
 PID="$(cat /var/run/${IFNAME}.pid 2>/dev/null)"
 #MAC="$(top -bn1 | grep pppoe-server | grep "${PID}" | awk '{print $13}' | cut -d : -f 2,2-7)"
-MAC="$(top -bn1 | grep pppoe-server | grep "${IPREMOTE}" | awk '{print $13}' | cut -d : -f 2,2-7)"
+#MAC="$(top -bn1 | grep pppoe-server | grep "${IPREMOTE}" | awk '{print $13}' | cut -d : -f 2,2-7)"
+MAC="$(ps -w | grep pppd | grep -h -m 1 "${PID}" | awk '{print $10}' | cut -d : -f 2,2-7)"
 
 mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
 
-echo "$PPPOE_TIME Online $PEERNAME $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/pppoelog.log
+echo "$PPPOE_TIME Online $PEERNAME $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/userup.log
 
 echo "$PPPOE_TIME Online $PEERNAME interface: $IFNAME pid: $PID device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC" >> $PPPOE_LOG_FILE
 echo >> $PPPOE_LOG_FILE

@@ -37,7 +37,7 @@ o.placeholder = translate("Manual")
 o.datatype = "macaddr"
 o.rmempty = true
 
-o = s:option(Value, "package", translate("Broadband Package"))
+o = s:option(ListValue, "package", translate("Broadband Package"))
 o.rmempty = true
 o:value("family", "Family")
 o:value("office", "Office")
