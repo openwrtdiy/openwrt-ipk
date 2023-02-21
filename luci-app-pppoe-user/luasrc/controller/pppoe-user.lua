@@ -13,6 +13,9 @@ function index()
 	entry({"admin", "status", "userstatus", "rate"}, template("pppoe-qos/rate"), _("Rate"), 6).leaf = true
 	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
 
+	entry({"admin", "status", "networkstatus", "interface"}, form("pppoe-user/interface"), _("Interface Information"), 7).leaf = true
+	entry({"admin", "status", "networkstatus", "network"}, form("pppoe-user/network"), _("Internet Information"), 8).leaf = true
+
 	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("Broadband Account Management"), 99)
 	entry({"admin", "services", "pppoe-user", "user"}, cbi("pppoe-user/user"), _("User Manager")).leaf = true
 
