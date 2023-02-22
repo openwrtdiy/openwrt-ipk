@@ -13,7 +13,7 @@ o.rmempty = false
 
 o = s:option(Value, "username", translate("User Name"))
 o.placeholder = translate("Username")
-o.default = os.date("%y%m%d%H%M%S")
+o.default = os.date("%y%m%d%H%M")
 o.rmempty = true
 
 o = s:option(Value, "password", translate("Password"))
@@ -39,6 +39,7 @@ o.rmempty = true
 
 o = s:option(ListValue, "package", translate("Broadband Package"))
 o.rmempty = true
+o:value("none", translate("None"))
 o:value("family", translate("Family"))
 o:value("office", translate("Office"))
 o:value("free", translate("Free"))
@@ -68,6 +69,8 @@ o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
+o:value("1300000", "1250 Mbps")
+o:value("2600000", "2500 Mbps")
 
 o = s:option(ListValue, "download", translate("Download speed"))
 o.datatype = "uinteger"
@@ -94,6 +97,8 @@ o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
+o:value("1300000", "1250 Mbps")
+o:value("2600000", "2500 Mbps")
 
 o = s:option(ListValue, "connect", translate("Connections"))
 o.rmempty = true

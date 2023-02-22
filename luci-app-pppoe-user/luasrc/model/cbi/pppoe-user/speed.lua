@@ -35,6 +35,8 @@ o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
+o:value("1300000", "1250 Mbps")
+o:value("2600000", "2500 Mbps")
 
 o = s:option(ListValue, "download", translate("Download speed"))
 o.placeholder = translate("Speed kbit/s")
@@ -63,6 +65,8 @@ o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
+o:value("1300000", "1250 Mbps")
+o:value("2600000", "2500 Mbps")
 
 o = s:option(ListValue, "qdisc", translate("Queuing Rules"))
 o.default = "fq_codel"
