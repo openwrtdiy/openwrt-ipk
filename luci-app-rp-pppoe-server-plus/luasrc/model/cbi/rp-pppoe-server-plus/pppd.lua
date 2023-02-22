@@ -51,6 +51,7 @@ o.default = "1492"
 
 o = s:option(Value, "msdns1", translate("IPv4 DNS Server 1"), translate("Set the PPPoE server to default DNS server. Please note: When choosing to use SmartDNS resolution service, be sure to enable firewall DNS port forwarding!"))
 o.placeholder = translate("8.8.8.8")
+o.default = "8.8.8.8"
 o.datatype = "ipaddr"
 o:value("1.1.1.1", translate("Cloudflare DNS 1.1.1.1"))
 o:value("1.0.0.1", translate("Cloudflare DNS 1.0.0.1"))
@@ -69,10 +70,10 @@ o:value("114.114.114.114", translate("114DNS 114.114.114.114"))
 o:value("114.114.115.115", translate("114DNS 114.114.115.115"))
 o:value("101.101.101.101", translate("Quad101 DNS 101.101.101.101"))
 o:value("101.102.103.104", translate("Quad101 DNS 101.102.103.104"))
-o.default = "8.8.8.8"
 
 o = s:option(Value, "msdns2", translate("IPv4 DNS Server 2"), translate("Set the PPPoE server to default DNS server, which is not required."))
 o.placeholder = translate("1.1.1.1")
+o.default = "1.1.1.1"
 o.datatype = "ipaddr"
 o:value("1.1.1.1", translate("Cloudflare DNS 1.1.1.1"))
 o:value("1.0.0.1", translate("Cloudflare DNS 1.0.0.1"))
@@ -91,7 +92,6 @@ o:value("114.114.114.114", translate("114DNS 114.114.114.114"))
 o:value("114.114.115.115", translate("114DNS 114.114.115.115"))
 o:value("101.101.101.101", translate("Quad101 DNS 101.101.101.101"))
 o:value("101.102.103.104", translate("Quad101 DNS 101.102.103.104"))
-o.default = "1.1.1.1"
 
 o = s:option(Value, "logfile", translate("Log file"),translate("Log save path, default: /var/log/pppoe-server.log"))
 o:value("/dev/null")

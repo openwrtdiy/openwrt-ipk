@@ -36,16 +36,18 @@ o.optional = true
 o.datatype = "range(0,9)"
 
 o = s:option(Value, "localip", translate("IP of listening side"), translate("Set local IP address"))
+o.datatype = "ipaddr"
+o.default = "10.0.0.1"
 o:value("10.0.0.1")
 o:value("10.255.255.1")
 o:value("172.16.0.1")
 o:value("172.31.255.1")
 o:value("192.168.0.1")
 o:value("192.168.255.1")
-o.datatype = "ipaddr"
-o.default = "10.0.0.1"
 
 o = s:option(Value, "firstremoteip", translate("First remote IP"), translate("Set start address of remote IP pool"))
+o.datatype = "ipaddr"
+o.default = "10.67.0.1"
 o:value("10.10.0.1")
 o:value("10.10.16.1")
 o:value("10.50.0.1")
@@ -60,8 +62,6 @@ o:value("10.200.0.1")
 o:value("10.200.16.1")
 o:value("10.250.0.1")
 o:value("10.250.16.1")
-o.datatype = "ipaddr"
-o.default = "10.67.0.1"
 
 o = s:option(Value, "maxsessions", translate("Maximum sessions"), translate("Allow 'num' concurrent sessions"))
 o.optional = true

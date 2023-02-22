@@ -27,14 +27,16 @@ f.submit = false
 
 local count = luci.sys.exec("top -bn1 | grep 'pppd plugin .*pppoe.so' | grep -v 'grep' | wc -l")
 t = f:section(Table, e, translate("Online [ " .. count .. "]"))
+t:option(DummyValue, "PID", translate("Process ID"))
 t:option(DummyValue, "MAC", translate("MAC address"))
-t:option(DummyValue, "CIP", translate("IP address"))
 t:option(DummyValue, "GATEWAY", translate("Server IP"))
+t:option(DummyValue, "CIP", translate("IP address"))
+
 
 kill = t:option(Button, "kill", translate("Forced Offline"))
 kill.inputstyle = "reset"
 function kill.write(e, t)
-    null, e.tag_error[t] = luci.sys.process.signal(e.map:get(t, "PID"), 9)
+    null, e.tag_error[t] = luci.sys.process.signal(e.map:get(t, "PID"), 15)
     luci.http.redirect(o.build_url("admin/services/rp-pppoe-server-plus/online"))
 end
 return f
