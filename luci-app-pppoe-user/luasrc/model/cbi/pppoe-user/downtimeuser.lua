@@ -6,7 +6,7 @@ f = SimpleForm("")
 f.reset = false
 f.submit = false
 
-local count = luci.sys.exec("grep -c enabled /etc/config/pppoe-user")
+local count = luci.sys.exec("uci show pppoe-user | grep enabled | cut -d '=' -sf 2 | grep '0' | wc -l")
 t = f:section(Table, sessions, translate("Downtime User [ " .. count .. "]"))
 t:option(DummyValue, "username", translate("Username"))
 t:option(DummyValue, "macaddress", translate("MAC address"))

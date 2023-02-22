@@ -6,7 +6,7 @@ f = SimpleForm("")
 f.reset = false
 f.submit = false
 
-local count = luci.sys.exec("grep -c enabled /etc/config/pppoe-user")
+local count = luci.sys.exec("ifconfig | grep ppp | wc -l")
 t = f:section(Table, sessions, translate("Online User [ " .. count .. "]"))
 t:option(DummyValue, "username", translate("Username"))
 t:option(DummyValue, "macaddress", translate("MAC address"))
