@@ -25,12 +25,12 @@ local count = luci.sys.exec("top -bn1 | grep 'pppd plugin .*pppoe.so' | grep -v 
 t = f:section(Table, sessions, translate("Online User [ " .. count .. "]"))
 t:option(DummyValue, "username", translate("Username"))
 t:option(DummyValue, "mac", translate("MAC address"))
-t:option(DummyValue, "pid", translate("Process ID"))
 t:option(DummyValue, "interface", translate("Interface"))
 t:option(DummyValue, "ip", translate("IP address"))
 t:option(DummyValue, "package", translate("Broadband Package"))
-t:option(DummyValue, "uptime", translate("Up Time"))
 t:option(DummyValue, "updated", translate("Renewal Date"))
+t:option(DummyValue, "uptime", translate("Up Time"))
+t:option(DummyValue, "pid", translate("Process ID"))
 
 kill = t:option(Button, "kill", translate("Forced Offline"))
 kill.inputstyle = "reset"
