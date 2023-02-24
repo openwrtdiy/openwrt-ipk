@@ -31,11 +31,6 @@ function o.cfgvalue(e, t)
 end
 function o.remove(e, t) Value.write(e, t, "*") end
 
-o = s:option(Value, "macaddress", translate("MAC address"))
-o.placeholder = translate("Manual")
-o.datatype = "macaddr"
-o.rmempty = true
-
 o = s:option(ListValue, "package", translate("Broadband Package"))
 o.rmempty = true
 o:value("none", translate("None"))

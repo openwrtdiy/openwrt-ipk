@@ -94,6 +94,9 @@ cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cu
 	}
 }
 
+uci set $CONFIG.$CFGID.macaddress='$MAC'
+uci commit $CONFIG
+
 rm -f /etc/hotplug.d/iface/11-sqm
 uci del sqm.eth1
 uci set sqm.$PEERNAME=queue
