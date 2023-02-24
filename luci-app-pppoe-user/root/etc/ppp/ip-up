@@ -28,22 +28,22 @@ CONFIG_PATH="/var/etc/${CONFIG}"
 SESSION_PATH="${CONFIG_PATH}/session"
 CFGID="$(uci show $CONFIG | grep $PEERNAME | cut -d '.' -sf 2)"
 USER_PACKAGE="$(uci get $CONFIG.$CFGID.package)"
-USER_QOS="$(uci get $CONFIG.$CFGID.enabled)"
+USER_QOS="$(uci get $CONFIG.$CFGID.qos)"
 USER_DOWNLOAD="$(uci get $CONFIG.$CFGID.download)"
 USER_UPLOAD="$(uci get $CONFIG.$CFGID.upload)"
 USER_CONNECT="$(uci get $CONFIG.$CFGID.connect)"
 RENEWAL_DATE="$(uci get $CONFIG.$CFGID.expires)"
 
-#SQM_ENABLED="$(uci get $CONFIG.$CFGID.enabled)"
-#SQM_INTERFACE="$IFNAME"
-#SQM_DOWNLOAD="$(uci get $CONFIG.$CFGID.upload)"
-#SQM_UPLOAD="$(uci get $CONFIG.$CFGID.download)"
-#SQM_QDISC="$(uci get $CONFIG.$CFGID.qdisc)"
-#SQM_SCRIPT="$(uci get $CONFIG.$CFGID.script)"
-#SQM_LINKLAYER="$(uci get $CONFIG.$CFGID.linklayer)"
-#SQM_DEBUG_LOGGING="0"
-#SQM_VERBOSITY="5"
-#SQM_OVERHEAD="44"
+SQM_ENABLED="$(uci get $CONFIG.$CFGID.qos)"
+SQM_INTERFACE="$IFNAME"
+SQM_DOWNLOAD="$(uci get $CONFIG.$CFGID.upload)"
+SQM_UPLOAD="$(uci get $CONFIG.$CFGID.download)"
+SQM_QDISC="$(uci get $CONFIG.$CFGID.qdisc)"
+SQM_SCRIPT="$(uci get $CONFIG.$CFGID.script)"
+SQM_LINKLAYER="$(uci get $CONFIG.$CFGID.linklayer)"
+SQM_DEBUG_LOGGING="0"
+SQM_VERBOSITY="5"
+SQM_OVERHEAD="44"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
@@ -62,9 +62,9 @@ MAC="$(ps -w | grep pppd | grep -v 'grep'| grep -h -m 1 "${PID}" | awk '{print $
 mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
 
-echo "$PPPOE_TIME Online $PEERNAME $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/userup.log
+echo "$PPPOE_TIME $PEERNAME Online $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/userup.log
 
-echo "$PPPOE_TIME Online $PEERNAME interface: $IFNAME pid: $PID device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC" >> $PPPOE_LOG_FILE
+echo "$PPPOE_TIME $PEERNAME Online interface: $IFNAME pid: $PID device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC" >> $PPPOE_LOG_FILE
 echo >> $PPPOE_LOG_FILE
 
 cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
@@ -94,19 +94,22 @@ cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cu
 	}
 }
 
-#uci del sqm.eth1
-#uci set sqm.$PEERNAME=queue
-#uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
-#uci set sqm.$PEERNAME.interface=$IFNAME
-#uci set sqm.$PEERNAME.download=$SQM_DOWNLOAD
-#uci set sqm.$PEERNAME.upload=$SQM_UPLOAD
-#uci set sqm.$PEERNAME.qdisc=$SQM_QDISC
-#uci set sqm.$PEERNAME.script=$SQM_SCRIPT
-#uci set sqm.$PEERNAME.linklayer=$SQM_LINKLAYER
-#uci set sqm.$PEERNAME.debug_logging=$SQM_DEBUG_LOGGING
-#uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
-#uci set sqm.$PEERNAME.overhead=$SQM_OVERHEAD
-#uci commit sqm
-#/usr/lib/sqm/run.sh start $IFNAME
+rm -f /etc/hotplug.d/iface/11-sqm
+uci del sqm.eth1
+uci set sqm.$PEERNAME=queue
+uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
+uci set sqm.$PEERNAME.interface=$IFNAME
+uci set sqm.$PEERNAME.download=$SQM_DOWNLOAD
+uci set sqm.$PEERNAME.upload=$SQM_UPLOAD
+uci set sqm.$PEERNAME.qdisc=$SQM_QDISC
+uci set sqm.$PEERNAME.script=$SQM_SCRIPT
+uci set sqm.$PEERNAME.linklayer=$SQM_LINKLAYER
+uci set sqm.$PEERNAME.debug_logging=$SQM_DEBUG_LOGGING
+uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
+uci set sqm.$PEERNAME.overhead=$SQM_OVERHEAD
+uci commit sqm
+/usr/lib/sqm/run.sh start $IFNAME
+
+echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /var/log/userup.log
 
 exit 0

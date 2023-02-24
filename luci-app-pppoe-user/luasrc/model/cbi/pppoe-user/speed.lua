@@ -4,6 +4,10 @@ s = m:section(TypedSection, "user", translate(""), translate("After completing t
 s.anonymous = true
 s.template = "cbi/tblsection"
 
+o = s:option(Flag, "qos", translate("QoS"))
+o.rmempty = true
+o.default = 1
+
 o = s:option(DummyValue, "username", translate("User Name"))
 o.placeholder = translate("username")
 o.readonly = true
@@ -67,6 +71,20 @@ o:value("990000", "900 M")
 o:value("1100000", "1000 Mbps")
 o:value("1300000", "1250 Mbps")
 o:value("2600000", "2500 Mbps")
+
+o = s:option(ListValue, "connect", translate("Connections"))
+o.rmempty = true
+o:value("64", "64")
+o:value("128", "128")
+o:value("256", "256")
+o:value("512", "512")
+o:value("1024", "1024")
+o:value("2048", "2048")
+o:value("4096", "4096")
+o:value("8192", "8192")
+o:value("16384", "16384")
+o:value("32768", "32768")
+o:value("65536", "65536")
 
 o = s:option(ListValue, "qdisc", translate("Queuing Rules"))
 o.default = "fq_codel"

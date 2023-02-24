@@ -5,7 +5,7 @@ s = m:section(TypedSection, "user", translate("User count [ " .. count .. "]"), 
 s.addremove = true
 s.anonymous = true
 s.nodescriptions = true
-s.sortable  = true
+s.sortable  = false
 s.template = "cbi/tblsection"
 
 o = s:option(Flag, "enabled", translate("Enabled"))
@@ -13,7 +13,6 @@ o.rmempty = false
 
 o = s:option(Value, "username", translate("User Name"))
 o.placeholder = translate("Username")
-o.default = os.date("%y%m%d%H%M")
 o.rmempty = true
 
 o = s:option(Value, "password", translate("Password"))
