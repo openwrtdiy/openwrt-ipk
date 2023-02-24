@@ -31,9 +31,18 @@ o = s:option(DynamicList, "service_name", translate("Service-Name"), translate("
 o.rmempty = true
 
 o = s:option(Value, "maxsessionsperpeer", translate("Maximum sessions per peer"), translate("Limit the number of sessions per account"))
-o.placeholder = translate("0")
 o.rmempty = true
-o.datatype = "range(0,9)"
+o.default = 1
+o:value("0", "0")
+o:value("1", "1")
+o:value("2", "2")
+o:value("3", "3")
+o:value("4", "4")
+o:value("5", "5")
+o:value("6", "6")
+o:value("7", "7")
+o:value("8", "8")
+o:value("9", "9")
 
 o = s:option(Value, "localip", translate("Server IP address"), translate("Set local IP address"))
 o.datatype = "ipaddr"
@@ -96,16 +105,27 @@ o = s:option(Flag, "unit", translate("Unit"), translate("Randomly assign ppp int
 o.rmempty = false
 
 o = s:option(Value, "offset", translate("Offset"), translate("Random PPPoE session number"))
-o.placeholder = translate("0")
 o.rmempty = true
-o.datatype = "range(0,9)"
-o.default = 0
+o.default = 1
+o:value("0", "0")
+o:value("1", "1")
+o:value("2", "2")
+o:value("3", "3")
+o:value("4", "4")
+o:value("5", "5")
+o:value("6", "6")
+o:value("7", "7")
+o:value("8", "8")
+o:value("9", "9")
 
-o = s:option(Value, "timeout", translate("Timeout"), translate("Specify inactivity timeout in seconds"))
-o.placeholder = translate("60")
+o = s:option(ListValue, "timeout", translate("Timeout"), translate("Specify inactivity timeout in seconds"))
 o.rmempty = true
-o.datatype = "range(60,180)"
 o.default = 60
+o:value("30", "30")
+o:value("60", "60")
+o:value("90", "90")
+o:value("120", "120")
+o:value("180", "180")
 
 o = s:option(Value, "mss", translate("MSS"), translate("Clamp incoming and outgoing MSS options"))
 o.placeholder = translate("1468")
