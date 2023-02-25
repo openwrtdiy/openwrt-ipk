@@ -49,13 +49,13 @@ o:value("none", translate("none"))
 o:value("ethernet", translate("ethernet"))
 o:value("atm", translate("atm"))
 
-o = s:option(Value, "verbosity", translate("Verbosity"))
-o.default = "5"
-
-o = s:option(Value, "overhead", translate("Overhead"))
+o = s:option(Value, "overhead", translate("Overhead Bytes"))
 o.default = "44"
 
 o = s:option(Flag, "debug_logging", translate("Debug Logging"))
 o.rmempty = false
+
+o = s:option(Value, "verbosity", translate("Log verbosity"))
+o.default = "5"
 
 return m

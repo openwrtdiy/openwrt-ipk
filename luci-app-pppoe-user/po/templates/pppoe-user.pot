@@ -67,6 +67,15 @@ msgstr ""
 msgid "Link Layer"
 msgstr ""
 
+msgid "Overhead Bytes"
+msgstr ""
+
+msgid "Debug Logging"
+msgstr ""
+
+msgid "Log verbosity"
+msgstr ""
+
 msgid "User Status"
 msgstr ""
 
@@ -121,6 +130,9 @@ msgstr ""
 msgid "Offline Log"
 msgstr ""
 
+msgid "QOS Log"
+msgstr ""
+
 msgid "Process ID"
 msgstr ""
 
@@ -139,6 +151,15 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
+msgid "Test"
+msgstr ""
+
+msgid "Debugging"
+msgstr ""
+
+msgid "Network Status"
+msgstr ""
+
 msgid "Interface Information"
 msgstr ""
 
@@ -146,7 +167,4 @@ msgid "Network Information"
 msgstr ""
 
 msgid "Interface Log"
-msgstr ""
-
-msgid "Debug Logging"
 msgstr ""

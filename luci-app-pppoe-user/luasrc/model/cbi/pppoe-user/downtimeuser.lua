@@ -12,7 +12,7 @@ t:option(DummyValue, "username", translate("Username"))
 t:option(DummyValue, "macaddress", translate("MAC address"))
 t:option(DummyValue, "upload", translate("Bandwidth"))
 t:option(DummyValue, "password", translate("Account opening date"))
-t:option(DummyValue, "renewaldate", translate("Renewal date"))
+t:option(DummyValue, "renewaldate", translate("Renewal Date"))
 t:option(DummyValue, "downtime", translate("Down Time"))
 
 return f

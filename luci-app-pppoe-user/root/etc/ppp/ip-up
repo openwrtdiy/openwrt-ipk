@@ -107,12 +107,11 @@ uci set sqm.$PEERNAME.upload=$SQM_UPLOAD
 uci set sqm.$PEERNAME.qdisc=$SQM_QDISC
 uci set sqm.$PEERNAME.script=$SQM_SCRIPT
 uci set sqm.$PEERNAME.linklayer=$SQM_LINKLAYER
+uci set sqm.$PEERNAME.overhead=$SQM_OVERHEAD
 uci set sqm.$PEERNAME.debug_logging=$SQM_DEBUG_LOGGING
 uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
-uci set sqm.$PEERNAME.overhead=$SQM_OVERHEAD
 uci commit sqm
 /usr/lib/sqm/run.sh start $IFNAME
-
-echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /var/log/userup.log
+echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /var/log/pppqos.log
 
 exit 0

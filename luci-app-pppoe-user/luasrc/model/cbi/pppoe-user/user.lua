@@ -95,11 +95,8 @@ o:value("1300000", "1250 Mbps")
 o:value("2600000", "2500 Mbps")
 
 o = s:option(ListValue, "connect", translate("Connections"))
+o.default = "1024"
 o.rmempty = true
-o:value("64", "64")
-o:value("128", "128")
-o:value("256", "256")
-o:value("512", "512")
 o:value("1024", "1024")
 o:value("2048", "2048")
 o:value("4096", "4096")
@@ -110,7 +107,7 @@ o:value("65536", "65536")
 
 o = s:option(Value, "expires", translate("Expire date"))
 o.placeholder = translate("Expires")
-o.datatype = "range(20221101,20231231)"
+o.datatype = "range(20221201,20231231)"
 o.rmempty = true
 
 return m

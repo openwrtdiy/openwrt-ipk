@@ -10,12 +10,14 @@ function index()
 	entry({"admin", "status", "userstatus", "downtimeuser"}, form("pppoe-user/downtimeuser"), _("Downtime User"), 3).leaf = true
 	entry({"admin", "status", "userstatus", "userup"}, form("pppoe-user/userup"), _("Online Log"), 4).leaf = true
 	entry({"admin", "status", "userstatus", "userdown"}, form("pppoe-user/userdown"), _("Offline Log"), 5).leaf = true
-	entry({"admin", "status", "userstatus", "interfacelog"}, form("pppoe-user/interfacelog"), _("Interface Log"), 6).leaf = true
+	entry({"admin", "status", "userstatus", "qoslog"}, form("pppoe-user/qoslog"), _("QOS Log"), 6).leaf = true
 	entry({"admin", "status", "userstatus", "rate"}, template("pppoe-qos/rate"), _("Rate"), 7).leaf = true
 	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
 
-	entry({"admin", "status", "networkstatus", "interface"}, form("pppoe-user/interface"), _("Interface Information"), 8).leaf = true
-	entry({"admin", "status", "networkstatus", "network"}, form("pppoe-user/network"), _("Network Information"), 9).leaf = true
+	entry({"admin", "status", "networkstatus"}, alias("admin", "status", "networkstatus", "interfacelog"), _("Network Status"), 888)
+	entry({"admin", "status", "networkstatus", "interfacelog"}, form("pppoe-user/interfacelog"), _("Interface Log"), 1).leaf = true
+	entry({"admin", "status", "networkstatus", "interface"}, form("pppoe-user/interface"), _("Interface Information"), 2).leaf = true
+	entry({"admin", "status", "networkstatus", "network"}, form("pppoe-user/network"), _("Network Information"), 3).leaf = true
 
 	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("Broadband Account Management"), 999)
 	entry({"admin", "services", "pppoe-user", "user"}, cbi("pppoe-user/user"), _("User Manager")).leaf = true

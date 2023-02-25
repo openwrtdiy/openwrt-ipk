@@ -64,6 +64,15 @@ msgstr "队列脚本"
 msgid "Link Layer"
 msgstr "链路层"
 
+msgid "Overhead Bytes"
+msgstr "开销字节"
+
+msgid "Debug Logging"
+msgstr "调试日志"
+
+msgid "Log verbosity"
+msgstr "日志等级"
+
 msgid "User Status"
 msgstr "用户状态"
 
@@ -118,6 +127,9 @@ msgstr "上线日志"
 msgid "Offline Log"
 msgstr "下线日志"
 
+msgid "QOS Log"
+msgstr "QOS 日志"
+
 msgid "Process ID"
 msgstr "进程 ID"
 
@@ -136,6 +148,15 @@ msgstr "办公"
 msgid "Free"
 msgstr "免费"
 
+msgid "Test"
+msgstr "测试"
+
+msgid "Debugging"
+msgstr "调试"
+
+msgid "Network Status"
+msgstr "网络状态"
+
 msgid "Interface Information"
 msgstr "接口信息"
 
@@ -144,6 +165,3 @@ msgstr "网络信息"
 
 msgid "Interface Log"
 msgstr "接口日志"
-
-msgid "Debug Logging"
-msgstr "调试日志"
