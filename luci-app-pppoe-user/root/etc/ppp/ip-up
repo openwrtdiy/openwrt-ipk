@@ -96,11 +96,9 @@ cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cu
 	}
 }
 
-uci set $CONFIG.$CFGID.macaddress='$MAC'
+uci set $CONFIG.$CFGID.macaddress=$MAC
 uci commit $CONFIG
 
-rm -f /etc/hotplug.d/iface/11-sqm
-uci del sqm.eth1
 uci set sqm.$PEERNAME=queue
 uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
 uci set sqm.$PEERNAME.interface=$IFNAME
@@ -114,6 +112,7 @@ uci set sqm.$PEERNAME.debug_logging=$SQM_DEBUG_LOGGING
 uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
 uci commit sqm
 /usr/lib/sqm/run.sh start $IFNAME
+
 echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /var/log/pppqos.log
 
 exit 0

@@ -9,12 +9,9 @@ o.rmempty = true
 o.default = 1
 
 o = s:option(DummyValue, "username", translate("User Name"))
-o.placeholder = translate("username")
 o.readonly = true
 
 o = s:option(DummyValue, "macaddress", translate("MAC address"))
-o.placeholder = translate("Manual")
-o.datatype = "macaddr"
 o.rmempty = true
 
 o = s:option(DummyValue, "package", translate("Broadband Package"))
@@ -30,16 +27,15 @@ o = s:option(DummyValue, "connect", translate("Connections"))
 o.rmempty = true
 
 o = s:option(ListValue, "qdisc", translate("Queuing Rules"))
-o.default = "fq_codel"
+o.default = "cake"
 o:value("fq_codel", translate("fq_codel"))
 o:value("cake", translate("cake"))
 
 o = s:option(ListValue, "script", translate("Queue Script"))
-o.default = "simple.qos"
+o.default = "piece_of_cake.qos"
 o:value("layer_cake.qos", translate("layer_cake.qos"))
 o:value("piece_of_cake.qos", translate("piece_of_cake.qos"))
 o:value("simple.qos", translate("simple.qos"))
-o:value("simple_pppoe.qos", translate("simple_pppoe.qos"))
 o:value("simplest.qos", translate("simplest.qos"))
 o:value("simplest_tbf.qos", translate("simplest_tbf.qos"))
 

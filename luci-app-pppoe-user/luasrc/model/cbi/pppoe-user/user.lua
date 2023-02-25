@@ -1,4 +1,4 @@
-m = Map("pppoe-user", translate(""), translate("Account opening instructions column content"))
+m = Map("pppoe-user", translate(""))
 
 local count = luci.sys.exec("grep -c 'config user' /etc/config/pppoe-user")
 s = m:section(TypedSection, "user", translate("User count [ " .. count .. "]"), translate(""))

@@ -22,9 +22,9 @@ setup_user() {
 	config_get upload $1 upload
 	config_get connect $1 connect
 	config_get qdisc $1 qdisc
-	[ -n "${qdisc}" ] || qdisc="fq_codel"
+	[ -n "${qdisc}" ] || qdisc="cake"
 	config_get script $1 script
-	[ -n "${script}" ] || script="simple.qos"
+	[ -n "${script}" ] || script="piece_of_cake.qos"
 	config_get linklayer $1 linklayer
 	[ -n "${linklayer}" ] || linklayer="ethernet"
 	config_get debug_logging $1 debug_logging
