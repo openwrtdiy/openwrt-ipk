@@ -37,6 +37,8 @@ o:value("none", translate("None"))
 o:value("family", translate("Family"))
 o:value("office", translate("Office"))
 o:value("free", translate("Free"))
+o:value("test", translate("Test"))
+o:value("debugging", translate("Debugging"))
 
 o = s:option(ListValue, "upload", translate("Upload speed"))
 o.datatype = "uinteger"

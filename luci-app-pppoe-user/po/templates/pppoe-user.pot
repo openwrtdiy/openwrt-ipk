@@ -139,6 +139,9 @@ msgstr ""
 msgid "Broadband Package"
 msgstr ""
 
+msgid "Registration Date"
+msgstr ""
+
 msgid "Please choose"
 msgstr ""
 

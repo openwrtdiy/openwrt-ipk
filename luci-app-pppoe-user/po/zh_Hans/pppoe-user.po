@@ -136,6 +136,9 @@ msgstr "进程 ID"
 msgid "Broadband Package"
 msgstr "宽带套餐"
 
+msgid "Registration Date"
+msgstr "注册日期"
+
 msgid "Please choose"
 msgstr "请选择"
 

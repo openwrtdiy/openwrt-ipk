@@ -28,6 +28,7 @@ CONFIG_PATH="/var/etc/${CONFIG}"
 SESSION_PATH="${CONFIG_PATH}/session"
 CFGID="$(uci show $CONFIG | grep $PEERNAME | cut -d '.' -sf 2)"
 USER_PACKAGE="$(uci get $CONFIG.$CFGID.package)"
+USER_REGISTER="$(uci get $CONFIG.$CFGID.register)"
 USER_QOS="$(uci get $CONFIG.$CFGID.qos)"
 USER_DOWNLOAD="$(uci get $CONFIG.$CFGID.download)"
 USER_UPLOAD="$(uci get $CONFIG.$CFGID.upload)"
@@ -77,6 +78,7 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	    "speed": "${SPEED}",
 	    "ip": "${PEERIP}",
 	    "package": "${USER_PACKAGE}",
+	    "register": "${USER_REGISTER}",
 	    "uptime": "${PPPOE_TIME}",
 	    "updated": "${RENEWAL_DATE}"
 	}
