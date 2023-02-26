@@ -42,16 +42,27 @@ o:value("simplest_tbf.qos", translate("simplest_tbf.qos"))
 o = s:option(ListValue, "linklayer", translate("Link Layer"))
 o.default = "ethernet"
 o:value("none", translate("none"))
-o:value("ethernet", translate("ethernet"))
-o:value("atm", translate("atm"))
+o:value("ethernet", translate("Ethernet"))
+o:value("atm", translate("ATM"))
 
-o = s:option(Value, "overhead", translate("Overhead Bytes"))
-o.default = "44"
+o = s:option(ListValue, "overhead", translate("Overhead Bytes"))
+o.default = "22"
+o:value("0", translate("none"))
+o:value("18", translate("Ethernet Fibre/Cable"))
+o:value("22", translate("Ethernet VDSL2"))
+o:value("38", translate("Ethernet Ethernet"))
+o:value("44", translate("ATM ADSL/DSL"))
 
 o = s:option(Flag, "debug_logging", translate("Debug Logging"))
 o.rmempty = false
 
-o = s:option(Value, "verbosity", translate("Log verbosity"))
+o = s:option(ListValue, "verbosity", translate("Log verbosity"))
 o.default = "5"
+o:value("0", translate("silent"))
+o:value("1", translate("error"))
+o:value("2", translate("warning"))
+o:value("5", translate("info"))
+o:value("8", translate("debug"))
+o:value("10", translate("trace"))
 
 return m

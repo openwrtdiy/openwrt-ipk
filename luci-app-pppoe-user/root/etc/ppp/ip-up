@@ -21,7 +21,7 @@ PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
-PPPOE_LOG="/var/log/pppoeuser"
+PPPOE_LOG="/home/log/pppoeuser"
 PPPOE_LOG_FILE="${PPPOE_LOG}/$PEERNAME.log"
 CONFIG="pppoe-user"
 CONFIG_PATH="/var/etc/${CONFIG}"
@@ -63,7 +63,7 @@ MAC="$(ps -w | grep pppd | grep -v 'grep'| grep -h -m 1 "${PID}" | awk '{print $
 mkdir -p ${PPPOE_LOG}
 mkdir -p ${SESSION_PATH}
 
-echo "$PPPOE_TIME $PEERNAME Online $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/userup.log
+echo "$PPPOE_TIME $PEERNAME Online $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /home/log/userup.log
 
 echo "$PPPOE_TIME $PEERNAME Online interface: $IFNAME pid: $PID device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC" >> $PPPOE_LOG_FILE
 echo >> $PPPOE_LOG_FILE
@@ -84,21 +84,6 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	}
 EOF
 
-cfgid=$(uci show ${CONFIG} | grep "@user" | grep "\.username='${USERNAME}'" | cut -d '.' -sf 2)
-[ -n "$cfgid" ] && {
-	HAS_LOGIN=$(ls ${SESSION_PATH} | grep "^${USERNAME}\.ppp" | grep -v "${IFACE}")
-	[ -n "$HAS_LOGIN" ] && {
-		KO_IFACE=$(echo $HAS_LOGIN | awk -F '.' '{print $2}')
-		KO_PID=$(cat /var/run/${KO_IFACE}.pid 2>/dev/null)
-		[ -n "$KO_PID" ] && kill -15 ${KO_PID} >/dev/null 2>&1
-		rm -f ${SESSION_PATH}/${HAS_LOGIN}
-		rm -f /var/run/${KO_IFACE}.pid
-	}
-}
-
-uci set $CONFIG.$CFGID.macaddress=$MAC
-uci commit $CONFIG
-
 uci set sqm.$PEERNAME=queue
 uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
 uci set sqm.$PEERNAME.interface=$IFNAME
@@ -113,6 +98,9 @@ uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
 uci commit sqm
 /usr/lib/sqm/run.sh start $IFNAME
 
-echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /var/log/pppqos.log
+echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /home/log/pppqos.log
+
+uci set $CONFIG.$CFGID.macaddress=$MAC
+uci commit $CONFIG
 
 exit 0
