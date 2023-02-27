@@ -97,7 +97,7 @@ o:value("1300000", "1250 Mbps")
 o:value("2600000", "2500 Mbps")
 
 o = s:option(ListValue, "connect", translate("Connections"))
-o.default = "1024"
+o.default = "4096"
 o.rmempty = true
 o:value("1024", "1024")
 o:value("2048", "2048")

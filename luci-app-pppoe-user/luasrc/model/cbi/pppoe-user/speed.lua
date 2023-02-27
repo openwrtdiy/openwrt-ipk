@@ -27,12 +27,12 @@ o = s:option(DummyValue, "connect", translate("Connections"))
 o.rmempty = true
 
 o = s:option(ListValue, "qdisc", translate("Queuing Rules"))
-o.default = "cake"
+o.default = "fq_codel"
 o:value("fq_codel", translate("fq_codel"))
 o:value("cake", translate("cake"))
 
 o = s:option(ListValue, "script", translate("Queue Script"))
-o.default = "piece_of_cake.qos"
+o.default = "simple.qos"
 o:value("layer_cake.qos", translate("layer_cake.qos"))
 o:value("piece_of_cake.qos", translate("piece_of_cake.qos"))
 o:value("simple.qos", translate("simple.qos"))
