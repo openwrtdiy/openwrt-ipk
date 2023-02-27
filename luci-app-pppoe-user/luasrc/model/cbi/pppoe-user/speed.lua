@@ -48,10 +48,10 @@ o:value("atm", translate("ATM"))
 o = s:option(ListValue, "overhead", translate("Overhead Bytes"))
 o.default = "18"
 o:value("0", translate("none"))
-o:value("18", translate("Ethernet Fibre/Cable"))
-o:value("22", translate("Ethernet VDSL2"))
-o:value("38", translate("Ethernet Ethernet"))
-o:value("44", translate("ATM ADSL/DSL"))
+o:value("18", translate("18 Ethernet Fibre/Cable"))
+o:value("22", translate("22 Ethernet VDSL2"))
+o:value("38", translate("38 Ethernet Ethernet"))
+o:value("44", translate("44 ATM ADSL/DSL"))
 
 o = s:option(Flag, "debug_logging", translate("Debug Logging"))
 o.rmempty = false

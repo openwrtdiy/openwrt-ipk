@@ -47,6 +47,10 @@ uci commit sqm
 rm -f /home/run/sqm/$IFNAME.state
 rm -f /home/run/sqm/$IFNAME.iptables.log
 
-echo "$PPPOE_TIME $PEERNAME Stopping SQM on $IFNAME" >> /home/log/pppqos.log
+#iptables -t filter -F $PEERNAME
+#iptables -X $PEERNAME
+
+SQM_STOPPING="$(tc -s qdisc show dev $IFNAME)"
+echo "$PPPOE_TIME $PEERNAME Stopping SQM: $SQM_STOPPING" >> /home/log/pppqos.log
 
 exit 0

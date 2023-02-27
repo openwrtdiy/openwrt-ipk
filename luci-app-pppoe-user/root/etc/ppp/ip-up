@@ -84,6 +84,9 @@ cat <<-EOF > ${SESSION_PATH}/${USERNAME}.${IFACE}
 	}
 EOF
 
+uci set $CONFIG.$CFGID.macaddress=$MAC
+uci commit $CONFIG
+
 uci set sqm.$PEERNAME=queue
 uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
 uci set sqm.$PEERNAME.interface=$IFNAME
@@ -98,9 +101,13 @@ uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
 uci commit sqm
 /usr/lib/sqm/run.sh start $IFNAME
 
+#iptables -t filter -N $PEERNAME
+#iptables -t filter -I $PEERNAME -p tcp -s $IPREMOTE -m connlimit --connlimit-above $USER_CONNECT -j REJECT
+#iptables -t filter -I $PEERNAME -p udp -s $IPREMOTE -m connlimit --connlimit-above $USER_CONNECT -j REJECT
+
 echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /home/log/pppqos.log
 
-uci set $CONFIG.$CFGID.macaddress=$MAC
-uci commit $CONFIG
+SQM_STARTING="$(tc -s qdisc show dev $IFNAME | grep qdisc)"
+echo "$PPPOE_TIME $PEERNAME $CONNECT_STARTING Starting SQM: $SQM_STARTING" >> /home/log/pppqos.log
 
 exit 0
