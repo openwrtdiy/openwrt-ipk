@@ -17,22 +17,15 @@ setup_user() {
 	config_get macaddress $1 macaddress
 	config_get package $1 package
 	config_get qos $1 qos
-	[ -n "${qos}" ] || qos="1"
 	config_get download $1 download
 	config_get upload $1 upload
 	config_get connect $1 connect
 	config_get qdisc $1 qdisc
-	[ -n "${qdisc}" ] || qdisc="cake"
 	config_get script $1 script
-	[ -n "${script}" ] || script="piece_of_cake.qos"
 	config_get linklayer $1 linklayer
-	[ -n "${linklayer}" ] || linklayer="ethernet"
 	config_get debug_logging $1 debug_logging
-	[ -n "${debug_logging}" ] || debug_logging="0"
 	config_get verbosity $1 verbosity
-	[ -n "${verbosity}" ] || verbosity="5"
 	config_get overhead $1 overhead
-	[ -n "${overhead}" ] || overhead="44"
 
 	touch ${CHAP_SECRETS}
 	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS

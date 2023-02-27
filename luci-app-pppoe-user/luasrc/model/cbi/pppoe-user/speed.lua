@@ -46,7 +46,7 @@ o:value("ethernet", translate("Ethernet"))
 o:value("atm", translate("ATM"))
 
 o = s:option(ListValue, "overhead", translate("Overhead Bytes"))
-o.default = "22"
+o.default = "18"
 o:value("0", translate("none"))
 o:value("18", translate("Ethernet Fibre/Cable"))
 o:value("22", translate("Ethernet VDSL2"))

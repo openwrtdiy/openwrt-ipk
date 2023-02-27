@@ -44,6 +44,8 @@ uci commit sqm
 /usr/lib/sqm/run.sh stop $IFNAME
 #rm -f /var/run/sqm/$IFNAME.state
 #rm -f /var/run/sqm/$IFNAME.iptables.log
+rm -f /home/run/sqm/$IFNAME.state
+rm -f /home/run/sqm/$IFNAME.iptables.log
 
 echo "$PPPOE_TIME $PEERNAME Stopping SQM on $IFNAME" >> /home/log/pppqos.log
 

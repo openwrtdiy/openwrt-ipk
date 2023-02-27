@@ -42,9 +42,9 @@ SQM_UPLOAD="$(uci get $CONFIG.$CFGID.download)"
 SQM_QDISC="$(uci get $CONFIG.$CFGID.qdisc)"
 SQM_SCRIPT="$(uci get $CONFIG.$CFGID.script)"
 SQM_LINKLAYER="$(uci get $CONFIG.$CFGID.linklayer)"
-SQM_DEBUG_LOGGING="0"
-SQM_VERBOSITY="5"
-SQM_OVERHEAD="44"
+SQM_DEBUG_LOGGING="$(uci get $CONFIG.$CFGID.debug_logging)"
+SQM_VERBOSITY="$(uci get $CONFIG.$CFGID.verbosity)"
+SQM_OVERHEAD="$(uci get $CONFIG.$CFGID.overhead)"
 
 USERNAME=${PEERNAME}
 IFACE=${1}
