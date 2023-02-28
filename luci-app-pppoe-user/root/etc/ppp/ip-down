@@ -21,42 +21,38 @@ export PATH
 
 USERNAME=${PEERNAME}
 IFACE=${1}
-TTY=${2}
-SPEED=${3}
-LOCALIP=${4}
 PEERIP=${5}
 
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
 PPPOE_LOG="/home/log/pppoeuser"
-PPPOE_LOG_FILE="${PPPOE_LOG}/$PEERNAME.log"
+PPPOE_LOG_FILE="${PPPOE_LOG}/$USERNAME.log"
 CONFIG="pppoe-user"
-CONFIG_PATH="/var/etc/${CONFIG}"
 SESSION_PATH="/var/etc/pppoe-user/session"
-CFGID="$(uci show $CONFIG | grep $PEERNAME | cut -d '.' -sf 2)"
-USER_CONNECT="$(uci get $CONFIG.$CFGID.connect)"
+CFGID="$(uci show $CONFIG | grep "$USERNAME" | cut -d '.' -sf 2)"
+USER_CONNECT="$(uci get $CONFIG."$CFGID".connect)"
 
 echo "$PPPOE_TIME $PEERNAME Offline $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /home/log/userdown.log
 
-echo "$PPPOE_TIME $PEERNAME Offline interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" >> $PPPOE_LOG_FILE
-echo "Connect time: $CONNECT_TIME minutes" >> $PPPOE_LOG_FILE
-echo "Sent: $BYTES_SENT bytes" >> $PPPOE_LOG_FILE
-echo "Received: $BYTES_RCVD bytes" >> $PPPOE_LOG_FILE
-sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
-sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
-echo "Bytes sum: $sum MB" >> $PPPOE_LOG_FILE
-ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
-echo "Average speed: $ave KB/s" >> $PPPOE_LOG_FILE
-echo >> $PPPOE_LOG_FILE
+echo "$PPPOE_TIME $PEERNAME Offline interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" >> "$PPPOE_LOG_FILE"
+echo "Connect time: $CONNECT_TIME minutes" >> "$PPPOE_LOG_FILE"
+echo "Sent: $BYTES_SENT bytes" >> "$PPPOE_LOG_FILE"
+echo "Received: $BYTES_RCVD bytes" >> "$PPPOE_LOG_FILE"
+sum_bytes=$(("$BYTES_SENT+$BYTES_RCVD"))
+sum=$(echo "scale=2;$sum_bytes/1024/1024"|bc)
+echo "Bytes sum: $sum MB" >> "$PPPOE_LOG_FILE"
+ave=$(echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc)
+echo "Average speed: $ave KB/s" >> "$PPPOE_LOG_FILE"
+echo >> "$PPPOE_LOG_FILE"
 
-rm -f ${SESSION_PATH}/${PEERNAME}.${IFNAME}
+rm -f ${SESSION_PATH}/"$PEERNAME"."$IFACE"
 
-iptables -w -t mangle -D pppoe_user -s $PEERIP -m connlimit --connlimit-above $USER_CONNECT -j DROP
+iptables -w -t mangle -D pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
-uci del sqm.$USERNAME
+uci del sqm."$USERNAME"
 uci commit sqm
-/usr/lib/sqm/run.sh stop $IFACE
+/usr/lib/sqm/run.sh stop "$IFACE"
 
-SQM_STOPPING="$(tc -s qdisc show dev $IFACE)"
+SQM_STOPPING=$(tc -s qdisc show dev "$IFACE")
 
 echo "$PPPOE_TIME $USERNAME Stopping QOS: $SQM_STOPPING" >> /home/log/pppqos.log
 
