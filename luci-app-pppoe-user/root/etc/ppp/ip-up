@@ -20,12 +20,20 @@
 PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
+USERNAME=${PEERNAME}
+IFACE=${1}
+TTY=${2}
+SPEED=${3}
+LOCALIP=${4}
+PEERIP=${5}
+
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
 PPPOE_LOG="/home/log/pppoeuser"
 PPPOE_LOG_FILE="${PPPOE_LOG}/$PEERNAME.log"
 CONFIG="pppoe-user"
 CONFIG_PATH="/var/etc/${CONFIG}"
 SESSION_PATH="${CONFIG_PATH}/session"
+
 CFGID="$(uci show $CONFIG | grep $PEERNAME | cut -d '.' -sf 2)"
 USER_PACKAGE="$(uci get $CONFIG.$CFGID.package)"
 USER_REGISTER="$(uci get $CONFIG.$CFGID.register)"
@@ -45,14 +53,6 @@ SQM_LINKLAYER="$(uci get $CONFIG.$CFGID.linklayer)"
 SQM_DEBUG_LOGGING="$(uci get $CONFIG.$CFGID.debug_logging)"
 SQM_VERBOSITY="$(uci get $CONFIG.$CFGID.verbosity)"
 SQM_OVERHEAD="$(uci get $CONFIG.$CFGID.overhead)"
-
-USERNAME=${PEERNAME}
-IFACE=${1}
-TTY=${2}
-SPEED=${3}
-LOCALIP=${4}
-PEERIP=${5}
-REMOTEIP=${6}
 
 PID="$(cat /var/run/${IFNAME}.pid 2>/dev/null)"
 #MAC="$(top -bn1 | grep pppoe-server | grep "${PID}" | awk '{print $13}' | cut -d : -f 2,2-7)"
@@ -87,25 +87,23 @@ EOF
 uci set $CONFIG.$CFGID.macaddress=$MAC
 uci commit $CONFIG
 
-iptables -w -t mangle -A pppoe_user -s $IPREMOTE -m connlimit --connlimit-above $USER_CONNECT -j DROP
+iptables -w -t mangle -A pppoe_user -s $PEERIP -m connlimit --connlimit-above $USER_CONNECT -j DROP
 
-uci set sqm.$PEERNAME=queue
-uci set sqm.$PEERNAME.enabled=$SQM_ENABLED
-uci set sqm.$PEERNAME.interface=$IFNAME
-uci set sqm.$PEERNAME.download=$SQM_DOWNLOAD
-uci set sqm.$PEERNAME.upload=$SQM_UPLOAD
-uci set sqm.$PEERNAME.qdisc=$SQM_QDISC
-uci set sqm.$PEERNAME.script=$SQM_SCRIPT
-uci set sqm.$PEERNAME.linklayer=$SQM_LINKLAYER
-uci set sqm.$PEERNAME.overhead=$SQM_OVERHEAD
-uci set sqm.$PEERNAME.debug_logging=$SQM_DEBUG_LOGGING
-uci set sqm.$PEERNAME.verbosity=$SQM_VERBOSITY
+uci set sqm.$USERNAME=queue
+uci set sqm.$USERNAME.enabled=$SQM_ENABLED
+uci set sqm.$USERNAME.interface=$IFACE
+uci set sqm.$USERNAME.download=$SQM_DOWNLOAD
+uci set sqm.$USERNAME.upload=$SQM_UPLOAD
+uci set sqm.$USERNAME.qdisc=$SQM_QDISC
+uci set sqm.$USERNAME.script=$SQM_SCRIPT
+uci set sqm.$USERNAME.linklayer=$SQM_LINKLAYER
+uci set sqm.$USERNAME.overhead=$SQM_OVERHEAD
+uci set sqm.$USERNAME.debug_logging=$SQM_DEBUG_LOGGING
+uci set sqm.$USERNAME.verbosity=$SQM_VERBOSITY
 uci commit sqm
-/usr/lib/sqm/run.sh start $IFNAME
+/usr/lib/sqm/run.sh start $IFACE
 
-echo "$PPPOE_TIME $PEERNAME Starting SQM script: $SQM_SCRIPT on $IFNAME, in: $SQM_UPLOAD Kbps, out: $SQM_DOWNLOAD Kbps" >> /home/log/pppqos.log
-
-SQM_STARTING="$(tc -s qdisc show dev $IFNAME | grep qdisc)"
-echo "$PPPOE_TIME $PEERNAME Connections: $USER_CONNECT Starting SQM: $SQM_STARTING" >> /home/log/pppqos.log
+SQM_STARTING="$(tc -s qdisc show dev $IFACE | grep qdisc)"
+echo "$PPPOE_TIME $USERNAME Connections: $USER_CONNECT Starting QOS: $SQM_STARTING" >> /home/log/pppqos.log
 
 exit 0

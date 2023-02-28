@@ -103,17 +103,17 @@ o:value("11000000", "10 G")
 o = s:option(ListValue, "connect", translate("Connections"))
 o.default = "4096"
 o.rmempty = true
-o:value("1024", "1024")
-o:value("2048", "2048")
-o:value("4096", "4096")
-o:value("8192", "8192")
-o:value("16384", "16384")
-o:value("32768", "32768")
-o:value("65536", "65536")
+o:value("1024", "10M 1024")
+o:value("2048", "20M 2048")
+o:value("4096", "40M 4096")
+o:value("8192", "80M 8192")
+o:value("16384", "100M 16384")
+o:value("32768", "200M 32768")
+o:value("65536", "400M 65536")
 
 o = s:option(Value, "expires", translate("Expire date"))
 o.placeholder = translate("Expires")
-o.datatype = "range(20221201,20231231)"
+o.datatype = "range(20230101,20231231)"
 o.rmempty = true
 
 return m
