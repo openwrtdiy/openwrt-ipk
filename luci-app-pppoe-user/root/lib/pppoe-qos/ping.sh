@@ -22,9 +22,4 @@ mkdir -p ${PING_LIST}
 
 echo "$PING_TIME $PING" >> "$PING_FILE"
 
-
-
-
-
-
-
+exit 0

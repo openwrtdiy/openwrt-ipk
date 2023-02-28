@@ -24,7 +24,6 @@ USERNAME=${PEERNAME}
 IFACE=${1}
 TTY=${2}
 SPEED=${3}
-LOCALIP=${4}
 PEERIP=${5}
 
 PPPOE_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
@@ -86,7 +85,7 @@ EOF
 
 uci set $CONFIG."$CFGID".macaddress="$MAC"
 uci commit $CONFIG
-"
+
 iptables -w -t mangle -A pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
 uci set sqm."$USERNAME"=queue
