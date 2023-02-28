@@ -65,4 +65,7 @@ o:value("5", translate("info"))
 o:value("8", translate("debug"))
 o:value("10", translate("trace"))
 
+o = s:option(Flag, "qdisc_advanced", translate("Advanced Configuration"))
+o.rmempty = false
+
 return m

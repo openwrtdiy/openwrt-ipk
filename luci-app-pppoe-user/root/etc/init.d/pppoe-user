@@ -31,6 +31,9 @@ setup_user() {
 	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
         chmod 600 /etc/ppp/*-secrets
 
+        iptables -w -t mangle -N pppoe_user 2>/dev/null
+        iptables -w -t mangle -C FORWARD -j pppoe_user >/dev/null 2>&1 || iptables -w -t mangle -I FORWARD -j pppoe_user
+
 }
 
 delete_user() {

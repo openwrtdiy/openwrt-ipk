@@ -41,6 +41,7 @@ o:value("test", translate("Test"))
 o:value("debugging", translate("Debugging"))
 
 o = s:option(ListValue, "upload", translate("Upload speed"))
+o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
 o:value("1100", "1 Mbps")
@@ -64,11 +65,13 @@ o:value("660000", "600 M")
 o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
-o:value("1100000", "1000 Mbps")
-o:value("1300000", "1250 Mbps")
-o:value("2600000", "2500 Mbps")
+o:value("1100000", "1 Gbps")
+o:value("1300000", "1.25 Gbps")
+o:value("2600000", "2.5 Gbps")
+o:value("11000000", "10 Gbps")
 
 o = s:option(ListValue, "download", translate("Download speed"))
+o.default = "33000"
 o.datatype = "uinteger"
 o.rmempty = true
 o:value("1100", "1 Mbps")
@@ -92,9 +95,10 @@ o:value("660000", "600 M")
 o:value("770000", "700 M")
 o:value("880000", "800 M")
 o:value("990000", "900 M")
-o:value("1100000", "1000 Mbps")
-o:value("1300000", "1250 Mbps")
-o:value("2600000", "2500 Mbps")
+o:value("1100000", "1 Gbps")
+o:value("1300000", "1.25 G")
+o:value("2600000", "2.5 G")
+o:value("11000000", "10 G")
 
 o = s:option(ListValue, "connect", translate("Connections"))
 o.default = "4096"

@@ -73,6 +73,9 @@ msgstr "调试日志"
 msgid "Log verbosity"
 msgstr "日志等级"
 
+msgid "Advanced Configuration"
+msgstr "高级配置"
+
 msgid "User Status"
 msgstr "用户状态"
 

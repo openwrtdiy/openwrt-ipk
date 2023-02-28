@@ -76,6 +76,9 @@ msgstr ""
 msgid "Log verbosity"
 msgstr ""
 
+msgid "Advanced Configuration"
+msgstr ""
+
 msgid "User Status"
 msgstr ""
 
