@@ -68,6 +68,9 @@ uci commit $CONFIG
 
 iptables -w -t mangle -A pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
+nft insert rule inet id-"$USERNAME" upload ip saddr "$PEERIP" limit rate over "$USER_UPLOAD" kbytes/second counter drop
+nft insert rule inet id-"$USERNAME" download ip daddr "$PEERIP" limit rate over "USER_DOWNLOAD" kbytes/second counter drop
+
 echo "$LOGIN_TIME $USERNAME Online $IFACE $PID $TTY $PEERIP $MAC" >> /var/log/userup.log
 
 echo "$LOGIN_TIME $USERNAME Online interface: $IFACE pid: $PID device: $TTY clientIP: $PEERIP clientMAC: $MAC" >> "$USER_LOG_FILE"
