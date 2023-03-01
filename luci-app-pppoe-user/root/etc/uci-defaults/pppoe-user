@@ -9,7 +9,8 @@ EOF
 
 chmod 600 /etc/config/pppoe-user
 chmod 755 /etc/init.d/pppoe-user
-chmod 755 /etc/ppp/ip-up /etc/ppp/ip-down
+chmod 755 /etc/ppp/auth-up /etc/ppp/ip-down
+chmod 755 /etc/ppp/auth-up /etc/ppp/ip-down
 
 rm -rf /tmp/luci-*cache
 exit 0
