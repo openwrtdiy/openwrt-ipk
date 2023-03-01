@@ -38,7 +38,7 @@ USER_UPLOAD="$(uci get $USER_CONFIG."$USER_CFGID".upload)"
 USER_CONNECT="$(uci get $USER_CONFIG."$USER_CFGID".connect)"
 RENEWAL_DATE="$(uci get $USER_CONFIG."$USER_CFGID".expires)"
 
-CONFIG_PATH="/var/etc/${USER_CONFIG}"
+CONFIG_PATH="/var/etc/pppoe-user"
 SESSION_PATH="${CONFIG_PATH}/session"
 
 PID="$(cat /var/run/"$IFACE".pid 2>/dev/null)"

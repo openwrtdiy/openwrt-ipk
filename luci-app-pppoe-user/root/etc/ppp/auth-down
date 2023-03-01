@@ -15,13 +15,9 @@ export PATH
 IFACE="$1"
 USERNAME="$2"
 
-SQM_STOPPING=$(tc -s qdisc show dev "$IFACE")
+QOS_STOPPING=$(tc -s qdisc show dev "$IFACE")
 AUTH_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
 
-/usr/lib/sqm/run.sh stop "$IFACE"
-uci del sqm."$USERNAME"
-uci commit sqm
-
-echo "$AUTH_TIME $USERNAME $IFACE Stopping QOS $SQM_STOPPING" >> /var/log/userqos.log
+echo "$AUTH_TIME $USERNAME $IFACE Stopping QOS $QOS_STOPPING" >> /var/log/userqos.log
 
 exit 0

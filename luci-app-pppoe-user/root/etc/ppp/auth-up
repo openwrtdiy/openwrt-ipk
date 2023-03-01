@@ -22,32 +22,7 @@ USER_QOS="$(uci get $USER_CONFIG."$USER_CFGID".qos)"
 USER_DOWNLOAD="$(uci get $USER_CONFIG."$USER_CFGID".download)"
 USER_UPLOAD="$(uci get $USER_CONFIG."$USER_CFGID".upload)"
 
-SQM_ENABLED="$USER_QOS"
-SQM_INTERFACE="$IFACE"
-SQM_DOWNLOAD="$USER_UPLOAD"
-SQM_UPLOAD="$USER_DOWNLOAD"
-SQM_QDISC="$(uci get $USER_CONFIG."$USER_CFGID".qdisc)"
-SQM_SCRIPT="$(uci get $USER_CONFIG."$USER_CFGID".script)"
-SQM_LINKLAYER="$(uci get $USER_CONFIG."$USER_CFGID".linklayer)"
-SQM_DEBUG_LOGGING="$(uci get $USER_CONFIG."$USER_CFGID".debug_logging)"
-SQM_VERBOSITY="$(uci get $USER_CONFIG."$USER_CFGID".verbosity)"
-SQM_OVERHEAD="$(uci get $USER_CONFIG."$USER_CFGID".overhead)"
-
-uci set sqm."$USERNAME"=queue
-uci set sqm."$USERNAME".enabled="$SQM_ENABLED"
-uci set sqm."$USERNAME".interface="$IFACE"
-uci set sqm."$USERNAME".download="$SQM_DOWNLOAD"
-uci set sqm."$USERNAME".upload="$SQM_UPLOAD"
-uci set sqm."$USERNAME".qdisc="$SQM_QDISC"
-uci set sqm."$USERNAME".script="$SQM_SCRIPT"
-uci set sqm."$USERNAME".linklayer="$SQM_LINKLAYER"
-uci set sqm."$USERNAME".overhead="$SQM_OVERHEAD"
-uci set sqm."$USERNAME".debug_logging="$SQM_DEBUG_LOGGING"
-uci set sqm."$USERNAME".verbosity="$SQM_VERBOSITY"
-uci commit sqm
-/usr/lib/sqm/run.sh start "$IFACE"
-
-SQM_STARTING="$(tc -s qdisc show dev "$IFACE" | grep qdisc)"
-echo "$AUTH_TIME $USERNAME $IFACE Starting QOS $SQM_STARTING" >> /var/log/userqos.log
+QOS_STARTING="$(tc -s qdisc show dev "$IFACE" | grep qdisc)"
+echo "$AUTH_TIME $USERNAME $IFACE Starting QOS $QOS_STARTING" >> /var/log/userqos.log
 
 exit 0

@@ -2,11 +2,11 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=PPPoE User Manager
-LUCI_DEPENDS:=+luci-compat +uhttpd-mod-lua +sqm-scripts +kmod-nft-netdev +kmod-nft-bridge +nftables
+LUCI_DEPENDS:=+luci-compat +uhttpd-mod-lua +kmod-nft-netdev +kmod-nft-bridge +nftables
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
-PKG_RELEASE:=8
-PKG_DATE:=2023-03-01
+PKG_RELEASE:=1
+PKG_DATE:=2023-03-02
 
 define Package/luci-app-pppoe-user/preinst
 #!/bin/sh
