@@ -12,6 +12,14 @@
 PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
-echo auth-down `date +'%y/%m/%d %T'` $* >> /var/log/pppstats
+AUTH_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
 
-# last line
+/usr/lib/sqm/run.sh stop "$1"
+uci del sqm."$2"
+uci commit sqm
+
+SQM_STOPPING=$(tc -s qdisc show dev "$1")
+
+echo "$AUTH_TIME $2 Stopping QOS: $SQM_STOPPING" >> /home/log/userdown.log
+
+exit 0
