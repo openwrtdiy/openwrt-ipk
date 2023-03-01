@@ -10,7 +10,7 @@ function index()
 	entry({"admin", "status", "userstatus", "downtimeuser"}, form("pppoe-user/downtimeuser"), _("Downtime User"), 3).leaf = true
 	entry({"admin", "status", "userstatus", "userup"}, form("pppoe-user/userup"), _("Online Log"), 4).leaf = true
 	entry({"admin", "status", "userstatus", "userdown"}, form("pppoe-user/userdown"), _("Offline Log"), 5).leaf = true
-	entry({"admin", "status", "userstatus", "qoslog"}, form("pppoe-user/qoslog"), _("QOS Log"), 6).leaf = true
+	entry({"admin", "status", "userstatus", "userqos"}, form("pppoe-user/userqos"), _("QOS Log"), 6).leaf = true
 	entry({"admin", "status", "userstatus", "rate"}, template("pppoe-qos/rate"), _("Rate"), 7).leaf = true
 	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
 

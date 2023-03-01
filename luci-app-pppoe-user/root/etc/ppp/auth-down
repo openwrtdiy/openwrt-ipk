@@ -20,6 +20,6 @@ uci commit sqm
 
 SQM_STOPPING=$(tc -s qdisc show dev "$1")
 
-echo "$AUTH_TIME $2 Stopping QOS: $SQM_STOPPING" >> /home/log/userdown.log
+echo "$AUTH_TIME $2 Stopping QOS $SQM_STOPPING" >> /var/log/userqos.log
 
 exit 0

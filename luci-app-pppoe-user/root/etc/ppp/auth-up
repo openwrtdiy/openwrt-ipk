@@ -45,6 +45,6 @@ uci commit sqm
 /usr/lib/sqm/run.sh start "$1"
 
 SQM_STARTING="$(tc -s qdisc show dev "$1" | grep qdisc)"
-echo "$AUTH_TIME $2 Starting QOS: $SQM_STARTING" >> /home/log/userup.log
+echo "$AUTH_TIME $2 Starting QOS: $SQM_STARTING" >> /var/log/userqos.log
 
 # last line

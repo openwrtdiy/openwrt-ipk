@@ -20,7 +20,7 @@ PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
 QUIT_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
-USER_LOG="/home/log/pppoeuser"
+USER_LOG="/home/log/userstatus"
 USER_LOG_FILE="${USER_LOG}/$PEERNAME.log"
 USER_CONFIG="pppoe-user"
 USER_CFGID="$(uci show $USER_CONFIG | grep "$PEERNAME" | cut -d '.' -sf 2)"
@@ -41,7 +41,7 @@ ave=$(echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc)
 echo "Average speed: $ave KB/s" >> "$USER_LOG_FILE"
 echo >> "$USER_LOG_FILE"
 
-echo "$QUIT_TIME $PEERNAME Offline $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /home/log/userdown.log
+echo "$QUIT_TIME $PEERNAME Offline $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /var/log/userdown.log
 
 echo "$QUIT_TIME $PEERNAME Offline interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" >> "$USER_LOG_FILE"
 

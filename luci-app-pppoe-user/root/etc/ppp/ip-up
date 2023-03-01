@@ -21,7 +21,7 @@ PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
 LOGIN_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
-USER_LOG="/home/log/pppoeuser"
+USER_LOG="/home/log/userstatus"
 USER_LOG_FILE="${USER_LOG}/$PEERNAME.log"
 USER_CONFIG="pppoe-user"
 USER_CFGID="$(uci show $USER_CONFIG | grep "$PEERNAME" | cut -d '.' -sf 2)"
@@ -63,7 +63,7 @@ uci commit $CONFIG
 
 iptables -w -t mangle -A pppoe_user -s "$IPREMOTE" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
-echo "$LOGIN_TIME $PEERNAME Online $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /home/log/userup.log
+echo "$LOGIN_TIME $PEERNAME Online $IFNAME $PID $DEVICE $IPREMOTE $MAC" >> /var/log/userup.log
 
 echo "$LOGIN_TIME $PEERNAME Online interface: $IFNAME pid: $PID device: $DEVICE clientIP: $IPREMOTE clientMAC: $MAC" >> "$USER_LOG_FILE"
 echo >> "$USER_LOG_FILE"
