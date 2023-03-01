@@ -51,15 +51,15 @@ cat <<-EOF > ${SESSION_PATH}/"$USERNAME"."$IFACE"
 	{
 	    "username": "${USERNAME}",
 	    "mac": "${MAC}",
-	    "pid": "${PID}",
 	    "interface": "${IFACE}",
 	    "tty": "${TTY}",
 	    "speed": "${SPEED}",
 	    "ip": "${PEERIP}",
 	    "package": "${USER_PACKAGE}",
-	    "register": "${USER_REGISTER}",
+	    "connect": "${USER_CONNECT}",
+	    "updated": "${RENEWAL_DATE}",
 	    "uptime": "${LOGIN_TIME}",
-	    "updated": "${RENEWAL_DATE}"
+	    "pid": "${PID}"
 	}
 EOF
 
