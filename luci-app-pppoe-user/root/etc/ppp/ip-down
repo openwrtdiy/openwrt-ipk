@@ -19,6 +19,11 @@
 PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
+USERNAME="$PEERNAME"
+IFACE="$1"
+TTY="$2"
+PEERIP="$5"
+
 QUIT_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
 USER_LOG="/home/log/userinfo"
 USER_LOG_FILE="${USER_LOG}/$PEERNAME.log"
@@ -31,18 +36,18 @@ iptables -w -t mangle -D pppoe_user -s "$IPREMOTE" -m connlimit --connlimit-abov
 
 rm -f ${SESSION_PATH}/"$PEERNAME"."$IFNAME"
 
-echo "Connect time: $CONNECT_TIME minutes" >> "$USER_LOG_FILE"
-echo "Sent: $BYTES_SENT bytes" >> "$USER_LOG_FILE"
-echo "Received: $BYTES_RCVD bytes" >> "$USER_LOG_FILE"
-sum_bytes=$(("$BYTES_SENT+$BYTES_RCVD"))
-sum=$(echo "scale=2;$sum_bytes/1024/1024"|bc)
-echo "Bytes sum: $sum MB" >> "$USER_LOG_FILE"
-ave=$(echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc)
-echo "Average speed: $ave KB/s" >> "$USER_LOG_FILE"
-echo >> "$USER_LOG_FILE"
-
 echo "$QUIT_TIME $PEERNAME Offline $IFNAME $DEVICE $IPREMOTE Connection times: $CONNECT_TIME Send Bytes: $BYTES_SENT Received Bytes: $BYTES_RCVD" >> /var/log/userdown.log
 
 echo "$QUIT_TIME $PEERNAME Offline interface: $IFNAME device: $DEVICE clientIP: $IPREMOTE" >> "$USER_LOG_FILE"
+
+echo "Connect time: $CONNECT_TIME minutes" >> "$USER_LOG_FILE"
+echo "Sent: $BYTES_SENT bytes" >> "$USER_LOG_FILE"
+echo "Received: $BYTES_RCVD bytes" >> "$USER_LOG_FILE"
+sum_bytes=$(($BYTES_SENT+$BYTES_RCVD))
+sum=`echo "scale=2;$sum_bytes/1024/1024"|bc`
+echo "Bytes sum: $sum MB" >> "$USER_LOG_FILE"
+ave=`echo "scale=2;$sum_bytes/1024/$CONNECT_TIME"|bc`
+echo "Average speed: $ave KB/s" >> "$USER_LOG_FILE"
+echo >> "$USER_LOG_FILE"
 
 exit 0

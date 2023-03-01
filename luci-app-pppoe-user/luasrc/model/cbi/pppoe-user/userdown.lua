@@ -7,8 +7,8 @@ t = f:field(TextValue, "conf")
 t.rmempty = true
 t.rows = 30
 function t.cfgvalue()
-	if nixio.fs.access("/home/log/userdown.log") then
-		local logs = luci.util.execi("cat /home/log/userdown.log |tail -600")
+	if nixio.fs.access("/var/log/userdown.log") then
+		local logs = luci.util.execi("cat /var/log/userdown.log |tail -600")
 		local s = ""
 		for line in logs do
 			s = line .. "\n" .. s
