@@ -68,6 +68,9 @@ uci commit $CONFIG
 
 iptables -w -t mangle -A pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
+nft add table inet id-$username
+nft add chain inet id-$username upload "{type filter hook postrouting priority 0; policy accept;}"
+nft add chain inet id-$username download "{type filter hook prerouting priority 0; policy accept;}"
 nft insert rule inet id-"$USERNAME" upload ip saddr "$PEERIP" limit rate over "$USER_UPLOAD" kbytes/second counter drop
 nft insert rule inet id-"$USERNAME" download ip daddr "$PEERIP" limit rate over "USER_DOWNLOAD" kbytes/second counter drop
 
