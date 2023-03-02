@@ -17,16 +17,13 @@ setup_user() {
 	config_get macaddress "$1" macaddress
 	config_get package "$1" package
 	config_get qos "$1" qos
-	config_get download "$1" download
 	config_get upload "$1" upload
+	config_get download "$1" download
 	config_get connect "$1" connect
 
 	touch ${CHAP_SECRETS}
 	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
         chmod 600 /etc/ppp/*-secrets
-
-        iptables -w -t mangle -N pppoe_user
-        iptables -w -t mangle -C FORWARD -j pppoe_user || iptables -w -t mangle -I FORWARD -j pppoe_user
 }
 
 delete_user() {

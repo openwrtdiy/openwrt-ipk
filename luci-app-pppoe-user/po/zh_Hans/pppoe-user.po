@@ -97,8 +97,8 @@ msgstr "强制下线"
 msgid "Realtime Traffic"
 msgstr "实时流量"
 
-msgid "Bandwidth KBytes/s"
-msgstr "带宽 KBytes/s"
+msgid "KBytes/s"
+msgstr "KBytes/s"
 
 msgid "Connections"
 msgstr "连接数"

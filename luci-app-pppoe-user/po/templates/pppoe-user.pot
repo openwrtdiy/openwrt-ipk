@@ -100,7 +100,7 @@ msgstr ""
 msgid "Realtime Traffic"
 msgstr ""
 
-msgid "Bandwidth KBytes/s"
+msgid "KBytes/s"
 msgstr ""
 
 msgid "Connections"
