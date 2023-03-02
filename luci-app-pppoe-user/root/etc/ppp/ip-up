@@ -56,6 +56,7 @@ cat <<-EOF > ${SESSION_PATH}/"$USERNAME"."$IFACE"
 	    "speed": "${SPEED}",
 	    "ip": "${PEERIP}",
 	    "package": "${USER_PACKAGE}",
+	    "kbytes": "${USER_DOWNLOAD}",
 	    "connect": "${USER_CONNECT}",
 	    "updated": "${RENEWAL_DATE}",
 	    "uptime": "${LOGIN_TIME}",
