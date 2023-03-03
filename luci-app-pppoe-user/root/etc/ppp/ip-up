@@ -30,11 +30,12 @@ USER_LOG="/home/log/userinfo"
 USER_LOG_FILE="${USER_LOG}/$USERNAME.log"
 USER_CONFIG="pppoe-user"
 USER_CFGID="$(uci show $USER_CONFIG | grep "$USERNAME" | cut -d '.' -sf 2)"
+SERVIC_NAME="$(uci get $USER_CONFIG."$USER_CFGID".servicename)"
 USER_PACKAGE="$(uci get $USER_CONFIG."$USER_CFGID".package)"
-USER_REGISTER="$(uci get $USER_CONFIG."$USER_CFGID".register)"
 USER_QOS="$(uci get $USER_CONFIG."$USER_CFGID".qos)"
-USER_DOWNLOAD="$(uci get $USER_CONFIG."$USER_CFGID".download)"
 USER_UPLOAD="$(uci get $USER_CONFIG."$USER_CFGID".upload)"
+USER_DOWNLOAD="$(uci get $USER_CONFIG."$USER_CFGID".download)"
+USER_UNIT="$(uci get $USER_CONFIG."$USER_CFGID".unit)"
 USER_CONNECT="$(uci get $USER_CONFIG."$USER_CFGID".connect)"
 RENEWAL_DATE="$(uci get $USER_CONFIG."$USER_CFGID".expires)"
 
@@ -55,8 +56,8 @@ cat <<-EOF > ${SESSION_PATH}/"$USERNAME"."$IFACE"
 	    "tty": "${TTY}",
 	    "speed": "${SPEED}",
 	    "ip": "${PEERIP}",
+	    "servicename": "${SERVIC_NAME}",
 	    "package": "${USER_PACKAGE}",
-	    "kbytes": "${USER_DOWNLOAD}",
 	    "connect": "${USER_CONNECT}",
 	    "updated": "${RENEWAL_DATE}",
 	    "uptime": "${LOGIN_TIME}",
@@ -72,8 +73,8 @@ iptables -w -t mangle -A pppoe_user -s "$PEERIP" -m connlimit --connlimit-above 
 nft add table inet id-$USERNAME
 nft add chain inet id-$USERNAME upload "{type filter hook postrouting priority 0; policy accept;}"
 nft add chain inet id-$USERNAME download "{type filter hook prerouting priority 0; policy accept;}"
-nft insert rule inet id-"$USERNAME" upload ip saddr "$PEERIP" limit rate over "$USER_UPLOAD" kbytes/second counter drop
-nft insert rule inet id-"$USERNAME" download ip daddr "$PEERIP" limit rate over "$USER_DOWNLOAD" kbytes/second counter drop
+nft insert rule inet id-"$USERNAME" upload ip saddr "$PEERIP" limit rate over "$USER_UPLOAD" "$USER_UNIT"/second counter drop
+nft insert rule inet id-"$USERNAME" download ip daddr "$PEERIP" limit rate over "$USER_DOWNLOAD" "$USER_UNIT"/second counter drop
 
 echo "$LOGIN_TIME $USERNAME Online $IFACE $PID $TTY $PEERIP $MAC" >> /var/log/userup.log
 

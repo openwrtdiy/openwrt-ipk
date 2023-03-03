@@ -10,7 +10,7 @@ function index()
 	entry({"admin", "status", "userstatus", "userup"}, form("pppoe-user/userup"), _("Online Log"), 3).leaf = true
 	entry({"admin", "status", "userstatus", "userdown"}, form("pppoe-user/userdown"), _("Offline Log"), 4).leaf = true
 	entry({"admin", "status", "userstatus", "userqos"}, form("pppoe-user/userqos"), _("QOS Log"), 5).leaf = true
-	entry({"admin", "status", "userstatus", "realtimetraffic"}, form("pppoe-user/realtimetraffic"), _("Realtime Traffic"), 6).leaf = true
+	entry({"admin", "status", "userstatus", "realtimetraffic"}, form("pppoe-user/realtimetraffic"), _("Realtime Rate"), 6).leaf = true
 	entry({"admin", "status", "userstatus", "rate"}, template("pppoe-qos/rate"), _("Rate"), 7).leaf = true
 	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
 
@@ -19,7 +19,7 @@ function index()
 	entry({"admin", "status", "networkstatus", "interface"}, form("pppoe-user/interface"), _("Interface Information"), 2).leaf = true
 	entry({"admin", "status", "networkstatus", "network"}, form("pppoe-user/network"), _("Network Information"), 3).leaf = true
 
-	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("Broadband Account Management"), 999)
+	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("User Manager"), 999)
 	entry({"admin", "services", "pppoe-user", "user"}, cbi("pppoe-user/user"), _("User Manager")).leaf = true
 
 end

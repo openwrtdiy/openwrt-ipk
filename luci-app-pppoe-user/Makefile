@@ -1,3 +1,9 @@
+#
+# Copyright (C) 2021-2023 iKokang <kokangnet@gmail.com>
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
 
 include $(TOPDIR)/rules.mk
 
@@ -5,8 +11,8 @@ LUCI_TITLE:=PPPoE User Manager
 LUCI_DEPENDS:=+luci-compat +kmod-nft-netdev +kmod-nft-bridge +nftables
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
-PKG_RELEASE:=8
-PKG_DATE:=2023-03-02
+PKG_RELEASE:=1
+PKG_DATE:=2023-03-04
 
 define Package/luci-app-pppoe-user/preinst
 #!/bin/sh

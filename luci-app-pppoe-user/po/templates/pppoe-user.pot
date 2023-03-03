@@ -1,16 +1,16 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-msgid "Broadband Account Management"
-msgstr ""
-
 msgid "User Manager"
 msgstr ""
 
-msgid "Account opening instructions column content"
+msgid "Tip: When there is no option to enter a parameter value in the form box! Default values will be used for ip address, service name, upload speed, download speed, Speed unit and number of connections!"
 msgstr ""
 
-msgid "User count"
+msgid "Speed unit: 1 MBytes/s = 125 KBytes/s (vs) 1 MBytes/s = 125000 Bytes/s Connections: 64~65536"
+msgstr ""
+
+msgid "User number"
 msgstr ""
 
 msgid "Enabled"
@@ -19,13 +19,10 @@ msgstr ""
 msgid "User Name"
 msgstr ""
 
-msgid "Service Name"
-msgstr ""
-
-msgid "Account"
-msgstr ""
-
 msgid "Password"
+msgstr ""
+
+msgid "Service Name"
 msgstr ""
 
 msgid "IP address"
@@ -34,49 +31,31 @@ msgstr ""
 msgid "Automatically"
 msgstr ""
 
-msgid "MAC address"
+msgid "Broadband Package"
 msgstr ""
 
-msgid "Expire date"
+msgid "Bandwidth"
 msgstr ""
 
-msgid "Broadband account speed limit"
+msgid "Bandwidth Megabits"
 msgstr ""
 
-msgid "Traffic Control"
-msgstr ""
-
-msgid "After completing the change of user bandwidth parameters, the online user account must be kicked off the line, and the new speed limit parameter will take effect!"
-msgstr ""
-
-msgid "QoS"
-msgstr ""
-
-msgid "Download speed"
+msgid "Enable Speed Limit"
 msgstr ""
 
 msgid "Upload speed"
 msgstr ""
 
-msgid "Queuing Rules"
+msgid "Download speed"
 msgstr ""
 
-msgid "Queue Script"
+msgid "Speed unit"
 msgstr ""
 
-msgid "Link Layer"
+msgid "Connections"
 msgstr ""
 
-msgid "Overhead Bytes"
-msgstr ""
-
-msgid "Debug Logging"
-msgstr ""
-
-msgid "Log verbosity"
-msgstr ""
-
-msgid "Advanced Configuration"
+msgid "Expiration date"
 msgstr ""
 
 msgid "User Status"
@@ -85,34 +64,43 @@ msgstr ""
 msgid "Online User"
 msgstr ""
 
-msgid "Up Time"
+msgid "MAC address"
 msgstr ""
 
-msgid "Down Time"
+msgid "Up Time"
 msgstr ""
 
 msgid "Renewal Date"
 msgstr ""
 
+msgid "Process ID"
+msgstr ""
+
 msgid "Forced Offline"
 msgstr ""
 
-msgid "Realtime Traffic"
+msgid "Downtime User"
 msgstr ""
 
-msgid "KBytes/s"
+msgid "Registration Date"
 msgstr ""
 
-msgid "Connections"
+msgid "Down Time"
 msgstr ""
 
-msgid "Connection limit"
+msgid "Realtime Rate"
 msgstr ""
 
-msgid "Realtime Upload"
+msgid "Realtime Upload Rate"
 msgstr ""
 
-msgid "Realtime Download"
+msgid "Realtime Download Rate"
+msgstr ""
+
+msgid "Upload Rate"
+msgstr ""
+
+msgid "Download Rate"
 msgstr ""
 
 msgid "Total Uploads"
@@ -121,13 +109,22 @@ msgstr ""
 msgid "Total Downloads"
 msgstr ""
 
-msgid "Downtime User"
+msgid "Bytes Total"
 msgstr ""
 
-msgid "Bandwidth"
+msgid "Packets Total"
 msgstr ""
 
-msgid "Account opening date"
+msgid "Active Connections"
+msgstr ""
+
+msgid "This page gives an overview over currently download/upload rate."
+msgstr ""
+
+msgid "Traffic Priority Settings"
+msgstr ""
+
+msgid "User Log"
 msgstr ""
 
 msgid "Online Log"
@@ -137,15 +134,6 @@ msgid "Offline Log"
 msgstr ""
 
 msgid "QOS Log"
-msgstr ""
-
-msgid "Process ID"
-msgstr ""
-
-msgid "Broadband Package"
-msgstr ""
-
-msgid "Registration Date"
 msgstr ""
 
 msgid "Please choose"

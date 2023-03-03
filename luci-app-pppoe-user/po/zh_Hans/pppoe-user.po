@@ -1,13 +1,13 @@
-msgid "Broadband Account Management"
-msgstr "宽带账号管理"
-
 msgid "User Manager"
 msgstr "用户管理"
 
-msgid "Account opening instructions column content"
-msgstr "开户须知栏目内容"
+msgid "Tip: When there is no option to enter a parameter value in the form box! Default values will be used for ip address, service name, upload speed, download speed, Speed unit and number of connections!"
+msgstr "提示：表格框中没有选择输入参数值时！ip地址、服务名称、上传速度、下载速度、速度单位和连接数将会使用默认数值！"
 
-msgid "User count"
+msgid "Speed unit: 1 MBytes/s = 125 KBytes/s (vs) 1 MBytes/s = 125000 Bytes/s Connections: 64~65536"
+msgstr "速度单位: 1 MBytes/s = 125 KBytes/s (vs) 1 MBytes/s = 125000 Bytes/s 连接数: 64~65536"
+
+msgid "User number"
 msgstr "用户数"
 
 msgid "Enabled"
@@ -16,14 +16,11 @@ msgstr "启用"
 msgid "User Name"
 msgstr "用户名"
 
-msgid "Service Name"
-msgstr "服务名称"
-
-msgid "Account"
-msgstr "账号"
-
 msgid "Password"
 msgstr "密码"
+
+msgid "Service Name"
+msgstr "服务名称"
 
 msgid "IP address"
 msgstr "IP 地址"
@@ -31,50 +28,32 @@ msgstr "IP 地址"
 msgid "Automatically"
 msgstr "自动分配"
 
-msgid "MAC address"
-msgstr "MAC 地址"
+msgid "Broadband Package"
+msgstr "宽带套餐"
 
-msgid "Expire date"
-msgstr "到期时间"
+msgid "Bandwidth"
+msgstr "带宽"
 
-msgid "Broadband account speed limit"
-msgstr "宽带账号限速"
+msgid "Bandwidth Megabits"
+msgstr "带宽兆位"
 
-msgid "Traffic Control"
-msgstr "流量控制"
-
-msgid "After completing the change of user bandwidth parameters, the online user account must be kicked off the line, and the new speed limit parameter will take effect!"
-msgstr "完成用户带宽参数更改后，必须将在线用户账号踢下线，新的限速参数才会生效！"
-
-msgid "QoS"
+msgid "Enable Speed Limit"
 msgstr "限速"
-
-msgid "Download speed"
-msgstr "下载速度"
 
 msgid "Upload speed"
 msgstr "上传速度"
 
-msgid "Queuing Rules"
-msgstr "队列规则"
+msgid "Download speed"
+msgstr "下载速度"
 
-msgid "Queue Script"
-msgstr "队列脚本"
+msgid "Speed unit"
+msgstr "速度单位"
 
-msgid "Link Layer"
-msgstr "链路层"
+msgid "Connections"
+msgstr "连接数"
 
-msgid "Overhead Bytes"
-msgstr "开销字节"
-
-msgid "Debug Logging"
-msgstr "调试日志"
-
-msgid "Log verbosity"
-msgstr "日志等级"
-
-msgid "Advanced Configuration"
-msgstr "高级配置"
+msgid "Expiration date"
+msgstr "截止日期"
 
 msgid "User Status"
 msgstr "用户状态"
@@ -82,50 +61,68 @@ msgstr "用户状态"
 msgid "Online User"
 msgstr "在线用户"
 
+msgid "MAC address"
+msgstr "MAC 地址"
+
 msgid "Up Time"
 msgstr "上线时间"
-
-msgid "Down Time"
-msgstr "下线时间"
 
 msgid "Renewal Date"
 msgstr "续订日期"
 
+msgid "Process ID"
+msgstr "进程 ID"
+
 msgid "Forced Offline"
 msgstr "强制下线"
-
-msgid "Realtime Traffic"
-msgstr "实时流量"
-
-msgid "KBytes/s"
-msgstr "KBytes/s"
-
-msgid "Connections"
-msgstr "连接数"
-
-msgid "Connection limit"
-msgstr "连接限制"
-
-msgid "Realtime Upload"
-msgstr "实时上传"
-
-msgid "Realtime Download"
-msgstr "实时下载"
-
-msgid "Total Uploads"
-msgstr "总上传量"
-
-msgid "Total Downloads"
-msgstr "总下载量"
 
 msgid "Downtime User"
 msgstr "停机用户"
 
-msgid "Bandwidth"
-msgstr "带宽"
+msgid "Registration Date"
+msgstr "注册日期"
 
-msgid "Account opening date"
-msgstr "开户日期"
+msgid "Down Time"
+msgstr "下线时间"
+
+msgid "Realtime Rate"
+msgstr "实时速率"
+
+msgid "Realtime Upload Rate"
+msgstr "实时上传速率"
+
+msgid "Realtime Download Rate"
+msgstr "实时下载速率"
+
+msgid "Upload Rate"
+msgstr "上传速率"
+
+msgid "Download Rate"
+msgstr "下载速率"
+
+msgid "Total Uploads"
+msgstr "上传总数"
+
+msgid "Total Downloads"
+msgstr "下载总数"
+
+msgid "Bytes Total"
+msgstr "字节总数"
+
+msgid "Packets Total"
+msgstr "数据包总数"
+
+msgid "Active Connections"
+msgstr "活动连接数"
+
+msgid "This page gives an overview over currently download/upload rate."
+msgstr "该页面提供了当前上传和下载速率的一个总览。"
+
+msgid "Traffic Priority Settings"
+msgstr "流量优先级设置"
+
+msgid "User Log"
+msgstr "用户日志"
 
 msgid "Online Log"
 msgstr "上线日志"
@@ -135,15 +132,6 @@ msgstr "下线日志"
 
 msgid "QOS Log"
 msgstr "QOS 日志"
-
-msgid "Process ID"
-msgstr "进程 ID"
-
-msgid "Broadband Package"
-msgstr "宽带套餐"
-
-msgid "Registration Date"
-msgstr "注册日期"
 
 msgid "Please choose"
 msgstr "请选择"

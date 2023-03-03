@@ -2,6 +2,26 @@
 config user
 	option enabled '1'
 	option username 'guest'
-	option provider '*'
-	option password '12345678'
+	option password '123456'
+	option servicename '*'
 	option ipaddress '*'
+	option package 'none'
+	option qos '1'
+	option upload '1000'
+	option download '3000'
+	option unit 'kbytes'
+	option connect '1024'
+
+config user
+	option enabled '0'
+	option username 'test'
+	option password '567890'
+	option servicename '*'
+	option ipaddress '192.168.9.2'
+	option package 'test'
+	option qos '1'
+	option upload '1'
+	option download '5'
+	option unit 'mbytes'
+	option connect '4096'
+
