@@ -58,6 +58,12 @@ msgstr ""
 msgid "Expiration date"
 msgstr ""
 
+msgid "Traffic Control"
+msgstr ""
+
+msgid "Management Options"
+msgstr ""
+
 msgid "User Status"
 msgstr ""
 
@@ -89,6 +95,9 @@ msgid "Down Time"
 msgstr ""
 
 msgid "Realtime Rate"
+msgstr ""
+
+msgid "Rate"
 msgstr ""
 
 msgid "Realtime Upload Rate"

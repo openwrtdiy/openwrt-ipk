@@ -55,6 +55,12 @@ msgstr "连接数"
 msgid "Expiration date"
 msgstr "截止日期"
 
+msgid "Traffic Control"
+msgstr "流量控制"
+
+msgid "Management Options"
+msgstr "管理选项"
+
 msgid "User Status"
 msgstr "用户状态"
 
@@ -87,6 +93,9 @@ msgstr "下线时间"
 
 msgid "Realtime Rate"
 msgstr "实时速率"
+
+msgid "Rate"
+msgstr "速率"
 
 msgid "Realtime Upload Rate"
 msgstr "实时上传速率"

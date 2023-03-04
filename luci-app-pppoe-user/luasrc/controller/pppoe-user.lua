@@ -19,8 +19,10 @@ function index()
 	entry({"admin", "status", "networkstatus", "interface"}, form("pppoe-user/interface"), _("Interface Information"), 2).leaf = true
 	entry({"admin", "status", "networkstatus", "network"}, form("pppoe-user/network"), _("Network Information"), 3).leaf = true
 
-	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("User Manager"), 999)
-	entry({"admin", "services", "pppoe-user", "user"}, cbi("pppoe-user/user"), _("User Manager")).leaf = true
+	entry({"admin", "services", "pppoe-user"}, alias("admin", "services", "pppoe-user", "user"), _("User Manager"), 777)
+	entry({"admin", "services", "pppoe-user", "user"}, cbi("pppoe-user/user"), _("User Manager"), 1).leaf = true
+	entry({"admin", "services", "pppoe-user", "speed"}, cbi("pppoe-user/speed"), _("Traffic Control"), 2).leaf = true
+	entry({"admin", "services", "pppoe-user", "options"}, cbi("pppoe-user/options"), _("Management Options"), 3).leaf = true
 
 end
 
