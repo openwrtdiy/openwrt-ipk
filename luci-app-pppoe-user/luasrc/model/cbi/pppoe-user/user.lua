@@ -41,18 +41,4 @@ function o.cfgvalue(e, t)
 end
 function o.remove(e, t) Value.write(e, t, "*") end
 
-o = s:option(Value, "package", translate("Broadband Package"))
-o.rmempty = true
-o:value("none", translate("None"))
-o:value("family", translate("Family"))
-o:value("office", translate("Office"))
-o:value("free", translate("Free"))
-o:value("test", translate("Test"))
-o:value("debugging", translate("Debugging"))
-
-o = s:option(Value, "expires", translate("Expiration date"))
-o.placeholder = translate("Expires")
-o.datatype = "range(20230101,20231231)"
-o.rmempty = true
-
 return m

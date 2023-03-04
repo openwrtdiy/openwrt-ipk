@@ -14,13 +14,21 @@ o.readonly = true
 o = s:option(DummyValue, "macaddress", translate("MAC address"))
 o.rmempty = true
 
-o = s:option(DummyValue, "package", translate("Broadband Package"))
+o = s:option(Value, "package", translate("Broadband Package"))
 o.rmempty = true
+o:value("none", translate("None"))
+o:value("family", translate("Family"))
+o:value("office", translate("Office"))
+o:value("free", translate("Free"))
+o:value("test", translate("Test"))
+o:value("debugging", translate("Debugging"))
 
 o = s:option(Value, "upload", translate("Upload speed"))
+o.default = "0"
 o.rmempty = true
 
 o = s:option(Value, "download", translate("Download speed"))
+o.default = "0"
 o.rmempty = true
 
 o = s:option(ListValue, "unit", translate("Speed unit"))
@@ -41,5 +49,10 @@ o:value("8192", "80M 8192")
 o:value("16384", "100M 16384")
 o:value("32768", "200M 32768")
 o:value("65536", "400M 65536")
+
+o = s:option(Value, "expires", translate("Expiration date"))
+o.placeholder = translate("Expires")
+o.datatype = "range(20230101,20231231)"
+o.rmempty = true
 
 return m
