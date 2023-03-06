@@ -1,0 +1,14 @@
+
+config user
+	option enabled '1'
+	option username 'guest'
+	option servicename '*'
+	option password '123456'
+	option ipaddress '*'
+	option package 'none'
+	option qos '1'
+	option upload '3550'
+	option download '3550'
+	option unit 'kbytes'
+	option connect '1024'
+
