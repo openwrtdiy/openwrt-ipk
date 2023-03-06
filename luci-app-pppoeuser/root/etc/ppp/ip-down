@@ -32,9 +32,9 @@ USER_CFGID="$(uci show $USER_CONFIG | grep "$USERNAME" | cut -d '.' -sf 2)"
 USER_CONNECT="$(uci get $USER_CONFIG."$USER_CFGID".connect)"
 SESSION_PATH="/var/etc/pppoeuser/session"
 
-iptables -w -t mangle -D pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
+#iptables -w -t mangle -D pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
-nft delete table inet id-"$USERNAME"
+#nft delete table inet id-"$USERNAME"
 
 rm -f ${SESSION_PATH}/"$USERNAME"."$IFACE"
 

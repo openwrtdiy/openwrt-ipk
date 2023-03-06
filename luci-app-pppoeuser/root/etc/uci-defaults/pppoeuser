@@ -11,8 +11,9 @@ chmod 600 /etc/config/pppoeuser
 chmod 755 /etc/init.d/pppoeuser
 chmod 755 /etc/ppp/ip-up /etc/ppp/ip-down
 chmod 755 /etc/ppp/auth-up /etc/ppp/auth-down
-iptables -w -t mangle -N pppoe_user 2>/dev/null
-iptables -w -t mangle -C FORWARD -j pppoe_user >/dev/null 2>&1 || iptables -w -t mangle -I FORWARD -j pppoe_user
+iptables -w -t mangle -N pppoe_user
+iptables -w -t mangle -C FORWARD -j pppoe_user
+iptables -w -t mangle -I FORWARD -j pppoe_user
 
 rm -rf /tmp/luci-*cache
 exit 0
