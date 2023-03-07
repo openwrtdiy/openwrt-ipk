@@ -97,15 +97,17 @@ o:value("88000", "800 Mbps")
 o:value("99000", "900 Mbps")
 o:value("110000", "1000 Mbps")
 
-o = s:option(ListValue, "unit", translate("Speed unit"))
+o = s:option(DummyValue, "unit", translate("Speed unit"))
 o.default = "kbytes"
 o.rmempty = true
-o:value("bytes", "Bytes/s")
-o:value("kbytes", "KBytes/s")
-o:value("mbytes", "MBytes/s")
+function o.cfgvalue(e, t)
+    value = e.map:get(t, "unit")
+    return value == "kbytes" and "" or value
+end
+function o.remove(e, t) Value.write(e, t, "kbytes") end
 
 o = s:option(ListValue, "connect", translate("Connections"))
-o.default = "4096"
+o.default = "8192"
 o.datatype = "range(64,65536)"
 o.rmempty = true
 o:value("1024", "10M 1024")

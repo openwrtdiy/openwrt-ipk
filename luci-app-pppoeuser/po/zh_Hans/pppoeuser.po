@@ -29,7 +29,7 @@ msgid "Automatically"
 msgstr "自动分配"
 
 msgid "Broadband Package"
-msgstr "宽带套餐"
+msgstr "套餐类型"
 
 msgid "Bandwidth"
 msgstr "带宽"
@@ -162,6 +162,18 @@ msgstr "测试"
 
 msgid "Debugging"
 msgstr "调试"
+
+msgid "User Info"
+msgstr "用户信息"
+
+msgid "Contact Number"
+msgstr "联系电话"
+
+msgid "Installation Area"
+msgstr "安装区域"
+
+msgid "Remark"
+msgstr "备注"
 
 msgid "Network Status"
 msgstr "网络状态"

@@ -166,6 +166,18 @@ msgstr ""
 msgid "Debugging"
 msgstr ""
 
+msgid "User Info"
+msgstr ""
+
+msgid "Contact Number"
+msgstr ""
+
+msgid "Installation Area"
+msgstr ""
+
+msgid "Remark"
+msgstr ""
+
 msgid "Network Status"
 msgstr ""
 
