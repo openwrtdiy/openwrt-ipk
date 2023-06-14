@@ -70,6 +70,12 @@ uci commit $CONFIG
 
 #iptables -w -t mangle -A pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
+#nft add table inet id-$USERNAME
+#nft add chain inet id-$USERNAME upload "{type filter hook postrouting priority 0; policy accept;}"
+#nft add chain inet id-$USERNAME download "{type filter hook prerouting priority 0; policy accept;}"
+#nft insert rule inet id-"$USERNAME" upload ip saddr "$PEERIP" limit rate over "$USER_UPLOAD" "$USER_UNIT"/second counter drop
+#nft insert rule inet id-"$USERNAME" download ip daddr "$PEERIP" limit rate over "$USER_DOWNLOAD" "$USER_UNIT"/second counter drop
+
 echo "$LOGIN_TIME $USERNAME Online $PID $IFACE $PEERIP $MAC" >> /var/log/userup.log
 
 echo "$LOGIN_TIME $USERNAME Online PID: $PID Interface: $IFACE IP: $PEERIP MAC: $MAC" >> "$USER_LOG_FILE"
