@@ -34,7 +34,7 @@ SESSION_PATH="/var/etc/pppoeuser/session"
 
 #iptables -w -t mangle -D pppoe_user -s "$PEERIP" -m connlimit --connlimit-above "$USER_CONNECT" -j DROP
 
-#nft delete table inet id-"$USERNAME"
+nft delete table inet id-"$USERNAME"
 
 rm -f ${SESSION_PATH}/"$USERNAME"."$IFACE"
 
