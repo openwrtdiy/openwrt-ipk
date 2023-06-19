@@ -13,11 +13,9 @@ function index()
 	entry({"admin", "status", "userstatus", "realtimetraffic"}, form("pppoeuser/realtimetraffic"), _("Realtime Rate"), 6).leaf = true
 	entry({"admin", "status", "userstatus", "rate"}, template("realtime/rate"), _("Rate"), 7).leaf = true
 	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
-
-	entry({"admin", "status", "networkstatus"}, alias("admin", "status", "networkstatus", "interfacelog"), _("Network Status"), 888)
-	entry({"admin", "status", "networkstatus", "interfacelog"}, form("pppoeuser/interfacelog"), _("Interface Log"), 1).leaf = true
-	entry({"admin", "status", "networkstatus", "interface"}, form("pppoeuser/interface"), _("Interface Information"), 2).leaf = true
-	entry({"admin", "status", "networkstatus", "network"}, form("pppoeuser/network"), _("Network Information"), 3).leaf = true
+	entry({"admin", "status", "userstatus", "interfacelog"}, form("pppoeuser/interfacelog"), _("Interface Log"), 8).leaf = true
+	entry({"admin", "status", "userstatus", "interface"}, form("pppoeuser/interface"), _("Interface Information"), 9).leaf = true
+	entry({"admin", "status", "userstatus", "network"}, form("pppoeuser/network"), _("Network Information"), 10).leaf = true
 
 	entry({"admin", "services", "pppoeuser"}, alias("admin", "services", "pppoeuser", "user"), _("User Manager"), 777)
 	entry({"admin", "services", "pppoeuser", "user"}, cbi("pppoeuser/user"), _("User Manager"), 1).leaf = true
