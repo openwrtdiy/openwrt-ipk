@@ -246,15 +246,3 @@ msgstr ""
 #: applications/luci-app-nft-qos-unofficial/luasrc/view/nft-qos/rate.htm:44
 msgid "kB"
 msgstr ""
-
-msgid "IP flow control options"
-msgstr ""
-
-msgid "MAC flow control options"
-msgstr ""
-
-msgid "IP address speed limit"
-msgstr ""
-
-msgid "MAC address speed limit"
-msgstr ""
