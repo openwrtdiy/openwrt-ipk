@@ -11,8 +11,6 @@ function index()
 	entry({"admin", "status", "userstatus", "userdown"}, form("pppoeuser/userdown"), _("Offline Log"), 4).leaf = true
 	entry({"admin", "status", "userstatus", "userqos"}, form("pppoeuser/userqos"), _("QOS Log"), 5).leaf = true
 	entry({"admin", "status", "userstatus", "realtimetraffic"}, form("pppoeuser/realtimetraffic"), _("Realtime Rate"), 6).leaf = true
-	entry({"admin", "status", "userstatus", "rate"}, template("realtime/rate"), _("Rate"), 7).leaf = true
-	entry({"admin", "status", "userstatus", "rate_status"}, call("action_rate")).leaf = true
 	entry({"admin", "status", "userstatus", "interfacelog"}, form("pppoeuser/interfacelog"), _("Interface Log"), 8).leaf = true
 	entry({"admin", "status", "userstatus", "interface"}, form("pppoeuser/interface"), _("Interface Information"), 9).leaf = true
 	entry({"admin", "status", "userstatus", "network"}, form("pppoeuser/network"), _("Network Information"), 10).leaf = true
@@ -23,42 +21,4 @@ function index()
 
 	entry({"admin", "network", "bandwidth"}, alias("admin", "network", "bandwidth", "speed"), _("Account speed limit"), 666)
 	entry({"admin", "network", "bandwidth", "speed"}, cbi("pppoeuser/speed"), _("Traffic Control")).leaf = true
-end
-
-function _action_rate(rv, n)
-	local c = nixio.fs.access("/proc/net/ipv6_route") and
-		io.popen("nft list chain inet nft-qos-monitor " .. n .. " 2>/dev/null") or
-		io.popen("nft list chain ip nft-qos-monitor " .. n .. " 2>/dev/null")
-
-	if c then
-		for l in c:lines() do
-			local _, i, p, b = l:match(
-				'^%s+ip ([^%s]+) ([^%s]+) counter packets (%d+) bytes (%d+)'
-			)
-			if i and p and b then
-				-- handle expression
-				rv[#rv + 1] = {
-					rule = {
-						family = "inet",
-						table = "nft-qos-monitor",
-						chain = n,
-						handle = 0,
-						expr = {
-							{ match = { right = i } },
-							{ counter = { packets = p, bytes = b } }
-						}
-					}
-				}
-			end
-		end
-		c:close()
-	end
-end
-
-function action_rate()
-	luci.http.prepare_content("application/json")
-	local data = { nftables = {} }
-	_action_rate(data.nftables, "upload")
-	_action_rate(data.nftables, "download")
-	luci.http.write_json(data)
 end
