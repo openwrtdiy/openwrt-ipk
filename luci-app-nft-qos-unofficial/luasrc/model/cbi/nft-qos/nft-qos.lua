@@ -37,8 +37,8 @@ s:tab("priority", translate("Traffic Priority"))
 --
 -- Static
 --
-o = s:taboption("limit", Flag, "limit_enable", translate("Limit Enable"), translate("Enable Limit Rate Feature"))
-o.default = limit_enable or o.enabled
+o = s:taboption("limit", Flag, "limit_enable", translate("Enable IP address speed limit"), translate("Enable Limit Rate Feature"))
+o.default = limit_enable or o.disabled
 o.rmempty = false
 
 o = s:taboption("limit", ListValue, "limit_type", translate("Limit Type"), translate("Type of Limit Rate"))
@@ -103,7 +103,7 @@ o:depends("limit_enable","1")
 --
 -- limit speed by mac address
 --
-o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("Limit Enable"), translate("Enable Limit Rate Feature"))
+o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("Enable MAC address speed limiting"), translate("Enable Limit Rate Feature"))
 o.default = limit_mac_enable or o.enabled
 o.rmempty = false
 

@@ -261,3 +261,12 @@ msgstr "例如https, 23（用逗号分隔）"
 #: applications/luci-app-nft-qos-unofficial/luasrc/view/nft-qos/rate.htm:44
 msgid "kB"
 msgstr "kB"
+
+msgid "Speed limit option"
+msgstr "限速选项"
+
+msgid "Enable IP address speed limit"
+msgstr "启用IP地址限速"
+
+msgid "Enable MAC address speed limit"
+msgstr "启用MAC地址限速"
