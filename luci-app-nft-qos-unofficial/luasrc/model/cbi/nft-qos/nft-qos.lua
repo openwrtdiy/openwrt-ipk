@@ -47,21 +47,9 @@ o:depends("limit_enable","1")
 o:value("static", "Static")
 o:value("dynamic", "Dynamic")
 
-o = s:taboption("limit", Value, "static_rate_dl", translate("Default Download Rate"), translate("Default value for download rate"))
-o.datatype = "uinteger"
-o.default = def_rate_dl or '500'
-o:depends("limit_type","static")
-
-o = s:taboption("limit", ListValue, "static_unit_dl", translate("Default Download Unit"), translate("Default unit for download rate"))
-o.default = def_unit_dl or "kbytes"
-o:depends("limit_type","static")
-o:value("bytes", "Bytes/s")
-o:value("kbytes", "KBytes/s")
-o:value("mbytes", "MBytes/s")
-
 o = s:taboption("limit", Value, "static_rate_ul", translate("Default Upload Rate"), translate("Default value for upload rate"))
 o.datatype = "uinteger"
-o.default = def_rate_ul or '500'
+o.default = def_rate_ul or '300'
 o:depends("limit_type","static")
 
 o = s:taboption("limit", ListValue, "static_unit_ul", translate("Default Upload Unit"), translate("Default unit for upload rate"))
@@ -71,16 +59,29 @@ o:value("bytes", "Bytes/s")
 o:value("kbytes", "KBytes/s")
 o:value("mbytes", "MBytes/s")
 
+o = s:taboption("limit", Value, "static_rate_dl", translate("Default Download Rate"), translate("Default value for download rate"))
+o.datatype = "uinteger"
+o.default = def_rate_dl or '600'
+o:depends("limit_type","static")
+
+o = s:taboption("limit", ListValue, "static_unit_dl", translate("Default Download Unit"), translate("Default unit for download rate"))
+o.default = def_unit_dl or "kbytes"
+o:depends("limit_type","static")
+o:value("bytes", "Bytes/s")
+o:value("kbytes", "KBytes/s")
+o:value("mbytes", "MBytes/s")
+
 --
 -- Dynamic
 --
-o = s:taboption("limit", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Default value for download bandwidth"))
-o.default = def_up or '100'
+
+o = s:taboption("limit", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Default value for upload bandwidth"))
+o.default = def_down or '50'
 o.datatype = "uinteger"
 o:depends("limit_type","dynamic")
 
-o = s:taboption("limit", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Default value for upload bandwidth"))
-o.default = def_down or '100'
+o = s:taboption("limit", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Default value for download bandwidth"))
+o.default = def_up or '100'
 o.datatype = "uinteger"
 o:depends("limit_type","dynamic")
 
@@ -118,6 +119,39 @@ o:depends("priority_enable", "1")
 wa.cbi_add_networks(o)
 
 --
+-- Static Limit Rate - Upload Rate
+--
+	y = m:section(TypedSection, "upload", translate("Static QoS-Upload Rate"))
+	y.anonymous = true
+	y.addremove = true
+	y.template = "cbi/tblsection"
+
+	o = y:option(Value, "hostname", translate("Hostname"))
+	o.datatype = "hostname"
+	o.default = 'undefined'
+
+	if has_ipv6 then
+		o = y:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
+	else
+		o = y:option(Value, "ipaddr", translate("IP Address (v4 Only)"))
+	end
+	o.datatype = "ipaddr"
+	if nixio.fs.access("/tmp/dhcp.leases") or nixio.fs.access("/var/dhcp6.leases") then
+		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
+	end
+
+	o = y:option(Value, "rate", translate("Rate"))
+	o.default = def_rate_ul or '500'
+	o.size = 4
+	o.datatype = "uinteger"
+
+	o = y:option(ListValue, "unit", translate("Unit"))
+	o.default = def_unit_ul or "kbytes"
+	o:value("bytes", "Bytes/s")
+	o:value("kbytes", "KBytes/s")
+	o:value("mbytes", "MBytes/s")
+
+--
 -- Static Limit Rate - Download Rate
 --
 if limit_enable == "1" and limit_type == "static" then
@@ -148,39 +182,6 @@ if limit_enable == "1" and limit_type == "static" then
 
 	o = x:option(ListValue, "unit", translate("Unit"))
 	o.default = def_unit_dl or "kbytes"
-	o:value("bytes", "Bytes/s")
-	o:value("kbytes", "KBytes/s")
-	o:value("mbytes", "MBytes/s")
-
---
--- Static Limit Rate - Upload Rate
---
-	y = m:section(TypedSection, "upload", translate("Static QoS-Upload Rate"))
-	y.anonymous = true
-	y.addremove = true
-	y.template = "cbi/tblsection"
-
-	o = y:option(Value, "hostname", translate("Hostname"))
-	o.datatype = "hostname"
-	o.default = 'undefined'
-
-	if has_ipv6 then
-		o = y:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
-	else
-		o = y:option(Value, "ipaddr", translate("IP Address (v4 Only)"))
-	end
-	o.datatype = "ipaddr"
-	if nixio.fs.access("/tmp/dhcp.leases") or nixio.fs.access("/var/dhcp6.leases") then
-		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
-	end
-
-	o = y:option(Value, "rate", translate("Rate"))
-	o.default = def_rate_ul or '500'
-	o.size = 4
-	o.datatype = "uinteger"
-
-	o = y:option(ListValue, "unit", translate("Unit"))
-	o.default = def_unit_ul or "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
@@ -245,24 +246,24 @@ if limit_mac_enable == "1" then
 	o.rmempty = true
 	o.datatype = "macaddr"
 
-	o = x:option(Value, "drate", translate("Download Rate"))
-	o.default = def_rate_dl or '50'
-	o.size = 4
-	o.datatype = "uinteger"
-
-	o = x:option(ListValue, "drunit", translate("Unit"))
-	o.default = def_unit_dl or "kbytes"
-	o:value("bytes", "Bytes/s")
-	o:value("kbytes", "KBytes/s")
-	o:value("mbytes", "MBytes/s")
-
 	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.default = def_rate_ul or '50'
+	o.default = def_rate_ul or '300'
 	o.size = 4
 	o.datatype = "uinteger"
 
 	o = x:option(ListValue, "urunit", translate("Unit"))
 	o.default = def_unit_ul or "kbytes"
+	o:value("bytes", "Bytes/s")
+	o:value("kbytes", "KBytes/s")
+	o:value("mbytes", "MBytes/s")
+
+	o = x:option(Value, "drate", translate("Download Rate"))
+	o.default = def_rate_dl or '600'
+	o.size = 4
+	o.datatype = "uinteger"
+
+	o = x:option(ListValue, "drunit", translate("Unit"))
+	o.default = def_unit_dl or "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
