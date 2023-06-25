@@ -30,9 +30,27 @@ s = m:section(TypedSection, "default", translate("NFT-QoS Settings"))
 s.addremove = false
 s.anonymous = true
 
-s:tab("limit", translate("Limit Rate by IP Address"))
-s:tab("limitmac", translate("Limit Rate by Mac Address"))
 s:tab("priority", translate("Traffic Priority"))
+s:tab("limitmac", translate("Limit Rate by Mac Address"))
+s:tab("limit", translate("Limit Rate by IP Address"))
+
+--
+-- Priority
+--
+o = s:taboption("priority", Flag, "priority_enable", translate("Enable Traffic Priority"), translate("Enable this feature"))
+o.default = enable_priority or o.enabled
+o.rmempty = false
+
+o = s:taboption("priority", ListValue, "priority_netdev", translate("Default Network Interface"), translate("Network Interface for Traffic Shaping, e.g. br-lan, eth0.1, eth0, etc."))
+o:depends("priority_enable", "1")
+wa.cbi_add_networks(o)
+
+--
+-- limit speed by mac address
+--
+o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("Enable MAC address speed limit"), translate("Enable Limit Rate Feature"))
+o.default = limit_mac_enable or o.enabled
+o.rmempty = false
 
 --
 -- Static
@@ -99,24 +117,6 @@ end
 o = s:taboption("limit", DynamicList, "limit_whitelist", translate("White List for Limit Rate"))
 o.datatype = "ipaddr"
 o:depends("limit_enable","1")
-
---
--- limit speed by mac address
---
-o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("Enable MAC address speed limit"), translate("Enable Limit Rate Feature"))
-o.default = limit_mac_enable or o.enabled
-o.rmempty = false
-
---
--- Priority
---
-o = s:taboption("priority", Flag, "priority_enable", translate("Enable Traffic Priority"), translate("Enable this feature"))
-o.default = enable_priority or o.enabled
-o.rmempty = false
-
-o = s:taboption("priority", ListValue, "priority_netdev", translate("Default Network Interface"), translate("Network Interface for Traffic Shaping, e.g. br-lan, eth0.1, eth0, etc."))
-o:depends("priority_enable", "1")
-wa.cbi_add_networks(o)
 
 --
 -- Static Limit Rate - Download Rate
@@ -245,13 +245,13 @@ if limit_mac_enable == "1" then
 	o.rmempty = true
 	o.datatype = "macaddr"
 
-	o = x:option(Value, "drate", translate("Download Rate"))
-	o.default = def_rate_dl or '600'
+	o = x:option(Value, "urate", translate("Upload Rate"))
+	o.default = def_rate_ul or '300'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.default = def_rate_ul or '300'
+	o = x:option(Value, "drate", translate("Download Rate"))
+	o.default = def_rate_dl or '600'
 	o.size = 4
 	o.datatype = "uinteger"
 
