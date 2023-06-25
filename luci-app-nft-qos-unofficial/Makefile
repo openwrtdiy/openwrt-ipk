@@ -8,11 +8,11 @@ include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=QoS over Nftables
 LUCI_DESCRIPTION:=Provides Luci for Nft-Qos Unofficial
-LUCI_DEPENDS:=+luci-compat +nft-qos-unofficial
+LUCI_DEPENDS:=+luci-compat +nft-qos
 LUCI_PKGARCH:=all
-PKG_VERSION:=2.0
-PKG_RELEASE:=1
-PKG_DATE:=2023-06-25
+PKG_VERSION:=1.0
+PKG_RELEASE:=4
+PKG_DATE:=2023-06-24
 
 include $(TOPDIR)/feeds/luci/luci.mk
 

@@ -6,27 +6,27 @@ local wa = require("luci.tools.webadmin")
 local fs = require("nixio.fs")
 local ipc = require("luci.ip")
 
-local def_rate_dl = uci:get("nft-qos-unofficial", "default", "static_rate_dl")
-local def_rate_ul = uci:get("nft-qos-unofficial", "default", "static_rate_ul")
-local def_unit_dl = uci:get("nft-qos-unofficial", "default", "static_unit_dl")
-local def_unit_ul = uci:get("nft-qos-unofficial", "default", "static_unit_ul")
+local def_rate_dl = uci:get("nft-qos", "default", "static_rate_dl")
+local def_rate_ul = uci:get("nft-qos", "default", "static_rate_ul")
+local def_unit_dl = uci:get("nft-qos", "default", "static_unit_dl")
+local def_unit_ul = uci:get("nft-qos", "default", "static_unit_ul")
 
-local def_up = uci:get("nft-qos-unofficial", "default", "dynamic_bw_up")
-local def_down = uci:get("nft-qos-unofficial", "default", "dynamic_bw_down")
+local def_up = uci:get("nft-qos", "default", "dynamic_bw_up")
+local def_down = uci:get("nft-qos", "default", "dynamic_bw_down")
 
-local limit_enable = uci:get("nft-qos-unofficial", "default", "limit_enable")
-local limit_mac_enable = uci:get("nft-qos-unofficial", "default", "limit_mac_enable")
-local limit_type = uci:get("nft-qos-unofficial", "default", "limit_type")
-local enable_priority = uci:get("nft-qos-unofficial", "default", "priority_enable")
+local limit_enable = uci:get("nft-qos", "default", "limit_enable")
+local limit_mac_enable = uci:get("nft-qos", "default", "limit_mac_enable")
+local limit_type = uci:get("nft-qos", "default", "limit_type")
+local enable_priority = uci:get("nft-qos", "default", "priority_enable")
 
 local has_ipv6 = fs.access("/proc/net/ipv6_route")
 
-m = Map("nft-qos-unofficial", translate("QoS over Nftables"))
+m = Map("nft-qos", translate("QoS over Nftables"))
 
 --
 -- Taboptions
 --
-s = m:section(TypedSection, "default", translate("NFT-QoS-Unofficial Settings"))
+s = m:section(TypedSection, "default", translate("NFT-QoS Settings"))
 s.addremove = false
 s.anonymous = true
 
