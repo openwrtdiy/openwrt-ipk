@@ -103,7 +103,7 @@ o:depends("limit_enable","1")
 --
 -- limit speed by mac address
 --
-o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("Enable MAC address speed limiting"), translate("Enable Limit Rate Feature"))
+o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("Enable MAC address speed limit"), translate("Enable Limit Rate Feature"))
 o.default = limit_mac_enable or o.enabled
 o.rmempty = false
 
