@@ -78,7 +78,7 @@
 				rate_table_ul     = document.getElementById('rate_table_ul');
 
 				/* render datasets, start update interval */
-				XHR.poll(3, '<%=build_url("admin/status/realtime/rate_status")%>', null,
+				XHR.poll(3, '<%=build_url("admin/status/userstatus/rate_status")%>', null,
 					function(x, json)
 					{
 						var RA = {};
