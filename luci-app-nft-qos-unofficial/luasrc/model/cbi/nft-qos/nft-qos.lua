@@ -8,8 +8,7 @@ local ipc = require("luci.ip")
 
 local def_rate_ul = uci:get("nft-qos", "default", "static_rate_ul")
 local def_rate_dl = uci:get("nft-qos", "default", "static_rate_dl")
-local def_unit_ul = uci:get("nft-qos", "default", "static_unit_ul")
-local def_unit_dl = uci:get("nft-qos", "default", "static_unit_dl")
+local def_unit = uci:get("nft-qos", "default", "static_unit")
 
 local def_up = uci:get("nft-qos", "default", "dynamic_bw_up")
 local def_down = uci:get("nft-qos", "default", "dynamic_bw_down")
@@ -70,20 +69,13 @@ o.datatype = "uinteger"
 o.default = def_rate_ul or '1250'
 o:depends("limit_type","static")
 
-o = s:taboption("limitip", ListValue, "static_unit_ul", translate("Default Upload Unit"), translate("Default unit for upload rate"))
-o.default = def_unit_ul or "kbytes"
-o:depends("limit_type","static")
-o:value("bytes", "Bytes/s")
-o:value("kbytes", "KBytes/s")
-o:value("mbytes", "MBytes/s")
-
 o = s:taboption("limitip", Value, "static_rate_dl", translate("Default Download Rate"), translate("Default value for download rate"))
 o.datatype = "uinteger"
 o.default = def_rate_dl or '2500'
 o:depends("limit_type","static")
 
-o = s:taboption("limitip", ListValue, "static_unit_dl", translate("Default Download Unit"), translate("Default unit for download rate"))
-o.default = def_unit_dl or "kbytes"
+o = s:taboption("limitip", ListValue, "static_unit", translate("Default Unit"), translate("Default unit rate"))
+o.default = def_unit or "kbytes"
 o:depends("limit_type","static")
 o:value("bytes", "Bytes/s")
 o:value("kbytes", "KBytes/s")
