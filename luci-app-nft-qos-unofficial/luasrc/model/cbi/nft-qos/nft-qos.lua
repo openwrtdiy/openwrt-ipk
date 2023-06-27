@@ -120,9 +120,29 @@ if limit_ip_enable == "1" and limit_type == "static" then
 	x.addremove = true
 	x.template = "cbi/tblsection"
 
-	o = x:option(Value, "hostname", translate("Hostname"))
+	o = x:option(Flag, "enabled", translate("Enabled"))
+	o.rmempty = false
+
+	o = x:option(Value, "username", translate("User Name"))
+	o.placeholder = translate("Username")
 	o.datatype = ""
 	o.default = ''
+
+	o = x:option(DummyValue, "servicename", translate("Service Name"))
+	o.placeholder = translate("Automatically")
+	o.default = "*"
+	o.rmempty = true
+	function o.cfgvalue(e, t)
+	    value = e.map:get(t, "servicename")
+	    return value == "*" and "" or value
+	end
+	function o.remove(e, t) Value.write(e, t, "*") end
+
+	o = x:option(Value, "password", translate("Password"))
+	o.placeholder = translate("Password")
+	o.default = os.date("%Y%m%d")
+	o.password = true
+	o.rmempty = false
 
 	if has_ipv6 then
 		o = x:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
@@ -133,6 +153,14 @@ if limit_ip_enable == "1" and limit_type == "static" then
 	if nixio.fs.access("/tmp/dhcp.leases") or nixio.fs.access("/var/dhcp6.leases") then
 		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
 	end
+
+	o = x:option(ListValue, "package", translate("Broadband Package"))
+	o.rmempty = true
+	o:value("none", translate("None"))
+	o:value("family", translate("Family"))
+	o:value("office", translate("Office"))
+	o:value("free", translate("Free"))
+	o:value("test", translate("Test"))
 
 	o = x:option(Value, "urate", translate("Upload Rate"))
 	o.default = def_rate_ul or '625'
@@ -149,6 +177,23 @@ if limit_ip_enable == "1" and limit_type == "static" then
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
+
+	o = x:option(ListValue, "connect", translate("Connections"))
+	o.default = "8192"
+	o.datatype = "range(64,65536)"
+	o.rmempty = true
+	o:value("1024", "10M 1024")
+	o:value("2048", "20M 2048")
+	o:value("4096", "40M 4096")
+	o:value("8192", "80M 8192")
+	o:value("16384", "100M 16384")
+	o:value("32768", "200M 32768")
+	o:value("65536", "400M 65536")
+
+	o = x:option(Value, "expires", translate("Expiration date"))
+	o.placeholder = translate("Expires")
+	o.datatype = "range(20230101,20231231)"
+	o.rmempty = true
 
 end
 
