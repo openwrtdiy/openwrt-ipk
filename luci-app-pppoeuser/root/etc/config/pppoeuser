@@ -7,8 +7,8 @@ config user
 	option ipaddress '*'
 	option package 'none'
 	option qos '1'
-	option upload '3550'
-	option download '3550'
+	option urate '3750'
+	option drate '3750'
 	option unit 'kbytes'
 	option connect '1024'
 
