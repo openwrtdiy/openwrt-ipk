@@ -66,12 +66,12 @@ o:value("dynamic", "Dynamic")
 
 o = s:taboption("limitip", Value, "static_rate_ul", translate("Default Upload Rate"), translate("Default value for upload rate"))
 o.datatype = "uinteger"
-o.default = def_rate_ul or '1250'
+o.default = def_rate_ul or '3750'
 o:depends("limit_type","static")
 
 o = s:taboption("limitip", Value, "static_rate_dl", translate("Default Download Rate"), translate("Default value for download rate"))
 o.datatype = "uinteger"
-o.default = def_rate_dl or '2500'
+o.default = def_rate_dl or '3750'
 o:depends("limit_type","static")
 
 o = s:taboption("limitip", ListValue, "static_unit", translate("Default Unit"), translate("Default unit rate"))
@@ -162,15 +162,73 @@ if limit_ip_enable == "1" and limit_type == "static" then
 	o:value("free", translate("Free"))
 	o:value("test", translate("Test"))
 
-	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.default = def_rate_ul or '625'
+	o = x:option(ListValue, "urate", translate("Upload Rate"))
+	o.default = def_rate_ul or '3750'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 
-	o = x:option(Value, "drate", translate("Download Rate"))
-	o.default = def_rate_dl or '1250'
+	o = x:option(ListValue, "drate", translate("Download Rate"))
+	o.default = def_rate_dl or '3750'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 
 	o = x:option(ListValue, "unit", translate("Unit"))
 	o.default = "kbytes"
@@ -283,15 +341,73 @@ if limit_mac_enable == "1" then
 	o:value("free", translate("Free"))
 	o:value("test", translate("Test"))
 
-	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.default = def_rate_ul or '625'
+	o = x:option(ListValue, "urate", translate("Upload Rate"))
+	o.default = def_rate_ul or '3750'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 
-	o = x:option(Value, "drate", translate("Download Rate"))
-	o.default = def_rate_dl or '1250'
+	o = x:option(ListValue, "drate", translate("Download Rate"))
+	o.default = def_rate_dl or '3750'
 	o.size = 4
 	o.datatype = "uinteger"
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 
 	o = x:option(ListValue, "unit", translate("Unit"))
 	o.default = "kbytes"

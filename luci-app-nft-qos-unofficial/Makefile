@@ -11,7 +11,7 @@ LUCI_DESCRIPTION:=Provides Luci for Nft-Qos Unofficial
 LUCI_DEPENDS:=+luci-compat +nft-qos
 LUCI_PKGARCH:=all
 PKG_VERSION:=2.0
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 PKG_DATE:=2023-06-27
 
 include $(TOPDIR)/feeds/luci/luci.mk
