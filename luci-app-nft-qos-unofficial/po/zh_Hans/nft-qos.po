@@ -270,3 +270,9 @@ msgstr "启用IP地址限速"
 
 msgid "Enable MAC address speed limit"
 msgstr "启用MAC地址限速"
+
+msgid "Default Unit"
+msgstr "默认单元"
+
+msgid "default rate unit"
+msgstr "默认速率单元"

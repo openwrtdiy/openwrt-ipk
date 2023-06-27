@@ -264,3 +264,9 @@ msgstr "Enable IP address speed limit"
 
 msgid "Enable MAC address speed limit"
 msgstr "Enable MAC address speed limit"
+
+msgid "Default Unit"
+msgstr "Default Unit"
+
+msgid "default rate unit"
+msgstr "default rate unit"
