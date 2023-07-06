@@ -8,6 +8,7 @@ LUCI_TITLE:=LuCI for CPU Freq Setting
 LUCI_DEPENDS:=@(arm||aarch64)
 LUCI_PKGARCH:=all
 
-include ../../luci.mk
+#include ../../luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
