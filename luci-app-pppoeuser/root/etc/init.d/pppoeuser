@@ -14,15 +14,18 @@ setup_user() {
 	[ -n "${servicename}" ] || servicename="*"
 	config_get password "$1" password
 	config_get ipaddress "$1" ipaddress
+	config_get macaddress "$1" macaddress
 	config_get package "$1" package
 	config_get qos "$1" qos
-	config_get upload "$1" upload
-	config_get download "$1" download
+	config_get urate "$1" urate
+	config_get drate "$1" drate
 	config_get unit "$1" unit
 	config_get connect "$1" connect
+	config_get expires "$1" expires
+	[ -n "${expires}" ] || expires="*"
 
 	touch ${CHAP_SECRETS}
-	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress" >> $CHAP_SECRETS
+	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddress $package $urate $drate $unit $connect $expires" >> $CHAP_SECRETS
         chmod 600 /etc/ppp/*-secrets
 }
 
