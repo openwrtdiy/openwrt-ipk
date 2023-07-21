@@ -1,0 +1,30 @@
+{
+  "admin/usermanager/": {
+    "title": "usermanager",
+    "order": 60,
+    "action": {
+      "type": "firstchild"
+    },
+    "depends": {
+      "acl": [ "luci-app-usermanager" ]
+    }
+  },
+
+  "admin/usermanager/form": {
+    "title": "Form View",
+    "order": 1,
+    "action": {
+      "type": "view",
+      "path": "usermanager/form"
+    }
+  },
+
+  "admin/usermanager/html": {
+    "title": "HTML Page",
+    "order": 2,
+    "action": {
+      "type": "view",
+      "path": "usermanager/htmlview"
+    }
+  }
+}

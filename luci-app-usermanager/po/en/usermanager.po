@@ -1,0 +1,62 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:22
+msgid "A boolean option"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:27
+msgid "A select option"
+msgstr ""
+
+#: applications/luci-app-usermanager/root/usr/share/luci/menu.d/luci-app-usermanager.json:3
+msgid "usermanager"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:9
+msgid "usermanager Form"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:10
+msgid "usermanager Form Configuration."
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/htmlview.js:16
+msgid "usermanager HTML Page"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:15
+msgid "First Option"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:21
+msgid "Flag Option"
+msgstr ""
+
+#: applications/luci-app-usermanager/root/usr/share/luci/menu.d/luci-app-usermanager.json:14
+msgid "Form View"
+msgstr ""
+
+#: applications/luci-app-usermanager/root/usr/share/rpcd/acl.d/luci-app-usermanager.json:3
+msgid "Grant UCI access to LuCI app usermanager"
+msgstr ""
+
+#: applications/luci-app-usermanager/root/usr/share/luci/menu.d/luci-app-usermanager.json:23
+msgid "HTML Page"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:16
+msgid "Input for the first option"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:26
+msgid "Select Option"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:12
+msgid "first section"
+msgstr ""
+
+#: applications/luci-app-usermanager/htdocs/luci-static/resources/view/usermanager/form.js:18
+msgid "second section"
+msgstr ""
