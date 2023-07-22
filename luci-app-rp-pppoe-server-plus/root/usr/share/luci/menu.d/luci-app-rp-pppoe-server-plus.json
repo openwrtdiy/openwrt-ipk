@@ -44,7 +44,7 @@
 		"title": "Logging",
 		"order": 4,
 		"action": {
-			"type": "cbi",
+			"type": "form",
 			"path": "rp-pppoe-server-plus/log",
 		}
 	},
@@ -53,7 +53,7 @@
 		"title": "Online",
 		"order": 5,
 		"action": {
-			"type": "cbi",
+			"type": "form",
 			"path": "rp-pppoe-server-plus/online",
 		}
 	}
