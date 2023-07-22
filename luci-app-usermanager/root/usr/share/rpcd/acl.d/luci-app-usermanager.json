@@ -1,25 +1,18 @@
 {
-  "luci-app-usermanager": {
-    "description": "Grant UCI access to LuCI app usermanager",
-    "read": {
-      "ubus": {
-        "uci": [
-          "get"
-        ]
-      },
-      "uci": [
-        "usermanager"
-      ]
-    },
-    "write": {
-      "ubus": {
-        "uci": [
-          "set", "commit"
-        ]
-      },
-      "uci": [
-        "usermanager"
-      ]
-    }
-  }
+	"luci-app-usermanager": {
+		"description": "Grant UCI access to LuCI app usermanager",
+		"read": {
+			"ubus": {
+			"uci": [ "get" ]
+				},
+			"uci": [ "usermanager" ]
+				},
+		"write": {
+			"ubus": {
+				"uci": [ "set", "commit" ]
+				},
+				
+			"uci": [ "usermanager" ]
+		}
+	}
 }
