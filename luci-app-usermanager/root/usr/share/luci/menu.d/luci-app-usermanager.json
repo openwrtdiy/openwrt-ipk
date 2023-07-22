@@ -1,5 +1,5 @@
 {
-  "admin/usermanager/": {
+  "admin/services/usermanager/": {
     "title": "usermanager",
     "order": 60,
     "action": {
@@ -10,7 +10,7 @@
     }
   },
 
-  "admin/usermanager/form": {
+  "admin/services/usermanager/form": {
     "title": "Form View",
     "order": 1,
     "action": {
@@ -19,7 +19,7 @@
     }
   },
 
-  "admin/usermanager/html": {
+  "admin/services/usermanager/html": {
     "title": "HTML Page",
     "order": 2,
     "action": {

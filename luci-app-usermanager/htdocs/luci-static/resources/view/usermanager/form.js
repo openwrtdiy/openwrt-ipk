@@ -6,8 +6,8 @@ return view.extend({
   render: function() {
     var m, s, o;
 
-    m = new form.Map('example', _('Example Form'),
-         _('Example Form Configuration.'));
+    m = new form.Map('usermanager', _('User Management Form'),
+         _('usermanager Form Configuration.'));
 
     s = m.section(form.TypedSection, 'first', _('first section'));
     s.anonymous = true;
