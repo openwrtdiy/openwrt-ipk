@@ -3,8 +3,8 @@
 		"title": "RP PPPoE Server Plus",
 		"order": 60,
 		"action": {
-			"type": "cbi",
-			"path": "rp-pppoe-server-plus/server",
+			"type": "alias",
+			"path": "admin/services/rp-pppoe-server-plus/server",
 			"post": { "cbi.submit": true }
 		},
 		"depends": {
@@ -13,47 +13,45 @@
 		}
 	},
 
-	"admin/services/rp-pppoe-server-plus": {
-		"title": "RP PPPoE Server Plus",
-		"order": 10,
+	"admin/services/rp-pppoe-server-plus/server": {
+		"title": "General Settings",
+		"order": 1,
 		"action": {
 			"type": "cbi",
 			"path": "rp-pppoe-server-plus/server",
-			"post": { "cbi.submit": true }
 		}
 	},
 
-	"admin/services/rp-pppoe-server-plus": {
-		"title": "RP PPPoE Server Plus",
-		"order": 20,
+	"admin/services/rp-pppoe-server-plus/pppd": {
+		"title": "Advanced Settings",
+		"order": 2,
 		"action": {
 			"type": "cbi",
-			"path": "rp-pppoe-server-plus/pppd",
-			"post": { "cbi.submit": true }
+			"path": "rp-pppoe-server-plus/pppd"
 		}
 	},
 
-	"admin/services/rp-pppoe-server-plus": {
-		"title": "RP PPPoE Server Plus",
-		"order": 30,
+	"admin/services/rp-pppoe-server-plus/firewall": {
+		"title": "Firewall Settings",
+		"order": 3,
 		"action": {
 			"type": "cbi",
 			"path": "rp-pppoe-server-plus/firewall",
-			"post": { "cbi.submit": true }
 		}
 	},
 
-	"admin/services/rp-pppoe-server-plus": {
-		"title": "RP PPPoE Server Plus",
-		"order": 40,
+	"admin/services/rp-pppoe-server-plus/log": {
+		"title": "Logging",
+		"order": 4,
 		"action": {
-			"type": "form",
+			"type": "cbi",
 			"path": "rp-pppoe-server-plus/log",
+		}
 	},
 
-	"admin/services/rp-pppoe-server-plus": {
-		"title": "RP PPPoE Server Plus",
-		"order": 50,
+	"admin/services/rp-pppoe-server-plus/online": {
+		"title": "Online",
+		"order": 5,
 		"action": {
 			"type": "cbi",
 			"path": "rp-pppoe-server-plus/online",
