@@ -4,16 +4,9 @@ local sys = require "luci.sys"
 local ifaces = sys.net:devices()
 local m, s, o
 
-if luci.sys.call("pidof pppoe-server >/dev/null") == 0 then
-	status = translate("<b><font color=\"green\">Running</font></b>")
-else
-	status = translate("<b><font color=\"red\">Not running</font></b>")
-end
-
 m = Map("pppoe-server")
 
 s = m:section(TypedSection, "server")
-s.description = translate("Running State : " .. status .. "</br></br>")
 s.anonymous = true
 
 e = s:option(Flag, "enabled", translate("Enable"), translate("Enable PPPoE Server"))
