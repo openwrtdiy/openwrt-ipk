@@ -1,6 +1,6 @@
 {
 	"admin/services/rp-pppoe-server-plus": {
-		"title": "RP PPPoE Server Plus",
+		"title": "PPPoE Server Plus",
 		"order": 60,
 		"action": {
 			"type": "alias",
