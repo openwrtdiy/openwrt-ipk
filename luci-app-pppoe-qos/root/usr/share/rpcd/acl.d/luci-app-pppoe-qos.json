@@ -1,0 +1,11 @@
+{
+	"luci-app-pppoe-qos": {
+		"description": "Grant UCI access for luci-app-pppoe-qos",
+		"read": {
+			"uci": [ "pppoe-qos" ]
+		},
+		"write": {
+			"uci": [ "pppoe-qos" ]
+		}
+	}
+}
