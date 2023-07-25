@@ -225,7 +225,7 @@ msgid "Target Network6 (IPv6/MASK)"
 msgstr ""
 
 #: applications/luci-app-pppoe-qos/luasrc/view/pppoe-qos/rate.htm:127
-msgid "This page gives an overview over currently download/upload rate."
+msgid "This page gives an overview over currently upload/download rate."
 msgstr ""
 
 #: applications/luci-app-pppoe-qos/luasrc/model/cbi/pppoe-qos/pppoe-qos.lua:35

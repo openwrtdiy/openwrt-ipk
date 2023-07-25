@@ -201,7 +201,7 @@ msgstr "实时下载速率"
 
 #: applications/luci-app-pppoe-qos/luasrc/view/pppoe-qos/rate.htm:125
 msgid "Realtime Rate"
-msgstr "实时速率显示"
+msgstr "实时速率"
 
 #: applications/luci-app-pppoe-qos/luasrc/view/pppoe-qos/rate.htm:149
 msgid "Realtime Upload Rate"
@@ -228,7 +228,7 @@ msgid "Target Network6 (IPv6/MASK)"
 msgstr "目标网络 v6（IPv6 地址/掩码）"
 
 #: applications/luci-app-pppoe-qos/luasrc/view/pppoe-qos/rate.htm:127
-msgid "This page gives an overview over currently download/upload rate."
+msgid "This page gives an overview over currently upload/download rate."
 msgstr "该页面提供了当前上传和下载速率的一个总览。"
 
 #: applications/luci-app-pppoe-qos/luasrc/model/cbi/pppoe-qos/pppoe-qos.lua:35
