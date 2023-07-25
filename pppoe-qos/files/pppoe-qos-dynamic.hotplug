@@ -9,7 +9,7 @@ export initscript="pppoe-qos-dynamic"
 NFT_QOS_DYNAMIC_ON=
 
 qosdef_check_if_dynamic() {
-	[ $limit_enable -eq 1 -a \
+	[ $limit_ip_enable -eq 1 -a \
 	  "$limit_type" = "dynamic" ] && \
 	    NFT_QOS_DYNAMIC_ON="y"
 }

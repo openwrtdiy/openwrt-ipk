@@ -4,12 +4,11 @@
 
 qosdef_validate_static() {
 	uci_load_validate pppoe-qos default "$1" "$2" \
-		'limit_enable:bool:0' \
+		'limit_ip_enable:bool:0' \
 		'limit_type:maxlength(8)' \
-		'static_unit_dl:string:kbytes' \
-		'static_unit_ul:string:kbytes' \
+		'static_rate_ul:uinteger:50' \
 		'static_rate_dl:uinteger:50' \
-		'static_rate_ul:uinteger:50'
+		'static_unit:string:kbytes'
 }
 
 # append rule for static qos
@@ -32,8 +31,8 @@ qosdef_append_chain_sta() { # <hook> <name> <section> <unit> <rate>
 	local config=$3 operator
 
 	case "$name" in
-		download) operator="daddr";;
 		upload) operator="saddr";;
+		download) operator="daddr";;
 	esac
 
 	qosdef_appendx "\tchain $name {\n"
@@ -56,7 +55,7 @@ qosdef_init_static() {
 		return 1
 	}
 
-	[ $limit_enable -eq 0 -o \
+	[ $limit_ip_enable -eq 0 -o \
 		$limit_type = "dynamic" ] && return 1
 
 	[ -z "$NFT_QOS_HAS_BRIDGE" ] && {
@@ -65,7 +64,7 @@ qosdef_init_static() {
 	}
 
 	qosdef_appendx "table $NFT_QOS_INET_FAMILY pppoe-qos-static {\n"
-	qosdef_append_chain_sta $hook_ul upload upload $static_unit_ul $static_rate_ul
-	qosdef_append_chain_sta $hook_dl download download $static_unit_dl $static_rate_dl
+	qosdef_append_chain_sta $hook_ul upload upload $static_unit $static_rate_ul
+	qosdef_append_chain_sta $hook_dl download download $static_unit $static_rate_dl
 	qosdef_appendx "}\n"
 }

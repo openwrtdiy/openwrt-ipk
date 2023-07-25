@@ -54,8 +54,8 @@ _handle_limit_whitelist() { # <value> <chain>
 	[ -z "$ipaddr" ] && return
 
 	case "$2" in
-		download) operator="daddr";;
 		upload) operator="saddr";;
+		download) operator="daddr";;
 	esac
 
 	qosdef_append_rule_ip_policy $operator $ipaddr accept
@@ -75,7 +75,6 @@ qosdef_remove_table() { # <family> <table>
 
 qosdef_init_header() { # add header for nft script
 	qosdef_appendx "#!/usr/sbin/nft -f\n"
-	qosdef_appendx "# Copyright (C) 2018 rosysong@rosinson.com\n"
 	qosdef_appendx "#\n\n"
 }
 

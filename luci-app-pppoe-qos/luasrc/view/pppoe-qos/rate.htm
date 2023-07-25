@@ -11,8 +11,8 @@
 	var em = 0;
 	var ec = 1;
 
-	var rate_table_dl;
 	var rate_table_ul;
+	var rate_table_dl;
 
 	function init_bytes(rl, ra) {
 		var bytes_pre;
@@ -73,16 +73,16 @@
 			}
 			else
 			{
-				rate_table_dl     = document.getElementById('rate_table_dl');
 				rate_table_ul     = document.getElementById('rate_table_ul');
+				rate_table_dl     = document.getElementById('rate_table_dl');
 
 				/* render datasets, start update interval */
 				XHR.poll(3, '<%=build_url("admin/status/realtime/rate_status")%>', null,
 					function(x, json)
 					{
 						var RA = {};
-						var rows_dl = [];
 						var rows_ul = [];
+						var rows_dl = [];
 
 						var rules = json.nftables;
 						for (var i = 0; i < rules.length; i++)
@@ -95,21 +95,22 @@
 							var rl = rules[i].rule;
 							switch (rl.chain)
 							{
-								case 'download':
-								case 'upload': init_bytes(rl, RA); break;
+								case 'upload':
+								case 'download': init_bytes(rl, RA); break;
 							}
 						} /* for (var i = 0; i < rules.length; i++) */
 
 						/* display the result */
-						if (RA.download) {
-							while (rate_table_dl.firstElementChild !== rate_table_dl.lastElementChild)
-								rate_table_dl.removeChild(rate_table_dl.lastElementChild);
-							print_table(rate_table_dl, rows_dl, RA.download);
-						}
 						if (RA.upload) {
 							while (rate_table_ul.firstElementChild !== rate_table_ul.lastElementChild)
 								rate_table_ul.removeChild(rate_table_ul.lastElementChild);
 							print_table(rate_table_ul, rows_ul, RA.upload);
+						}
+						
+						if (RA.download) {
+							while (rate_table_dl.firstElementChild !== rate_table_dl.lastElementChild)
+								rate_table_dl.removeChild(rate_table_dl.lastElementChild);
+							print_table(rate_table_dl, rows_dl, RA.download);
 						}
 
 					} /* function(x, json) */
@@ -123,15 +124,15 @@
 
 <h2 name="content"><%:Realtime Rate%></h2>
 
-<div class="cbi-map-descr"><%:This page gives an overview over currently download/upload rate.%></div>
+<div class="cbi-map-descr"><%:This page gives an overview over currently upload/download rate.%></div>
 
 <fieldset class="cbi-section" id="cbi-table-table">
-	<legend><%:Realtime Download Rate%></legend>
+	<legend><%:Realtime Upload Rate%></legend>
 	<div class="cbi-section-node">
-		<div class="table" id="rate_table_dl">
+		<div class="table" id="rate_table_ul">
 			<div class="tr table-titles">
 				<div class="th col-2 hide-xs"><%:IP Address%></div>
-				<div class="th col-2"><%:Download Rate%></div>
+				<div class="th col-2"><%:Upload Rate%></div>
 				<div class="th col-7"><%:Bytes Total%></div>
 				<div class="th col-7"><%:Packets Total%></div>
 			</div>
@@ -145,12 +146,12 @@
 </fieldset>
 
 <fieldset class="cbi-section" id="cbi-table-table">
-	<legend><%:Realtime Upload Rate%></legend>
+	<legend><%:Realtime Download Rate%></legend>
 	<div class="cbi-section-node">
-		<div class="table" id="rate_table_ul">
+		<div class="table" id="rate_table_dl">
 			<div class="tr table-titles">
 				<div class="th col-2 hide-xs"><%:IP Address%></div>
-				<div class="th col-2"><%:Upload Rate%></div>
+				<div class="th col-2"><%:Download Rate%></div>
 				<div class="th col-7"><%:Bytes Total%></div>
 				<div class="th col-7"><%:Packets Total%></div>
 			</div>

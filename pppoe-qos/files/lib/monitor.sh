@@ -7,18 +7,18 @@ qosdef_monitor_get_ip_handle() { # <family> <chain> <ip>
 }
 
 qosdef_monitor_add() { # <mac> <ip> <hostname>
-	handle_dl=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY download $2)
-	[ -z "$handle_dl" ] && nft add rule $NFT_QOS_INET_FAMILY pppoe-qos-monitor download ip daddr $2 counter
 	handle_ul=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY upload $2)
 	[ -z "$handle_ul" ] && nft add rule $NFT_QOS_INET_FAMILY pppoe-qos-monitor upload ip saddr $2 counter
+	handle_dl=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY download $2)
+	[ -z "$handle_dl" ] && nft add rule $NFT_QOS_INET_FAMILY pppoe-qos-monitor download ip daddr $2 counter
 }
 
 qosdef_monitor_del() { # <mac> <ip> <hostname>
-	local handle_dl handle_ul
-	handle_dl=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY download $2)
+	local handle_ul handle_dl
 	handle_ul=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY upload $2)
-	[ -n "$handle_dl" ] && nft delete handle $handle_dl
+	handle_dl=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY download $2)
 	[ -n "$handle_ul" ] && nft delete handle $handle_ul
+	[ -n "$handle_dl" ] && nft delete handle $handle_dl
 }
 
 # init qos monitor

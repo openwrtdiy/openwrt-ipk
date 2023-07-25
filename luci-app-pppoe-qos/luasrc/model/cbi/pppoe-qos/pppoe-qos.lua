@@ -7,8 +7,7 @@ local ipc = require("luci.ip")
 
 local def_rate_ul = uci:get("pppoe-qos", "default", "static_rate_ul")
 local def_rate_dl = uci:get("pppoe-qos", "default", "static_rate_dl")
-local def_unit_ul = uci:get("pppoe-qos", "default", "static_unit_ul")
-local def_unit_dl = uci:get("pppoe-qos", "default", "static_unit_dl")
+local def_unit = uci:get("pppoe-qos", "default", "static_unit")
 
 local def_up = uci:get("pppoe-qos", "default", "dynamic_bw_up")
 local def_down = uci:get("pppoe-qos", "default", "dynamic_bw_down")
@@ -47,13 +46,13 @@ wa.cbi_add_networks(o)
 --
 -- Static
 --
-o = s:taboption("limit", Flag, "limit_enable", translate("Limit Enable"), translate("Enable Limit Rate Feature"))
-o.default = limit_enable or o.enabled
+o = s:taboption("limit", Flag, "limit_ip_enable", translate("Limit Enable"), translate("Enable Limit Rate Feature"))
+o.default = limit_ip_enable or o.enabled
 o.rmempty = false
 
 o = s:taboption("limit", ListValue, "limit_type", translate("Limit Type"), translate("Type of Limit Rate"))
 o.default = limit_static or "static"
-o:depends("limit_enable","1")
+o:depends("limit_ip_enable","1")
 o:value("static", "Static")
 o:value("dynamic", "Dynamic")
 
@@ -62,20 +61,13 @@ o.datatype = "uinteger"
 o.default = def_rate_ul or '1250'
 o:depends("limit_type","static")
 
-o = s:taboption("limit", ListValue, "static_unit_ul", translate("Default Upload Unit"), translate("Default unit for upload rate"))
-o.default = def_unit_ul or "kbytes"
-o:depends("limit_type","static")
-o:value("bytes", "Bytes/s")
-o:value("kbytes", "KBytes/s")
-o:value("mbytes", "MBytes/s")
-
 o = s:taboption("limit", Value, "static_rate_dl", translate("Default Download Rate"), translate("Default value for download rate"))
 o.datatype = "uinteger"
 o.default = def_rate_dl or '1250'
 o:depends("limit_type","static")
 
-o = s:taboption("limit", ListValue, "static_unit_dl", translate("Default Download Unit"), translate("Default unit for download rate"))
-o.default = def_unit_dl or "kbytes"
+o = s:taboption("limit", ListValue, "static_unit", translate("Default Unit"), translate("Default unit rate"))
+o.default = def_unit or "kbytes"
 o:depends("limit_type","static")
 o:value("bytes", "Bytes/s")
 o:value("kbytes", "KBytes/s")
@@ -108,7 +100,7 @@ end
 
 o = s:taboption("limit", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.1.2, 192.168.1.0/24, etc."))
 o.datatype = "ipaddr"
-o:depends("limit_enable","1")
+o:depends("limit_ip_enable","1")
 
 --
 -- limit speed by mac address
@@ -159,11 +151,11 @@ if enable_priority == "1" then
 end
 
 --
--- Static Limit Rate - Upload Rate
+-- Static Limit Rate
 --
-if limit_enable == "1" and limit_type == "static" then
+if limit_ip_enable == "1" and limit_type == "static" then
 
-	y = m:section(TypedSection, "upload", translate("Static QoS-Upload Rate"))
+	y = m:section(TypedSection, "upload", translate("Static QoS"))
 	y.anonymous = true
 	y.addremove = true
 	y.template = "cbi/tblsection"
@@ -182,46 +174,18 @@ if limit_enable == "1" and limit_type == "static" then
 		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
 	end
 
-	o = y:option(Value, "rate", translate("Rate"))
+	o = y:option(Value, "rate", translate("Upload Rate"))
 	o.default = def_rate_ul or '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = y:option(ListValue, "unit", translate("Unit"))
-	o.default = def_unit_ul or "kbytes"
-	o:value("bytes", "Bytes/s")
-	o:value("kbytes", "KBytes/s")
-	o:value("mbytes", "MBytes/s")
-
---
--- Static Limit Rate - Download Rate
---
-	x = m:section(TypedSection, "download", translate("Static QoS-Download Rate"))
-	x.anonymous = true
-	x.addremove = true
-	x.template = "cbi/tblsection"
-
-	o = x:option(Value, "hostname", translate("Hostname"))
-	o.datatype = "hostname"
-	o.default = 'undefined'
-
-	if has_ipv6 then
-		o = x:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
-	else
-		o = x:option(Value, "ipaddr", translate("IP Address (v4 Only)"))
-	end
-	o.datatype = "ipaddr"
-	if nixio.fs.access("/tmp/dhcp.leases") or nixio.fs.access("/var/dhcp6.leases") then
-		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
-	end
-
-	o = x:option(Value, "rate", translate("Rate"))
+	o = y:option(Value, "rate", translate("Download Rate"))
 	o.default = def_rate_dl or '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = x:option(ListValue, "unit", translate("Unit"))
-	o.default = def_unit_dl or "kbytes"
+	o = y:option(ListValue, "unit", translate("Unit"))
+	o.default = def_unit or "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
@@ -233,7 +197,7 @@ end
 --
 if limit_mac_enable == "1" then
 
-	x = m:section(TypedSection, "client", translate("Limit Traffic Rate By Mac Address"))
+	x = m:section(TypedSection, "client", translate("MAC QoS"))
 	x.anonymous = true
 	x.addremove = true
 	x.template = "cbi/tblsection"
@@ -250,20 +214,14 @@ if limit_mac_enable == "1" then
 	o.default = def_rate_ul or '1250'
 	o.size = 4
 	o.datatype = "uinteger"
-
-	o = x:option(ListValue, "urunit", translate("Unit"))
-	o.default = def_unit_ul or "kbytes"
-	o:value("bytes", "Bytes/s")
-	o:value("kbytes", "KBytes/s")
-	o:value("mbytes", "MBytes/s")
 	
 	o = x:option(Value, "drate", translate("Download Rate"))
 	o.default = def_rate_dl or '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = x:option(ListValue, "drunit", translate("Unit"))
-	o.default = def_unit_dl or "kbytes"
+	o = x:option(ListValue, "unit", translate("Unit"))
+	o.default = def_unit or "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")

@@ -4,7 +4,7 @@
 
 qosdef_validate_dynamic() {
 	uci_load_validate pppoe-qos default "$1" "$2" \
-		'limit_enable:bool:0' \
+		'limit_ip_enable:bool:0' \
 		'limit_type:maxlength(8)' \
 		'dynamic_bw_up:uinteger:100' \
 		'dynamic_bw_down:uinteger:100'
@@ -38,8 +38,8 @@ qosdef_append_chain_dym() { # <hook> <name> <bandwidth>
 	[ -z "$cidr" -a -z "$cidr6" ] && return
 
 	case "$2" in
-		download) operator=daddr;;
 		upload) operator=saddr;;
+		download) operator=daddr;;
 	esac
 
 	rate=$(qosdef_dynamic_rate $bandwidth)
@@ -67,7 +67,7 @@ qosdef_init_dynamic() {
 		return 1
 	}
 
-	[ $limit_enable -eq 0 -o \
+	[ $limit_ip_enable -eq 0 -o \
 		"$limit_type" = "static" ] && return 1
 
 	# Transfer mbits/s to mbytes/s
