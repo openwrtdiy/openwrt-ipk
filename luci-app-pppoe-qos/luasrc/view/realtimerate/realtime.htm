@@ -77,7 +77,7 @@
 				rate_table_dl     = document.getElementById('rate_table_dl');
 
 				/* render datasets, start update interval */
-				XHR.poll(3, '<%=build_url("admin/status/realtime/rate_status")%>', null,
+				XHR.poll(3, '<%=build_url("admin/status/realtime/qosnft_status")%>', null,
 					function(x, json)
 					{
 						var RA = {};

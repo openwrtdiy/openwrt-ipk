@@ -4,7 +4,7 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=PPPoE QoS over Nftables
+LUCI_TITLE:=QoS over Nftables
 LUCI_DEPENDS:=+luci-compat +pppoe-qos
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0.0

@@ -9,11 +9,11 @@ function index()
 
 	local e
 
-	e = entry({"admin", "status", "realtime", "rate"}, template("pppoe-qos/rate"), _("Rate"), 5)
+	e = entry({"admin", "status", "realtime", "qosnft"}, template("realtimerate/realtime"), _("Realtime Rate"), 5)
 	e.leaf = true
 	e.acl_depends = { "luci-app-pppoe-qos" }
 
-	e = entry({"admin", "status", "realtime", "rate_status"}, call("action_rate"))
+	e = entry({"admin", "status", "realtime", "qosnft_status"}, call("action_rate"))
 	e.leaf = true
 	e.acl_depends = { "luci-app-pppoe-qos" }
 
