@@ -17,7 +17,7 @@ function index()
 	e.leaf = true
 	e.acl_depends = { "luci-app-pppoe-qos" }
 
-	e = entry({"admin", "network", "pppoe-qos"}, cbi("pppoe-qos/pppoe-qos"), _("QoS over Nftables"), 60)
+	e = entry({"admin", "network", "pppoe-qos"}, cbi("pppoe-qos/pppoe-qos"), _("PPPoE QoS Beta"), 60)
 	e.leaf = true
 	e.acl_depends = { "luci-app-pppoe-qos" }
 end
