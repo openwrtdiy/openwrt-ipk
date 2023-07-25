@@ -12,12 +12,12 @@ local macqos_enable = uci:get("pppoe-qos", "default", "macqos_enable")
 
 local has_ipv6 = fs.access("/proc/net/ipv6_route")
 
-m = Map("pppoe-qos", translate("PPPoE QoS over Nftables"))
+m = Map("pppoe-qos", translate("QoS over Nftables"))
 
 --
 -- Taboptions
 --
-s = m:section(TypedSection, "default", translate("pppoe-qos Settings"))
+s = m:section(TypedSection, "default", translate("Qos Nft Settings"))
 s.addremove = false
 s.anonymous = true
 
