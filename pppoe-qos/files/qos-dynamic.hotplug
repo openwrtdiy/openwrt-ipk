@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export initscript="pppoe-qos-dynamic"
+export initscript="qos-dynamic"
 
 . /lib/functions.sh
 . /lib/pppoe-qos/core.sh
@@ -15,7 +15,7 @@ qosdef_check_if_dynamic() {
 }
 
 
-logger -t pppoe-qos-dynamic "ACTION=$ACTION, MACADDR=$MACADDR, IPADDR=$IPADDR, HOSTNAME=$HOSTNAME"
+logger -t qos-dynamic "ACTION=$ACTION, MACADDR=$MACADDR, IPADDR=$IPADDR, HOSTNAME=$HOSTNAME"
 
 case "$ACTION" in
 	add | update | remove)

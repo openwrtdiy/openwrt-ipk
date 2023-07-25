@@ -45,7 +45,7 @@ qosdef_append_chain_sta() { # <hook> <name> <section> <unit> <rate>
 }
 
 qosdef_flush_static() {
-	qosdef_flush_table "$NFT_QOS_INET_FAMILY" pppoe-qos-static
+	qosdef_flush_table "$NFT_QOS_INET_FAMILY" qos-static
 }
 
 # static limit rate init
@@ -53,7 +53,7 @@ qosdef_init_static() {
 	local hook_ul="prerouting" hook_dl="postrouting"
 
 	[ "$2" = 0 ] || {
-		logger -t pppoe-qos-static "validation failed"
+		logger -t qos-static "validation failed"
 		return 1
 	}
 
@@ -65,7 +65,7 @@ qosdef_init_static() {
 		hook_dl="prerouting"
 	}
 
-	qosdef_appendx "table $NFT_QOS_INET_FAMILY pppoe-qos-static {\n"
+	qosdef_appendx "table $NFT_QOS_INET_FAMILY qos-static {\n"
 	qosdef_append_chain_sta $hook_ul upload user
 	qosdef_append_chain_sta $hook_dl download user
 	qosdef_appendx "}\n"

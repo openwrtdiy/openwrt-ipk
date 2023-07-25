@@ -55,7 +55,7 @@ qosdef_append_chain_dym() { # <hook> <name> <bandwidth>
 }
 
 qosdef_flush_dynamic() {
-	qosdef_flush_table "$NFT_QOS_INET_FAMILY" pppoe-qos-dynamic
+	qosdef_flush_table "$NFT_QOS_INET_FAMILY" qos-dynamic
 }
 
 # init dynamic qos
@@ -63,7 +63,7 @@ qosdef_init_dynamic() {
 	local hook_ul="prerouting" hook_dl="postrouting"
 
 	[ "$2" = 0 ] || {
-		logger -t pppoe-qos-dynamic "validation failed"
+		logger -t qos-dynamic "validation failed"
 		return 1
 	}
 
@@ -80,7 +80,7 @@ qosdef_init_dynamic() {
 		hook_dl="prerouting"
 	}
 
-	qosdef_appendx "table $NFT_QOS_INET_FAMILY pppoe-qos-dynamic {\n"
+	qosdef_appendx "table $NFT_QOS_INET_FAMILY qos-dynamic {\n"
 	qosdef_append_chain_dym $hook_ul upload $dynamic_bw_up
 	qosdef_append_chain_dym $hook_dl download $dynamic_bw_down
 	qosdef_appendx "}\n"

@@ -46,9 +46,9 @@ qosdef_append_chain_mac() { # <hook> <name> <section>
 
 qosdef_flush_mac() {
 	if [ -n "$NFT_QOS_HAS_BRIDGE" ]; then
-		qosdef_flush_table bridge pppoe-qos-mac
+		qosdef_flush_table bridge qos-mac
 	else
-		qosdef_flush_table "$NFT_QOS_INET_FAMILY" pppoe-qos-mac
+		qosdef_flush_table "$NFT_QOS_INET_FAMILY" qos-mac
 	fi
 }
 
@@ -57,7 +57,7 @@ qosdef_init_mac() {
 	local hook_ul="prerouting" hook_dl="postrouting"
 
 	[ "$2" = 0 ] || {
-		logger -t pppoe-qos-mac "validation failed"
+		logger -t qos-mac "validation failed"
 		return 1
 	}
 
@@ -71,7 +71,7 @@ qosdef_init_mac() {
 		table_name="bridge"
 	fi
 
-	qosdef_appendx "table $table_name pppoe-qos-mac {\n"
+	qosdef_appendx "table $table_name qos-mac {\n"
 	qosdef_append_chain_mac $hook_ul upload client
 	qosdef_append_chain_mac $hook_dl download client
 	qosdef_appendx "}\n"

@@ -73,12 +73,13 @@ o:depends("ip_type","dynamic")
 
 if has_ipv6 then
 	o = s:taboption("limitip", Value, "dynamic_cidr6", translate("Target Network6 (IPv6/MASK)"), translate("Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."))
+	o.placeholder = translate("AAAA::BBBB/64")
 	o.datatype = "cidr6"
 	o:depends("ip_type","dynamic")
 end
 
 o = s:taboption("limitip", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.100.2, 192.168.100.0/24, etc."))
-o.placeholder = translate("192.168.100.166 192.168.99.0/24")
+o.placeholder = translate("192.168.100.2 192.168.99.0/24")
 o.datatype = "ipaddr"
 o:depends("limit_ip_enable","1")
 
