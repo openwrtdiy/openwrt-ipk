@@ -1,10 +1,10 @@
 #!/bin/sh
 
-export initscript="pppoe-qos-monitor"
+export initscript="qos-monitor"
 
 . /lib/pppoe-qos/monitor.sh
 
-logger -t pppoe-qos-monitor "ACTION=$ACTION, MACADDR=$MACADDR, IPADDR=$IPADDR, HOSTNAME=$HOSTNAME"
+logger -t qos-monitor "ACTION=$ACTION, MACADDR=$MACADDR, IPADDR=$IPADDR, HOSTNAME=$HOSTNAME"
 
 case "$ACTION" in
 	add | update)

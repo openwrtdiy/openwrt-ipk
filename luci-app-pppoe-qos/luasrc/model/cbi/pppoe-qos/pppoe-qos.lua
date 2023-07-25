@@ -28,7 +28,7 @@ s:tab("limitmac", translate("Limit Rate by Mac Address"))
 --
 -- Priority
 --
-o = s:taboption("priority", Flag, "priority_enable", translate("Enable Traffic Priority"), translate("Enable this feature"))
+o = s:taboption("priority", Flag, "priority_enable", translate("Traffic Priority"), translate("Enable Traffic Priority"))
 o.default = enable_priority or o.enabled
 o.rmempty = false
 
@@ -49,38 +49,24 @@ o:depends("limit_ip_enable","1")
 o:value("static", "Static")
 o:value("dynamic", "Dynamic")
 
-o = s:taboption("limitip", Value, "urate", translate("Default Upload Rate"), translate("Default value for upload rate"))
-o.datatype = "uinteger"
-o.default = '1250'
-o:depends("ip_type","static")
-
-o = s:taboption("limitip", Value, "drate", translate("Default Download Rate"), translate("Default value for download rate"))
-o.datatype = "uinteger"
-o.default = '1250'
-o:depends("ip_type","static")
-
-o = s:taboption("limitip", ListValue, "unit", translate("Default Unit"), translate("Default unit rate"))
-o.default = "kbytes"
-o:depends("ip_type","static")
-o:value("bytes", "Bytes/s")
-o:value("kbytes", "KBytes/s")
-o:value("mbytes", "MBytes/s")
-
 --
 -- Dynamic
 --
 
-o = s:taboption("limitip", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Default value for upload bandwidth"))
+o = s:taboption("limitip", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s"))
+o.placeholder = translate("1 Mbps/s = 125 KBytes/s")
 o.default = '100'
 o.datatype = "uinteger"
 o:depends("ip_type","dynamic")
 
-o = s:taboption("limitip", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Default value for download bandwidth"))
+o = s:taboption("limitip", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s"))
+o.placeholder = translate("1 Mbps/s = 125 KBytes/s")
 o.default = '100'
 o.datatype = "uinteger"
 o:depends("ip_type","dynamic")
 
-o = s:taboption("limitip", Value, "dynamic_cidr", translate("Target Network (IPv4/MASK)"), translate("Network to be applied, e.g. 192.168.1.0/24, 10.2.0.0/16, etc."))
+o = s:taboption("limitip", Value, "dynamic_cidr", translate("Target Network (IPv4/MASK)"), translate("Network to be applied, e.g. 192.168.100.0/24, 10.2.0.0/16, etc."))
+o.placeholder = translate("192.168.100.0/24")
 o.datatype = "cidr4"
 ipc.routes({ family = 4, type = 1 }, function(rt) o.default = rt.dest end)
 o:depends("ip_type","dynamic")
@@ -91,7 +77,8 @@ if has_ipv6 then
 	o:depends("ip_type","dynamic")
 end
 
-o = s:taboption("limitip", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.1.2, 192.168.1.0/24, etc."))
+o = s:taboption("limitip", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.100.2, 192.168.100.0/24, etc."))
+o.placeholder = translate("192.168.100.166 192.168.99.0/24")
 o.datatype = "ipaddr"
 o:depends("limit_ip_enable","1")
 
@@ -148,7 +135,7 @@ end
 --
 if limit_ip_enable == "1" and ip_type == "static" then
 
-	y = m:section(TypedSection, "user", translate("Static QoS"))
+	y = m:section(TypedSection, "user", translate("Static QoS"), translate("Data Transfer Rate: 125000 Bytes/s = 125 KBytes/s = 0.125 MBytes/s = 1 Mbps/s"))
 	y.anonymous = true
 	y.addremove = true
 	y.template = "cbi/tblsection"
@@ -159,8 +146,10 @@ if limit_ip_enable == "1" and ip_type == "static" then
 
 	if has_ipv6 then
 		o = y:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
+		o.placeholder = translate("192.168.100.2")
 	else
 		o = y:option(Value, "ipaddr", translate("IP Address (v4 Only)"))
+		o.placeholder = translate("192.168.100.2")
 	end
 	o.datatype = "ipaddr"
 	if nixio.fs.access("/tmp/dhcp.leases") or nixio.fs.access("/var/dhcp6.leases") then
@@ -168,16 +157,18 @@ if limit_ip_enable == "1" and ip_type == "static" then
 	end
 
 	o = y:option(Value, "urate", translate("Upload Rate"))
-	o.default = ''
+	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
+	o.default = '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 
 	o = y:option(Value, "drate", translate("Download Rate"))
-	o.default = ''
+	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
+	o.default = '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = y:option(ListValue, "unit", translate("Unit"))
+	o = y:option(ListValue, "unit", translate("Rate Unit"))
 	o.default = "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
@@ -190,7 +181,7 @@ end
 --
 if limit_mac_enable == "1" then
 
-	x = m:section(TypedSection, "client", translate("MAC QoS"))
+	x = m:section(TypedSection, "client", translate("MAC QoS"), translate("Data Transfer Rate: 125000 Bytes/s = 125 KBytes/s = 0.125 MBytes/s = 1 Mbps/s"))
 	x.anonymous = true
 	x.addremove = true
 	x.template = "cbi/tblsection"
@@ -200,20 +191,23 @@ if limit_mac_enable == "1" then
 	o.default = ''
 
 	o = x:option(Value, "macaddr", translate("MAC Address"))
+	o.placeholder = translate("A1:B2:C3:D4:E5:F6")
 	o.rmempty = true
 	o.datatype = "macaddr"
 
 	o = x:option(Value, "urate", translate("Upload Rate"))
+	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
 	o.default = '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 	
 	o = x:option(Value, "drate", translate("Download Rate"))
+	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
 	o.default = '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = x:option(ListValue, "unit", translate("Unit"))
+	o = x:option(ListValue, "unit", translate("Rate Unit"))
 	o.default = "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")

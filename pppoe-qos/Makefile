@@ -48,7 +48,7 @@ define Package/pppoe-qos/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/pppoe-qos.init $(1)/etc/init.d/pppoe-qos
 	$(INSTALL_DIR) $(1)/etc/hotplug.d/dhcp
-	$(INSTALL_BIN) ./files/pppoe-qos-monitor.hotplug $(1)/etc/hotplug.d/dhcp/00-pppoe-qos-monitor
+	$(INSTALL_BIN) ./files/qos-monitor.hotplug $(1)/etc/hotplug.d/dhcp/00-qos-monitor
 	$(INSTALL_BIN) ./files/pppoe-qos-dynamic.hotplug $(1)/etc/hotplug.d/dhcp/01-pppoe-qos-dynamic
 endef
 

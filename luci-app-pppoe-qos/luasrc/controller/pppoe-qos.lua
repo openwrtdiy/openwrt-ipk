@@ -24,8 +24,8 @@ end
 
 function _action_rate(rv, n)
 	local c = nixio.fs.access("/proc/net/ipv6_route") and
-		io.popen("nft list chain inet pppoe-qos-monitor " .. n .. " 2>/dev/null") or
-		io.popen("nft list chain ip pppoe-qos-monitor " .. n .. " 2>/dev/null")
+		io.popen("nft list chain inet qos-monitor " .. n .. " 2>/dev/null") or
+		io.popen("nft list chain ip qos-monitor " .. n .. " 2>/dev/null")
 
 	if c then
 		for l in c:lines() do
@@ -37,7 +37,7 @@ function _action_rate(rv, n)
 				rv[#rv + 1] = {
 					rule = {
 						family = "inet",
-						table = "pppoe-qos-monitor",
+						table = "qos-monitor",
 						chain = n,
 						handle = 0,
 						expr = {
