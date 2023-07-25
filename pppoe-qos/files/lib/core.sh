@@ -75,7 +75,6 @@ qosdef_remove_table() { # <family> <table>
 
 qosdef_init_header() { # add header for nft script
 	qosdef_appendx "#!/usr/sbin/nft -f\n"
-	qosdef_appendx "#\n\n"
 }
 
 qosdef_init_env() {

@@ -59,13 +59,13 @@ qosdef_append_chain_priority() { # <name> <section> <device>
 }
 
 qosdef_remove_priority() {
-	qosdef_remove_table netdev pppoe-qos-priority
+	qosdef_remove_table netdev qos-priority
 }
 
 # init traffic priority
 qosdef_init_priority() {
 	[ "$2" = 0 ] || {
-		logger -t pppoe-qos-priority "validation failed"
+		logger -t qos-priority "validation failed"
 		return 1
 	}
 
@@ -74,11 +74,11 @@ qosdef_init_priority() {
 	local ifname
 	network_get_device ifname "$priority_netdev"
 	[ -n "$ifname" ] || {
-		logger -t pppoe-qos-priority "unable to get ifname for $priority_netdev"
+		logger -t qos-priority "unable to get ifname for $priority_netdev"
 		return 1
 	}
 
-	qosdef_appendx "table netdev pppoe-qos-priority {\n"
+	qosdef_appendx "table netdev qos-priority {\n"
 	qosdef_append_chain_priority filter priority $ifname
 	qosdef_appendx "}\n"
 }
