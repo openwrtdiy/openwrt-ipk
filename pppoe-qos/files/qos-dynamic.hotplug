@@ -9,7 +9,7 @@ export initscript="qos-dynamic"
 NFT_QOS_DYNAMIC_ON=
 
 qosdef_check_if_dynamic() {
-	[ $limit_ip_enable -eq 1 -a \
+	[ $ipqos_enable -eq 1 -a \
 	  "$ip_type" = "dynamic" ] && \
 	    NFT_QOS_DYNAMIC_ON="y"
 }

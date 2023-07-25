@@ -6,9 +6,9 @@ local fs = require("nixio.fs")
 local ipc = require("luci.ip")
 
 local enable_priority = uci:get("pppoe-qos", "default", "priority_enable")
-local limit_ip_enable = uci:get("pppoe-qos", "default", "limit_ip_enable")
+local ipqos_enable = uci:get("pppoe-qos", "default", "ipqos_enable")
 local ip_type = uci:get("pppoe-qos", "default", "ip_type")
-local limit_mac_enable = uci:get("pppoe-qos", "default", "limit_mac_enable")
+local macqos_enable = uci:get("pppoe-qos", "default", "macqos_enable")
 
 local has_ipv6 = fs.access("/proc/net/ipv6_route")
 
@@ -39,13 +39,13 @@ wa.cbi_add_networks(o)
 --
 -- Static
 --
-o = s:taboption("limitip", Flag, "limit_ip_enable", translate("IP Qos"), translate("Enable Limit IP Rate Feature"))
-o.default = limit_ip_enable or o.enabled
+o = s:taboption("limitip", Flag, "ipqos_enable", translate("IP Qos"), translate("Enable Limit IP Rate Feature"))
+o.default = ipqos_enable or o.enabled
 o.rmempty = false
 
 o = s:taboption("limitip", ListValue, "ip_type", translate("Limit Type"), translate("Type of Limit Rate"))
 o.default = "static"
-o:depends("limit_ip_enable","1")
+o:depends("ipqos_enable","1")
 o:value("static", "Static")
 o:value("dynamic", "Dynamic")
 
@@ -81,13 +81,13 @@ end
 o = s:taboption("limitip", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.100.2, 192.168.100.0/24, etc."))
 o.placeholder = translate("192.168.100.2 192.168.99.0/24")
 o.datatype = "ipaddr"
-o:depends("limit_ip_enable","1")
+o:depends("ipqos_enable","1")
 
 --
 -- limit speed by mac address
 --
-o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("MAC Qos"), translate("Enable Limit MAC Rate Feature"))
-o.default = limit_mac_enable or o.enabled
+o = s:taboption("limitmac", Flag, "macqos_enable", translate("MAC Qos"), translate("Enable Limit MAC Rate Feature"))
+o.default = macqos_enable or o.enabled
 o.rmempty = false
 
 --
@@ -134,7 +134,7 @@ end
 --
 -- Static Limit Rate
 --
-if limit_ip_enable == "1" and ip_type == "static" then
+if ipqos_enable == "1" and ip_type == "static" then
 
 	y = m:section(TypedSection, "user", translate("Static QoS"), translate("Data Transfer Rate: 125000 Bytes/s = 125 KBytes/s = 0.125 MBytes/s = 1 Mbps/s"))
 	y.anonymous = true
@@ -180,7 +180,7 @@ end
 --
 -- Static By Mac Address
 --
-if limit_mac_enable == "1" then
+if macqos_enable == "1" then
 
 	x = m:section(TypedSection, "client", translate("MAC QoS"), translate("Data Transfer Rate: 125000 Bytes/s = 125 KBytes/s = 0.125 MBytes/s = 1 Mbps/s"))
 	x.anonymous = true

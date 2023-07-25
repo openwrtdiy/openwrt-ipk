@@ -4,7 +4,7 @@
 
 qosdef_validate_static() {
 	uci_load_validate pppoe-qos default "$1" "$2" \
-		'limit_ip_enable:bool:0' \
+		'ipqos_enable:bool:0' \
 		'ip_type:maxlength(8)'
 }
 
@@ -57,7 +57,7 @@ qosdef_init_static() {
 		return 1
 	}
 
-	[ $limit_ip_enable -eq 0 ] && return 1
+	[ $ipqos_enable -eq 0 ] && return 1
 
 	[ -z "$NFT_QOS_HAS_BRIDGE" ] && {
 		hook_ul="postrouting"

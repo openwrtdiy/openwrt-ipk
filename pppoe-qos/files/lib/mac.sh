@@ -6,7 +6,7 @@
 
 qosdef_validate_mac() {
 	uci_load_validate pppoe-qos default "$1" "$2" \
-		'limit_mac_enable:bool:0'
+		'macqos_enable:bool:0'
 }
 
 # append rule for mac qos
@@ -61,7 +61,7 @@ qosdef_init_mac() {
 		return 1
 	}
 
-	[ $limit_mac_enable -eq 0 ] && return 1
+	[ $macqos_enable -eq 0 ] && return 1
 
 	table_name=$NFT_QOS_INET_FAMILY
 	if [ -z "$NFT_QOS_HAS_BRIDGE" ]; then

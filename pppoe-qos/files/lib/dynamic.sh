@@ -4,7 +4,7 @@
 
 qosdef_validate_dynamic() {
 	uci_load_validate pppoe-qos default "$1" "$2" \
-		'limit_ip_enable:bool:0' \
+		'ipqos_enable:bool:0' \
 		'ip_type:maxlength(8)' \
 		'dynamic_bw_up:uinteger:100' \
 		'dynamic_bw_down:uinteger:100'
@@ -67,7 +67,7 @@ qosdef_init_dynamic() {
 		return 1
 	}
 
-	[ $limit_ip_enable -eq 0 -o \
+	[ $ipqos_enable -eq 0 -o \
 		"$ip_type" = "static" ] && return 1
 
 	# Transfer mbits/s to mbytes/s
