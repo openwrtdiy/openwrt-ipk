@@ -5,16 +5,9 @@ local wa = require("luci.tools.webadmin")
 local fs = require("nixio.fs")
 local ipc = require("luci.ip")
 
-local def_rate_ul = uci:get("pppoe-qos", "default", "static_rate_ul")
-local def_rate_dl = uci:get("pppoe-qos", "default", "static_rate_dl")
-local def_unit = uci:get("pppoe-qos", "default", "static_unit")
-
-local def_up = uci:get("pppoe-qos", "default", "dynamic_bw_up")
-local def_down = uci:get("pppoe-qos", "default", "dynamic_bw_down")
-
 local enable_priority = uci:get("pppoe-qos", "default", "priority_enable")
-local limit_enable = uci:get("pppoe-qos", "default", "limit_enable")
-local limit_type = uci:get("pppoe-qos", "default", "limit_type")
+local limit_ip_enable = uci:get("pppoe-qos", "default", "limit_ip_enable")
+local ip_type = uci:get("pppoe-qos", "default", "ip_type")
 local limit_mac_enable = uci:get("pppoe-qos", "default", "limit_mac_enable")
 
 local has_ipv6 = fs.access("/proc/net/ipv6_route")
@@ -29,7 +22,7 @@ s.addremove = false
 s.anonymous = true
 
 s:tab("priority", translate("Traffic Priority"))
-s:tab("limit", translate("Limit Rate by IP Address"))
+s:tab("limitip", translate("Limit Rate by IP Address"))
 s:tab("limitmac", translate("Limit Rate by Mac Address"))
 
 --
@@ -46,29 +39,29 @@ wa.cbi_add_networks(o)
 --
 -- Static
 --
-o = s:taboption("limit", Flag, "limit_ip_enable", translate("Limit Enable"), translate("Enable Limit Rate Feature"))
+o = s:taboption("limitip", Flag, "limit_ip_enable", translate("IP Qos"), translate("Enable Limit IP Rate Feature"))
 o.default = limit_ip_enable or o.enabled
 o.rmempty = false
 
-o = s:taboption("limit", ListValue, "limit_type", translate("Limit Type"), translate("Type of Limit Rate"))
-o.default = limit_static or "static"
+o = s:taboption("limitip", ListValue, "ip_type", translate("Limit Type"), translate("Type of Limit Rate"))
+o.default = "static"
 o:depends("limit_ip_enable","1")
 o:value("static", "Static")
 o:value("dynamic", "Dynamic")
 
-o = s:taboption("limit", Value, "static_rate_ul", translate("Default Upload Rate"), translate("Default value for upload rate"))
+o = s:taboption("limitip", Value, "urate", translate("Default Upload Rate"), translate("Default value for upload rate"))
 o.datatype = "uinteger"
-o.default = def_rate_ul or '1250'
-o:depends("limit_type","static")
+o.default = '1250'
+o:depends("ip_type","static")
 
-o = s:taboption("limit", Value, "static_rate_dl", translate("Default Download Rate"), translate("Default value for download rate"))
+o = s:taboption("limitip", Value, "drate", translate("Default Download Rate"), translate("Default value for download rate"))
 o.datatype = "uinteger"
-o.default = def_rate_dl or '1250'
-o:depends("limit_type","static")
+o.default = '1250'
+o:depends("ip_type","static")
 
-o = s:taboption("limit", ListValue, "static_unit", translate("Default Unit"), translate("Default unit rate"))
-o.default = def_unit or "kbytes"
-o:depends("limit_type","static")
+o = s:taboption("limitip", ListValue, "unit", translate("Default Unit"), translate("Default unit rate"))
+o.default = "kbytes"
+o:depends("ip_type","static")
 o:value("bytes", "Bytes/s")
 o:value("kbytes", "KBytes/s")
 o:value("mbytes", "MBytes/s")
@@ -77,35 +70,35 @@ o:value("mbytes", "MBytes/s")
 -- Dynamic
 --
 
-o = s:taboption("limit", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Default value for upload bandwidth"))
-o.default = def_down or '100'
+o = s:taboption("limitip", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Default value for upload bandwidth"))
+o.default = '100'
 o.datatype = "uinteger"
-o:depends("limit_type","dynamic")
+o:depends("ip_type","dynamic")
 
-o = s:taboption("limit", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Default value for download bandwidth"))
-o.default = def_up or '100'
+o = s:taboption("limitip", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Default value for download bandwidth"))
+o.default = '100'
 o.datatype = "uinteger"
-o:depends("limit_type","dynamic")
+o:depends("ip_type","dynamic")
 
-o = s:taboption("limit", Value, "dynamic_cidr", translate("Target Network (IPv4/MASK)"), translate("Network to be applied, e.g. 192.168.1.0/24, 10.2.0.0/16, etc."))
+o = s:taboption("limitip", Value, "dynamic_cidr", translate("Target Network (IPv4/MASK)"), translate("Network to be applied, e.g. 192.168.1.0/24, 10.2.0.0/16, etc."))
 o.datatype = "cidr4"
 ipc.routes({ family = 4, type = 1 }, function(rt) o.default = rt.dest end)
-o:depends("limit_type","dynamic")
+o:depends("ip_type","dynamic")
 
 if has_ipv6 then
-	o = s:taboption("limit", Value, "dynamic_cidr6", translate("Target Network6 (IPv6/MASK)"), translate("Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."))
+	o = s:taboption("limitip", Value, "dynamic_cidr6", translate("Target Network6 (IPv6/MASK)"), translate("Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."))
 	o.datatype = "cidr6"
-	o:depends("limit_type","dynamic")
+	o:depends("ip_type","dynamic")
 end
 
-o = s:taboption("limit", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.1.2, 192.168.1.0/24, etc."))
+o = s:taboption("limitip", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.1.2, 192.168.1.0/24, etc."))
 o.datatype = "ipaddr"
 o:depends("limit_ip_enable","1")
 
 --
 -- limit speed by mac address
 --
-o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("Limit Enable"), translate("Enable Limit Rate Feature"))
+o = s:taboption("limitmac", Flag, "limit_mac_enable", translate("MAC Qos"), translate("Enable Limit MAC Rate Feature"))
 o.default = limit_mac_enable or o.enabled
 o.rmempty = false
 
@@ -153,9 +146,9 @@ end
 --
 -- Static Limit Rate
 --
-if limit_ip_enable == "1" and limit_type == "static" then
+if limit_ip_enable == "1" and ip_type == "static" then
 
-	y = m:section(TypedSection, "upload", translate("Static QoS"))
+	y = m:section(TypedSection, "user", translate("Static QoS"))
 	y.anonymous = true
 	y.addremove = true
 	y.template = "cbi/tblsection"
@@ -174,18 +167,18 @@ if limit_ip_enable == "1" and limit_type == "static" then
 		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
 	end
 
-	o = y:option(Value, "rate", translate("Upload Rate"))
-	o.default = def_rate_ul or '1250'
+	o = y:option(Value, "urate", translate("Upload Rate"))
+	o.default = ''
 	o.size = 4
 	o.datatype = "uinteger"
 
-	o = y:option(Value, "rate", translate("Download Rate"))
-	o.default = def_rate_dl or '1250'
+	o = y:option(Value, "drate", translate("Download Rate"))
+	o.default = ''
 	o.size = 4
 	o.datatype = "uinteger"
 
 	o = y:option(ListValue, "unit", translate("Unit"))
-	o.default = def_unit or "kbytes"
+	o.default = "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
@@ -211,17 +204,17 @@ if limit_mac_enable == "1" then
 	o.datatype = "macaddr"
 
 	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.default = def_rate_ul or '1250'
+	o.default = '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 	
 	o = x:option(Value, "drate", translate("Download Rate"))
-	o.default = def_rate_dl or '1250'
+	o.default = '1250'
 	o.size = 4
 	o.datatype = "uinteger"
 
 	o = x:option(ListValue, "unit", translate("Unit"))
-	o.default = def_unit or "kbytes"
+	o.default = "kbytes"
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")

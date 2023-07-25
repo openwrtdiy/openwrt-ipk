@@ -5,10 +5,7 @@
 qosdef_validate_static() {
 	uci_load_validate pppoe-qos default "$1" "$2" \
 		'limit_ip_enable:bool:0' \
-		'limit_type:maxlength(8)' \
-		'static_rate_ul:uinteger:50' \
-		'static_rate_dl:uinteger:50' \
-		'static_unit:string:kbytes'
+		'ip_type:maxlength(8)'
 }
 
 # append rule for static qos
@@ -17,8 +14,13 @@ qosdef_append_rule_sta() { # <section> <operator> <default-unit> <default-rate>
 	local operator=$2
 
 	config_get ipaddr $1 ipaddr
-	config_get unit $1 unit $3
-	config_get rate $1 rate $4
+	if [ "$operator" = "saddr" ]; then
+		config_get rate $1 urate $3
+		config_get unit $1 unit $4
+	else
+		config_get rate $1 drate $3
+		config_get unit $1 unit $4
+	fi
 
 	[ -z "$ipaddr" ] && return
 
@@ -56,7 +58,7 @@ qosdef_init_static() {
 	}
 
 	[ $limit_ip_enable -eq 0 -o \
-		$limit_type = "dynamic" ] && return 1
+		$ip_type = "dynamic" ] && return 1
 
 	[ -z "$NFT_QOS_HAS_BRIDGE" ] && {
 		hook_ul="postrouting"
@@ -64,7 +66,7 @@ qosdef_init_static() {
 	}
 
 	qosdef_appendx "table $NFT_QOS_INET_FAMILY pppoe-qos-static {\n"
-	qosdef_append_chain_sta $hook_ul upload upload $static_unit $static_rate_ul
-	qosdef_append_chain_sta $hook_dl download download $static_unit $static_rate_dl
+	qosdef_append_chain_sta $hook_ul upload user
+	qosdef_append_chain_sta $hook_dl download user
 	qosdef_appendx "}\n"
 }
