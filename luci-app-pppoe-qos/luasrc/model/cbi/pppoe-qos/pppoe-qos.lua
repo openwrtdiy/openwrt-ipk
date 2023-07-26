@@ -143,7 +143,7 @@ if ipqos_enable == "1" and ip_type == "static" then
 
 	o = y:option(Value, "hostname", translate("Hostname"))
 	o.datatype = "hostname"
-	o.default = 'undefined'
+	o.default = ''
 
 	if has_ipv6 then
 		o = y:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))

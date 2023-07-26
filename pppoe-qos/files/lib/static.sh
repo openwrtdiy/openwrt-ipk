@@ -57,7 +57,8 @@ qosdef_init_static() {
 		return 1
 	}
 
-	[ $ipqos_enable -eq 0 ] && return 1
+	[ $ipqos_enable -eq 0 -o \
+		$ip_type = "dynamic" ] && return 1
 
 	[ -z "$NFT_QOS_HAS_BRIDGE" ] && {
 		hook_ul="postrouting"
