@@ -55,13 +55,13 @@ o:value("dynamic", "Dynamic")
 
 o = s:taboption("limitip", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s"))
 o.placeholder = translate("1 Mbps/s = 125 KBytes/s")
-o.default = '100'
+o.datatype = "range(1,12500)"
 o.datatype = "uinteger"
 o:depends("ip_type","dynamic")
 
 o = s:taboption("limitip", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s"))
 o.placeholder = translate("1 Mbps/s = 125 KBytes/s")
-o.default = '100'
+o.datatype = "range(1,12500)"
 o.datatype = "uinteger"
 o:depends("ip_type","dynamic")
 
@@ -124,11 +124,9 @@ if enable_priority == "1" then
 
 	o = s:option(Value, "service", translate("Service"))
 	o.placeholder = translate("e.g. https, 23, (separator is comma)")
-	o.default = ''
 
 	o = s:option(Value, "comment", translate("Comment"))
-	o.default = '?'
-
+	o.placeholder = translate("Note information")
 end
 
 --
@@ -142,8 +140,8 @@ if ipqos_enable == "1" and ip_type == "static" then
 	y.template = "cbi/tblsection"
 
 	o = y:option(Value, "hostname", translate("Hostname"))
+	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
-	o.default = ''
 
 	if has_ipv6 then
 		o = y:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
@@ -159,13 +157,13 @@ if ipqos_enable == "1" and ip_type == "static" then
 
 	o = y:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
-	o.default = '1250'
+	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
 
 	o = y:option(Value, "drate", translate("Download Rate"))
 	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
-	o.default = '1250'
+	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
 
@@ -174,7 +172,9 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o:value("bytes", "Bytes/s")
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
-
+	
+	o = y:option(Value, "comment", translate("Comment"))
+	o.placeholder = translate("Note information")
 end
 
 --
@@ -188,8 +188,8 @@ if macqos_enable == "1" then
 	x.template = "cbi/tblsection"
 
 	o = x:option(Value, "hostname", translate("Hostname"))
+	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
-	o.default = ''
 
 	o = x:option(Value, "macaddr", translate("MAC Address"))
 	o.placeholder = translate("A1:B2:C3:D4:E5:F6")
@@ -198,13 +198,13 @@ if macqos_enable == "1" then
 
 	o = x:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
-	o.default = '1250'
+	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
 	
 	o = x:option(Value, "drate", translate("Download Rate"))
 	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
-	o.default = '1250'
+	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
 
@@ -214,6 +214,8 @@ if macqos_enable == "1" then
 	o:value("kbytes", "KBytes/s")
 	o:value("mbytes", "MBytes/s")
 	
+	o = x:option(Value, "comment", translate("Comment"))
+	o.placeholder = translate("Note information")	
 end
 
 return m

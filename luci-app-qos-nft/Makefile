@@ -4,12 +4,12 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=QoS over Nftables
+LUCI_TITLE:=LuCI Supports QoS over Nftables
 LUCI_DEPENDS:=+luci-compat +qos-nft
 LUCI_PKGARCH:=all
-PKG_VERSION:=1.0.0
-PKG_RELEASE:=0
-PKG_DATE:=2023-07-25
+PKG_VERSION:=1.0.1
+PKG_RELEASE:=1
+PKG_DATE:=2023-07-26
 
 #include ../../luci.mk
 include $(TOPDIR)/feeds/luci/luci.mk
