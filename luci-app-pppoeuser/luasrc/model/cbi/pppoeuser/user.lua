@@ -11,7 +11,7 @@ s.template = "cbi/tblsection"
 o = s:option(Flag, "enabled", translate("Enabled"))
 o.rmempty = false
 
-o = s:option(Value, "username", translate("User Name"))
+o = s:option(Value, "hostname", translate("User Name"))
 o.placeholder = translate("Username")
 o.rmempty = true
 
@@ -31,28 +31,25 @@ o.default = os.date("%Y%m%d")
 o.password = true
 o.rmempty = false
 
-o = s:option(Value, "ipaddress", translate("IP address"))
+o = s:option(Value, "ipaddr", translate("IP address"))
 o.placeholder = translate("Automatically")
 o.datatype = "ipaddr"
 o.rmempty = true
 function o.cfgvalue(e, t)
-    value = e.map:get(t, "ipaddress")
+    value = e.map:get(t, "ipaddr")
     return value == "*" and "" or value
 end
 function o.remove(e, t) Value.write(e, t, "*") end
 
 o = s:option(ListValue, "package", translate("Broadband Package"))
-o.rmempty = true
 o:value("none", translate("None"))
+o:value("free", translate("Free"))
 o:value("family", translate("Family"))
 o:value("office", translate("Office"))
-o:value("free", translate("Free"))
 o:value("test", translate("Test"))
 
 o = s:option(ListValue, "urate", translate("Upload speed"))
-o.default = '3750'
-o.datatype = "uinteger"
-o.rmempty = true
+o.default = "3750"
 o:value("1250", "10 Mbps")
 o:value("2500", "20 Mbps")
 o:value("3750", "30 Mbps")
@@ -73,6 +70,8 @@ o:value("100000", "800 Mbps")
 o:value("112500", "900 Mbps")
 o:value("125000", "1000 Mbps")
 o:value("156250", "1250 Mbps")
+o:value("312500", "2500 Mbps")
+o:value("1250000", "10000 Mbps")	
 o:value("125", "1 Mbps")
 o:value("250", "2 Mbps")
 o:value("375", "3 Mbps")
@@ -85,8 +84,6 @@ o:value("1125", "9 Mbps")
 
 o = s:option(ListValue, "drate", translate("Download speed"))
 o.default = '3750'
-o.datatype = "uinteger"
-o.rmempty = true
 o:value("1250", "10 Mbps")
 o:value("2500", "20 Mbps")
 o:value("3750", "30 Mbps")
@@ -107,6 +104,8 @@ o:value("100000", "800 Mbps")
 o:value("112500", "900 Mbps")
 o:value("125000", "1000 Mbps")
 o:value("156250", "1250 Mbps")
+o:value("312500", "2500 Mbps")
+o:value("1250000", "10000 Mbps")	
 o:value("125", "1 Mbps")
 o:value("250", "2 Mbps")
 o:value("375", "3 Mbps")
@@ -128,15 +127,16 @@ function o.remove(e, t) Value.write(e, t, "kbytes") end
 
 o = s:option(ListValue, "connect", translate("Connections"))
 o.default = "8192"
-o.datatype = "range(64,65536)"
-o.rmempty = true
-o:value("1024", "10M 1024")
-o:value("2048", "20M 2048")
-o:value("4096", "40M 4096")
-o:value("8192", "80M 8192")
-o:value("16384", "100M 16384")
-o:value("32768", "200M 32768")
-o:value("65536", "400M 65536")
+o:value("3072", "30M Family")
+o:value("4096", "40M Family")
+o:value("6144", "60M Family")
+o:value("8192", "80M Family")
+o:value("16384", "100M Office")
+o:value("32768", "200M Office")
+o:value("65536", "400M Office")
+o:value("256", "4M Test")
+o:value("512", "8M Test")
+o:value("1024", "10M Test")
 
 o = s:option(Value, "expires", translate("Expiration date"))
 o.placeholder = translate("Expires")

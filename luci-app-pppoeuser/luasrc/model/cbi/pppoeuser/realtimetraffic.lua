@@ -8,9 +8,9 @@ f.submit = false
 
 local count = luci.sys.exec("ifconfig | grep ppp | wc -l")
 t = f:section(Table, sessions, translate("Online User [ " .. count .. "]"))
-t:option(DummyValue, "username", translate("User Name"))
-t:option(DummyValue, "macaddress", translate("MAC address"))
-t:option(DummyValue, "ipaddress", translate("IP address"))
+t:option(DummyValue, "hostname", translate("User Name"))
+t:option(DummyValue, "macaddr", translate("MAC address"))
+t:option(DummyValue, "ipaddr", translate("IP address"))
 t:option(DummyValue, "realtimeupload", translate("Realtime Upload Rate"))
 t:option(DummyValue, "realtimedownload", translate("Realtime Download Rate"))
 t:option(DummyValue, "totaluploads", translate("Total Uploads"))
