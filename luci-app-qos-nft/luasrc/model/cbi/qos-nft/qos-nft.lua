@@ -54,32 +54,27 @@ o:value("dynamic", "Dynamic")
 --
 
 o = s:taboption("limitip", Value, "dynamic_bw_up", translate("Upload Bandwidth (Mbps)"), translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s"))
-o.placeholder = translate("1 Mbps/s = 125 KBytes/s")
 o.datatype = "range(1,12500)"
 o.datatype = "uinteger"
 o:depends("ip_type","dynamic")
 
 o = s:taboption("limitip", Value, "dynamic_bw_down", translate("Download Bandwidth (Mbps)"), translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s"))
-o.placeholder = translate("1 Mbps/s = 125 KBytes/s")
 o.datatype = "range(1,12500)"
 o.datatype = "uinteger"
 o:depends("ip_type","dynamic")
 
 o = s:taboption("limitip", Value, "dynamic_cidr", translate("Target Network (IPv4/MASK)"), translate("Network to be applied, e.g. 192.168.100.0/24, 10.2.0.0/16, etc."))
-o.placeholder = translate("192.168.100.0/24")
 o.datatype = "cidr4"
 ipc.routes({ family = 4, type = 1 }, function(rt) o.default = rt.dest end)
 o:depends("ip_type","dynamic")
 
 if has_ipv6 then
 	o = s:taboption("limitip", Value, "dynamic_cidr6", translate("Target Network6 (IPv6/MASK)"), translate("Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."))
-	o.placeholder = translate("AAAA::BBBB/64")
 	o.datatype = "cidr6"
 	o:depends("ip_type","dynamic")
 end
 
 o = s:taboption("limitip", DynamicList, "limit_whitelist", translate("White List for Limit Rate"), translate("Network to be applied, e.g. 192.168.100.2, 192.168.100.0/24, etc."))
-o.placeholder = translate("192.168.100.2 192.168.99.0/24")
 o.datatype = "ipaddr"
 o:depends("ipqos_enable","1")
 
@@ -126,7 +121,6 @@ if enable_priority == "1" then
 	o.placeholder = translate("e.g. https, 23, (separator is comma)")
 
 	o = s:option(Value, "comment", translate("Comment"))
-	o.placeholder = translate("Note information")
 end
 
 --
@@ -140,29 +134,87 @@ if ipqos_enable == "1" and ip_type == "static" then
 	y.template = "cbi/tblsection"
 
 	o = y:option(Value, "hostname", translate("Hostname"))
-	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
 
 	if has_ipv6 then
 		o = y:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
-		o.placeholder = translate("192.168.100.2")
 	else
 		o = y:option(Value, "ipaddr", translate("IP Address (v4 Only)"))
-		o.placeholder = translate("192.168.100.2")
 	end
 	o.datatype = "ipaddr"
 	if nixio.fs.access("/tmp/dhcp.leases") or nixio.fs.access("/var/dhcp6.leases") then
-		o.titleref = luci.dispatcher.build_url("admin", "status", "overview")
 	end
 
 	o = y:option(Value, "urate", translate("Upload Rate"))
-	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
+	o.default = '1250'
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("312500", "2500 Mbps")
+	o:value("1250000", "10000 Mbps")	
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
 
 	o = y:option(Value, "drate", translate("Download Rate"))
-	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
+	o.default = '1250'
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("312500", "2500 Mbps")
+	o:value("1250000", "10000 Mbps")	
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
@@ -174,7 +226,6 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o:value("mbytes", "MBytes/s")
 	
 	o = y:option(Value, "comment", translate("Comment"))
-	o.placeholder = translate("Note information")
 end
 
 --
@@ -188,22 +239,82 @@ if macqos_enable == "1" then
 	x.template = "cbi/tblsection"
 
 	o = x:option(Value, "hostname", translate("Hostname"))
-	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
 
 	o = x:option(Value, "macaddr", translate("MAC Address"))
-	o.placeholder = translate("A1:B2:C3:D4:E5:F6")
 	o.rmempty = true
 	o.datatype = "macaddr"
 
 	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
+	o.default = '1250'
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("312500", "2500 Mbps")
+	o:value("1250000", "10000 Mbps")
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
 	
 	o = x:option(Value, "drate", translate("Download Rate"))
-	o.placeholder = translate("125 KBytes/s = 1 Mbps/s")
+	o.default = '1250'
+	o:value("1250", "10 Mbps")
+	o:value("2500", "20 Mbps")
+	o:value("3750", "30 Mbps")
+	o:value("5000", "40 Mbps")
+	o:value("6250", "50 Mbps")
+	o:value("7500", "60 Mbps")
+	o:value("8750", "70 Mbps")
+	o:value("10000", "80 Mbps")
+	o:value("11250", "90 Mbps")
+	o:value("12500", "100 Mbps")
+	o:value("25000", "200 Mbps")
+	o:value("37500", "300 Mbps")
+	o:value("50000", "400 Mbps")
+	o:value("62500", "500 Mbps")
+	o:value("75000", "600 Mbps")
+	o:value("87500", "700 Mbps")
+	o:value("100000", "800 Mbps")
+	o:value("112500", "900 Mbps")
+	o:value("125000", "1000 Mbps")
+	o:value("156250", "1250 Mbps")
+	o:value("312500", "2500 Mbps")
+	o:value("1250000", "10000 Mbps")	
+	o:value("125", "1 Mbps")
+	o:value("250", "2 Mbps")
+	o:value("375", "3 Mbps")
+	o:value("500", "4 Mbps")
+	o:value("625", "5 Mbps")
+	o:value("750", "6 Mbps")
+	o:value("875", "7 Mbps")
+	o:value("1000", "8 Mbps")
+	o:value("1125", "9 Mbps")
 	o.datatype = "range(125,1250000000)"
 	o.size = 4
 	o.datatype = "uinteger"
@@ -215,7 +326,6 @@ if macqos_enable == "1" then
 	o:value("mbytes", "MBytes/s")
 	
 	o = x:option(Value, "comment", translate("Comment"))
-	o.placeholder = translate("Note information")	
 end
 
 return m
