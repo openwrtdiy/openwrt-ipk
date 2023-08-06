@@ -1,8 +1,0 @@
-#!/bin/sh
-
-touch /etc/config/usermanager
-uci set usermanager.first=first
-uci set usermanager.second=second
-uci commit
-
-return 0
