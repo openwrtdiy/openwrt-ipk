@@ -11,7 +11,7 @@ s.template = "cbi/tblsection"
 o = s:option(Flag, "enabled", translate("Enabled"))
 o.rmempty = false
 
-o = s:option(Value, "hostname", translate("User Name"))
+o = s:option(Value, "username", translate("User Name"))
 o.placeholder = translate("Username")
 o.rmempty = true
 

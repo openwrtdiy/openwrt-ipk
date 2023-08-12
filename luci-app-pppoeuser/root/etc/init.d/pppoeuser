@@ -1,5 +1,8 @@
 #!/bin/sh /etc/rc.common
 
+. /lib/pppoeuser/core.sh
+. /lib/pppoeuser/monitor.sh
+
 START=60
 STOP=60
 
@@ -9,7 +12,7 @@ setup_user() {
 	local cfg="$1"
 	config_get enabled "$1" enabled
 	[ "$enabled" -eq 0 ] && return 0
-	config_get hostname "$1" hostname
+	config_get username "$1" username
 	config_get servicename "$1" servicename
 	[ -n "${servicename}" ] || servicename="*"
 	config_get password "$1" password
@@ -26,7 +29,7 @@ setup_user() {
 	[ -n "${expires}" ] || expires="*"
 
 	touch ${CHAP_SECRETS}
-	[ -n "$hostname" -a -n "$password" ] && echo "$hostname $servicename $password $ipaddr $package $urate $drate $unit $connect $expires" >> $CHAP_SECRETS
+	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddr" >> $CHAP_SECRETS
         chmod 600 /etc/ppp/*-secrets
 }
 
@@ -39,9 +42,18 @@ start() {
 	config_load pppoeuser
 	delete_user
 	config_foreach setup_user user
+	
+	qosdef_init_env
+	qosdef_flush_static
+	
+	qosdef_init_header
+	qosdef_init_monitor
+	qosdef_init_done
+	qosdef_start
 }
 
 stop() {
 	delete_user
 	killall -q pppoeuser
+	qosdef_clean_cache
 }

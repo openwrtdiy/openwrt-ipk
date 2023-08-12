@@ -19,12 +19,16 @@
 PATH=/usr/sbin:/sbin:/usr/bin:/bin
 export PATH
 
-# Loop through all files in the ip-up.d directory and execute them if they are executable
-IP_UP_D_DIR="/etc/ppp/ip-up.d"
-for script in "$IP_UP_D_DIR"/*; do
-    if [ -x "$script" ]; then
-        "$script" "$@"
-    fi
-done
+LOGIN_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
+USERNAME="${PEERNAME}"
+PEERIP="${5}"
+
+UP="upload"
+DOWN="download"
+
+nft add rule inet user-qos-monitor ${UP} ip saddr "${PEERIP}" counter
+nft add rule inet user-qos-monitor ${DOWN} ip daddr "${PEERIP}" counter
+
+logger "${LOGIN_TIME} ${PEERNAME} ${PEERIP} TRAFFIC-MONITOR >>>>>> The script has been executed!"
 
 exit 0

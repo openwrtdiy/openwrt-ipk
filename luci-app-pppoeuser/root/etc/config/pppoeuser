@@ -1,7 +1,7 @@
 
 config user
 	option enabled '1'
-	option hostname 'guest'
+	option username 'guest'
 	option servicename '*'
 	option password '123456'
 	option ipaddr '*'

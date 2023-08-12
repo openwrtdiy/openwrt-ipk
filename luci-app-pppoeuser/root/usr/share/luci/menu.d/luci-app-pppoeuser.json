@@ -72,7 +72,7 @@
 		}
 	},
 
-	"admin/status/userstatus/userqos": {
+	"admin/status/userstatus/qoslog": {
 		"title": "QOS Log",
 		"order": 5,
 		"action": {
@@ -81,12 +81,21 @@
 		}
 	},
 
-	"admin/status/userstatus/interfacelog": {
-		"title": "Interface Log",
+	"admin/status/userstatus/interface": {
+		"title": "Interface Monitor",
 		"order": 6,
 		"action": {
 			"type": "form",
-			"path": "pppoeuser/interfacelog",
+			"path": "pppoeuser/interface",
+		}
+	},
+
+	"admin/status/userstatus/qosmonitor": {
+		"title": "QoS Monitoring",
+		"order": 7,
+		"action": {
+			"type": "view",
+			"path": "monitor/monitor",
 		}
 	}
 }

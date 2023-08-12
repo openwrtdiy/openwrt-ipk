@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# This script is run by the pppd _after_ the link is brought down.
+# It should be used to delete routes, unset IP addresses etc.
+#
+# This script is called with the following arguments:
+#    Arg  Name               Example
+#    $1   Interface name     ppp0
+#    $2   The tty            ttyS1
+#    $3   The link speed     38400
+#    $4   Local IP number    12.34.56.78
+#    $5   Peer  IP number    12.34.56.99
+#
+
+#
+# The  environment is cleared before executing this script
+# so the path must be reset
+#
+PATH=/usr/sbin:/sbin:/usr/bin:/bin
+export PATH
+
+QUIT_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
+USERNAME="${PEERNAME}"
+IFACE="${1}"
+TTY="${2}"
+PEERIP="${5}"
+
+USER_LOG="/home/log/userinfo"
+USER_LOG_FILE="${USER_LOG}/${USERNAME}.log"
+USER_CONFIG="pppoeuser"
+USER_CFGID="$(uci show ${USER_CONFIG} | grep "${USERNAME}" | cut -d '.' -sf 2)"
+USER_CONNECT="$(uci get ${USER_CONFIG}."${USER_CFGID}".connect)"
+SESSION_PATH="/var/etc/pppoeuser/session"
+
+rm -f ${SESSION_PATH}/"${USERNAME}"."${IFACE}"
+
+echo "${QUIT_TIME} ${USERNAME} Offline ${IFACE} ${PEERIP} Connection times: ${CONNECT_TIME} Send Bytes: ${BYTES_SENT} Received Bytes: ${BYTES_RCVD}" >> /var/log/userdown.log
+
+echo "${QUIT_TIME} ${USERNAME} Offline Interface: ${IFACE} IP: ${PEERIP}" >> "${USER_LOG_FILE}"
+
+echo "Connect time: ${CONNECT_TIME} minutes" >> "${USER_LOG_FILE}"
+echo "Sent: ${BYTES_SENT} bytes" >> "${USER_LOG_FILE}"
+echo "Received: ${BYTES_RCVD} bytes" >> "${USER_LOG_FILE}"
+sum_bytes=$((${BYTES_SENT}+${BYTES_RCVD}))
+sum=`echo "scale=2;${sum_bytes}/1024/1024"|bc`
+echo "Bytes sum: ${sum} MB" >> "${USER_LOG_FILE}"
+ave=`echo "scale=2;${sum_bytes}/1024/${CONNECT_TIME}"|bc`
+echo "Average speed: ${ave} KB/s" >> "${USER_LOG_FILE}"
+echo >> "${USER_LOG_FILE}"
+
+logger "${QUIT_TIME} ${PEERNAME} ${PEERIP} OFFLINE-USERS >>>>>> The script has been executed!"
+
+exit 0

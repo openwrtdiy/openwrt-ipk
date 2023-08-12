@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=PPPoE Server User Management
-LUCI_DEPENDS:=+luci-compat +tc-full +kmod-sched-cake +kmod-ifb +iptables-mod-ipopt +kmod-veth
+LUCI_DEPENDS:=+luci-compat +kmod-nft-bridge +kmod-nft-connlimit +kmod-nft-netdev +nftables
 LUCI_PKGARCH:=all
-PKG_VERSION:=2.1
-PKG_RELEASE:=5
-PKG_DATE:=2023-08-05
+PKG_VERSION:=2.2
+PKG_RELEASE:=9
+PKG_DATE:=2023-08-13
 
 define Package/luci-app-pppoeuser/preinst
 #!/bin/sh
