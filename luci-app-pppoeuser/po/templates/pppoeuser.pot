@@ -1,16 +1,19 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+msgid "Management"
+msgstr ""
+
 msgid "User Manager"
 msgstr ""
 
-msgid "Tip: When there is no option to enter a parameter value in the form box! Default values will be used for ip address, service name, upload speed, download speed, Speed unit and number of connections!"
+msgid "New Users"
 msgstr ""
 
-msgid "Speed unit: 1 MBytes/s = 125 KBytes/s (vs) 1 MBytes/s = 125000 Bytes/s Connections: 64~65536"
+msgid "User List"
 msgstr ""
 
-msgid "User number"
+msgid "User Number"
 msgstr ""
 
 msgid "Enabled"
@@ -19,61 +22,73 @@ msgstr ""
 msgid "User Name"
 msgstr ""
 
-msgid "Password"
-msgstr ""
-
 msgid "Service Name"
 msgstr ""
 
-msgid "IP address"
+msgid "Password"
 msgstr ""
 
-msgid "Automatically"
+msgid "IP Address"
 msgstr ""
 
-msgid "Broadband Package"
+msgid "Package"
 msgstr ""
 
-msgid "Bandwidth"
+msgid "QoS"
 msgstr ""
 
-msgid "Account speed limit"
+msgid "Upload Speed"
 msgstr ""
 
-msgid "Bandwidth Megabits"
+msgid "Download Speed"
 msgstr ""
 
-msgid "Enable Speed Limit"
+msgid "Speed Unit"
 msgstr ""
 
-msgid "Upload speed"
+msgid "Connection Number"
 msgstr ""
 
-msgid "Download speed"
+msgid "Opening Date"
 msgstr ""
 
-msgid "Speed unit"
+msgid "Validity Period"
 msgstr ""
 
-msgid "Connections"
+msgid "Expiration Date"
 msgstr ""
 
-msgid "Expiration date"
+msgid "Default"
 msgstr ""
 
-msgid "Traffic Control"
+msgid "Home"
 msgstr ""
 
-msgid "Management Options"
+msgid "Office"
+msgstr ""
+
+msgid "Free"
+msgstr ""
+
+msgid "Test"
+msgstr ""
+
+msgid "One Month"
+msgstr ""
+
+msgid "Three Months"
+msgstr ""
+
+msgid "Six Months"
+msgstr ""
+
+msgid "One Year"
 msgstr ""
 
 msgid "User Status"
 msgstr ""
 
 msgid "Online User"
-msgstr ""
-
-msgid "MAC address"
 msgstr ""
 
 msgid "Up Time"
@@ -86,106 +101,4 @@ msgid "Process ID"
 msgstr ""
 
 msgid "Forced Offline"
-msgstr ""
-
-msgid "Downtime User"
-msgstr ""
-
-msgid "Registration Date"
-msgstr ""
-
-msgid "Down Time"
-msgstr ""
-
-msgid "Realtime Rate"
-msgstr ""
-
-msgid "Rate"
-msgstr ""
-
-msgid "Realtime Upload Rate"
-msgstr ""
-
-msgid "Realtime Download Rate"
-msgstr ""
-
-msgid "Upload Rate"
-msgstr ""
-
-msgid "Download Rate"
-msgstr ""
-
-msgid "Total Uploads"
-msgstr ""
-
-msgid "Total Downloads"
-msgstr ""
-
-msgid "Bytes Total"
-msgstr ""
-
-msgid "Packets Total"
-msgstr ""
-
-msgid "Active Connections"
-msgstr ""
-
-msgid "This page gives an overview over currently download/upload rate."
-msgstr ""
-
-msgid "Traffic Priority Settings"
-msgstr ""
-
-msgid "User Log"
-msgstr ""
-
-msgid "Online Log"
-msgstr ""
-
-msgid "Offline Log"
-msgstr ""
-
-msgid "QOS Log"
-msgstr ""
-
-msgid "Please choose"
-msgstr ""
-
-msgid "Family"
-msgstr ""
-
-msgid "Office"
-msgstr ""
-
-msgid "Free"
-msgstr ""
-
-msgid "Test"
-msgstr ""
-
-msgid "Debugging"
-msgstr ""
-
-msgid "User Info"
-msgstr ""
-
-msgid "Contact Number"
-msgstr ""
-
-msgid "Installation Area"
-msgstr ""
-
-msgid "Remark"
-msgstr ""
-
-msgid "Network Status"
-msgstr ""
-
-msgid "Interface Information"
-msgstr ""
-
-msgid "Network Information"
-msgstr ""
-
-msgid "Interface Log"
 msgstr ""

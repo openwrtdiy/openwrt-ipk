@@ -1,13 +1,16 @@
+msgid "Management"
+msgstr "管理"
+
 msgid "User Manager"
 msgstr "用户管理"
 
-msgid "Tip: When there is no option to enter a parameter value in the form box! Default values will be used for ip address, service name, upload speed, download speed, Speed unit and number of connections!"
-msgstr "提示：表格框中没有选择输入参数值时！ip地址、服务名称、上传速度、下载速度、速度单位和连接数将会使用默认数值！"
+msgid "New Users"
+msgstr "新增用户"
 
-msgid "Speed unit: 1 MBytes/s = 125 KBytes/s (vs) 1 MBytes/s = 125000 Bytes/s Connections: 64~65536"
-msgstr "速度单位: 1 MBytes/s = 125 KBytes/s (vs) 1 MBytes/s = 125000 Bytes/s 连接数: 64~65536"
+msgid "User List"
+msgstr "用户列表"
 
-msgid "User number"
+msgid "User Number"
 msgstr "用户数"
 
 msgid "Enabled"
@@ -16,62 +19,74 @@ msgstr "启用"
 msgid "User Name"
 msgstr "用户名"
 
-msgid "Password"
-msgstr "密码"
-
 msgid "Service Name"
 msgstr "服务名称"
 
-msgid "IP address"
+msgid "Password"
+msgstr "密码"
+
+msgid "IP Address"
 msgstr "IP 地址"
 
-msgid "Automatically"
-msgstr "自动分配"
+msgid "Package"
+msgstr "套餐"
 
-msgid "Broadband Package"
-msgstr "套餐类型"
-
-msgid "Bandwidth"
-msgstr "带宽"
-
-msgid "Account speed limit"
-msgstr "账号限速"
-
-msgid "Bandwidth Megabits"
-msgstr "带宽兆位"
-
-msgid "Enable Speed Limit"
+msgid "QoS"
 msgstr "限速"
 
-msgid "Upload speed"
+msgid "Upload Speed"
 msgstr "上传速度"
 
-msgid "Download speed"
+msgid "Download Speed"
 msgstr "下载速度"
 
-msgid "Speed unit"
+msgid "Speed Unit"
 msgstr "速度单位"
 
-msgid "Connections"
+msgid "Connection Number"
 msgstr "连接数"
 
-msgid "Expiration date"
+msgid "Opening Date"
+msgstr "开通日期"
+
+msgid "Validity Period"
+msgstr "有效期"
+
+msgid "Expiration Date"
 msgstr "截止日期"
 
-msgid "Traffic Control"
-msgstr "流量控制"
+msgid "Default"
+msgstr "默认"
 
-msgid "Management Options"
-msgstr "管理选项"
+msgid "Home"
+msgstr "家"
+
+msgid "Office"
+msgstr "办公"
+
+msgid "Free"
+msgstr "免费"
+
+msgid "Test"
+msgstr "测试"
+
+msgid "One Month"
+msgstr "一个月"
+
+msgid "Three Months"
+msgstr "三个月"
+
+msgid "Six Months"
+msgstr "半年"
+
+msgid "One Year"
+msgstr "一年"
 
 msgid "User Status"
 msgstr "用户状态"
 
 msgid "Online User"
 msgstr "在线用户"
-
-msgid "MAC address"
-msgstr "MAC 地址"
 
 msgid "Up Time"
 msgstr "上线时间"
@@ -84,105 +99,3 @@ msgstr "进程 ID"
 
 msgid "Forced Offline"
 msgstr "强制下线"
-
-msgid "Downtime User"
-msgstr "停机用户"
-
-msgid "Registration Date"
-msgstr "注册日期"
-
-msgid "Down Time"
-msgstr "下线时间"
-
-msgid "Realtime Rate"
-msgstr "实时速率"
-
-msgid "Rate"
-msgstr "速率"
-
-msgid "Realtime Upload Rate"
-msgstr "实时上传速率"
-
-msgid "Realtime Download Rate"
-msgstr "实时下载速率"
-
-msgid "Upload Rate"
-msgstr "上传速率"
-
-msgid "Download Rate"
-msgstr "下载速率"
-
-msgid "Total Uploads"
-msgstr "上传总数"
-
-msgid "Total Downloads"
-msgstr "下载总数"
-
-msgid "Bytes Total"
-msgstr "字节总数"
-
-msgid "Packets Total"
-msgstr "数据包总数"
-
-msgid "Active Connections"
-msgstr "活动连接数"
-
-msgid "This page gives an overview over currently download/upload rate."
-msgstr "该页面提供了当前上传和下载速率的一个总览。"
-
-msgid "Traffic Priority Settings"
-msgstr "流量优先级设置"
-
-msgid "User Log"
-msgstr "用户日志"
-
-msgid "Online Log"
-msgstr "上线日志"
-
-msgid "Offline Log"
-msgstr "下线日志"
-
-msgid "QOS Log"
-msgstr "QOS 日志"
-
-msgid "Please choose"
-msgstr "请选择"
-
-msgid "Family"
-msgstr "家庭"
-
-msgid "Office"
-msgstr "办公"
-
-msgid "Free"
-msgstr "免费"
-
-msgid "Test"
-msgstr "测试"
-
-msgid "Debugging"
-msgstr "调试"
-
-msgid "User Info"
-msgstr "用户信息"
-
-msgid "Contact Number"
-msgstr "联系电话"
-
-msgid "Installation Area"
-msgstr "安装区域"
-
-msgid "Remark"
-msgstr "备注"
-
-msgid "Network Status"
-msgstr "网络状态"
-
-msgid "Interface Information"
-msgstr "接口信息"
-
-msgid "Network Information"
-msgstr "网络信息"
-
-msgid "Interface Log"
-msgstr "接口日志"

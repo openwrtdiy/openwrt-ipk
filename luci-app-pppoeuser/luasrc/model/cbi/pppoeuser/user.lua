@@ -42,11 +42,16 @@ end
 function o.remove(e, t) Value.write(e, t, "*") end
 
 o = s:option(ListValue, "package", translate("Broadband Package"))
+o.default = "family"
 o:value("none", translate("None"))
 o:value("free", translate("Free"))
 o:value("family", translate("Family"))
 o:value("office", translate("Office"))
 o:value("test", translate("Test"))
+
+o = s:option(Flag, "qos", translate("QoS"))
+o.default = "1"
+o.rmempty = false
 
 o = s:option(ListValue, "urate", translate("Upload speed"))
 o.default = "3750"
