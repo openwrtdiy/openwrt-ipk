@@ -19,6 +19,9 @@ msgstr "启用"
 msgid "User Name"
 msgstr "用户名"
 
+msgid "Account"
+msgstr "账号"
+
 msgid "Service Name"
 msgstr "服务名称"
 
@@ -77,10 +80,25 @@ msgid "Three Months"
 msgstr "三个月"
 
 msgid "Six Months"
-msgstr "半年"
+msgstr "六个月"
 
-msgid "One Year"
+msgid "Twelve Months"
 msgstr "一年"
+
+msgid "ONT"
+msgstr "光猫绑定"
+
+msgid "ONT Serial Number"
+msgstr "光猫序列号"
+
+msgid "Contact"
+msgstr "联系方式"
+
+msgid "E-mail"
+msgstr "电子邮箱"
+
+msgid "Telephone"
+msgstr "电话"
 
 msgid "User Status"
 msgstr "用户状态"

@@ -22,6 +22,9 @@ msgstr ""
 msgid "User Name"
 msgstr ""
 
+msgid "Account"
+msgstr ""
+
 msgid "Service Name"
 msgstr ""
 
@@ -82,7 +85,22 @@ msgstr ""
 msgid "Six Months"
 msgstr ""
 
-msgid "One Year"
+msgid "Twelve Months"
+msgstr ""
+
+msgid "ONT"
+msgstr ""
+
+msgid "ONT Serial Number"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "E-mail"
+msgstr ""
+
+msgid "Telephone"
 msgstr ""
 
 msgid "User Status"
