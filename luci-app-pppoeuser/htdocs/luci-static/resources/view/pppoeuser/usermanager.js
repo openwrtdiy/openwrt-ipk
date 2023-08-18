@@ -13,7 +13,12 @@ return view.extend({
     s = m.section(form.GridSection, 'user', _('User List'));
     s.anonymous = true;
     s.addremove = true;
+    s.nodescriptions = true
     s.sortable  = false;
+    s.removebutton = false;
+    s.addbutton = false;
+    s.rowcolorsboolean = true;
+    s.nomap = true;
     
     // Enable User field
     o = s.option(form.Flag, 'enabled', _('Enable'));
@@ -97,6 +102,7 @@ return view.extend({
     o = s.option(form.Value, 'macaddr', _('MAC Address'));
     o.modalonly = true;
     o.placeholder = 'MAC Address';
+    o.password = true;
     o.readonly = true;
     
     // Package field (dropdown)
@@ -110,6 +116,7 @@ return view.extend({
     // Enable QoS field (checkbox)
     o = s.option(form.Flag, 'qos', _('QoS'));
     o.default = '1';
+    o.readonly = true;
     o.rmempty = false;
     
     // Upload Speed field (dropdown)
@@ -348,22 +355,27 @@ return view.extend({
     o.default = '0';
     o.rmempty = false;
     
+    // Address field (dropdown)
+    o = s.option(form.Value, 'address', _('Address'));
+    o.modalonly = true;
+    o.placeholder = 'User Address';
+    o.depends('more', '1');
+    
     // E-mail field (dropdown)
-    o = s.option(form.Value, 'mail', _('E-mail'));
+    o = s.option(form.DynamicList, 'mail', _('E-mail'));
     o.modalonly = true;
     o.placeholder = 'User Email';
     o.depends('more', '1');
     
     // Phone field (dropdown)
-    o = s.option(form.Value, 'phone', _('Telephone'));
+    o = s.option(form.DynamicList, 'phone', _('Telephone'));
     o.modalonly = true;
     o.placeholder = 'User Phone';
     o.depends('more', '1');
     
-    // Address field (dropdown)
-    o = s.option(form.Value, 'address', _('Address'));
+    o = s.option(form.TextValue, 'notes', _('Notes'), _(''));
     o.modalonly = true;
-    o.placeholder = 'User Address';
+    o.optional = true;
     o.depends('more', '1');
     
     // Submit button

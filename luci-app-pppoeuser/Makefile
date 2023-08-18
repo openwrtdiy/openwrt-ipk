@@ -11,7 +11,7 @@ LUCI_TITLE:=PPPoE Server User Management
 LUCI_DEPENDS:=+luci-compat +kmod-nft-bridge +kmod-nft-netdev +nftables
 LUCI_PKGARCH:=all
 PKG_VERSION:=2.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_DATE:=2023-08-18
 
 define Package/luci-app-pppoeuser/preinst
