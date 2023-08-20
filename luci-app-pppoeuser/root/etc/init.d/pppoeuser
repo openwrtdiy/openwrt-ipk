@@ -3,7 +3,6 @@
 START=40
 STOP=40
 
-SPEED_LIMIT_SWITCH=0
 CHAP_SECRETS=/etc/ppp/chap-secrets
 
 setup_user() {
@@ -34,30 +33,10 @@ delete_user() {
 	rm -rf $CHAP_SECRETS
 }
 
-enable_speed_limit() {
-	nft add table inet user-qos-static
-	nft add chain inet user-qos-static upload { type filter hook prerouting priority filter\; policy accept\; }
-	nft add chain inet user-qos-static download { type filter hook postrouting priority filter\; policy accept\; }
-}
-
-disable_speed_limit() {
-	nft delete table inet user-qos-static
-}
-
 start() {
 	config_load pppoeuser
 	delete_user
 	config_foreach setup_user user
-	
-	nft add table inet user-qos-monitor
-	nft add chain inet user-qos-monitor upload { type filter hook prerouting priority filter\; }
-	nft add chain inet user-qos-monitor download { type filter hook postrouting priority filter\; }
-	
-    if [ "$SPEED_LIMIT_SWITCH" = "1" ]; then
-        enable_speed_limit
-    else
-        disable_speed_limit
-    fi
 }
 
 stop() {
