@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=PPPoE Server User Management
-LUCI_DEPENDS:=+luci-compat +sqm-scripts
+LUCI_DEPENDS:=+luci-compat
 LUCI_PKGARCH:=all
 PKG_VERSION:=2.3
 PKG_RELEASE:=3
