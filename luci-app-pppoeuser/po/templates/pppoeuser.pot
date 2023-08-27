@@ -52,6 +52,21 @@ msgstr ""
 msgid "Connection Number"
 msgstr ""
 
+msgid "Queuing Rules"
+msgstr ""
+
+msgid "Queue Script"
+msgstr ""
+
+msgid "Link Layer"
+msgstr ""
+
+msgid "Overhead Bytes"
+msgstr ""
+
+msgid "Debug Logging"
+msgstr ""
+
 msgid "Opening Date"
 msgstr ""
 
@@ -59,6 +74,9 @@ msgid "Validity Period"
 msgstr ""
 
 msgid "Expiration Date"
+msgstr ""
+
+msgid "Agent"
 msgstr ""
 
 msgid "Default"

@@ -1,0 +1,70 @@
+#!/bin/sh
+#
+# This script is run by pppd after the link is established.
+# It is used to configure and start Smart Queue Management (SQM)
+# with rate limiting based on user-defined settings.
+#
+# This script is called with the following arguments:
+# Arg  Name               Example
+# $1   Interface name     ppp0
+# $2   The tty            ttyS1
+# $3   The link speed     38400
+# $4   Local IP number    12.34.56.78
+# $5   Peer IP number     12.34.56.99
+#
+
+# Reset the PATH environment variable
+PATH=/usr/sbin:/sbin:/usr/bin:/bin
+export PATH
+
+# Get the current date and time
+AUTH_TIME="$(date "+%Y-%m-%d_%H:%M:%S")"
+
+# Extract username, interface name, and peer IP address from arguments
+USERNAME="${PEERNAME}"
+IFACE="${1}"
+PEERIP="${5}"
+
+# Configuration file for user settings
+USER_CONFIG="pppoeuser"
+
+# Attempt to find user-specific configuration settings
+USER_CFGID=$(uci -q show "${USER_CONFIG}" | awk -F'[.]' -v usr="${USERNAME}" '$0 ~ usr {print $2}')
+
+if [ -n "${USER_CFGID}" ]; then
+    # Read QoS settings, upload and download rates
+    USER_QOS=$(uci -q get "${USER_CONFIG}.${USER_CFGID}.qos")
+    USER_UPLOAD=$(uci -q get "${USER_CONFIG}.${USER_CFGID}.urate")
+    USER_DOWNLOAD=$(uci -q get "${USER_CONFIG}.${USER_CFGID}.drate")
+    
+    # Convert speed units from kBytes/s to kbit/s (adjust this conversion as needed)
+    UPLOAD_KBITS=$((USER_UPLOAD * 9))
+    DOWNLOAD_KBITS=$((USER_DOWNLOAD * 9))
+    
+    # Configure SQM settings
+    uci -q set sqm."${USERNAME}"=queue
+    uci set sqm."${USERNAME}".enabled="${USER_QOS}"
+    uci set sqm."${USERNAME}".interface="${IFACE}"
+    uci set sqm."${USERNAME}".upload="${DOWNLOAD_KBITS}"
+    uci set sqm."${USERNAME}".download="${UPLOAD_KBITS}"
+    uci set sqm."${USERNAME}".qdisc="fq_codel"
+    uci set sqm."${USERNAME}".script="simplest_tbf.qos"
+    uci set sqm."${USERNAME}".linklayer="none"
+    uci set sqm."${USERNAME}".debug_logging="0"
+    uci set sqm."${USERNAME}".verbosity="5"
+    uci commit sqm
+
+    # Start SQM
+    /usr/lib/sqm/run.sh start "${IFACE}"
+
+    # Log the execution
+    logger "${AUTH_TIME} ${USERNAME} ${IFACE} ${PEERIP} SPEED-LIMIT >>>>>> SQM speed limit script has been executed!"
+else
+    # Log an error if user configuration is not found
+    logger "${AUTH_TIME} ${USERNAME} ${IFACE} ${PEERIP} SPEED-LIMIT >>>>>> Error: The user has not configured SQM rate limit"
+    
+    # Exit with a non-zero status to indicate an error
+    exit 1
+fi
+
+exit 0

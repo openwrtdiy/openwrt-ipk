@@ -216,6 +216,109 @@ return view.extend({
     o.value('65536', _('65536') + ' (400M Office)');
     o.depends('qos', '1'); // Show only when QoS is enabled
     
+    // Enable SQM field (checkbox)
+    o = s.option(form.Flag, 'sqm', _('SQM'));
+    o.modalonly = true;
+    o.default = '0';
+    o.readonly = true;
+    o.rmempty = false;
+    
+    // SQM Queuing Rules field (dropdown)
+    o = s.option(form.ListValue, 'qdisc', _('Queuing Rules'));
+    o.modalonly = true;
+    o.default = 'fq_codel';
+    o.value('cake', _('Cake'));
+    o.value('fq_codel', _('FQ_Codel'));
+    o.depends('sqm', '1');
+
+    // SQM Queue Script field (dropdown)
+    o = s.option(form.ListValue, 'script', _('Queue Script'));
+    o.modalonly = true;
+    o.default = 'simple.qos';
+    o.value('layer_cake.qos');
+    o.value('piece_of_cake.qos');
+    o.value('simple.qos');
+    o.value('simplest.qos');
+    o.value('simplest_tbf.qos');
+    o.depends('sqm', '1');
+    
+    // Enable Advanced Configuration field (checkbox)
+    o = s.option(form.Flag, 'qdisc_advanced', _('Advanced Configuration'));
+    o.modalonly = true;
+    o.default = '0';
+    o.depends('sqm', '1');
+    
+    // SQM Squash DSCP field (dropdown)
+    o = s.option(form.ListValue, 'squash_dscp', _('Squash DSCP (ingress)'));
+    o.modalonly = true;
+    o.default = '0';
+    o.value('0', _('SQUASH'));
+    o.value('1', _('DO NOT SQUASH'));
+    o.depends('qdisc_advanced', '1');
+    
+    // SQM Ignore DSCP field (dropdown)
+    o = s.option(form.ListValue, 'squash_ingress', _('Ignore DSCP (ingress)'));
+    o.modalonly = true;
+    o.default = '0';
+    o.value('0', _('Ignore'));
+    o.value('1', _('Allow'));
+    o.depends('qdisc_advanced', '1');
+    
+    // SQM Ignore DSCP field (dropdown)
+    o = s.option(form.ListValue, 'ingress_ecn', _('ECN (ingress)'));
+    o.modalonly = true;
+    o.default = 'ECN';
+    o.value('ECN', _('ECN'));
+    o.value('NOECN', _('NOECN'));
+    o.depends('qdisc_advanced', '1');
+    
+    // SQM Ignore DSCP field (dropdown)
+    o = s.option(form.ListValue, 'egress_ecn', _('ECN (egress)'));
+    o.modalonly = true;
+    o.default = 'NOECN';
+    o.value('ECN', _('ECN'));
+    o.value('NOECN', _('NOECN'));
+    o.depends('qdisc_advanced', '1');
+
+    // SQM Link Layer field (dropdown)
+    o = s.option(form.ListValue, 'linklayer', _('Link Layer'));
+    o.modalonly = true;
+    o.default = 'ethernet';
+    o.value('none', _('none'));
+    o.value('ethernet', _('Ethernet'));
+    o.value('atm', _('ATM'));
+    o.depends('sqm', '1');
+
+    // SQM Overhead Bytes field (dropdown)
+    o = s.option(form.Value, 'overhead', _('Overhead Bytes'));
+    o.modalonly = true;
+    o.default = '18';
+    o.value('0', _('none'));
+    o.value('18', _('18 Ethernet Fibre/Cable'));
+    o.value('22', _('22 Ethernet VDSL2'));
+    o.value('38', _('38 Ethernet Ethernet'));
+    o.value('44', _('44 ATM ADSL/DSL'));
+    o.depends('sqm', '1');
+
+    // Enable Debug Logging field (checkbox)
+    o = s.option(form.Flag, 'debug_logging', _('Debug Logging'));
+    o.modalonly = true;
+    o.default = '0';
+    o.rmempty = false;
+    o.depends('sqm', '1');
+
+    // SQM Log verbosity field (dropdown)
+    o = s.option(form.ListValue, 'verbosity', _('Log verbosity'));
+    o.modalonly = true;
+    o.default = '5';
+    o.value('0', _('silent'));
+    o.value('1', _('error'));
+    o.value('2', _('warning'));
+    o.value('5', _('info'));
+    o.value('8', _('debug'));
+    o.value('10', _('trace'));
+    o.depends('debug_logging', '1');
+    
     // Opening Date field (read-only)
     o = s.option(form.Value, 'opening', _('Opening Date'));
     o.readonly = true;
@@ -284,6 +387,11 @@ return view.extend({
     o.value(formatDate(threeMonthsLater), formatDate(threeMonthsLater) + ' ' + _('Three Months'));
     o.value(formatDate(sixMonthsLater), formatDate(sixMonthsLater) + ' ' + _('Six Months'));
     o.value(formatDate(twelveMonthsLater), formatDate(twelveMonthsLater) + ' ' + _('Twelve Months'));
+ 
+     // Agent field (dropdown)
+    o = s.option(form.Value, 'agent', _('Agent'));
+    o.modalonly = true;
+    o.readonly = true;
     
     // Enable ONT field (checkbox)
     o = s.option(form.Flag, 'ont', _('ONT'));

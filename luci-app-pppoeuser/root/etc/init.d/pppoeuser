@@ -3,43 +3,69 @@
 START=40
 STOP=40
 
+CURRENT_DATE=$(date +"%Y-%m-%d")
+EXPIRED_USER=/home/log/expired
 CHAP_SECRETS=/etc/ppp/chap-secrets
+LOG_FILE=/var/log/pppoeuser.log
+
+log() {
+    echo "$(date +"%Y-%m-%d %H:%M:%S"): $1" >> "$LOG_FILE"
+}
 
 setup_user() {
-	local cfg="$1"
-	config_get enabled "$1" enabled
-	[ "$enabled" -eq 0 ] && return 0
-	config_get username "$1" username
-	config_get servicename "$1" servicename
-	[ -n "${servicename}" ] || servicename="*"
-	config_get password "$1" password
-	config_get ipaddr "$1" ipaddr
-	config_get macaddr "$1" macaddr
-	config_get package "$1" package
-	config_get qos "$1" qos
-	config_get urate "$1" urate
-	config_get drate "$1" drate
-	config_get unit "$1" unit
-	[ -n "${unit}" ] || unit="kbytes"
-	config_get connect "$1" connect
+    local cfg="$1"
+    config_get enabled "$cfg" enabled
 
-	touch ${CHAP_SECRETS}
-	[ -n "$username" -a -n "$password" ] && echo "$username $servicename $password $ipaddr" >> $CHAP_SECRETS
-        chmod 600 /etc/ppp/*-secrets
+    if [ "$enabled" -eq 0 ]; then
+        log "User $cfg is disabled."
+        return 0
+    fi
+
+    config_get username "$cfg" username
+    config_get servicename "$cfg" servicename
+    [ -n "$servicename" ] || servicename="*"
+    config_get password "$cfg" password
+    config_get ipaddr "$cfg" ipaddr
+    config_get macaddr "$cfg" macaddr
+    config_get package "$cfg" package
+    config_get qos "$cfg" qos
+    config_get urate "$cfg" urate
+    config_get drate "$cfg" drate
+    config_get unit "$cfg" unit
+    [ -n "$unit" ] || unit="kbytes"
+    config_get connect "$cfg" connect
+    config_get expires "$cfg" expires
+
+    touch "$CHAP_SECRETS"
+
+    if [ -n "$username" ] && [ -n "$password" ]; then
+        echo "$username $servicename $password $ipaddr" >> "$CHAP_SECRETS"
+        chmod 600 "$CHAP_SECRETS"
+    fi
+
+    if [ "$expires" == "$CURRENT_DATE" ]; then
+        uci set pppoeuser."$cfg".enabled=0
+        uci commit pppoeuser
+        mkdir -p "$EXPIRED_USER"
+        log "User $username deactivated due to expiration on $CURRENT_DATE"
+    fi
 }
 
 delete_user() {
-	cp -rf $CHAP_SECRETS /etc/ppp/user-chap-secrets
-	rm -rf $CHAP_SECRETS
+    if [ -f "$CHAP_SECRETS" ]; then
+        cp -rf "$CHAP_SECRETS" /etc/ppp/user-chap-secrets
+        rm -rf "$CHAP_SECRETS"
+    fi
 }
 
 start() {
-	config_load pppoeuser
-	delete_user
-	config_foreach setup_user user
+    config_load pppoeuser
+    delete_user
+    config_foreach setup_user user
 }
 
 stop() {
-	delete_user
-	killall -q pppoeuser
+    delete_user
+    killall -q pppoeuser
+    log "Stopped pppoeuser processes."
 }
