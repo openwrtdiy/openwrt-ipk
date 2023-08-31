@@ -103,6 +103,9 @@ msgstr "六个月"
 msgid "Twelve Months"
 msgstr "一年"
 
+msgid "ONU Manager"
+msgstr "光猫管理"
+
 msgid "ONT"
 msgstr "光猫绑定"
 

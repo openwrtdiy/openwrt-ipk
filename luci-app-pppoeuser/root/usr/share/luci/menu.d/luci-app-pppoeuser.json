@@ -15,7 +15,16 @@
 		"order": 1,
 		"action": {
 			"type": "view",
-			"path": "pppoeuser/usermanager",
+			"path": "pppoeuser/user",
+		}
+	},
+	
+	"admin/pppoeuser/onumanager": {
+		"title": "ONU Manager",
+		"order": 2,
+		"action": {
+			"type": "view",
+			"path": "pppoeuser/onu",
 		}
 	},
 	

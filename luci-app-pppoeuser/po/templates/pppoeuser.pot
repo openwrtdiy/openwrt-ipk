@@ -106,6 +106,9 @@ msgstr ""
 msgid "Twelve Months"
 msgstr ""
 
+msgid "ONU Manager"
+msgstr ""
+
 msgid "ONT"
 msgstr ""
 

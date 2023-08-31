@@ -400,7 +400,7 @@ return view.extend({
     o.rmempty = false;
     
     // OLT field (dropdown)
-    var o = s.option(form.ListValue, 'olt', _('OLT'));
+    var o = s.option(form.Value, 'olt', _('OLT'));
     o.modalonly = true;
     o.value('olt1', 'OLT 1');
     o.value('olt2', 'OLT 2');
@@ -425,7 +425,7 @@ return view.extend({
     o.depends('ont', '1');
     
     // PON field (dropdown)
-    var o = s.option(form.ListValue, 'pon', _('PON'));
+    var o = s.option(form.Value, 'pon', _('PON'));
     o.modalonly = true;
     o.value('pon1', 'PON 1');
     o.value('pon2', 'PON 2');
