@@ -60,48 +60,12 @@
 		}
 	},
 
-	"admin/status/userstatus/userup": {
-		"title": "Online Log",
+	"admin/status/userstatus/interface": {
+		"title": "Interface Monitor",
 		"order": 3,
 		"action": {
 			"type": "form",
-			"path": "pppoeuser/userup",
-		}
-	},
-
-	"admin/status/userstatus/userdown": {
-		"title": "Offline Log",
-		"order": 4,
-		"action": {
-			"type": "form",
-			"path": "pppoeuser/userdown",
-		}
-	},
-
-	"admin/status/userstatus/qoslog": {
-		"title": "QOS Log",
-		"order": 5,
-		"action": {
-			"type": "form",
-			"path": "pppoeuser/userqos",
-		}
-	},
-
-	"admin/status/userstatus/interface": {
-		"title": "Interface Monitor",
-		"order": 6,
-		"action": {
-			"type": "form",
 			"path": "pppoeuser/interface",
-		}
-	},
-
-	"admin/status/userstatus/qosmonitor": {
-		"title": "QoS Monitoring",
-		"order": 7,
-		"action": {
-			"type": "view",
-			"path": "pppoeuser/monitor",
 		}
 	}
 }

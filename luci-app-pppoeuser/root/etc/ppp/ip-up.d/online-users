@@ -72,11 +72,6 @@ if [ -n "$cfgid" ]; then
         [ -n "$KO_PID" ] && kill -9 "$KO_PID" >/dev/null 2>&1
         rm -f "${SESSION_PATH}/${HAS_LOGIN}"
         rm -f "/var/run/${KO_IFACE}.pid"
-        
-        # Check if the SQM state file exists and remove it if it does
-        if [ -e "/var/run/sqm/${KO_IFACE}.state" ]; then
-            rm -f "/var/run/sqm/${KO_IFACE}.state"
-        fi
     fi
 fi
 
@@ -85,7 +80,6 @@ uci set "${USER_CONFIG}.${USER_CFGID}.macaddr=${MAC}"
 uci commit "${USER_CONFIG}"
 
 # Log the connection details
-echo "${LOGIN_TIME} ${USERNAME} Online ${PID} ${IFACE} ${PEERIP} ${MAC}" >> /var/log/userup.log
 echo "${LOGIN_TIME} ${USERNAME} Online PID: ${PID} Interface: ${IFACE} IP: ${PEERIP} MAC: ${MAC}" >> "${USER_LOG_FILE}"
 echo >> "${USER_LOG_FILE}"
 

@@ -117,7 +117,7 @@ return view.extend({
     o = s.option(form.Flag, 'qos', _('QoS'));
     o.default = '1';
     o.readonly = true;
-    o.rmempty = false;
+    o.modalonly = true;
     
     // Upload Speed field (dropdown)
     var o = s.option(form.ListValue, 'urate', _('Upload Speed'));
@@ -218,6 +218,7 @@ return view.extend({
     
     // Opening Date field (read-only)
     o = s.option(form.Value, 'opening', _('Opening Date'));
+    o.modalonly = true;
     o.readonly = true;
     // Automatically populate with the current date in 'YYYY-MM-DD' format
     var currentDate = new Date();

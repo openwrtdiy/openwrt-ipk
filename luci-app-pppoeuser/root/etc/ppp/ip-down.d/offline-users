@@ -37,7 +37,6 @@ SESSION_PATH="/var/etc/pppoeuser/session"
 rm -f "${SESSION_PATH}/${USERNAME}.${IFACE}"
 
 # Log the disconnection details
-echo "${QUIT_TIME} ${USERNAME} Offline ${IFACE} ${PEERIP} Connection times: ${CONNECT_TIME} Send Bytes: ${BYTES_SENT} Received Bytes: ${BYTES_RCVD}" >> /var/log/userdown.log
 echo "${QUIT_TIME} ${USERNAME} Offline Interface: ${IFACE} IP: ${PEERIP}" >> "${USER_LOG_FILE}"
 echo "Connect time: ${CONNECT_TIME} minutes" >> "${USER_LOG_FILE}"
 echo "Sent: ${BYTES_SENT} bytes" >> "${USER_LOG_FILE}"
