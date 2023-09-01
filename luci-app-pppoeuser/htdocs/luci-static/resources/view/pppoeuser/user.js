@@ -22,6 +22,7 @@ return view.extend({
     
     // Enable User field
     o = s.option(form.Flag, 'enabled', _('Enable'));
+    o.rmempty = false;
     o.default = "1"
     
     // Username field
