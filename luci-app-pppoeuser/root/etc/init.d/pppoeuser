@@ -4,23 +4,11 @@ START=40
 STOP=40
 
 CURRENT_DATE=$(date +"%Y-%m-%d")
-EXPIRED_USER=/home/log/expired
 CHAP_SECRETS=/etc/ppp/chap-secrets
-LOG_FILE=/var/log/pppoeuser.log
-
-log() {
-    echo "$(date +"%Y-%m-%d %H:%M:%S"): $1" >> "$LOG_FILE"
-}
 
 setup_user() {
     local cfg="$1"
     config_get enabled "$cfg" enabled
-
-    if [ "$enabled" -eq 0 ]; then
-        log "User $cfg is disabled."
-        return 0
-    fi
-
     config_get username "$cfg" username
     config_get servicename "$cfg" servicename
     [ -n "$servicename" ] || servicename="*"
@@ -36,36 +24,30 @@ setup_user() {
     config_get connect "$cfg" connect
     config_get expires "$cfg" expires
 
-    touch "$CHAP_SECRETS"
-
-    if [ -n "$username" ] && [ -n "$password" ]; then
-        echo "$username $servicename $password $ipaddr" >> "$CHAP_SECRETS"
-        chmod 600 "$CHAP_SECRETS"
-    fi
-
     if [ "$expires" == "$CURRENT_DATE" ]; then
         uci set pppoeuser."$cfg".enabled=0
         uci commit pppoeuser
-        mkdir -p "$EXPIRED_USER"
-        log "User $username deactivated due to expiration on $CURRENT_DATE"
+    fi
+
+    # Do not append to the CHAP_SECRETS file if the user is not enabled
+    if [ "$enabled" -eq 1 ] && [ "$expires" != "$CURRENT_DATE" ]; then
+        echo "$username $servicename $password $ipaddr" >> "$CHAP_SECRETS"
     fi
 }
 
-delete_user() {
-    if [ -f "$CHAP_SECRETS" ]; then
-        cp -rf "$CHAP_SECRETS" /etc/ppp/user-chap-secrets
-        rm -rf "$CHAP_SECRETS"
-    fi
+daily_check() {
+    (crontab -l ; echo "30 8 * * * /etc/init.d/pppoeuser start") | sort - | uniq - | crontab -
 }
 
 start() {
+    cp -rf "$CHAP_SECRETS" /etc/ppp/user-chap-secrets
+    > "$CHAP_SECRETS"
+    daily_check
     config_load pppoeuser
-    delete_user
     config_foreach setup_user user
+    chmod 600 "$CHAP_SECRETS"
 }
 
 stop() {
-    delete_user
     killall -q pppoeuser
-    log "Stopped pppoeuser processes."
 }
