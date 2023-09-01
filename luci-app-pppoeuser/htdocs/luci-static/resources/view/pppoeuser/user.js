@@ -22,13 +22,13 @@ return view.extend({
     
     // Enable User field
     o = s.option(form.Flag, 'enabled', _('Enable'));
-    o.rmempty = false;
+    o.rmempty = false; // Make the field required
     o.default = "1"
     
     // Username field
     o = s.option(form.Value, 'username', _('Account'));
+    o.rmempty = false; // Make the field required
     o.placeholder = _('Required');
-    o.rmempty = false;
     o.validate = function (section_id, value) {
     // Validate the input value to match the alphanumeric format
     if (!/^[a-zA-Z0-9]+$/.test(value)) {
@@ -116,6 +116,7 @@ return view.extend({
     
     // Enable QoS field (checkbox)
     o = s.option(form.Flag, 'qos', _('QoS'));
+    o.rmempty = false; // Make the field required
     o.default = '1';
     o.readonly = true;
     o.modalonly = true;
@@ -294,9 +295,9 @@ return view.extend({
     
     // Enable ONT field (checkbox)
     o = s.option(form.Flag, 'ont', _('ONT'));
+    o.rmempty = false; // Make the field required
     o.modalonly = true;
     o.default = '0';
-    o.rmempty = false;
     
     // OLT field (dropdown)
     var o = s.option(form.Value, 'olt', _('OLT'));
@@ -358,9 +359,9 @@ return view.extend({
     
     // Enable Connect field (checkbox)
     o = s.option(form.Flag, 'more', _('Contact'));
+    o.rmempty = false; // Make the field required
     o.modalonly = true;
     o.default = '0';
-    o.rmempty = false;
     
     // Address field (dropdown)
     o = s.option(form.Value, 'address', _('Address'));

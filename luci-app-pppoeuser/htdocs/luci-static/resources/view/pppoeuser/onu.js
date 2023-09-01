@@ -101,9 +101,9 @@ return view.extend({
     
     // Enable Connect field (checkbox)
     o = s.option(form.Flag, 'more', _('Contact'));
+    o.rmempty = false;
     o.modalonly = true;
     o.default = '0';
-    o.rmempty = false;
     
     // Address field (dropdown)
     o = s.option(form.Value, 'address', _('Address'));
