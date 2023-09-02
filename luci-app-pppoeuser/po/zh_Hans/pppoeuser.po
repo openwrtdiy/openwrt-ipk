@@ -10,6 +10,9 @@ msgstr "新增用户"
 msgid "User List"
 msgstr "用户列表"
 
+msgid "ONU List"
+msgstr "光猫列表"
+
 msgid "User Number"
 msgstr "用户数"
 
@@ -22,17 +25,35 @@ msgstr "用户名"
 msgid "Account"
 msgstr "账号"
 
+msgid "This username is already in use. Please choose a different one."
+msgstr "该用户名已被使用。 请选择一个不同的。"
+
 msgid "Service Name"
 msgstr "服务名称"
 
 msgid "Password"
 msgstr "密码"
 
+msgid "Password must be between 8 and 16 characters."
+msgstr "密码必须介于 8 到 16 个字符之间。"
+
 msgid "IP Address"
 msgstr "IP 地址"
 
+msgid "Invalid IPv4 address. Each segment must be between 0 and 255."
+msgstr "IPv4 地址无效。 每个段必须介于 0 到 255 之间。"
+
+msgid "Invalid subnet size. It must be between 0 and 32."
+msgstr "子网大小无效。 它必须介于 0 和 32 之间。"
+
+msgid "Invalid input. Please use "*" or a valid IPv4, IPv6 address, or IP network segment."
+msgstr "输入无效。 请使用“*”或有效的 IPv4、IPv6 地址或 IP 网段。"
+
 msgid "Package"
 msgstr "套餐"
+
+msgid "Speed"
+msgstr "网速"
 
 msgid "QoS"
 msgstr "限速"
@@ -73,6 +94,9 @@ msgstr "有效期"
 msgid "Expiration Date"
 msgstr "截止日期"
 
+msgid "Invalid date format. Please use YYYY-MM-DD."
+msgstr "日期格式无效。 请使用 YYYY-MM-DD。"
+
 msgid "Agent"
 msgstr "代理人"
 
@@ -98,7 +122,7 @@ msgid "Three Months"
 msgstr "三个月"
 
 msgid "Six Months"
-msgstr "六个月"
+msgstr "半年"
 
 msgid "Twelve Months"
 msgstr "一年"

@@ -2,6 +2,7 @@
 'require view';
 'require form';
 'require ui';
+'require uci';
 
 return view.extend({
   render: function () {
@@ -13,33 +14,39 @@ return view.extend({
     s = m.section(form.GridSection, 'user', _('User List'));
     s.anonymous = true;
     s.addremove = true;
-    s.nodescriptions = true
-    s.sortable  = false;
-    s.removebutton = false;
-    s.addbutton = false;
-    s.rowcolorsboolean = true;
-    s.nomap = true;
+    s.editable = false;
+    s.nodescriptions = true;
+    s.sortable = false;
     
     // Enable User field
     o = s.option(form.Flag, 'enabled', _('Enable'));
     o.rmempty = false; // Make the field required
-    o.default = "1"
+    o.default = "1";
     
     // Username field
     o = s.option(form.Value, 'username', _('Account'));
     o.rmempty = false; // Make the field required
     o.placeholder = _('Required');
     o.validate = function (section_id, value) {
-    // Validate the input value to match the alphanumeric format
-    if (!/^[a-zA-Z0-9]+$/.test(value)) {
+      // Validate the input value to match the alphanumeric format
+      if (!/^[a-zA-Z0-9]+$/.test(value)) {
         return _('Invalid username format. Only alphanumeric characters are allowed.');
-    }
-    // Check the length of the username
-    if (value.length < 4 || value.length > 16) {
+      }
+
+      // Check the length of the username
+      if (value.length < 4 || value.length > 16) {
         return _('Username length must be between 4 and 16 characters.');
-    }
-    
-    return true;
+      }
+
+      // Check for duplicate usernames
+      var otherSections = uci.sections('pppoeuser', 'user');
+      for (var i = 0; i < otherSections.length; i++) {
+        if (section_id !== otherSections[i]['.name'] && otherSections[i]['username'] === value) {
+          return _('This username is already in use. Please choose a different one.');
+        }
+      }
+
+      return true;
     };
     
     // Service Name field (dropdown)
@@ -57,11 +64,11 @@ return view.extend({
     o.password = true;
     o.modalonly = true;
     o.validate = function (section_id, value) {
-    // Validate the input value to ensure it's between 8 and 16 characters
-    if (value.length < 8 || value.length > 16) {
-    return _('Password must be between 8 and 16 characters.');
-    }
-    return true;
+      // Validate the input value to ensure it's between 8 and 16 characters
+      if (value.length < 8 || value.length > 16) {
+        return _('Password must be between 8 and 16 characters.');
+      }
+      return true;
     };
     
     var currentDate = new Date();
@@ -87,18 +94,95 @@ return view.extend({
     o.placeholder = _('Required');
     o.default = '*';
     o.value('*', _('Default'));
-    o.validate = function (section_id, value) {
-    // Skip validation if the value is '*'
-    if (value === '*') {
-    return true;
-    }
-    // Validate the input value to match the format x.x.x.x or x:x:x:x:x:x:x:x
-    if (!/^([\d]{1,3}\.){3}[\d]{1,3}$|^([\da-fA-F]{1,4}:){7}[\da-fA-F]{1,4}$/.test(value)) {
-    return _('Invalid IP address format.');
-    }
-    return true;
-    };
+    o.value('192.168.255.0/24', '192.168.255.0/24');
+    o.value('192.168.252.0/23', '192.168.252.0/23');
+    o.value('192.168.248.0/22', '192.168.248.0/22');
+    o.value('192.168.240.0/21', '192.168.240.0/21');
+    o.value('192.168.224.0/20', '192.168.224.0/20');
+    o.value('192.168.192.0/19', '192.168.192.0/19');
     
+    // Enhanced validation for IP addresses and network segments
+    o.validate = function (section_id, value) {
+      // Regular expressions for valid IPv4, IPv6, and network segments
+      var ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+      var ipv6Regex = /^[\da-fA-F]{1,4}(:[\da-fA-F]{1,4}){0,7}$/;
+      var networkSegmentRegex = /^(\d{1,3}\.){3}\d{1,3}\/(\d{1,2})$/;
+
+      if (value === '*') {
+        return true; // Asterisk is allowed
+      }
+
+      if (ipv4Regex.test(value)) {
+        // Validate IPv4 address
+        var parts = value.split('.');
+        for (var i = 0; i < 4; i++) {
+          var part = parseInt(parts[i]);
+          if (part < 0 || part > 255) {
+            return _('Invalid IPv4 address. Each segment must be between 0 and 255.');
+          }
+        }
+        return true;
+      }
+
+      if (ipv6Regex.test(value)) {
+        // Validate IPv6 address
+        return true;
+      }
+
+      if (networkSegmentRegex.test(value)) {
+        // Validate IP network segment
+        var subnetParts = value.split('/');
+        var subnetSize = parseInt(subnetParts[1]);
+
+        if (subnetSize < 0 || subnetSize > 32) {
+          return _('Invalid subnet size. It must be between 0 and 32.');
+        }
+
+        return true;
+      }
+
+      // Invalid input, return an error message
+      return _('Invalid input. Please use "*" or a valid IPv4, IPv6 address, or IP network segment.');
+    };
+
+    // Automatically generate an available IP address when a network segment is selected
+    o.cfgvalue = function (section_id) {
+      var selectedSegment = uci.get('pppoeuser', section_id, 'ipaddr');
+      
+      // Add your new predefined network segment here
+      if (selectedSegment === '192.168.255.0/24' ||
+          selectedSegment === '192.168.252.0/23' ||
+          selectedSegment === '192.168.248.0/22' ||
+          selectedSegment === '192.168.240.0/21' ||
+          selectedSegment === '192.168.224.0/20' ||
+          selectedSegment === '192.168.192.0/19') {
+        // Generate and assign an available IP address based on the selected network segment
+        var generatedIP = getAvailableIPAddress(selectedSegment);
+        uci.set('pppoeuser', section_id, 'ipaddr', generatedIP);
+        uci.save();
+        return generatedIP;
+      }
+      return selectedSegment;
+    };
+
+    // Define a function to generate an available IP address based on the selected network segment
+    function getAvailableIPAddress(networkSegment) {
+      // Basic logic to generate an available IP address within the network segment
+      var segments = networkSegment.split('/');
+      var baseIP = segments[0];
+      var subnetSize = parseInt(segments[1]);
+
+      // Generate a random host number within the subnet range (exclude network and broadcast)
+      var hostNumber = Math.floor(Math.random() * (Math.pow(2, 32 - subnetSize) - 2)) + 1;
+
+      // Convert the host number to an IP address
+      var generatedIP = baseIP.split('.').map(function (part, index) {
+        return parseInt(part) + (hostNumber >> (8 * (3 - index)) & 255);
+      }).join('.');
+
+      return generatedIP;
+    };
+
     // MAC Address field (dropdown)
     o = s.option(form.Value, 'macaddr', _('MAC Address'));
     o.modalonly = true;
@@ -114,16 +198,52 @@ return view.extend({
     o.value('free', _('Free'));
     o.value('test', _('Test'));
     
+    // Package field (dropdown)
+    o = s.option(form.ListValue, 'speed', _('Speed'));
+    o.default = '40';
+    o.value('0', '0 Mbps');
+    o.value('10', '10 Mbps');
+    o.value('20', '20 Mbps');
+    o.value('30', '30 Mbps');
+    o.value('40', '40 Mbps');
+    o.value('50', '50 Mbps');
+    o.value('60', '60 Mbps');
+    o.value('70', '70 Mbps');
+    o.value('80', '80 Mbps');
+    o.value('90', '90 Mbps');
+    o.value('100', '100 Mbps');
+    o.value('200', '200 Mbps');
+    o.value('300', '300 Mbps');
+    o.value('400', '400 Mbps');
+    o.value('500', '500 Mbps');
+    o.value('600', '600 Mbps');
+    o.value('700', '700 Mbps');
+    o.value('800', '800 Mbps');
+    o.value('900', '900 Mbps');
+    o.value('1000', '1000 Mbps');
+    o.value('1250', '1250 Mbps');
+    o.value('2500', '2500 Mbps');
+    o.value('10000', '10000 Mbps');
+    o.value('40000', '40000 Mbps');
+    o.value('1', '1 Mbps');
+    o.value('2', '2 Mbps');
+    o.value('3', '3 Mbps');
+    o.value('4', '4 Mbps');
+    o.value('5', '5 Mbps');
+    o.value('6', '6 Mbps');
+    o.value('7', '7 Mbps');
+    o.value('8', '8 Mbps');
+    o.value('9', '9 Mbps');
+    
     // Enable QoS field (checkbox)
     o = s.option(form.Flag, 'qos', _('QoS'));
     o.rmempty = false; // Make the field required
-    o.default = '1';
-    o.readonly = true;
+    o.default = '0';
     o.modalonly = true;
     
     // Upload Speed field (dropdown)
     var o = s.option(form.ListValue, 'urate', _('Upload Speed'));
-    o.default = '3750';
+    o.default = '5000';
     o.value('1250', '10 Mbps');
     o.value('2500', '20 Mbps');
     o.value('3750', '30 Mbps');
@@ -159,7 +279,7 @@ return view.extend({
     
     // Download Speed field (dropdown)
     var o = s.option(form.ListValue, 'drate', _('Download Speed'));
-    o.default = '3750';
+    o.default = '5000';
     o.value('1250', '10 Mbps');
     o.value('2500', '20 Mbps');
     o.value('3750', '30 Mbps');
@@ -205,7 +325,7 @@ return view.extend({
     
     // Connection Number field (dropdown)
     var o = s.option(form.ListValue, 'connect', _('Connection Number'));
-    o.default = '8192';
+    o.default = '16384';
     o.value('256', _('256') + ' (Test)');
     o.value('512', _('512') + ' (Test)');
     o.value('1024', _('1024') + ' (Test)');
@@ -287,75 +407,6 @@ return view.extend({
     o.value(formatDate(threeMonthsLater), formatDate(threeMonthsLater) + ' ' + _('Three Months'));
     o.value(formatDate(sixMonthsLater), formatDate(sixMonthsLater) + ' ' + _('Six Months'));
     o.value(formatDate(twelveMonthsLater), formatDate(twelveMonthsLater) + ' ' + _('Twelve Months'));
- 
-     // Agent field (dropdown)
-    o = s.option(form.Value, 'agent', _('Agent'));
-    o.modalonly = true;
-    o.readonly = true;
-    
-    // Enable ONT field (checkbox)
-    o = s.option(form.Flag, 'ont', _('ONT'));
-    o.rmempty = false; // Make the field required
-    o.modalonly = true;
-    o.default = '0';
-    
-    // OLT field (dropdown)
-    var o = s.option(form.Value, 'olt', _('OLT'));
-    o.modalonly = true;
-    o.value('olt1', 'OLT 1');
-    o.value('olt2', 'OLT 2');
-    o.value('olt3', 'OLT 3');
-    o.value('olt4', 'OLT 4');
-    o.value('olt5', 'OLT 5');
-    o.value('olt6', 'OLT 6');
-    o.value('olt7', 'OLT 7');
-    o.value('olt8', 'OLT 8');
-    o.value('olt9', 'OLT 9');
-    o.value('olt10', 'OLT 10');
-    o.value('olt11', 'OLT 11');
-    o.value('olt12', 'OLT 12');
-    o.value('olt13', 'OLT 13');
-    o.value('olt14', 'OLT 14');
-    o.value('olt15', 'OLT 15');
-    o.value('olt16', 'OLT 16');
-    o.value('olt17', 'OLT 17');
-    o.value('olt18', 'OLT 18');
-    o.value('olt19', 'OLT 19');
-    o.value('olt20', 'OLT 20');
-    o.depends('ont', '1');
-    
-    // PON field (dropdown)
-    var o = s.option(form.Value, 'pon', _('PON'));
-    o.modalonly = true;
-    o.value('pon1', 'PON 1');
-    o.value('pon2', 'PON 2');
-    o.value('pon3', 'PON 3');
-    o.value('pon4', 'PON 4');
-    o.value('pon5', 'PON 5');
-    o.value('pon6', 'PON 6');
-    o.value('pon7', 'PON 7');
-    o.value('pon8', 'PON 8');
-    o.value('pon9', 'PON 9');
-    o.value('pon10', 'PON 10');
-    o.value('pon11', 'PON 11');
-    o.value('pon12', 'PON 12');
-    o.value('pon13', 'PON 13');
-    o.value('pon14', 'PON 14');
-    o.value('pon15', 'PON 15');
-    o.value('pon16', 'PON 16');
-    o.depends('ont', '1');
-    
-    // Serial Number field (dropdown)
-    o = s.option(form.Value, 'sn', _('S/N'));
-    o.modalonly = true;
-    o.placeholder = 'ONT Serial Number';
-    o.depends('ont', '1');
-    
-    // GPS Location field (dropdown)
-    o = s.option(form.Value, 'gps', _('GPS'));
-    o.modalonly = true;
-    o.placeholder = 'ONT GPS Location';
-    o.depends('ont', '1');
     
     // Enable Connect field (checkbox)
     o = s.option(form.Flag, 'more', _('Contact'));
@@ -381,10 +432,79 @@ return view.extend({
     o.placeholder = 'User Phone';
     o.depends('more', '1');
     
+    // GPS Location field (dropdown)
+    o = s.option(form.Value, 'gps', _('GPS'));
+    o.placeholder = 'ONT GPS Location';
+    o.modalonly = true;
+    o.depends('more', '1');
+    
     o = s.option(form.TextValue, 'notes', _('Notes'), _(''));
     o.modalonly = true;
     o.optional = true;
     o.depends('more', '1');
+    
+     // Agent field (dropdown)
+    o = s.option(form.Value, 'agent', _('Agent'));
+    o.modalonly = true;
+    o.readonly = true;
+    
+    // Enable ONT field (checkbox)
+    o = s.option(form.Flag, 'ont', _('ONT'));
+    o.rmempty = false; // Make the field required
+    o.modalonly = true;
+    o.default = '0';
+    
+    // OLT field (dropdown)
+    var o = s.option(form.Value, 'olt', _('OLT'));
+    o.modalonly = true;
+    o.value('1', 'OLT 1');
+    o.value('2', 'OLT 2');
+    o.value('3', 'OLT 3');
+    o.value('4', 'OLT 4');
+    o.value('5', 'OLT 5');
+    o.value('6', 'OLT 6');
+    o.value('7', 'OLT 7');
+    o.value('8', 'OLT 8');
+    o.value('9', 'OLT 9');
+    o.value('10', 'OLT 10');
+    o.value('11', 'OLT 11');
+    o.value('12', 'OLT 12');
+    o.value('13', 'OLT 13');
+    o.value('14', 'OLT 14');
+    o.value('15', 'OLT 15');
+    o.value('16', 'OLT 16');
+    o.value('17', 'OLT 17');
+    o.value('18', 'OLT 18');
+    o.value('19', 'OLT 19');
+    o.value('20', 'OLT 20');
+    o.depends('ont', '1');
+    
+    // PON field (dropdown)
+    var o = s.option(form.Value, 'pon', _('PON'));
+    o.modalonly = true;
+    o.value('1', 'PON 1');
+    o.value('2', 'PON 2');
+    o.value('3', 'PON 3');
+    o.value('4', 'PON 4');
+    o.value('5', 'PON 5');
+    o.value('6', 'PON 6');
+    o.value('7', 'PON 7');
+    o.value('8', 'PON 8');
+    o.value('9', 'PON 9');
+    o.value('10', 'PON 10');
+    o.value('11', 'PON 11');
+    o.value('12', 'PON 12');
+    o.value('13', 'PON 13');
+    o.value('14', 'PON 14');
+    o.value('15', 'PON 15');
+    o.value('16', 'PON 16');
+    o.depends('ont', '1');
+    
+    // Serial Number field (dropdown)
+    o = s.option(form.Value, 'sn', _('S/N'));
+    o.modalonly = true;
+    o.placeholder = 'ONT Serial Number';
+    o.depends('ont', '1');
     
     // Submit button
     return m.render();

@@ -13,6 +13,9 @@ msgstr ""
 msgid "User List"
 msgstr ""
 
+msgid "ONU List"
+msgstr ""
+
 msgid "User Number"
 msgstr ""
 
@@ -25,16 +28,34 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
+msgid "This username is already in use. Please choose a different one."
+msgstr ""
+
 msgid "Service Name"
 msgstr ""
 
 msgid "Password"
 msgstr ""
 
+msgid "Password must be between 8 and 16 characters."
+msgstr ""
+
 msgid "IP Address"
 msgstr ""
 
+msgid "Invalid IPv4 address. Each segment must be between 0 and 255."
+msgstr ""
+
+msgid "Invalid subnet size. It must be between 0 and 32."
+msgstr ""
+
+msgid "Invalid input. Please use "*" or a valid IPv4, IPv6 address, or IP network segment."
+msgstr ""
+
 msgid "Package"
+msgstr ""
+
+msgid "Speed"
 msgstr ""
 
 msgid "QoS"
@@ -74,6 +95,9 @@ msgid "Validity Period"
 msgstr ""
 
 msgid "Expiration Date"
+msgstr ""
+
+msgid "Invalid date format. Please use YYYY-MM-DD."
 msgstr ""
 
 msgid "Agent"
