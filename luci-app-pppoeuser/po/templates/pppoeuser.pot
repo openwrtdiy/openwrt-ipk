@@ -46,6 +46,9 @@ msgstr ""
 msgid "Invalid IPv4 address. Each segment must be between 0 and 255."
 msgstr ""
 
+msgid "This IP address is already in use by another user. Please choose a different one."
+msgstr ""
+
 msgid "Invalid subnet size. It must be between 0 and 32."
 msgstr ""
 

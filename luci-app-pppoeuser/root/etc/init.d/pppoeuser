@@ -1,10 +1,12 @@
 #!/bin/sh /etc/rc.common
 
-START=40
-STOP=40
+START=90
+STOP=90
 
 CURRENT_DATE=$(date +"%Y-%m-%d")
 CHAP_SECRETS=/etc/ppp/chap-secrets
+BACKUP_FILE=/home/backup
+mkdir -p "${BACKUP_FILE}"
 
 setup_user() {
     local cfg="$1"
@@ -14,14 +16,6 @@ setup_user() {
     [ -n "$servicename" ] || servicename="*"
     config_get password "$cfg" password
     config_get ipaddr "$cfg" ipaddr
-    config_get macaddr "$cfg" macaddr
-    config_get package "$cfg" package
-    config_get qos "$cfg" qos
-    config_get urate "$cfg" urate
-    config_get drate "$cfg" drate
-    config_get unit "$cfg" unit
-    [ -n "$unit" ] || unit="kbytes"
-    config_get connect "$cfg" connect
     config_get expires "$cfg" expires
 
     if [ "$expires" == "$CURRENT_DATE" ]; then
@@ -36,11 +30,13 @@ setup_user() {
 }
 
 daily_check() {
-    (crontab -l ; echo "30 8 * * * /etc/init.d/pppoeuser start") | sort - | uniq - | crontab -
+    (crontab -u root -l ; echo "30 8 * * * /etc/init.d/pppoeuser start") | sort - | uniq - | crontab -u root -
+    (crontab -u root -l ; echo "59 8 * * * cp -f /etc/config/pppoeuser /home/backup/\$(date +\%Y\%m\%d%H%M)-pppoeuser.bak") | sort - | uniq - | crontab -u root -
+    (crontab -u root -l ; echo "59 20 * * * cp -f /etc/config/pppoeuser /home/backup/\$(date +\%Y\%m\%d%H%M)-pppoeuser.bak") | sort - | uniq - | crontab -u root -
 }
 
 start() {
-    cp -rf "$CHAP_SECRETS" /etc/ppp/user-chap-secrets
+    cp -rf "$CHAP_SECRETS" /etc/ppp/lasttime-chap-secrets
     > "$CHAP_SECRETS"
     daily_check
     config_load pppoeuser

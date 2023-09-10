@@ -93,13 +93,25 @@ return view.extend({
     o = s.option(form.Value, 'ipaddr', _('IP Address'));
     o.placeholder = _('Required');
     o.default = '*';
+    o.value('172.31.16.0/23', '172.31.16.0/23 Rules WAN1');
+    o.value('172.31.26.0/23', '172.31.26.0/23 Rules WAN2');
+    o.value('172.31.36.0/23', '172.31.36.0/23 Rules WAN3');
+    o.value('172.31.46.0/23', '172.31.46.0/23 Rules WAN4');
+    o.value('172.31.56.0/23', '172.31.56.0/23 Rules WAN5');
+    o.value('172.31.66.0/23', '172.31.66.0/23 Rules WAN6');
+    o.value('172.31.76.0/23', '172.31.76.0/23 Rules WAN7');
+    o.value('172.31.86.0/23', '172.31.86.0/23 Rules WAN8');
+    o.value('172.31.96.0/23', '172.31.96.0/23 Rules WAN9');
     o.value('*', _('Default'));
-    o.value('192.168.255.0/24', '192.168.255.0/24');
-    o.value('192.168.252.0/23', '192.168.252.0/23');
-    o.value('192.168.248.0/22', '192.168.248.0/22');
-    o.value('192.168.240.0/21', '192.168.240.0/21');
-    o.value('192.168.224.0/20', '192.168.224.0/20');
-    o.value('192.168.192.0/19', '192.168.192.0/19');
+    o.value('172.31.110.0/23', '172.31.110.0/23 Rules MAN1');
+    o.value('172.31.120.0/23', '172.31.120.0/23 Rules MAN2');
+    o.value('172.31.130.0/23', '172.31.130.0/23 Rules MAN3');
+    o.value('172.31.140.0/23', '172.31.140.0/23 Rules MAN4');
+    o.value('172.31.150.0/23', '172.31.150.0/23 Rules MAN5');
+    o.value('172.31.160.0/23', '172.31.160.0/23 Rules MAN6');
+    o.value('172.31.170.0/23', '172.31.170.0/23 Rules MAN7');
+    o.value('172.31.180.0/23', '172.31.180.0/23 Rules MAN8');
+    o.value('172.31.190.0/23', '172.31.190.0/23 Rules MAN9');
     
     // Enhanced validation for IP addresses and network segments
     o.validate = function (section_id, value) {
@@ -121,11 +133,24 @@ return view.extend({
             return _('Invalid IPv4 address. Each segment must be between 0 and 255.');
           }
         }
+        // Check for duplicate IP addresses
+        var otherSections = uci.sections('pppoeuser', 'user');
+        for (var i = 0; i < otherSections.length; i++) {
+          if (section_id !== otherSections[i]['.name'] && otherSections[i]['ipaddr'] === value) {
+            return _('This IP address is already in use by another user. Please choose a different one.');
+          }
+        }
         return true;
       }
 
       if (ipv6Regex.test(value)) {
         // Validate IPv6 address
+        var otherSections = uci.sections('pppoeuser', 'user');
+        for (var i = 0; i < otherSections.length; i++) {
+          if (section_id !== otherSections[i]['.name'] && otherSections[i]['ipaddr'] === value) {
+            return _('This IP address is already in use by another user. Please choose a different one.');
+          }
+        }
         return true;
       }
 
@@ -150,12 +175,24 @@ return view.extend({
       var selectedSegment = uci.get('pppoeuser', section_id, 'ipaddr');
       
       // Add your new predefined network segment here
-      if (selectedSegment === '192.168.255.0/24' ||
-          selectedSegment === '192.168.252.0/23' ||
-          selectedSegment === '192.168.248.0/22' ||
-          selectedSegment === '192.168.240.0/21' ||
-          selectedSegment === '192.168.224.0/20' ||
-          selectedSegment === '192.168.192.0/19') {
+      if (selectedSegment === '172.31.16.0/23' ||
+          selectedSegment === '172.31.26.0/23' ||
+          selectedSegment === '172.31.36.0/23' ||
+          selectedSegment === '172.31.46.0/23' ||
+          selectedSegment === '172.31.56.0/23' ||
+          selectedSegment === '172.31.66.0/23' ||
+          selectedSegment === '172.31.76.0/23' ||
+          selectedSegment === '172.31.86.0/23' ||
+          selectedSegment === '172.31.96.0/23' ||
+          selectedSegment === '172.31.110.0/23' ||
+          selectedSegment === '172.31.120.0/23' ||
+          selectedSegment === '172.31.130.0/23' ||
+          selectedSegment === '172.31.140.0/23' ||
+          selectedSegment === '172.31.150.0/23' ||
+          selectedSegment === '172.31.160.0/23' ||
+          selectedSegment === '172.31.170.0/23' ||
+          selectedSegment === '172.31.180.0/23' ||
+          selectedSegment === '172.31.190.0/23') {
         // Generate and assign an available IP address based on the selected network segment
         var generatedIP = getAvailableIPAddress(selectedSegment);
         uci.set('pppoeuser', section_id, 'ipaddr', generatedIP);
@@ -235,112 +272,8 @@ return view.extend({
     o.value('8', '8 Mbps');
     o.value('9', '9 Mbps');
     
-    // Enable QoS field (checkbox)
-    o = s.option(form.Flag, 'qos', _('QoS'));
-    o.rmempty = false; // Make the field required
-    o.default = '0';
-    o.modalonly = true;
-    
-    // Upload Speed field (dropdown)
-    var o = s.option(form.ListValue, 'urate', _('Upload Speed'));
-    o.default = '5000';
-    o.value('1250', '10 Mbps');
-    o.value('2500', '20 Mbps');
-    o.value('3750', '30 Mbps');
-    o.value('5000', '40 Mbps');
-    o.value('6250', '50 Mbps');
-    o.value('7500', '60 Mbps');
-    o.value('8750', '70 Mbps');
-    o.value('10000', '80 Mbps');
-    o.value('11250', '90 Mbps');
-    o.value('12500', '100 Mbps');
-    o.value('25000', '200 Mbps');
-    o.value('37500', '300 Mbps');
-    o.value('50000', '400 Mbps');
-    o.value('62500', '500 Mbps');
-    o.value('75000', '600 Mbps');
-    o.value('87500', '700 Mbps');
-    o.value('100000', '800 Mbps');
-    o.value('112500', '900 Mbps');
-    o.value('125000', '1000 Mbps');
-    o.value('156250', '1250 Mbps');
-    o.value('312500', '2500 Mbps');
-    o.value('1250000', '10000 Mbps');
-    o.value('125', '1 Mbps');
-    o.value('250', '2 Mbps');
-    o.value('375', '3 Mbps');
-    o.value('500', '4 Mbps');
-    o.value('625', '5 Mbps');
-    o.value('750', '6 Mbps');
-    o.value('875', '7 Mbps');
-    o.value('1000', '8 Mbps');
-    o.value('1125', '9 Mbps');
-    o.depends('qos', '1'); // Show only when QoS is enabled
-    
-    // Download Speed field (dropdown)
-    var o = s.option(form.ListValue, 'drate', _('Download Speed'));
-    o.default = '5000';
-    o.value('1250', '10 Mbps');
-    o.value('2500', '20 Mbps');
-    o.value('3750', '30 Mbps');
-    o.value('5000', '40 Mbps');
-    o.value('6250', '50 Mbps');
-    o.value('7500', '60 Mbps');
-    o.value('8750', '70 Mbps');
-    o.value('10000', '80 Mbps');
-    o.value('11250', '90 Mbps');
-    o.value('12500', '100 Mbps');
-    o.value('25000', '200 Mbps');
-    o.value('37500', '300 Mbps');
-    o.value('50000', '400 Mbps');
-    o.value('62500', '500 Mbps');
-    o.value('75000', '600 Mbps');
-    o.value('87500', '700 Mbps');
-    o.value('100000', '800 Mbps');
-    o.value('112500', '900 Mbps');
-    o.value('125000', '1000 Mbps');
-    o.value('156250', '1250 Mbps');
-    o.value('312500', '2500 Mbps');
-    o.value('1250000', '10000 Mbps');
-    o.value('125', '1 Mbps');
-    o.value('250', '2 Mbps');
-    o.value('375', '3 Mbps');
-    o.value('500', '4 Mbps');
-    o.value('625', '5 Mbps');
-    o.value('750', '6 Mbps');
-    o.value('875', '7 Mbps');
-    o.value('1000', '8 Mbps');
-    o.value('1125', '9 Mbps');
-    o.depends('qos', '1'); // Show only when QoS is enabled
-    
-    // Speed Unit field (dropdown)
-    var o = s.option(form.ListValue, 'unit', _('Speed Unit'));
-    o.modalonly = true;
-    o.readonly = true;
-    o.default = 'kbytes';
-    o.value('bytes', 'Bytes/s');
-    o.value('kbytes', 'KBytes/s');
-    o.value('mbytes', 'MBytes/s');
-    o.depends('qos', '1'); // Show only when QoS is enabled
-    
-    // Connection Number field (dropdown)
-    var o = s.option(form.ListValue, 'connect', _('Connection Number'));
-    o.default = '16384';
-    o.value('256', _('256') + ' (Test)');
-    o.value('512', _('512') + ' (Test)');
-    o.value('1024', _('1024') + ' (Test)');
-    o.value('3072', _('3072') + ' (30M Home)');
-    o.value('4096', _('4096') + ' (40M Home)');
-    o.value('6144', _('6144') + ' (60M Home)');
-    o.value('8192', _('8192') + ' (80M Home)');
-    o.value('16384', _('16384') + ' (100M Office)');
-    o.value('32768', _('32768') + ' (200M Office)');
-    o.value('65536', _('65536') + ' (400M Office)');
-    o.depends('qos', '1'); // Show only when QoS is enabled
-    
     // Opening Date field (read-only)
     o = s.option(form.Value, 'opening', _('Opening Date'));
-    o.modalonly = true;
     o.readonly = true;
     // Automatically populate with the current date in 'YYYY-MM-DD' format
     var currentDate = new Date();

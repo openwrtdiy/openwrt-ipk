@@ -43,6 +43,9 @@ msgstr "IP 地址"
 msgid "Invalid IPv4 address. Each segment must be between 0 and 255."
 msgstr "IPv4 地址无效。 每个段必须介于 0 到 255 之间。"
 
+msgid "This IP address is already in use by another user. Please choose a different one."
+msgstr "该 IP 地址已被其他用户使用。 请选择一个不同的。"
+
 msgid "Invalid subnet size. It must be between 0 and 32."
 msgstr "子网大小无效。 它必须介于 0 和 32 之间。"
 
