@@ -195,6 +195,15 @@ return view.extend({
           selectedSegment === '172.31.190.0/23') {
         // Generate and assign an available IP address based on the selected network segment
         var generatedIP = getAvailableIPAddress(selectedSegment);
+        
+        // Check if the generated IP address already exists in other sections
+        var otherSections = uci.sections('pppoeuser', 'user');
+        for (var i = 0; i < otherSections.length; i++) {
+          if (section_id !== otherSections[i]['.name'] && otherSections[i]['ipaddr'] === generatedIP) {
+            generatedIP = getAvailableIPAddress(selectedSegment); // Regenerate if it's a duplicate
+          }
+        }
+        
         uci.set('pppoeuser', section_id, 'ipaddr', generatedIP);
         uci.save();
         return generatedIP;

@@ -11,8 +11,8 @@ LUCI_TITLE:=PPPoE Server User Management
 LUCI_DEPENDS:=+luci-compat
 LUCI_PKGARCH:=all
 PKG_VERSION:=2.4
-PKG_RELEASE:=6
-PKG_DATE:=2023-09-11
+PKG_RELEASE:=7
+PKG_DATE:=2023-09-30
 
 define Package/luci-app-pppoeuser/preinst
 #!/bin/sh
