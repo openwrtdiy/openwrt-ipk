@@ -26,7 +26,7 @@ TTY="${2}"
 PEERIP="${5}"
 
 # Paths and Configuration
-USER_LOG="/home/log/userinfo"
+USER_LOG="/var/pppoeuser/log/userinfo"
 USER_LOG_FILE="${USER_LOG}/${USERNAME}.log"
 USER_CONFIG="pppoeuser"
 USER_CFGID="$(uci show ${USER_CONFIG} | grep "${USERNAME}" | cut -d '.' -sf 2)"

@@ -11,14 +11,14 @@ LUCI_TITLE:=PPPoE Server User Management
 LUCI_DEPENDS:=+luci-compat
 LUCI_PKGARCH:=all
 PKG_VERSION:=2.4
-PKG_RELEASE:=7
-PKG_DATE:=2023-09-30
+PKG_RELEASE:=8
+PKG_DATE:=2023-10-08
 
 define Package/luci-app-pppoeuser/preinst
 #!/bin/sh
 rm -rf $${IPKG_INSTROOT}/etc/config/pppoeuser >/dev/null 2>&1
 rm -rf $${IPKG_INSTROOT}/etc/init.d/pppoeuser >/dev/null 2>&1
-mkdir -p $${IPKG_INSTROOT}/home/log/userinfo >/dev/null 2>&1
+mkdir -p $${IPKG_INSTROOT}/var/pppoeuser/log/userinfo >/dev/null 2>&1
 exit 0
 endef
 

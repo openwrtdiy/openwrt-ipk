@@ -5,7 +5,7 @@ STOP=90
 
 CURRENT_DATE=$(date +"%Y-%m-%d")
 CHAP_SECRETS=/etc/ppp/chap-secrets
-BACKUP_FILE=/home/backup
+BACKUP_FILE=/var/pppoeuser/backup
 mkdir -p "${BACKUP_FILE}"
 
 setup_user() {
@@ -30,9 +30,9 @@ setup_user() {
 }
 
 daily_check() {
-    (crontab -u root -l ; echo "30 8 * * * /etc/init.d/pppoeuser start") | sort - | uniq - | crontab -u root -
-    (crontab -u root -l ; echo "59 8 * * * cp -f /etc/config/pppoeuser /home/backup/\$(date +\%Y\%m\%d%H%M)-pppoeuser.bak") | sort - | uniq - | crontab -u root -
-    (crontab -u root -l ; echo "59 20 * * * cp -f /etc/config/pppoeuser /home/backup/\$(date +\%Y\%m\%d%H%M)-pppoeuser.bak") | sort - | uniq - | crontab -u root -
+    (crontab -u root -l ; echo "59 6 * * * /etc/init.d/pppoeuser start") | sort - | uniq - | crontab -u root -
+    (crontab -u root -l ; echo "29 7 * * * cp -f /etc/config/pppoeuser /var/pppoeuser/backup/\$(date +\%Y\%m\%d%H%M)-pppoeuser.bak") | sort - | uniq - | crontab -u root -
+    (crontab -u root -l ; echo "59 19 * * * cp -f /etc/config/pppoeuser /var/pppoeuser/backup/\$(date +\%Y\%m\%d%H%M)-pppoeuser.bak") | sort - | uniq - | crontab -u root -
 }
 
 start() {
