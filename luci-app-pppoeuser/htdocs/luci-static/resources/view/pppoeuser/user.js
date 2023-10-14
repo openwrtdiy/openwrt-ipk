@@ -244,6 +244,94 @@ return view.extend({
     o.value('free', _('Free'));
     o.value('test', _('Test'));
     
+    // Enable QoS field (checkbox)
+    o = s.option(form.Flag, 'qos', _('QoS'));
+    o.default = '1';
+    o.readonly = true;
+    o.rmempty = false;
+    
+    // Upload Speed field (dropdown)
+    var o = s.option(form.ListValue, 'urate', _('Upload Speed'));
+    o.default = '5000';
+    o.value('1250', '10 Mbps');
+    o.value('2500', '20 Mbps');
+    o.value('3750', '30 Mbps');
+    o.value('5000', '40 Mbps');
+    o.value('6250', '50 Mbps');
+    o.value('7500', '60 Mbps');
+    o.value('8750', '70 Mbps');
+    o.value('10000', '80 Mbps');
+    o.value('11250', '90 Mbps');
+    o.value('12500', '100 Mbps');
+    o.value('25000', '200 Mbps');
+    o.value('37500', '300 Mbps');
+    o.value('50000', '400 Mbps');
+    o.value('62500', '500 Mbps');
+    o.value('75000', '600 Mbps');
+    o.value('87500', '700 Mbps');
+    o.value('100000', '800 Mbps');
+    o.value('112500', '900 Mbps');
+    o.value('125000', '1000 Mbps');
+    o.value('156250', '1250 Mbps');
+    o.value('312500', '2500 Mbps');
+    o.value('1250000', '10000 Mbps');
+    o.value('125', '1 Mbps');
+    o.value('250', '2 Mbps');
+    o.value('375', '3 Mbps');
+    o.value('500', '4 Mbps');
+    o.value('625', '5 Mbps');
+    o.value('750', '6 Mbps');
+    o.value('875', '7 Mbps');
+    o.value('1000', '8 Mbps');
+    o.value('1125', '9 Mbps');
+    o.depends('qos', '1'); // Show only when QoS is enabled
+    
+    // Download Speed field (dropdown)
+    var o = s.option(form.ListValue, 'drate', _('Download Speed'));
+    o.default = '5000';
+    o.value('1250', '10 Mbps');
+    o.value('2500', '20 Mbps');
+    o.value('3750', '30 Mbps');
+    o.value('5000', '40 Mbps');
+    o.value('6250', '50 Mbps');
+    o.value('7500', '60 Mbps');
+    o.value('8750', '70 Mbps');
+    o.value('10000', '80 Mbps');
+    o.value('11250', '90 Mbps');
+    o.value('12500', '100 Mbps');
+    o.value('25000', '200 Mbps');
+    o.value('37500', '300 Mbps');
+    o.value('50000', '400 Mbps');
+    o.value('62500', '500 Mbps');
+    o.value('75000', '600 Mbps');
+    o.value('87500', '700 Mbps');
+    o.value('100000', '800 Mbps');
+    o.value('112500', '900 Mbps');
+    o.value('125000', '1000 Mbps');
+    o.value('156250', '1250 Mbps');
+    o.value('312500', '2500 Mbps');
+    o.value('1250000', '10000 Mbps');
+    o.value('125', '1 Mbps');
+    o.value('250', '2 Mbps');
+    o.value('375', '3 Mbps');
+    o.value('500', '4 Mbps');
+    o.value('625', '5 Mbps');
+    o.value('750', '6 Mbps');
+    o.value('875', '7 Mbps');
+    o.value('1000', '8 Mbps');
+    o.value('1125', '9 Mbps');
+    o.depends('qos', '1'); // Show only when QoS is enabled
+    
+    // Speed Unit field (dropdown)
+    var o = s.option(form.ListValue, 'unit', _('Speed Unit'));
+    o.modalonly = true;
+    o.readonly = true;
+    o.default = 'kbytes';
+    o.value('bytes', 'Bytes/s');
+    o.value('kbytes', 'KBytes/s');
+    o.value('mbytes', 'MBytes/s');
+    o.depends('qos', '1'); // Show only when QoS is enabled
+    
     // Package field (dropdown)
     o = s.option(form.ListValue, 'speed', _('Speed'));
     o.default = '40';
