@@ -103,6 +103,7 @@ return view.extend({
     o.value('172.31.86.0/23', '172.31.86.0/23 Rules WAN8');
     o.value('172.31.96.0/23', '172.31.96.0/23 Rules WAN9');
     o.value('*', _('Default'));
+    o.value('172.31.100.0/23', '172.31.100.0/23 Rules MAN0');
     o.value('172.31.110.0/23', '172.31.110.0/23 Rules MAN1');
     o.value('172.31.120.0/23', '172.31.120.0/23 Rules MAN2');
     o.value('172.31.130.0/23', '172.31.130.0/23 Rules MAN3');
@@ -184,6 +185,7 @@ return view.extend({
           selectedSegment === '172.31.76.0/23' ||
           selectedSegment === '172.31.86.0/23' ||
           selectedSegment === '172.31.96.0/23' ||
+          selectedSegment === '172.31.100.0/23' ||
           selectedSegment === '172.31.110.0/23' ||
           selectedSegment === '172.31.120.0/23' ||
           selectedSegment === '172.31.130.0/23' ||
@@ -246,12 +248,14 @@ return view.extend({
     
     // Enable QoS field (checkbox)
     o = s.option(form.Flag, 'qos', _('QoS'));
-    o.default = '1';
+    o.modalonly = true;
+    o.default = '0';
     o.readonly = true;
     o.rmempty = false;
     
     // Upload Speed field (dropdown)
     var o = s.option(form.ListValue, 'urate', _('Upload Speed'));
+    o.modalonly = true;
     o.default = '5000';
     o.value('1250', '10 Mbps');
     o.value('2500', '20 Mbps');
@@ -288,6 +292,7 @@ return view.extend({
     
     // Download Speed field (dropdown)
     var o = s.option(form.ListValue, 'drate', _('Download Speed'));
+    o.modalonly = true;
     o.default = '5000';
     o.value('1250', '10 Mbps');
     o.value('2500', '20 Mbps');
