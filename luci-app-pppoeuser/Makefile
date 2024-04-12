@@ -1,6 +1,4 @@
 #
-# Copyright (C) 2021-2023 iKokang <kokangnet@gmail.com>
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
