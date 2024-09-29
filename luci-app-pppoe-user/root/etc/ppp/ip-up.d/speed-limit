@@ -33,8 +33,8 @@ UP="upload"
 DOWN="download"
 
 if [ "${USER_QOS}" = "1" ]; then
-nft insert rule inet pppoe-user-qos ${UP} ip saddr "${PEERIP}" limit rate over "${USER_UPLOAD}" "${USER_UNIT}"/second drop
-nft insert rule inet pppoe-user-qos ${DOWN} ip daddr "${PEERIP}" limit rate over "${USER_DOWNLOAD}" "${USER_UNIT}"/second drop
+nft insert rule inet pppoe ${UP} ip saddr "${PEERIP}" limit rate over "${USER_UPLOAD}" "${USER_UNIT}"/second counter drop
+nft insert rule inet pppoe ${DOWN} ip daddr "${PEERIP}" limit rate over "${USER_DOWNLOAD}" "${USER_UNIT}"/second counter drop
 fi
 
 logger "${LOGIN_TIME} ${PEERNAME} ${PEERIP} SPEED-LIMIT >>>>>> The script has been executed!"

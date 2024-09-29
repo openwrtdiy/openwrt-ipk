@@ -28,11 +28,11 @@ USER_CONFIG="pppoe-user"
 USER_CFGID="$(uci show ${USER_CONFIG} | grep "${USERNAME}" | cut -d '.' -sf 2)"
 UP="upload"
 DOWN="download"
-UPLOAD_HANDLE="$(nft -a list chain inet pppoe-user-qos ${UP} | grep "${PEERIP}" | awk '{print $NF}')"
-DOWNLOAD_HANDLE="$(nft -a list chain inet pppoe-user-qos ${DOWN} | grep "${PEERIP}" | awk '{print $NF}')"
+UPLOAD_HANDLE="$(nft -a list chain inet pppoe ${UP} | grep "${PEERIP}" | awk '{print $NF}')"
+DOWNLOAD_HANDLE="$(nft -a list chain inet pppoe ${DOWN} | grep "${PEERIP}" | awk '{print $NF}')"
 
-nft delete rule inet pppoe-user-qos ${UP} handle "${UPLOAD_HANDLE}"
-nft delete rule inet pppoe-user-qos ${DOWN} handle "${DOWNLOAD_HANDLE}"
+nft delete rule inet pppoe ${UP} handle "${UPLOAD_HANDLE}"
+nft delete rule inet pppoe ${DOWN} handle "${DOWNLOAD_HANDLE}"
 
 logger "${QUIT_TIME} ${PEERNAME} ${PEERIP} SPEED-LIMIT >>>>>> The script has been executed!"
 

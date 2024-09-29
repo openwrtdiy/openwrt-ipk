@@ -41,13 +41,13 @@ daily_check() {
 }
 
 enable_speed_limit() {
-	nft add table inet pppoe-user-qos
-	nft add chain inet pppoe-user-qos upload { type filter hook prerouting priority filter\; policy accept\; }
-	nft add chain inet pppoe-user-qos download { type filter hook postrouting priority filter\; policy accept\; }
+	nft add table inet pppoe
+	nft add chain inet pppoe upload { type filter hook prerouting priority filter\; policy accept\; }
+	nft add chain inet pppoe download { type filter hook postrouting priority filter\; policy accept\; }
 }
 
 disable_speed_limit() {
-	nft delete table inet pppoe-user-qos
+	nft delete table inet pppoe
 }
 
 start() {
