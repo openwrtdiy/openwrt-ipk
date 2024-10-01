@@ -1,0 +1,30 @@
+
+<script type="text/javascript">//<![CDATA[
+var Port = ""
+XHR.poll(3, '<%=url([[admin]], [[services]], [[gecoosac]], [[status]])%>', null,
+	function(x, data) {
+		var tb = document.getElementById('gecoosac_status');
+		if (data && tb) {
+			Port = data.port;
+			if (data.running) {
+				var links = '<font color=green><%:The GecoosAC service is running.%></font><input class="cbi-button cbi-button-reload " type="button" value="<%:Open the mgmt page%>" onclick="openClient();" />';
+				tb.innerHTML = links;
+			} else {
+				tb.innerHTML = '<font color=red><%:The GecoosAC service is not running.%></font>';
+			}
+		}
+	}
+);
+
+function openClient() {
+	var url = "http://" + window.location.hostname + ":" + Port;
+	window.open(url);
+}
+//]]>
+</script>
+<style>.mar-10 {margin-left: 50px; margin-right: 10px;}</style>
+<fieldset class="cbi-section">
+	<p id="gecoosac_status">
+		<em><%:Collecting data...%></em>
+	</p>
+</fieldset>
