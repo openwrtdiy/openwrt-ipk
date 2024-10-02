@@ -9,7 +9,7 @@ function index()
 
 	local e
 
-	e = entry({"admin", "status", "realtime", "qosnft"}, template("realtimerate/realtime"), _("Realtime Rate"), 5)
+	e = entry({"admin", "status", "realtime", "qosnft"}, template("qos-nft/realtime"), _("Rate"), 5)
 	e.leaf = true
 	e.acl_depends = { "luci-app-qos-nft" }
 
