@@ -23,6 +23,12 @@ qosdef_append_rule_sta() { # <section> <operator> <default-unit> <default-rate>
 	fi
 
 	[ -z "$ipaddr" ] && return
+	
+	# Convert units to KBytes (1 Mbps = 125 KBytes)
+	if [ "$unit" = "mbps" ]; then
+            rate=$((rate * 125))  # Convert to KBytes
+ 	    unit="kbytes"
+	fi
 
 	qosdef_append_rule_ip_limit $ipaddr $operator $unit $rate
 }

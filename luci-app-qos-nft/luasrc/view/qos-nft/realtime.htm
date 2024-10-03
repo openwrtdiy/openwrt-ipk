@@ -84,9 +84,10 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
         const data = combinedData[ip];
         rs.push([
             ip,
-            '\u2193 ' + bytes_label(data.downloadRate) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2191 ' + bytes_label(data.uploadRate),
-            '\u2193 ' + bytes_label(data.downloadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2191 ' + bytes_label(data.uploadBytes),
-            '\u2193 ' + data.downloadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2191 ' + data.uploadPackets + ' Pkts'
+            '\u2191 ' + bytes_label(data.uploadRate) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadRate),
+            '\u2191 ' + data.uploadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadPackets + ' Pkts',
+            '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes)
+
         ]);
     }
 
