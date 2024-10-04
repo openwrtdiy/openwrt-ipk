@@ -21,9 +21,9 @@ s = m:section(TypedSection, "default", translate("Qos Nft Settings"))
 s.addremove = false
 s.anonymous = true
 
-s:tab("priority", translate("Traffic Priority"))
 s:tab("limitip", translate("Limit Rate by IP Address"))
 s:tab("limitmac", translate("Limit Rate by Mac Address"))
+s:tab("priority", translate("Traffic Priority"))
 
 --
 -- Priority
@@ -174,54 +174,83 @@ if ipqos_enable == "1" and ip_type == "static" then
 		TypedSection,
 		"user",
 		translate("Static QoS"),
-		translate("Data Transfer Rate: 125000 Bytes/s = 125 KBytes/s = 0.125 MBytes/s = 1 Mbps/s")
+		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)
 	y.anonymous = true
 	y.addremove = true
 	y.template = "cbi/tblsection"
 
 	o = y:option(Value, "hostname", translate("Hostname"))
+	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
 
-	if has_ipv6 then
-		o = y:option(Value, "ipaddr", translate("IP Address (v4 / v6)"))
-	else
-		o = y:option(Value, "ipaddr", translate("IP Address (v4 Only)"))
+	local dhcp_leases_v4 = {}
+	local dhcp_leases_v6 = {}
+	local lease_file_v4 = "/tmp/dhcp.leases"
+	local lease_file_v6 = "/var/dhcp6.leases"
+
+	local function load_leases(file_path, lease_list)
+		local file = io.open(file_path, "r")
+		if file then
+			for line in file:lines() do
+				local _, _, ip, _ = line:match("^(%d+) (%S+) (%S+) (%S+)")
+				if ip then
+					lease_list[#lease_list + 1] = ip
+				end
+			end
+			file:close()
+		end
 	end
+
+	load_leases(lease_file_v4, dhcp_leases_v4)
+	load_leases(lease_file_v6, dhcp_leases_v6)
+
+	o = y:option(Value, "ipaddr", translate("IP Address"))
 	o.datatype = "ipaddr"
-	if nixio.fs.access("/tmp/dhcp.leases") or nixio.fs.access("/var/dhcp6.leases") then
+	o.optional = false
+	o.rmempty = false
+
+	function o.validate(self, value, section)
+		if value == nil or value == "" then
+			return nil, translate("IP address cannot be empty")
+		end
+		return value
+	end
+
+	if #dhcp_leases_v4 > 0 then
+		for _, ip in ipairs(dhcp_leases_v4) do
+			o:value(ip, ip .. " (IPv4)")
+		end
+	end
+
+	if #dhcp_leases_v6 > 0 then
+		for _, ip in ipairs(dhcp_leases_v6) do
+			o:value(ip, ip .. " (IPv6)")
+		end
+	end
+
+	if #dhcp_leases_v4 == 0 and #dhcp_leases_v6 == 0 then
+		o.placeholder = translate("IP address")
 	end
 
 	o = y:option(Value, "urate", translate("Upload/Mbps"))
-	o.default = "10"
-	o:value("1", "1")
-	o:value("10", "10")
-	o:value("100", "100")
-	o:value("1000", "1000")
-	o:value("2500", "2500")
-	o:value("5000", "5000")
-	o:value("10000", "10000")
+	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
-	o.datatype = "uinteger"
+	o.default = 10
+	o.optional = false
 
 	o = y:option(Value, "drate", translate("Download/Mbps"))
-	o.default = "20"
-	o:value("1", "1")
-	o:value("10", "10")
-	o:value("100", "100")
-	o:value("1000", "1000")
-	o:value("2500", "2500")
-	o:value("5000", "5000")
-	o:value("10000", "10000")
+	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
-	o.datatype = "uinteger"
+	o.default = 30
+	o.optional = false
 
 	o = y:option(Value, "unit", translate("Rate Unit"))
 	o.default = "mbps"
 	o.readonly = true
-	
+
 	function o.cfgvalue(self, section)
 		local value = Value.cfgvalue(self, section)
 		if value == "mbps" then
@@ -248,44 +277,34 @@ if macqos_enable == "1" then
 		TypedSection,
 		"client",
 		translate("MAC QoS"),
-		translate("Data Transfer Rate: 125000 Bytes/s = 125 KBytes/s = 0.125 MBytes/s = 1 Mbps/s")
+		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)
 	x.anonymous = true
 	x.addremove = true
 	x.template = "cbi/tblsection"
 
 	o = x:option(Value, "hostname", translate("Hostname"))
+	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
 
 	o = x:option(Value, "macaddr", translate("MAC Address"))
+	o.placeholder = translate("MAC Address")
 	o.rmempty = true
 	o.datatype = "macaddr"
 
 	o = x:option(Value, "urate", translate("Upload/Mbps"))
-	o.default = "10"
-	o:value("1", "1")
-	o:value("10", "10")
-	o:value("100", "100")
-	o:value("1000", "1000")
-	o:value("2500", "2500")
-	o:value("5000", "5000")
-	o:value("10000", "10000")
+	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
-	o.datatype = "uinteger"
+	o.default = 10
+	o.optional = false
 
 	o = x:option(Value, "drate", translate("Download/Mbps"))
-	o.default = "20"
-	o:value("1", "1")
-	o:value("10", "10")
-	o:value("100", "100")
-	o:value("1000", "1000")
-	o:value("2500", "2500")
-	o:value("5000", "5000")
-	o:value("10000", "10000")
+	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
-	o.datatype = "uinteger"
+	o.default = 30
+	o.optional = false
 
 	o = x:option(Value, "unit", translate("Rate Unit"))
 	o.default = "mbps"

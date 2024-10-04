@@ -65,7 +65,7 @@ msgstr ""
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:252
 #: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:135
-msgid "Download/Mbps"
+msgid "Download Rate"
 msgstr ""
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:40
@@ -244,7 +244,7 @@ msgstr ""
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:263
 #: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:154
-msgid "Upload/Mbps"
+msgid "Upload Rate"
 msgstr ""
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:98

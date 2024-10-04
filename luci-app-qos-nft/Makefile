@@ -8,7 +8,7 @@ LUCI_TITLE:=LuCI Supports QoS over Nftables
 LUCI_DEPENDS:=+luci-compat +qos-nft
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0.1
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 PKG_DATE:=2024-10-04
 
 #include ../../luci.mk
