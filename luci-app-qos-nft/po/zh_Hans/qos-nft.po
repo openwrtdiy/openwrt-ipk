@@ -77,7 +77,7 @@ msgstr "下载带宽（Mbps）"
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:252
 #: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:135
-msgid "Download/Mbps"
+msgid "Download Rate"
 msgstr "下载速率"
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:40
@@ -256,7 +256,7 @@ msgstr "上传带宽（Mbps）"
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:263
 #: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:154
-msgid "Upload/Mbps"
+msgid "Upload Rate"
 msgstr "上传速率"
 
 #: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:98

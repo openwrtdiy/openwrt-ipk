@@ -10,7 +10,26 @@ local ipqos_enable = uci:get("qos-nft", "default", "ipqos_enable")
 local ip_type = uci:get("qos-nft", "default", "ip_type")
 local macqos_enable = uci:get("qos-nft", "default", "macqos_enable")
 
-local has_ipv6 = fs.access("/proc/net/ipv6_route")
+local dhcp_leases_v4 = {}
+local dhcp_leases_v6 = {}
+local lease_file_v4 = "/tmp/dhcp.leases"
+local lease_file_v6 = "/var/dhcp6.leases"
+
+local function load_leases(file_path, lease_list)
+	local file = io.open(file_path, "r")
+	if file then
+		for line in file:lines() do
+			local ts, mac, ip, hostname = line:match("^(%d+) (%S+) (%S+) (%S+)")
+			if ip and mac and hostname then
+				lease_list[#lease_list + 1] = { ip = ip, mac = mac, hostname = hostname }
+			end
+		end
+		file:close()
+	end
+end
+
+load_leases(lease_file_v4, dhcp_leases_v4)
+load_leases(lease_file_v6, dhcp_leases_v6)
 
 m = Map("qos-nft", translate("QoS over Nftables"))
 
@@ -173,74 +192,58 @@ if ipqos_enable == "1" and ip_type == "static" then
 	y = m:section(
 		TypedSection,
 		"user",
-		translate("Static QoS"),
+		translate("IP Speed Limit"),
 		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)
 	y.anonymous = true
 	y.addremove = true
+	y.sortable = true
 	y.template = "cbi/tblsection"
+
+	o = y:option(Flag, "qos", translate("QOS"))
+	o.rmempty = false
 
 	o = y:option(Value, "hostname", translate("Hostname"))
 	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
 
-	local dhcp_leases_v4 = {}
-	local dhcp_leases_v6 = {}
-	local lease_file_v4 = "/tmp/dhcp.leases"
-	local lease_file_v6 = "/var/dhcp6.leases"
-
-	local function load_leases(file_path, lease_list)
-		local file = io.open(file_path, "r")
-		if file then
-			for line in file:lines() do
-				local _, _, ip, _ = line:match("^(%d+) (%S+) (%S+) (%S+)")
-				if ip then
-					lease_list[#lease_list + 1] = ip
-				end
-			end
-			file:close()
+	if #dhcp_leases_v4 > 0 then
+		for _, lease in ipairs(dhcp_leases_v4) do
+			o:value(lease.hostname, lease.hostname .. " - " .. lease.ip .. " ")
 		end
 	end
 
-	load_leases(lease_file_v4, dhcp_leases_v4)
-	load_leases(lease_file_v6, dhcp_leases_v6)
+	if #dhcp_leases_v6 > 0 then
+		for _, lease in ipairs(dhcp_leases_v6) do
+			o:value(lease.hostname, lease.hostname .. " - " .. lease.ip .. " ")
+		end
+	end
 
 	o = y:option(Value, "ipaddr", translate("IP Address"))
 	o.datatype = "ipaddr"
 	o.optional = false
 	o.rmempty = false
 
-	function o.validate(self, value, section)
-		if value == nil or value == "" then
-			return nil, translate("IP address cannot be empty")
-		end
-		return value
-	end
-
 	if #dhcp_leases_v4 > 0 then
-		for _, ip in ipairs(dhcp_leases_v4) do
-			o:value(ip, ip .. " (IPv4)")
+		for _, lease in ipairs(dhcp_leases_v4) do
+			o:value(lease.ip, lease.ip .. " - " .. lease.hostname .. " ")
 		end
 	end
 
 	if #dhcp_leases_v6 > 0 then
-		for _, ip in ipairs(dhcp_leases_v6) do
-			o:value(ip, ip .. " (IPv6)")
+		for _, lease in ipairs(dhcp_leases_v6) do
+			o:value(lease.ip, lease.ip .. " - " .. lease.hostname .. " ")
 		end
 	end
 
-	if #dhcp_leases_v4 == 0 and #dhcp_leases_v6 == 0 then
-		o.placeholder = translate("IP address")
-	end
-
-	o = y:option(Value, "urate", translate("Upload/Mbps"))
+	o = y:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
 	o.default = 10
 	o.optional = false
 
-	o = y:option(Value, "drate", translate("Download/Mbps"))
+	o = y:option(Value, "drate", translate("Download Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
@@ -266,6 +269,20 @@ if ipqos_enable == "1" and ip_type == "static" then
 		Value.write(self, section, value)
 	end
 
+	o = y:option(Value, "counter", translate("Connections"))
+	o.placeholder = translate("Connections")
+	o.datatype = "range(100,10240)"
+	o:value("1024")
+	o:value("2048")
+	o:value("3072")
+	o:value("4096")
+	o:value("5120")
+	o:value("6144")
+	o:value("7168")
+	o:value("8192")
+	o:value("9216")
+	o:value("10240")
+
 	o = y:option(Value, "comment", translate("Comment"))
 end
 
@@ -276,30 +293,58 @@ if macqos_enable == "1" then
 	x = m:section(
 		TypedSection,
 		"client",
-		translate("MAC QoS"),
+		translate("MAC Speed Limit"),
 		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)
 	x.anonymous = true
 	x.addremove = true
+	x.sortable = true
 	x.template = "cbi/tblsection"
+
+	o = x:option(Flag, "qos", translate("QOS"))
+	o.rmempty = false
 
 	o = x:option(Value, "hostname", translate("Hostname"))
 	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
+
+	if #dhcp_leases_v4 > 0 then
+		for _, lease in ipairs(dhcp_leases_v4) do
+			o:value(lease.hostname, lease.hostname .. " - " .. lease.mac .. " ")
+		end
+	end
+
+	if #dhcp_leases_v6 > 0 then
+		for _, lease in ipairs(dhcp_leases_v6) do
+			o:value(lease.hostname, lease.hostname .. " - " .. lease.mac .. " ")
+		end
+	end
 
 	o = x:option(Value, "macaddr", translate("MAC Address"))
 	o.placeholder = translate("MAC Address")
 	o.rmempty = true
 	o.datatype = "macaddr"
 
-	o = x:option(Value, "urate", translate("Upload/Mbps"))
+	if #dhcp_leases_v4 > 0 then
+		for _, lease in ipairs(dhcp_leases_v4) do
+			o:value(lease.mac, lease.mac .. " - " .. lease.hostname .. " ")
+		end
+	end
+
+	if #dhcp_leases_v6 > 0 then
+		for _, lease in ipairs(dhcp_leases_v6) do
+			o:value(lease.mac, lease.mac .. " - " .. lease.hostname .. " ")
+		end
+	end
+
+	o = x:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
 	o.default = 10
 	o.optional = false
 
-	o = x:option(Value, "drate", translate("Download/Mbps"))
+	o = x:option(Value, "drate", translate("Download Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 4
@@ -325,8 +370,21 @@ if macqos_enable == "1" then
 		Value.write(self, section, value)
 	end
 
+	o = x:option(Value, "counter", translate("Connections"))
+	o.placeholder = translate("Connections")
+	o.datatype = "range(100,10240)"
+	o:value("1024")
+	o:value("2048")
+	o:value("3072")
+	o:value("4096")
+	o:value("5120")
+	o:value("6144")
+	o:value("7168")
+	o:value("8192")
+	o:value("9216")
+	o:value("10240")
+
 	o = x:option(Value, "comment", translate("Comment"))
 end
 
 return m
-
