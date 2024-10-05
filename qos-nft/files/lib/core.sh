@@ -26,9 +26,15 @@ qosdef_append_rule_ip_limit() { # <ipaddr> <operator> <unit> <rate>
 	local operator=$2
 	local unit=$3
 	local rate=$4
+	local counter=$5
 
-	qosdef_appendx \
-	    "\t\tip $operator $ipaddr limit rate over $rate $unit/second drop\n"
+	if [ -n "$counter" ]; then
+	    qosdef_appendx \
+	        "\t\tip $operator $ipaddr limit rate over $rate $unit/second ct count over $counter drop\n"
+	else
+	    qosdef_appendx \
+	        "\t\tip $operator $ipaddr limit rate over $rate $unit/second drop\n"
+	fi
 }
 
 # qosdef_append_rule_{MATCH}_{STATEMENT}

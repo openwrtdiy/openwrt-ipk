@@ -13,7 +13,7 @@ local macqos_enable = uci:get("qos-nft", "default", "macqos_enable")
 local dhcp_leases_v4 = {}
 local dhcp_leases_v6 = {}
 local lease_file_v4 = "/tmp/dhcp.leases"
-local lease_file_v6 = "/var/dhcp6.leases"
+local lease_file_v6 = "/tmp/hosts/odhcpd"
 
 local function load_leases(file_path, lease_list)
 	local file = io.open(file_path, "r")

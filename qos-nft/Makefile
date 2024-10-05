@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=qos-nft
 PKG_VERSION:=1.0.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_LICENSE:=GPL-2.0
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
@@ -17,7 +17,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/qos-nft
   SECTION:=utils
   CATEGORY:=Base system
-  DEPENDS:=+kmod-nft-netdev +kmod-nft-bridge +nftables
+  DEPENDS:=+kmod-nft-netdev +kmod-nft-bridge +nftables +kmod-nft-connlimit
   TITLE:=QoS scripts over nftables
   PKGARCH:=all
 endef
