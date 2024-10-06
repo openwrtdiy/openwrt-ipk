@@ -15,28 +15,34 @@
 
 	function init_bytes(rl, ra) {
 		var bytes_pre;
+		var conn_pre;
 		var obj = { };
 		obj.chain = rl.chain;
 		obj.ipaddr = rl.expr[em].match.right;
-		obj.bytes = rl.expr[ec].counter.bytes;
 		obj.packets = rl.expr[ec].counter.packets;
+		obj.bytes = rl.expr[ec].counter.bytes;
+		obj.conn_packets = rl.expr.length > 2 ? rl.expr[2].counter.packets : 0;
+		obj.conn_bytes = rl.expr.length > 2 ? rl.expr[2].counter.bytes : 0;
 		obj.rate = 0;
+		obj.conn_rate = 0;
 
-		if (RC[obj.chain] && RC[obj.chain][obj.ipaddr])
-				bytes_pre = RC[obj.chain][obj.ipaddr];
-		else
-				bytes_pre = 0;
-
-		obj.rate = (bytes_pre > 0) ? (obj.bytes - bytes_pre) / 3: 0;
-
-		if (!RC[obj.chain])
-				RC[obj.chain] = { };
-		RC[obj.chain][obj.ipaddr] = obj.bytes;
-
-		if (!ra[obj.chain])
-				ra[obj.chain] = [ ];
-		ra[obj.chain].push(obj);
-	} /* function init_bytes(rl, ra) */
+	    if (RC[obj.chain] && RC[obj.chain][obj.ipaddr]) {
+	        bytes_pre = RC[obj.chain][obj.ipaddr].bytes;
+	        conn_pre = RC[obj.chain][obj.ipaddr].conn_packets;
+	    } else {
+	        bytes_pre = 0;
+	        conn_pre = 0;
+	    }
+	
+	    obj.rate = (bytes_pre > 0) ? (obj.bytes - bytes_pre) / 3 : 0;
+	    obj.conn_rate = (conn_pre > 0) ? (obj.conn_packets - conn_pre) / 3 : 0;
+	
+	    if (!RC[obj.chain]) RC[obj.chain] = { };
+	    RC[obj.chain][obj.ipaddr] = { bytes: obj.bytes, conn_packets: obj.conn_packets };
+	
+	    if (!ra[obj.chain]) ra[obj.chain] = [ ];
+	    ra[obj.chain].push(obj);
+	}
 
 	function bytes_label(bytes) {
 		var uby = '<%:kB%>';
@@ -51,43 +57,45 @@
 	}
 
 function print_combined_table(tbl, rs, ra_download, ra_upload) {
-    // Create a mapping to combine uploaded and downloaded data
     const combinedData = {};
 
-    // Traverse and download data
     for (const entry of ra_download) {
         combinedData[entry.ipaddr] = {
             downloadRate: entry.rate,
+            downloadPackets: entry.packets,
             downloadBytes: entry.bytes,
-            downloadPackets: entry.packets
+            downloadConnPackets: entry.conn_packets,
+            downloadConnBytes: entry.conn_bytes
         };
     }
 
-    // Traverse and upload data
     for (const entry of ra_upload) {
         if (combinedData[entry.ipaddr]) {
             combinedData[entry.ipaddr].uploadRate = entry.rate;
-            combinedData[entry.ipaddr].uploadBytes = entry.bytes;
             combinedData[entry.ipaddr].uploadPackets = entry.packets;
+            combinedData[entry.ipaddr].uploadBytes = entry.bytes;
+            combinedData[entry.ipaddr].uploadConnPackets = entry.conn_packets;
+            combinedData[entry.ipaddr].uploadConnBytes = entry.conn_bytes;
         } else {
-            // If no corresponding download data is found, add upload data
             combinedData[entry.ipaddr] = {
                 uploadRate: entry.rate,
+                uploadPackets: entry.packets,
                 uploadBytes: entry.bytes,
-                uploadPackets: entry.packets
+                uploadConnPackets: entry.conn_packets,
+                uploadConnBytes: entry.conn_bytes
             };
         }
     }
 
-    // Generate the merged result
     for (const ip in combinedData) {
         const data = combinedData[ip];
         rs.push([
             ip,
             '\u2191 ' + bytes_label(data.uploadRate) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadRate),
             '\u2191 ' + data.uploadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadPackets + ' Pkts',
-            '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes)
-
+            '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes),
+            '\u2191 ' + data.uploadConnPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadConnPackets + ' Pkts',
+            '\u2191 ' + data.uploadConnBytes + ' Bytes' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadConnBytes + ' Bytes',
         ]);
     }
 
@@ -153,9 +161,11 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
 		<div class="table" id="rate_table">
 			<div class="tr table-titles">
 				<div class="th col-2 hide-xs"><%:IP Address%></div>
-				<div class="th col-2"><%:Realtime Rate%></div>
-				<div class="th col-7"><%:Packets Total%></div>
-				<div class="th col-7"><%:Bytes Total%></div>
+				<div class="th col-3"><%:Realtime Rate%></div>
+				<div class="th col-4"><%:Packets Total%></div>
+				<div class="th col-5"><%:Bytes Total%></div>
+				<div class="th col-6"><%:Active Connections%></div>
+				<div class="th col-7"><%:Connections Total%></div>
 			</div>
 			<div class="tr placeholder">
 				<div class="td">
