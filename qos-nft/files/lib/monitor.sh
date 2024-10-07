@@ -10,12 +10,12 @@ qosdef_monitor_add() { # <mac> <ip> <hostname>
 	handle_ul=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY upload $2)
 	[ -z "$handle_ul" ] && {
 		nft add rule $NFT_QOS_INET_FAMILY qos-monitor upload ip saddr $2 counter
-		nft add rule $NFT_QOS_INET_FAMILY qos-monitor upload ip saddr $2 ct state new counter
+		nft add rule $NFT_QOS_INET_FAMILY qos-monitor upload ip saddr $2 ct state new,established,related counter
 	}
 	handle_dl=$(qosdef_monitor_get_ip_handle $NFT_QOS_INET_FAMILY download $2)
 	[ -z "$handle_dl" ] && {
 		nft add rule $NFT_QOS_INET_FAMILY qos-monitor download ip daddr $2 counter
-		nft add rule $NFT_QOS_INET_FAMILY qos-monitor download ip daddr $2 ct state new counter
+		nft add rule $NFT_QOS_INET_FAMILY qos-monitor download ip daddr $2 ct state new,established,related counter
 	}
 }
 

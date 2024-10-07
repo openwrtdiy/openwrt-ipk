@@ -13,48 +13,70 @@
 
 	var rate_table;
 
-	function init_bytes(rl, ra) {
-		var bytes_pre;
-		var conn_pre;
-		var obj = { };
-		obj.chain = rl.chain;
-		obj.ipaddr = rl.expr[em].match.right;
-		obj.packets = rl.expr[ec].counter.packets;
-		obj.bytes = rl.expr[ec].counter.bytes;
-		obj.conn_packets = rl.expr.length > 2 ? rl.expr[2].counter.packets : 0;
-		obj.conn_bytes = rl.expr.length > 2 ? rl.expr[2].counter.bytes : 0;
-		obj.rate = 0;
-		obj.conn_rate = 0;
+function init_bytes(rl, ra) {
+    var bytes_pre;
+    var conn_pre;
+    var obj = {};
+    var currentTime = new Date().getTime();
+    obj.chain = rl.chain;
+    obj.ipaddr = rl.expr[em].match.right;
+    obj.packets = rl.expr[ec].counter.packets;
+    obj.bytes = rl.expr[ec].counter.bytes;
+    obj.conn_packets = rl.expr.length > 1 ? rl.expr[1].counter.packets : 0;
+    obj.conn_bytes = rl.expr.length > 1 ? rl.expr[1].counter.bytes : 0;
+    obj.rate = 0;
+    obj.conn_rate = 0;
 
-	    if (RC[obj.chain] && RC[obj.chain][obj.ipaddr]) {
-	        bytes_pre = RC[obj.chain][obj.ipaddr].bytes;
-	        conn_pre = RC[obj.chain][obj.ipaddr].conn_packets;
-	    } else {
-	        bytes_pre = 0;
-	        conn_pre = 0;
-	    }
-	
-	    obj.rate = (bytes_pre > 0) ? (obj.bytes - bytes_pre) / 3 : 0;
-	    obj.conn_rate = (conn_pre > 0) ? (obj.conn_packets - conn_pre) / 3 : 0;
-	
-	    if (!RC[obj.chain]) RC[obj.chain] = { };
-	    RC[obj.chain][obj.ipaddr] = { bytes: obj.bytes, conn_packets: obj.conn_packets };
-	
-	    if (!ra[obj.chain]) ra[obj.chain] = [ ];
-	    ra[obj.chain].push(obj);
-	}
+    var storedFirstSeen = localStorage.getItem(obj.ipaddr + '_firstSeen');
+    if (storedFirstSeen) {
+        obj.firstSeen = parseInt(storedFirstSeen, 10);
+    } else {
+        obj.firstSeen = currentTime;
+        localStorage.setItem(obj.ipaddr + '_firstSeen', currentTime);
+    }
 
-	function bytes_label(bytes) {
-		var uby = '<%:kB%>';
-		var kby = (bytes / 1024);
+    obj.onlineDuration = (currentTime - obj.firstSeen) / 1000;
 
-		if (kby > 1024) {
-			uby = '<%:MB%>';
-			kby = (kby / 1024);
-		}
+    if (RC[obj.chain] && RC[obj.chain][obj.ipaddr]) {
+        bytes_pre = RC[obj.chain][obj.ipaddr].bytes;
+        conn_pre = RC[obj.chain][obj.ipaddr].conn_packets;
+    } else {
+        bytes_pre = 0;
+        conn_pre = 0;
+    }
 
-		return String.format("%f %s", kby.toFixed(2), uby);
-	}
+    obj.rate = (bytes_pre > 0) ? (obj.bytes - bytes_pre) / 3 : 0;
+    obj.conn_rate = (conn_pre > 0) ? (obj.conn_packets - conn_pre) / 3 : 0;
+
+    if (!RC[obj.chain]) RC[obj.chain] = {};
+    RC[obj.chain][obj.ipaddr] = {
+        bytes: obj.bytes,
+        conn_packets: obj.conn_packets,
+        firstSeen: obj.firstSeen
+    };
+
+    if (!ra[obj.chain]) ra[obj.chain] = [];
+    ra[obj.chain].push(obj);
+}
+
+function bytes_label(bytes) {
+    var uby = '<%:kB%>';
+    var kby = (bytes / 1024);
+
+    if (kby > 1024) {
+        uby = '<%:MB%>';
+        kby = (kby / 1024);
+    }
+
+    return String.format("%f %s", kby.toFixed(2), uby);
+}
+
+function format_duration(seconds) {
+    var hours = Math.floor(seconds / 3600);
+    var minutes = Math.floor((seconds % 3600) / 60);
+    var secs = Math.floor(seconds % 60);
+    return hours + "h " + minutes + "m " + secs + "s";
+}
 
 function print_combined_table(tbl, rs, ra_download, ra_upload) {
     const combinedData = {};
@@ -65,7 +87,8 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
             downloadPackets: entry.packets,
             downloadBytes: entry.bytes,
             downloadConnPackets: entry.conn_packets,
-            downloadConnBytes: entry.conn_bytes
+            downloadConnBytes: entry.conn_bytes,
+            onlineDuration: entry.onlineDuration
         };
     }
 
@@ -82,13 +105,15 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
                 uploadPackets: entry.packets,
                 uploadBytes: entry.bytes,
                 uploadConnPackets: entry.conn_packets,
-                uploadConnBytes: entry.conn_bytes
+                uploadConnBytes: entry.conn_bytes,
+                onlineDuration: entry.onlineDuration
             };
         }
     }
 
-    for (const ip in combinedData) {
-        const data = combinedData[ip];
+    const sortedData = Object.entries(combinedData).sort(([, a], [, b]) => b.downloadBytes - a.downloadBytes);
+
+    for (const [ip, data] of sortedData) {
         rs.push([
             ip,
             '\u2191 ' + bytes_label(data.uploadRate) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadRate),
@@ -96,84 +121,119 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
             '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes),
             '\u2191 ' + data.uploadConnPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadConnPackets + ' Pkts',
             '\u2191 ' + data.uploadConnBytes + ' Bytes' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadConnBytes + ' Bytes',
+            format_duration(data.onlineDuration)
         ]);
     }
 
     cbi_update_table(tbl, rs, '<em><%:No information available%></em>');
+    document.getElementById("host_count").innerHTML = "Associations: " + sortedData.length;
 }
 
-	/* wait for SVG */
-	window.setTimeout(
-		function() {
-			if (!RC)
-			{
-				window.setTimeout(arguments.callee, 1000);
-			}
-			else
-			{
-				rate_table     = document.getElementById('rate_table');
+/* Sorting functionality */
+function sortTable(columnIndex) {
+    const table = document.getElementById("rate_table");
+    let rows = Array.from(table.querySelectorAll(".tr:not(.table-titles)"));
+    let sorted = false;
 
-				/* render datasets, start update interval */
-				XHR.poll(3, '<%=build_url("admin/status/realtime/qosnft_status")%>', null,
-					function(x, json)
-					{
-						var RA = {};
-						var rows = [];
+    // Determine the sorting order (ascending or descending)
+    if (table.getAttribute("data-sort-column") == columnIndex && table.getAttribute("data-sort-order") == "asc") {
+        table.setAttribute("data-sort-order", "desc");
+    } else {
+        table.setAttribute("data-sort-order", "asc");
+    }
 
-						var rules = json.nftables;
-						for (var i = 0; i < rules.length; i++)
-						{
-							if (!rules[i].rule)
-								continue;
-							if (rules[i].rule.table != 'qos-monitor')
-								continue;
+    const sortOrder = table.getAttribute("data-sort-order");
 
-							var rl = rules[i].rule;
-							switch (rl.chain)
-							{
-								case 'download':
-								case 'upload': init_bytes(rl, RA); break;
-							}
-						} /* for (var i = 0; i < rules.length; i++) */
+    rows.sort((a, b) => {
+        const aData = a.children[columnIndex].innerText || a.children[columnIndex].textContent;
+        const bData = b.children[columnIndex].innerText || b.children[columnIndex].textContent;
 
-						/* display the result */
-						if (RA.download && RA.upload) {
-							while (rate_table.firstElementChild !== rate_table.lastElementChild)
-								rate_table.removeChild(rate_table.lastElementChild);
-							print_combined_table(rate_table, rows, RA.download, RA.upload);
-						}
+        if (!isNaN(parseFloat(aData)) && !isNaN(parseFloat(bData))) {
+            return sortOrder === "asc" ? parseFloat(aData) - parseFloat(bData) : parseFloat(bData) - parseFloat(aData);
+        }
+        return sortOrder === "asc" ? aData.localeCompare(bData) : bData.localeCompare(aData);
+    });
 
-					} /* function(x, json) */
-				); /* XHR.poll() */
+    // Clear the table except the header
+    while (table.firstElementChild !== table.lastElementChild)
+        table.removeChild(table.lastElementChild);
 
-				XHR.run();
-			}
-		}, 1000
-	);
+    // Re-insert the sorted rows
+    rows.forEach(row => table.appendChild(row));
+}
+
+/* wait for SVG */
+window.setTimeout(
+    function() {
+        if (!RC)
+        {
+            window.setTimeout(arguments.callee, 1000);
+        }
+        else
+        {
+            rate_table = document.getElementById('rate_table');
+            rate_table.setAttribute("data-sort-column", "");
+            rate_table.setAttribute("data-sort-order", "asc");
+
+            /* render datasets, start update interval */
+            XHR.poll(3, '<%=build_url("admin/status/realtime/qosnft_status")%>', null,
+                function(x, json)
+                {
+                    var RA = {};
+                    var rows = [];
+
+                    var rules = json.nftables;
+                    for (var i = 0; i < rules.length; i++)
+                    {
+                        if (!rules[i].rule)
+                            continue;
+                        if (rules[i].rule.table != 'qos-monitor')
+                            continue;
+
+                        var rl = rules[i].rule;
+                        switch (rl.chain)
+                        {
+                            case 'download':
+                            case 'upload': init_bytes(rl, RA); break;
+                        }
+                    }
+
+                    /* display the result */
+                    if (RA.download && RA.upload) {
+                        while (rate_table.firstElementChild !== rate_table.lastElementChild)
+                            rate_table.removeChild(rate_table.lastElementChild);
+                        print_combined_table(rate_table, rows, RA.download, RA.upload);
+                    }
+
+                } /* function(x, json) */
+            ); /* XHR.poll() */
+
+            XHR.run();
+        }
+    }, 1000
+);
 //]]></script>
 
 <h2 name="content"><%:Online host%></h2>
 
 <div class="cbi-map-descr"><%:Real time speed statistics of current online hosts%></div>
 
+<div id="host_count">Associations: 0</div>
+
 <fieldset class="cbi-section" id="cbi-table-table">
-	<div class="cbi-section-node">
-		<div class="table" id="rate_table">
-			<div class="tr table-titles">
-				<div class="th col-2 hide-xs"><%:IP Address%></div>
-				<div class="th col-3"><%:Realtime Rate%></div>
-				<div class="th col-4"><%:Packets Total%></div>
-				<div class="th col-5"><%:Bytes Total%></div>
-				<div class="th col-6"><%:Active Connections%></div>
-				<div class="th col-7"><%:Connections Total%></div>
-			</div>
-			<div class="tr placeholder">
-				<div class="td">
-					<em><%:Collecting data...%></em>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="cbi-section-node">
+        <div class="table" id="rate_table">
+            <div class="tr table-titles">
+                <div class="th col-2 hide-xs" onclick="sortTable(0)"><%:IP Address%></div>
+                <div class="th col-3" onclick="sortTable(1)"><%:Realtime Rate%></div>
+                <div class="th col-4" onclick="sortTable(2)"><%:Packets Total%></div>
+                <div class="th col-4" onclick="sortTable(3)"><%:Bytes Total%></div>
+                <div class="th col-4" onclick="sortTable(4)"><%:Active Connections%></div>
+                <div class="th col-4" onclick="sortTable(5)"><%:Connections Total%></div>
+                <div class="th col-2 hide-xs" onclick="sortTable(6)"><%:Online Duration%></div>
+            </div>
+        </div>
+    </div>
 </fieldset>
 
 <%+footer%>
