@@ -10,14 +10,14 @@ qosdef_validate_static() {
 
 # append rule for static qos
 qosdef_append_rule_sta() { # <section> <operator> <default-unit> <default-rate>
-	local ipaddr unit rate counter
+	local ipaddr unit rate connect
 	local operator=$2
 
 	config_get ipaddr $1 ipaddr
 	if [ "$operator" = "saddr" ]; then
 		config_get rate $1 urate $3
 		config_get unit $1 unit $4
-		config_get counter $1 counter $5
+		config_get connect $1 connect $5
 	else
 		config_get rate $1 drate $3
 		config_get unit $1 unit $4
@@ -31,7 +31,7 @@ qosdef_append_rule_sta() { # <section> <operator> <default-unit> <default-rate>
  	    unit="kbytes"
 	fi
 
-	qosdef_append_rule_ip_limit $ipaddr $operator $unit $rate $counter
+	qosdef_append_rule_ip_limit $ipaddr $operator $unit $rate $connect
 }
 
 # append chain for static qos

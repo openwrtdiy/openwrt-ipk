@@ -269,7 +269,7 @@ if ipqos_enable == "1" and ip_type == "static" then
 		Value.write(self, section, value)
 	end
 
-	o = y:option(Value, "counter", translate("Connections"))
+	o = y:option(Value, "connect", translate("Connections"))
 	o.placeholder = translate("Connections")
 	o.datatype = "range(100,10240)"
 	o:value("1024")
@@ -370,7 +370,7 @@ if macqos_enable == "1" then
 		Value.write(self, section, value)
 	end
 
-	o = x:option(Value, "counter", translate("Connections"))
+	o = x:option(Value, "connect", translate("Connections"))
 	o.placeholder = translate("Connections")
 	o.datatype = "range(100,10240)"
 	o:value("1024")
