@@ -15,17 +15,13 @@
 
 function init_bytes(rl, ra) {
     var bytes_pre;
-    var conn_pre;
     var obj = {};
     var currentTime = new Date().getTime();
     obj.chain = rl.chain;
     obj.ipaddr = rl.expr[em].match.right;
     obj.packets = rl.expr[ec].counter.packets;
     obj.bytes = rl.expr[ec].counter.bytes;
-    obj.conn_packets = rl.expr.length > 1 ? rl.expr[1].counter.packets : 0;
-    obj.conn_bytes = rl.expr.length > 1 ? rl.expr[1].counter.bytes : 0;
     obj.rate = 0;
-    obj.conn_rate = 0;
 
     var storedFirstSeen = localStorage.getItem(obj.ipaddr + '_firstSeen');
     if (storedFirstSeen) {
@@ -35,23 +31,17 @@ function init_bytes(rl, ra) {
         localStorage.setItem(obj.ipaddr + '_firstSeen', currentTime);
     }
 
-    obj.onlineDuration = (currentTime - obj.firstSeen) / 1000;
-
     if (RC[obj.chain] && RC[obj.chain][obj.ipaddr]) {
         bytes_pre = RC[obj.chain][obj.ipaddr].bytes;
-        conn_pre = RC[obj.chain][obj.ipaddr].conn_packets;
     } else {
         bytes_pre = 0;
-        conn_pre = 0;
     }
 
     obj.rate = (bytes_pre > 0) ? (obj.bytes - bytes_pre) / 3 : 0;
-    obj.conn_rate = (conn_pre > 0) ? (obj.conn_packets - conn_pre) / 3 : 0;
 
     if (!RC[obj.chain]) RC[obj.chain] = {};
     RC[obj.chain][obj.ipaddr] = {
         bytes: obj.bytes,
-        conn_packets: obj.conn_packets,
         firstSeen: obj.firstSeen
     };
 
@@ -71,13 +61,6 @@ function bytes_label(bytes) {
     return String.format("%f %s", kby.toFixed(2), uby);
 }
 
-function format_duration(seconds) {
-    var hours = Math.floor(seconds / 3600);
-    var minutes = Math.floor((seconds % 3600) / 60);
-    var secs = Math.floor(seconds % 60);
-    return hours + "h " + minutes + "m " + secs + "s";
-}
-
 function print_combined_table(tbl, rs, ra_download, ra_upload) {
     const combinedData = {};
 
@@ -85,10 +68,7 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
         combinedData[entry.ipaddr] = {
             downloadRate: entry.rate,
             downloadPackets: entry.packets,
-            downloadBytes: entry.bytes,
-            downloadConnPackets: entry.conn_packets,
-            downloadConnBytes: entry.conn_bytes,
-            onlineDuration: entry.onlineDuration
+            downloadBytes: entry.bytes
         };
     }
 
@@ -97,16 +77,11 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
             combinedData[entry.ipaddr].uploadRate = entry.rate;
             combinedData[entry.ipaddr].uploadPackets = entry.packets;
             combinedData[entry.ipaddr].uploadBytes = entry.bytes;
-            combinedData[entry.ipaddr].uploadConnPackets = entry.conn_packets;
-            combinedData[entry.ipaddr].uploadConnBytes = entry.conn_bytes;
         } else {
             combinedData[entry.ipaddr] = {
                 uploadRate: entry.rate,
                 uploadPackets: entry.packets,
-                uploadBytes: entry.bytes,
-                uploadConnPackets: entry.conn_packets,
-                uploadConnBytes: entry.conn_bytes,
-                onlineDuration: entry.onlineDuration
+                uploadBytes: entry.bytes
             };
         }
     }
@@ -118,10 +93,7 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
             ip,
             '\u2191 ' + bytes_label(data.uploadRate) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadRate),
             '\u2191 ' + data.uploadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadPackets + ' Pkts',
-            '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes),
-            '\u2191 ' + data.uploadConnPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadConnPackets + ' Pkts',
-            '\u2191 ' + data.uploadConnBytes + ' Bytes' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadConnBytes + ' Bytes',
-            format_duration(data.onlineDuration)
+            '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes)
         ]);
     }
 
@@ -133,16 +105,11 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
 function sortTable(columnIndex) {
     const table = document.getElementById("rate_table");
     let rows = Array.from(table.querySelectorAll(".tr:not(.table-titles)"));
-    let sorted = false;
-
+    
     // Determine the sorting order (ascending or descending)
-    if (table.getAttribute("data-sort-column") == columnIndex && table.getAttribute("data-sort-order") == "asc") {
-        table.setAttribute("data-sort-order", "desc");
-    } else {
-        table.setAttribute("data-sort-order", "asc");
-    }
-
-    const sortOrder = table.getAttribute("data-sort-order");
+    const sortOrder = (table.getAttribute("data-sort-column") == columnIndex && table.getAttribute("data-sort-order") == "asc") ? "desc" : "asc";
+    table.setAttribute("data-sort-column", columnIndex);
+    table.setAttribute("data-sort-order", sortOrder);
 
     rows.sort((a, b) => {
         const aData = a.children[columnIndex].innerText || a.children[columnIndex].textContent;
@@ -224,13 +191,10 @@ window.setTimeout(
     <div class="cbi-section-node">
         <div class="table" id="rate_table">
             <div class="tr table-titles">
-                <div class="th col-2 hide-xs" onclick="sortTable(0)"><%:IP Address%></div>
-                <div class="th col-3" onclick="sortTable(1)"><%:Realtime Rate%></div>
-                <div class="th col-4" onclick="sortTable(2)"><%:Packets Total%></div>
+                <div class="th col-1 hide-xs" onclick="sortTable(0)"><%:IP Address%></div>
+                <div class="th col-2" onclick="sortTable(1)"><%:Realtime Rate%></div>
+                <div class="th col-3" onclick="sortTable(2)"><%:Packets Total%></div>
                 <div class="th col-4" onclick="sortTable(3)"><%:Bytes Total%></div>
-                <div class="th col-4" onclick="sortTable(4)"><%:Active Connections%></div>
-                <div class="th col-4" onclick="sortTable(5)"><%:Connections Total%></div>
-                <div class="th col-2 hide-xs" onclick="sortTable(6)"><%:Online Duration%></div>
             </div>
         </div>
     </div>
