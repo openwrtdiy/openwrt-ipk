@@ -268,7 +268,11 @@ if ipqos_enable == "1" and ip_type == "static" then
 		end
 		Value.write(self, section, value)
 	end
-
+	
+	o = y:option(Value, "burst", translate("Burst"))
+	o.placeholder = translate("Burst size")
+	o.datatype = "range(10,1000)"
+	
 	o = y:option(Value, "connect", translate("Connections"))
 	o.placeholder = translate("Connections")
 	o.datatype = "range(100,10240)"
@@ -369,7 +373,11 @@ if macqos_enable == "1" then
 		end
 		Value.write(self, section, value)
 	end
-
+	
+	o = x:option(Value, "burst", translate("Burst"))
+	o.placeholder = translate("Burst size")
+	o.datatype = "range(10,1000)"
+	
 	o = x:option(Value, "connect", translate("Connections"))
 	o.placeholder = translate("Connections")
 	o.datatype = "range(100,10240)"
