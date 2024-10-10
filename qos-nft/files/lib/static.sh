@@ -65,7 +65,11 @@ qosdef_flush_static() {
 
 qosdef_init_static() {
 	local hook_ul="prerouting" hook_dl="postrouting"
-
+	
+	if [ "$ipqos_enable" -eq 0 ]; then
+            return 1
+	fi
+	
 	[ "$2" = 0 ] || {
 		logger -t qos-static "validation failed"
 		return 1
