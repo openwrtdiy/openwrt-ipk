@@ -37,17 +37,6 @@ qosdef_append_rule_ip_limit() { # <ipaddr> <operator> <unit> <rate>
 	fi
 }
 
-# qosdef_append_rule_{MATCH}_{STATEMENT}
-qosdef_append_rule_mac_limit() { # <macaddr> <operator> <unit> <rate>
-	local macaddr=$1
-	local operator=$2
-	local unit=$3
-	local rate=$4
-
-	qosdef_appendx \
-	    "\t\tether $operator $macaddr limit rate over $rate $unit/second drop\n"
-}
-
 # qosdef_append_rule_{MATCH}_{POLICY}
 qosdef_append_rule_ip_policy() { # <operator> <ipaddr> <policy>
 	qosdef_appendx "\t\tip $1 $2 $3\n"

@@ -8,7 +8,6 @@ local ipc = require("luci.ip")
 local enable_priority = uci:get("qos-nft", "default", "priority_enable")
 local ipqos_enable = uci:get("qos-nft", "default", "ipqos_enable")
 local ip_type = uci:get("qos-nft", "default", "ip_type")
-local macqos_enable = uci:get("qos-nft", "default", "macqos_enable")
 
 local dhcp_leases_v4 = {}
 local dhcp_leases_v6 = {}
@@ -41,7 +40,6 @@ s.addremove = false
 s.anonymous = true
 
 s:tab("limitip", translate("Limit Rate by IP Address"))
-s:tab("limitmac", translate("Limit Rate by Mac Address"))
 s:tab("priority", translate("Traffic Priority"))
 
 --
@@ -142,13 +140,6 @@ o.datatype = "ipaddr"
 o:depends("ipqos_enable", "1")
 
 --
--- limit speed by mac address
---
-o = s:taboption("limitmac", Flag, "macqos_enable", translate("MAC Qos"), translate("Enable Limit MAC Rate Feature"))
-o.default = macqos_enable or o.enabled
-o.rmempty = false
-
---
 -- Traffic Priority Settings
 --
 if enable_priority == "1" then
@@ -238,6 +229,18 @@ if ipqos_enable == "1" and ip_type == "static" then
 		end
 	end
 
+	if #dhcp_leases_v4 > 0 then
+		for _, lease in ipairs(dhcp_leases_v4) do
+			o:value(lease.hostname, lease.hostname)
+		end
+	end
+
+	if #dhcp_leases_v6 > 0 then
+		for _, lease in ipairs(dhcp_leases_v6) do
+			o:value(lease.hostname, lease.hostname)
+		end
+	end
+
 	o = y:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
@@ -293,116 +296,6 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o:value("10240")
 
 	o = y:option(Value, "comment", translate("Comment"))
-	o.size = 6
-end
-
---
--- Static By Mac Address
---
-if macqos_enable == "1" then
-	x = m:section(
-		TypedSection,
-		"client",
-		translate("MAC Speed Limit"),
-		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
-	)
-	x.anonymous = true
-	x.addremove = true
-	x.sortable = true
-	x.template = "cbi/tblsection"
-
-	o = x:option(Flag, "qos", translate("QOS"))
-	o.rmempty = false
-
-	o = x:option(Value, "hostname", translate("Hostname"))
-	o.placeholder = translate("Hostname")
-	o.datatype = "hostname"
-	o.size = 6
-
-	if #dhcp_leases_v4 > 0 then
-		for _, lease in ipairs(dhcp_leases_v4) do
-			o:value(lease.hostname, lease.hostname)
-		end
-	end
-
-	if #dhcp_leases_v6 > 0 then
-		for _, lease in ipairs(dhcp_leases_v6) do
-			o:value(lease.hostname, lease.hostname)
-		end
-	end
-
-	o = x:option(Value, "macaddr", translate("MAC Address"))
-	o.placeholder = translate("MAC Address")
-	o.rmempty = true
-	o.datatype = "macaddr"
-	o.size = 6
-
-	if #dhcp_leases_v4 > 0 then
-		for _, lease in ipairs(dhcp_leases_v4) do
-			o:value(lease.mac, lease.mac)
-		end
-	end
-
-	if #dhcp_leases_v6 > 0 then
-		for _, lease in ipairs(dhcp_leases_v6) do
-			o:value(lease.mac, lease.mac)
-		end
-	end
-
-	o = x:option(Value, "urate", translate("Upload Rate"))
-	o.placeholder = "1 to 10000 Mbps"
-	o.datatype = "range(1,10000)"
-	o.size = 6
-	o.default = 10
-	o.optional = false
-
-	o = x:option(Value, "drate", translate("Download Rate"))
-	o.placeholder = "1 to 10000 Mbps"
-	o.datatype = "range(1,10000)"
-	o.size = 6
-	o.default = 30
-	o.optional = false
-
-	o = x:option(Value, "unit", translate("Rate Unit"))
-	o.default = "mbps"
-	o.readonly = true
-
-	function o.cfgvalue(self, section)
-		local value = Value.cfgvalue(self, section)
-		if value == "mbps" then
-			return "Mbps"
-		end
-		return value
-	end
-
-	function o.write(self, section, value)
-		if value == "Mbps" then
-			value = "mbps"
-		end
-		Value.write(self, section, value)
-	end
-	
-	o = x:option(Value, "burst", translate("Burst"))
-	o.placeholder = translate("Burst size")
-	o.datatype = "range(10,1000)"
-	o.size = 6
-	
-	o = x:option(Value, "connect", translate("Connections"))
-	o.placeholder = translate("Connections")
-	o.datatype = "range(100,10240)"
-	o.size = 6
-	o:value("1024")
-	o:value("2048")
-	o:value("3072")
-	o:value("4096")
-	o:value("5120")
-	o:value("6144")
-	o:value("7168")
-	o:value("8192")
-	o:value("9216")
-	o:value("10240")
-
-	o = x:option(Value, "comment", translate("Comment"))
 	o.size = 6
 end
 
