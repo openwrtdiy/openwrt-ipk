@@ -1,260 +1,182 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:136
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:155
 msgid "Bytes Total"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:141
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:160
 msgid "Collecting data..."
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:229
 msgid "Comment"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:50
 msgid "Default Download Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:55
 msgid "Default Download Unit"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:116
 msgid "Default Network Interface"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:62
 msgid "Default Upload Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:67
 msgid "Default Upload Unit"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:55
 msgid "Default unit for download rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:67
 msgid "Default unit for upload rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:77
 msgid "Default value for download bandwidth"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:50
 msgid "Default value for download rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:82
 msgid "Default value for upload bandwidth"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:62
 msgid "Default value for upload rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:77
 msgid "Download Bandwidth (Mbps)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:252
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:135
 msgid "Download Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:40
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:105
 msgid "Enable Limit Rate Feature"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:112
 msgid "Enable Traffic Priority"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:112
 msgid "Enable this feature"
 msgstr ""
 
-#: applications/luci-app-qos-nft/root/usr/share/rpcd/acl.d/luci-app-qos-nft.json:3
 msgid "Grant UCI access for luci-app-qos-nft"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:130
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:163
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:244
 msgid "Hostname"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:134
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:153
 msgid "IP Address"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:135
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:168
 msgid "IP Address (v4 / v6)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:137
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:170
 msgid "IP Address (v4 Only)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:40
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:105
 msgid "Limit Enable"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:33
 msgid "Limit Rate by IP Address"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:34
 msgid "Limit Rate by Mac Address"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:239
 msgid "Limit Traffic Rate By Mac Address"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:44
 msgid "Limit Type"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:177
 msgid "MAC (optional)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:248
 msgid "MAC Address"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:48
 msgid "MB"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:29
 msgid "qos-nft Settings"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:116
 msgid "Network Interface for Traffic Shaping, e.g. br-lan, eth0.1, eth0, etc."
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:87
 msgid "Network to be applied, e.g. 192.168.1.0/24, 10.2.0.0/16, etc."
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:93
 msgid "Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:65
 msgid "No information available"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:137
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:156
 msgid "Packets Total"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:212
 msgid "Priority"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:204
 msgid "Protocol"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/controller/qos-nft.lua:21
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:24
 msgid "QoS over Nftables"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/controller/qos-nft.lua:13
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:144
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:181
 msgid "Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:130
 msgid "Realtime Download Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:125
 msgid "Realtime Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:149
 msgid "Realtime Upload Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:226
 msgid "Service"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:125
 msgid "Static QoS-Download Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:158
 msgid "Static QoS-Upload Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:87
 msgid "Target Network (IPv4/MASK)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:93
 msgid "Target Network6 (IPv6/MASK)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:127
 msgid "This page gives an overview over currently upload/download rate."
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:35
 msgid "Traffic Priority"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:199
 msgid "Traffic Priority Settings"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:44
 msgid "Type of Limit Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:149
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:186
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:257
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:268
 msgid "Unit"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:82
 msgid "Upload Bandwidth (Mbps)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:263
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:154
 msgid "Upload Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:98
 msgid "White List for Limit Rate"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/model/cbi/qos-nft/qos-nft.lua:226
 msgid "e.g. https, 23, (separator is comma)"
 msgstr ""
 
-#: applications/luci-app-qos-nft/luasrc/view/qos-nft/rate.htm:44
 msgid "kB"
 msgstr ""
