@@ -206,16 +206,17 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o = y:option(Value, "hostname", translate("Hostname"))
 	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
+	o.size = 6
 
 	if #dhcp_leases_v4 > 0 then
 		for _, lease in ipairs(dhcp_leases_v4) do
-			o:value(lease.hostname, lease.hostname .. " - " .. lease.ip .. " ")
+			o:value(lease.hostname, lease.hostname)
 		end
 	end
 
 	if #dhcp_leases_v6 > 0 then
 		for _, lease in ipairs(dhcp_leases_v6) do
-			o:value(lease.hostname, lease.hostname .. " - " .. lease.ip .. " ")
+			o:value(lease.hostname, lease.hostname)
 		end
 	end
 
@@ -223,36 +224,38 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o.datatype = "ipaddr"
 	o.optional = false
 	o.rmempty = false
+	o.size = 6
 
 	if #dhcp_leases_v4 > 0 then
 		for _, lease in ipairs(dhcp_leases_v4) do
-			o:value(lease.ip, lease.ip .. " - " .. lease.hostname .. " ")
+			o:value(lease.ip, lease.ip)
 		end
 	end
 
 	if #dhcp_leases_v6 > 0 then
 		for _, lease in ipairs(dhcp_leases_v6) do
-			o:value(lease.ip, lease.ip .. " - " .. lease.hostname .. " ")
+			o:value(lease.ip, lease.ip)
 		end
 	end
 
 	o = y:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
-	o.size = 4
+	o.size = 6
 	o.default = 10
 	o.optional = false
 
 	o = y:option(Value, "drate", translate("Download Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
-	o.size = 4
+	o.size = 6
 	o.default = 30
 	o.optional = false
 
 	o = y:option(Value, "unit", translate("Rate Unit"))
 	o.default = "mbps"
 	o.readonly = true
+	o.size = 6
 
 	function o.cfgvalue(self, section)
 		local value = Value.cfgvalue(self, section)
@@ -272,10 +275,12 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o = y:option(Value, "burst", translate("Burst"))
 	o.placeholder = translate("Burst size")
 	o.datatype = "range(10,1000)"
+	o.size = 6
 	
 	o = y:option(Value, "connect", translate("Connections"))
 	o.placeholder = translate("Connections")
 	o.datatype = "range(100,10240)"
+	o.size = 6
 	o:value("1024")
 	o:value("2048")
 	o:value("3072")
@@ -288,6 +293,7 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o:value("10240")
 
 	o = y:option(Value, "comment", translate("Comment"))
+	o.size = 6
 end
 
 --
@@ -311,16 +317,17 @@ if macqos_enable == "1" then
 	o = x:option(Value, "hostname", translate("Hostname"))
 	o.placeholder = translate("Hostname")
 	o.datatype = "hostname"
+	o.size = 6
 
 	if #dhcp_leases_v4 > 0 then
 		for _, lease in ipairs(dhcp_leases_v4) do
-			o:value(lease.hostname, lease.hostname .. " - " .. lease.mac .. " ")
+			o:value(lease.hostname, lease.hostname)
 		end
 	end
 
 	if #dhcp_leases_v6 > 0 then
 		for _, lease in ipairs(dhcp_leases_v6) do
-			o:value(lease.hostname, lease.hostname .. " - " .. lease.mac .. " ")
+			o:value(lease.hostname, lease.hostname)
 		end
 	end
 
@@ -328,30 +335,31 @@ if macqos_enable == "1" then
 	o.placeholder = translate("MAC Address")
 	o.rmempty = true
 	o.datatype = "macaddr"
+	o.size = 6
 
 	if #dhcp_leases_v4 > 0 then
 		for _, lease in ipairs(dhcp_leases_v4) do
-			o:value(lease.mac, lease.mac .. " - " .. lease.hostname .. " ")
+			o:value(lease.mac, lease.mac)
 		end
 	end
 
 	if #dhcp_leases_v6 > 0 then
 		for _, lease in ipairs(dhcp_leases_v6) do
-			o:value(lease.mac, lease.mac .. " - " .. lease.hostname .. " ")
+			o:value(lease.mac, lease.mac)
 		end
 	end
 
 	o = x:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
-	o.size = 4
+	o.size = 6
 	o.default = 10
 	o.optional = false
 
 	o = x:option(Value, "drate", translate("Download Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
-	o.size = 4
+	o.size = 6
 	o.default = 30
 	o.optional = false
 
@@ -377,10 +385,12 @@ if macqos_enable == "1" then
 	o = x:option(Value, "burst", translate("Burst"))
 	o.placeholder = translate("Burst size")
 	o.datatype = "range(10,1000)"
+	o.size = 6
 	
 	o = x:option(Value, "connect", translate("Connections"))
 	o.placeholder = translate("Connections")
 	o.datatype = "range(100,10240)"
+	o.size = 6
 	o:value("1024")
 	o:value("2048")
 	o:value("3072")
@@ -393,6 +403,7 @@ if macqos_enable == "1" then
 	o:value("10240")
 
 	o = x:option(Value, "comment", translate("Comment"))
+	o.size = 6
 end
 
 return m
