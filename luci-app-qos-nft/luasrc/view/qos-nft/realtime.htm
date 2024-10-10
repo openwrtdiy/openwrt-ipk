@@ -92,8 +92,8 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
         rs.push([
             ip,
             '\u2191 ' + bytes_label(data.uploadRate) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadRate),
-            '\u2191 ' + data.uploadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadPackets + ' Pkts',
-            '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes)
+            '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes),
+            '\u2191 ' + data.uploadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadPackets + ' Pkts'
         ]);
     }
 
@@ -193,8 +193,8 @@ window.setTimeout(
             <div class="tr table-titles">
                 <div class="th col-1 hide-xs" onclick="sortTable(0)"><%:IP Address%></div>
                 <div class="th col-2" onclick="sortTable(1)"><%:Realtime Rate%></div>
-                <div class="th col-3" onclick="sortTable(2)"><%:Packets Total%></div>
-                <div class="th col-4" onclick="sortTable(3)"><%:Bytes Total%></div>
+                <div class="th col-3" onclick="sortTable(2)"><%:Bytes Total%></div>
+                <div class="th col-4" onclick="sortTable(3)"><%:Packets Total%></div>
             </div>
         </div>
     </div>
