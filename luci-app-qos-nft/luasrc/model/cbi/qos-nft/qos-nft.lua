@@ -229,18 +229,6 @@ if ipqos_enable == "1" and ip_type == "static" then
 		end
 	end
 
-	if #dhcp_leases_v4 > 0 then
-		for _, lease in ipairs(dhcp_leases_v4) do
-			o:value(lease.hostname, lease.hostname)
-		end
-	end
-
-	if #dhcp_leases_v6 > 0 then
-		for _, lease in ipairs(dhcp_leases_v6) do
-			o:value(lease.hostname, lease.hostname)
-		end
-	end
-
 	o = y:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
