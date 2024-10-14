@@ -183,7 +183,7 @@ if ipqos_enable == "1" and ip_type == "static" then
 	y = m:section(
 		TypedSection,
 		"user",
-		translate("IP Speed Limit"),
+		translate("Static speed limit"),
 		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)
 	y.anonymous = true
@@ -214,7 +214,7 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o = y:option(Value, "ipaddr", translate("IP Address"))
 	o.datatype = "ipaddr"
 	o.optional = false
-	o.rmempty = false
+	o.rmempty = true
 	o.size = 6
 
 	if #dhcp_leases_v4 > 0 then
@@ -229,6 +229,22 @@ if ipqos_enable == "1" and ip_type == "static" then
 		end
 	end
 
+	o = y:option(Value, "macaddr", translate("MAC Address"))
+	o.placeholder = translate("MAC Address")
+	o.rmempty = true
+	o.datatype = "macaddr"
+	o.size = 6
+	if #dhcp_leases_v4 > 0 then
+		for _, lease in ipairs(dhcp_leases_v4) do
+			o:value(lease.mac, lease.mac)
+		end
+	end
+	if #dhcp_leases_v6 > 0 then
+		for _, lease in ipairs(dhcp_leases_v6) do
+			o:value(lease.mac, lease.mac)
+		end
+	end
+	
 	o = y:option(Value, "urate", translate("Upload Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
