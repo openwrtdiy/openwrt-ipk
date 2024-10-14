@@ -68,7 +68,7 @@ wa.cbi_add_networks(o)
 --
 -- Static
 --
-o = s:taboption("limitip", Flag, "ipqos_enable", translate("IP Qos"), translate("Enable Limit IP Rate Feature"))
+o = s:taboption("limitip", Flag, "ipqos_enable", translate("Speed limit"), translate("Enable Limit IP Rate Feature"))
 o.default = ipqos_enable or o.enabled
 o.rmempty = false
 

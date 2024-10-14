@@ -44,7 +44,7 @@ qosdef_append_rule_sta() {
     qosdef_append_rule_ip_limit $ipaddr $operator $unit $rate $burst $connect
 }
 
-qosdef_append_chain_sta() {
+qosdef_append_chain_sta_ip() {
 	local hook=$1 name=$2
 	local config=$3 operator
 
@@ -137,8 +137,8 @@ qosdef_init_static() {
 	[ $ipqos_enable -eq 0 -o \
 		$ip_type = "dynamic" ] && return 1
 
-	qosdef_append_chain_sta $hook_ul upload user
-	qosdef_append_chain_sta $hook_dl download user
+	qosdef_append_chain_sta_ip $hook_ul upload user
+	qosdef_append_chain_sta_ip $hook_dl download user
     # Initialize MAC address limits
 	qosdef_append_chain_sta_mac $hook_ul upload user
 	qosdef_append_chain_sta_mac $hook_dl download user
