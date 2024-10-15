@@ -54,12 +54,22 @@ qosdef_append_rule_mac_limit() { # <macaddr> <operator> <unit> <rate>
 	fi
 }
 
+# qosdef_append_rule_{MATCH}_{STATEMENT}
+qosdef_append_rule_dym_limit() { # <ipaddr> <operator> <unit> <rate>
+	local cidr4=$1
+	local operator=$2
+	local unit=$3
+	local rate=$4
+
+	qosdef_appendx "\t\tip $operator $cidr4 limit rate over $rate $unit/second drop\n"
+}
+
 # qosdef_append_rule_{MATCH}_{POLICY}
 qosdef_append_rule_ip_policy() { # <operator> <ipaddr> <policy>
 	qosdef_appendx "\t\tip $1 $2 $3\n"
 }
 
-_handle_limit_whitelist() { # <value> <chain>
+_handle_whitelist() { # <value> <chain>
 	local ipaddr=$1
 	local operator
 
@@ -73,8 +83,8 @@ _handle_limit_whitelist() { # <value> <chain>
 	qosdef_append_rule_ip_policy $operator $ipaddr accept
 }
 
-qosdef_append_rule_limit_whitelist() { # <chain>
-	config_list_foreach default limit_whitelist _handle_limit_whitelist $1
+qosdef_append_rule_whitelist() { # <chain>
+	config_list_foreach default whitelist _handle_whitelist $1
 }
 
 qosdef_flush_table() { # <family> <table>

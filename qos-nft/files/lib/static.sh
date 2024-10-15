@@ -4,7 +4,7 @@
 
 qosdef_validate_static() {
 	uci_load_validate qos-nft default "$1" "$2" \
-		'ipqos_enable:bool:0' \
+		'qos_enable:bool:0' \
 		'ip_type:maxlength(8)'
 }
 
@@ -56,7 +56,7 @@ qosdef_append_chain_sta_ip() {
 	qosdef_appendx "\ttable inet qos-static {\n"
 	qosdef_appendx "\tchain $name {\n"
 	qosdef_append_chain_def filter $hook 0 accept
-	qosdef_append_rule_limit_whitelist $name
+	qosdef_append_rule_whitelist $name
 	config_foreach qosdef_append_rule_sta $config $operator $4 $7
 	qosdef_appendx "\t}\n"
 	qosdef_appendx "}\n"
@@ -111,7 +111,7 @@ qosdef_append_chain_sta_mac() {
 	qosdef_appendx "\ttable bridge qos-static {\n"
 	qosdef_appendx "\tchain $name {\n"
 	qosdef_append_chain_def filter $hook 0 accept
-	qosdef_append_rule_limit_whitelist $name
+	qosdef_append_rule_whitelist $name
 	config_foreach qosdef_append_rule_mac_sta $config $operator $4 $7
 	qosdef_appendx "\t}\n"
 	qosdef_appendx "}\n"
@@ -125,21 +125,19 @@ qosdef_flush_static() {
 qosdef_init_static() {
 	local hook_ul="prerouting" hook_dl="postrouting"
 	
-	if [ "$ipqos_enable" -eq 0 ]; then
-            return 1
+	# Only proceed if IP QoS is enabled and IP type is static
+	if [ "$qos_enable" -eq 0 ] || [ "$ip_type" != "static" ]; then
+        return 1
 	fi
-	
+
 	[ "$2" = 0 ] || {
 		logger -t qos-static "validation failed"
 		return 1
 	}
 
-	[ $ipqos_enable -eq 0 -o \
-		$ip_type = "dynamic" ] && return 1
-
+	# Append static IP and MAC rules
 	qosdef_append_chain_sta_ip $hook_ul upload host
 	qosdef_append_chain_sta_ip $hook_dl download host
-    # Initialize MAC address limits
 	qosdef_append_chain_sta_mac $hook_ul upload host
 	qosdef_append_chain_sta_mac $hook_dl download host
 }

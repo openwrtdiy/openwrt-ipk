@@ -6,7 +6,7 @@ local fs = require("nixio.fs")
 local ipc = require("luci.ip")
 
 local enable_priority = uci:get("qos-nft", "default", "priority_enable")
-local ipqos_enable = uci:get("qos-nft", "default", "ipqos_enable")
+local qos_enable = uci:get("qos-nft", "default", "qos_enable")
 local ip_type = uci:get("qos-nft", "default", "ip_type")
 
 local dhcp_leases_v4 = {}
@@ -45,20 +45,20 @@ s:tab("limitip", translate("Limit Rate by IP Address"))
 --
 -- Static
 --
-o = s:taboption("limitip", Flag, "ipqos_enable", translate("Speed limit"), translate("Enable Limit IP Rate Feature"))
-o.default = ipqos_enable or o.enabled
+o = s:taboption("limitip", Flag, "qos_enable", translate("Speed limit"), translate("Enable Limit IP Rate Feature"))
+o.default = qos_enable or o.enabled
 o.rmempty = false
 
 o = s:taboption("limitip", ListValue, "ip_type", translate("Limit Type"), translate("Type of Limit Rate"))
 o.default = "static"
-o:depends("ipqos_enable", "1")
+o:depends("qos_enable", "1")
 o:value("static", "Static")
 o:value("dynamic", "Dynamic")
 
 --
 -- Static
 --
-if ipqos_enable == "1" and ip_type == "static" then
+if qos_enable == "1" and ip_type == "static" then
 	y = m:section(
 		TypedSection,
 		"host",
@@ -181,66 +181,77 @@ if ipqos_enable == "1" and ip_type == "static" then
 	o = y:option(Value, "comment", translate("Comment"))
 	o.size = 6
 end
-
 --
 -- Dynamic
 --
-o = s:taboption(
-	"limitip",
-	Value,
-	"dynamic_bw_up",
-	translate("Upload Bandwidth (Mbps)"),
-	translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s")
-)
-o.datatype = "range(1,12500)"
-o.datatype = "uinteger"
-o:depends("ip_type", "dynamic")
-
-o = s:taboption(
-	"limitip",
-	Value,
-	"dynamic_bw_down",
-	translate("Download Bandwidth (Mbps)"),
-	translate("Data Transfer Rate: 100 Mbps/s = 12500 KBytes/s")
-)
-o.datatype = "range(1,12500)"
-o.datatype = "uinteger"
-o:depends("ip_type", "dynamic")
-
-o = s:taboption(
-	"limitip",
-	Value,
-	"dynamic_cidr",
-	translate("Target Network (IPv4/MASK)"),
-	translate("Network to be applied, e.g. 192.168.100.0/24, 10.2.0.0/16, etc.")
-)
-o.datatype = "cidr4"
-ipc.routes({ family = 4, type = 1 }, function(rt)
-	o.default = rt.dest
-end)
-o:depends("ip_type", "dynamic")
-
-if has_ipv6 then
-	o = s:taboption(
-		"limitip",
-		Value,
-		"dynamic_cidr6",
-		translate("Target Network6 (IPv6/MASK)"),
-		translate("Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc.")
+if qos_enable == "1" and ip_type == "dynamic" then
+	y = m:section(
+		TypedSection,
+		"subnet",
+		translate("Dynamic speed limit"),
+		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)
-	o.datatype = "cidr6"
-	o:depends("ip_type", "dynamic")
-end
+	y.anonymous = true
+	y.addremove = true
+	y.sortable = false
+	y.template = "cbi/tblsection"
 
-o = s:taboption(
-	"limitip",
-	DynamicList,
-	"limit_whitelist",
-	translate("White List for Limit Rate"),
-	translate("Network to be applied, e.g. 192.168.100.2, 192.168.100.0/24, etc.")
-)
-o.datatype = "ipaddr"
-o:depends("ipqos_enable", "1")
+	o = y:option(Flag, "qos", translate("QOS"))
+	o.rmempty = false
+
+	o = y:option(Value, "cidr4", translate("IPv4/MASK"))
+	o.placeholder = translate("Target Network (IPv4/MASK)")
+	o.datatype = "cidr4"
+	o.optional = false
+	o.rmempty = true
+	o.size = 6
+	
+	o = y:option(Value, "cidr6", translate("IPv6/MASK"))
+	o.placeholder = translate("Target Network (IPv6/MASK)")
+	o.datatype = "cidr6"
+	o.optional = false
+	o.rmempty = true
+	o.size = 6
+	
+	o = y:option(Value, "urate", translate("Upload Rate"))
+	o.placeholder = "1 to 10000 Mbps"
+	o.datatype = "range(1,10000)"
+	o.size = 6
+	o.default = 20
+	o.optional = false
+
+	o = y:option(Value, "drate", translate("Download Rate"))
+	o.placeholder = "1 to 10000 Mbps"
+	o.datatype = "range(1,10000)"
+	o.size = 6
+	o.default = 40
+	o.optional = false
+
+	o = y:option(Value, "unit", translate("Rate Unit"))
+	o.default = "mbps"
+	o.readonly = true
+	o.size = 6
+
+	function o.cfgvalue(self, section)
+		local value = Value.cfgvalue(self, section)
+		if value == "mbps" then
+			return "Mbps"
+		end
+		return value
+	end
+
+	function o.write(self, section, value)
+		if value == "Mbps" then
+			value = "mbps"
+		end
+		Value.write(self, section, value)
+	end
+	
+	o = y:option(DynamicList, "whitelist", translate("White List"))
+	o.datatype = "ipaddr"
+	o.readonly = true
+	o.size = 6
+end
 
 s:tab("priority", translate("Traffic Priority"))
 --
