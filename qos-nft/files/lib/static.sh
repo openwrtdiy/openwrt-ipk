@@ -40,7 +40,6 @@ qosdef_append_rule_sta() {
         burst=$((rate / 10))
     fi
 
-    # Append rule for IP addresses to `table inet qos-static`
     qosdef_append_rule_ip_limit $ipaddr $operator $unit $rate $burst $connect
 }
 
@@ -56,13 +55,11 @@ qosdef_append_chain_sta_ip() {
 	qosdef_appendx "\ttable inet qos-static {\n"
 	qosdef_appendx "\tchain $name {\n"
 	qosdef_append_chain_def filter $hook 0 accept
-	qosdef_append_rule_whitelist $name
 	config_foreach qosdef_append_rule_sta $config $operator $4 $7
 	qosdef_appendx "\t}\n"
 	qosdef_appendx "}\n"
 }
 
-# MAC address rules
 qosdef_append_rule_mac_sta() {
     local macaddr rate unit burst connect
     local operator=$2
@@ -95,7 +92,6 @@ qosdef_append_rule_mac_sta() {
         burst=$((rate / 10))
     fi
 
-    # Append rule for MAC addresses to `table bridge qos-static`
     qosdef_append_rule_mac_limit $macaddr $operator $unit $rate $burst $connect
 }
 
@@ -111,7 +107,6 @@ qosdef_append_chain_sta_mac() {
 	qosdef_appendx "\ttable bridge qos-static {\n"
 	qosdef_appendx "\tchain $name {\n"
 	qosdef_append_chain_def filter $hook 0 accept
-	qosdef_append_rule_whitelist $name
 	config_foreach qosdef_append_rule_mac_sta $config $operator $4 $7
 	qosdef_appendx "\t}\n"
 	qosdef_appendx "}\n"
@@ -135,7 +130,6 @@ qosdef_init_static() {
 		return 1
 	}
 
-	# Append static IP and MAC rules
 	qosdef_append_chain_sta_ip $hook_ul upload host
 	qosdef_append_chain_sta_ip $hook_dl download host
 	qosdef_append_chain_sta_mac $hook_ul upload host

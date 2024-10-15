@@ -20,7 +20,6 @@ qosdef_append_chain_ingress() { # <type> <device> <priority> <policy>
 	qosdef_appendx "\t\ttype $1 hook ingress device $2 priority $3; policy $4;\n"
 }
 
-# qosdef_append_rule_{MATCH}_{STATEMENT}
 qosdef_append_rule_ip_limit() { # <ipaddr> <operator> <unit> <rate>
 	local ipaddr=$1
 	local operator=$2
@@ -37,7 +36,6 @@ qosdef_append_rule_ip_limit() { # <ipaddr> <operator> <unit> <rate>
 	fi
 }
 
-# qosdef_append_rule_{MATCH}_{STATEMENT}
 qosdef_append_rule_mac_limit() { # <macaddr> <operator> <unit> <rate>
 	local macaddr=$1
 	local operator=$2
@@ -54,37 +52,21 @@ qosdef_append_rule_mac_limit() { # <macaddr> <operator> <unit> <rate>
 	fi
 }
 
-# qosdef_append_rule_{MATCH}_{STATEMENT}
 qosdef_append_rule_dym_limit() { # <ipaddr> <operator> <unit> <rate>
 	local cidr4=$1
 	local operator=$2
 	local unit=$3
 	local rate=$4
-
-	qosdef_appendx "\t\tip $operator $cidr4 limit rate over $rate $unit/second drop\n"
-}
-
-# qosdef_append_rule_{MATCH}_{POLICY}
-qosdef_append_rule_ip_policy() { # <operator> <ipaddr> <policy>
-	qosdef_appendx "\t\tip $1 $2 $3\n"
-}
-
-_handle_whitelist() { # <value> <chain>
-	local whitelist=$1
-	local operator
-
-	[ -z "$whitelist" ] && return
-
-	case "$2" in
-		upload) operator="saddr";;
-		download) operator="daddr";;
-	esac
-
-	qosdef_append_rule_ip_policy $operator $whitelist accept
-}
-
-qosdef_append_rule_whitelist() { # <chain>
-	config_list_foreach subnet whitelist _handle_whitelist $1
+	local whitelist=$5
+	
+    if [ -n "$whitelist" ]; then
+        for ip in $whitelist; do
+            qosdef_appendx "\t\tip $operator $ip accept\n"
+        done
+        qosdef_appendx "\t\tip $operator $cidr4 limit rate over $rate $unit/second drop\n"
+    else
+        qosdef_appendx "\t\tip $operator $cidr4 limit rate over $rate $unit/second drop\n"
+    fi
 }
 
 qosdef_flush_table() { # <family> <table>
