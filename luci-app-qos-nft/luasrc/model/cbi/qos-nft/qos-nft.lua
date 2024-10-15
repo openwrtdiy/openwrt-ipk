@@ -7,7 +7,7 @@ local ipc = require("luci.ip")
 
 local enable_priority = uci:get("qos-nft", "default", "priority_enable")
 local qos_enable = uci:get("qos-nft", "default", "qos_enable")
-local ip_type = uci:get("qos-nft", "default", "ip_type")
+local qos_type = uci:get("qos-nft", "default", "qos_type")
 
 local dhcp_leases_v4 = {}
 local dhcp_leases_v6 = {}
@@ -41,15 +41,15 @@ s = m:section(TypedSection, "default", translate("Qos Nft Settings"))
 s.addremove = false
 s.anonymous = true
 
-s:tab("limitip", translate("Limit Rate by IP Address"))
+s:tab("speedlimit", translate("Limit Rate by IP Address"))
 --
 -- Static
 --
-o = s:taboption("limitip", Flag, "qos_enable", translate("Speed limit"), translate("Enable Limit IP Rate Feature"))
+o = s:taboption("speedlimit", Flag, "qos_enable", translate("Speed limit"), translate("Enable Limit Rate Feature"))
 o.default = qos_enable or o.enabled
 o.rmempty = false
 
-o = s:taboption("limitip", ListValue, "ip_type", translate("Limit Type"), translate("Type of Limit Rate"))
+o = s:taboption("speedlimit", ListValue, "qos_type", translate("Limit Type"))
 o.default = "static"
 o:depends("qos_enable", "1")
 o:value("static", "Static")
@@ -58,7 +58,7 @@ o:value("dynamic", "Dynamic")
 --
 -- Static
 --
-if qos_enable == "1" and ip_type == "static" then
+if qos_enable == "1" and qos_type == "static" then
 	y = m:section(
 		TypedSection,
 		"host",
@@ -184,7 +184,7 @@ end
 --
 -- Dynamic
 --
-if qos_enable == "1" and ip_type == "dynamic" then
+if qos_enable == "1" and qos_type == "dynamic" then
 	y = m:section(
 		TypedSection,
 		"subnet",
@@ -198,7 +198,11 @@ if qos_enable == "1" and ip_type == "dynamic" then
 
 	o = y:option(Flag, "qos", translate("QOS"))
 	o.rmempty = false
-
+	
+	o = y:option(Value, "group", translate("Group Name"))
+	o.placeholder = translate("Group Name")
+	o.size = 6
+	
 	o = y:option(Value, "cidr4", translate("IPv4/MASK"))
 	o.placeholder = translate("Target Network (IPv4/MASK)")
 	o.datatype = "cidr4"
@@ -217,14 +221,14 @@ if qos_enable == "1" and ip_type == "dynamic" then
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 6
-	o.default = 20
+	o.default = 50
 	o.optional = false
 
 	o = y:option(Value, "drate", translate("Download Rate"))
 	o.placeholder = "1 to 10000 Mbps"
 	o.datatype = "range(1,10000)"
 	o.size = 6
-	o.default = 40
+	o.default = 100
 	o.optional = false
 
 	o = y:option(Value, "unit", translate("Rate Unit"))

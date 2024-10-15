@@ -5,7 +5,7 @@
 qosdef_validate_static() {
 	uci_load_validate qos-nft default "$1" "$2" \
 		'qos_enable:bool:0' \
-		'ip_type:maxlength(8)'
+		'qos_type:maxlength(8)'
 }
 
 qosdef_append_rule_sta() {
@@ -126,7 +126,7 @@ qosdef_init_static() {
 	local hook_ul="prerouting" hook_dl="postrouting"
 	
 	# Only proceed if IP QoS is enabled and IP type is static
-	if [ "$qos_enable" -eq 0 ] || [ "$ip_type" != "static" ]; then
+	if [ "$qos_enable" -eq 0 ] || [ "$qos_type" != "static" ]; then
         return 1
 	fi
 

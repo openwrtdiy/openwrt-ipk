@@ -5,11 +5,11 @@
 qosdef_validate_dynamic() {
 	uci_load_validate qos-nft default "$1" "$2" \
 		'qos_enable:bool:0' \
-		'ip_type:maxlength(8)'
+		'qos_type:maxlength(8)'
 }
 
 qosdef_append_rule_dym() {
-    local qos cidr4 rate unit
+    local qos cidr4 rate unit whitelist
     local operator=$2
 
     config_get qos $1 qos
@@ -21,9 +21,11 @@ qosdef_append_rule_dym() {
     if [ "$operator" = "saddr" ]; then
         config_get rate $1 urate $3
         config_get unit $1 unit $4
+        config_get whitelist $1 whitelist $5
     else
         config_get rate $1 drate $3
         config_get unit $1 unit $4
+        config_get whitelist $1 whitelist $5
     fi
 
     [ -z "$cidr4" ] && return
@@ -34,7 +36,7 @@ qosdef_append_rule_dym() {
     fi
     
    # Append rule for IP addresses to `table inet qos-dynamic`
-    qosdef_append_rule_dym_limit $cidr4 $operator $unit $rate
+    qosdef_append_rule_dym_limit $cidr4 $operator $unit $rate $whitelist
 }
 
 qosdef_append_chain_dym_subnet() {
@@ -52,7 +54,7 @@ qosdef_append_chain_dym_subnet() {
 	qosdef_append_rule_whitelist $name
 	config_foreach qosdef_append_rule_dym $config $operator $4 $7
 	qosdef_appendx "\t}\n"
-	qosdef_appendx "}\n"
+	qosdef_appendx "}\n"	
 }
 
 qosdef_flush_dynamic() {
@@ -63,7 +65,7 @@ qosdef_init_dynamic() {
 	local hook_ul="prerouting" hook_dl="postrouting"
 
 	# Only proceed if IP QoS is enabled and IP type is dynamic
-	if [ "$qos_enable" -eq 0 ] || [ "$ip_type" != "dynamic" ]; then
+	if [ "$qos_enable" -eq 0 ] || [ "$qos_type" != "dynamic" ]; then
         return 1
 	fi
 

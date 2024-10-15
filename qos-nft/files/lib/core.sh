@@ -70,21 +70,21 @@ qosdef_append_rule_ip_policy() { # <operator> <ipaddr> <policy>
 }
 
 _handle_whitelist() { # <value> <chain>
-	local ipaddr=$1
+	local whitelist=$1
 	local operator
 
-	[ -z "$ipaddr" ] && return
+	[ -z "$whitelist" ] && return
 
 	case "$2" in
 		upload) operator="saddr";;
 		download) operator="daddr";;
 	esac
 
-	qosdef_append_rule_ip_policy $operator $ipaddr accept
+	qosdef_append_rule_ip_policy $operator $whitelist accept
 }
 
 qosdef_append_rule_whitelist() { # <chain>
-	config_list_foreach default whitelist _handle_whitelist $1
+	config_list_foreach subnet whitelist _handle_whitelist $1
 }
 
 qosdef_flush_table() { # <family> <table>
