@@ -61,7 +61,7 @@ o:value("dynamic", "Dynamic")
 if ipqos_enable == "1" and ip_type == "static" then
 	y = m:section(
 		TypedSection,
-		"user",
+		"host",
 		translate("Static speed limit"),
 		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)

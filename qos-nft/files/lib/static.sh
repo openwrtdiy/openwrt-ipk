@@ -137,9 +137,9 @@ qosdef_init_static() {
 	[ $ipqos_enable -eq 0 -o \
 		$ip_type = "dynamic" ] && return 1
 
-	qosdef_append_chain_sta_ip $hook_ul upload user
-	qosdef_append_chain_sta_ip $hook_dl download user
+	qosdef_append_chain_sta_ip $hook_ul upload host
+	qosdef_append_chain_sta_ip $hook_dl download host
     # Initialize MAC address limits
-	qosdef_append_chain_sta_mac $hook_ul upload user
-	qosdef_append_chain_sta_mac $hook_dl download user
+	qosdef_append_chain_sta_mac $hook_ul upload host
+	qosdef_append_chain_sta_mac $hook_dl download host
 }
