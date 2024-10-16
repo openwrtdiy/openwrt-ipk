@@ -29,18 +29,20 @@ _qosdef_handle_protox() { # <priority> <rule>
 }
 
 qosdef_handle_protox() { # <section>
-	local proto prio srv
+	local qos proto prio srv
 
+	config_get qos $1 'qos'
 	config_get proto $1 'protocol'
 	config_get prio $1 'priority'
 	config_get srv $1 'service'
 
-	[ -z "$proto" -o \
-		-z "$prio" -o \
-		-z "$srv" ] && return
+	[ -z "$proto" -o -z "$prio" -o -z "$srv" ] && return
 
-	_qosdef_handle_protox $prio \
-	    "\t\t$proto dport { $srv } accept\n"
+	if [ "$qos" -eq 0 ]; then
+		echo "Closing traffic rules for service: $srv"
+	else
+		_qosdef_handle_protox $prio "\t\t$proto dport { $srv } accept\n"
+	fi
 }
 
 qosdef_append_rule_protox() { # <section>

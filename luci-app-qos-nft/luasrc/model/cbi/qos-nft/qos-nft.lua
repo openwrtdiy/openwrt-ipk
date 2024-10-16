@@ -275,8 +275,7 @@ o = s:taboption(
 	"priority",
 	ListValue,
 	"priority_netdev",
-	translate("Default Network Interface"),
-	translate("Network Interface for Traffic Shaping, e.g. br-lan, eth0.1, eth0, etc.")
+	translate("Default Network Interface")
 )
 o:depends("priority_enable", "1")
 wa.cbi_add_networks(o)
@@ -289,7 +288,10 @@ if enable_priority == "1" then
 	s.anonymous = true
 	s.addremove = true
 	s.template = "cbi/tblsection"
-
+	
+	o = s:option(Flag, "qos", translate("QOS"))
+	o.rmempty = false
+	
 	o = s:option(ListValue, "protocol", translate("Protocol"))
 	o.default = "tcp"
 	o:value("tcp", "TCP")
@@ -313,7 +315,28 @@ if enable_priority == "1" then
 	o:value("300", "11")
 
 	o = s:option(Value, "service", translate("Service"))
-	o.placeholder = translate("e.g. https, 23, (separator is comma)")
+	o:value("21", "21 FTP")
+	o:value("22", "22 SSH")
+	o:value("23", "23 TELNET")
+	o:value("25", "25 SMTP")
+	o:value("53", "53 DNS")
+	o:value("69", "69 TFTP")	
+	o:value("80", "80 HTTP")
+	o:value("119", "119 NNTP")	
+	o:value("110", "110 POP3")
+	o:value("135", "135 RPC")
+	o:value("139", "139 NetBIOS")
+	o:value("143", "143 IMAP")
+	o:value("161", "161 SNMP")
+	o:value("389", "389 LDAP")
+	o:value("443", "443 HTTPS")
+	o:value("445", "445 SMB")
+	o:value("1521", "1521 Oracle SQL")
+	o:value("3306", "3306 MySQL")
+	o:value("3389", "3389 RDP")
+	o:value("5432", "5432 PostgreSQL")
+	o:value("5900", "5900 VNC")
+	o:value("6379", "6379 Redis")
 
 	o = s:option(Value, "comment", translate("Comment"))
 end
