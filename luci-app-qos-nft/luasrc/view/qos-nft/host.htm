@@ -98,7 +98,7 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
     }
 
     cbi_update_table(tbl, rs, '<em><%:No information available%></em>');
-    document.getElementById("host_count").innerHTML = "Associations: " + sortedData.length;
+    document.getElementById("host_count").innerHTML = "Online Number: " + sortedData.length;
 }
 
 /* Sorting functionality */
@@ -183,9 +183,9 @@ window.setTimeout(
 
 <h2 name="content"><%:Online host%></h2>
 
-<div class="cbi-map-descr"><%:Real time speed statistics of current online hosts%></div>
+<div class="cbi-map-descr"><%:Real time traffic statistics of online hosts%></div>
 
-<div id="host_count">Associations: 0</div>
+<div id="host_count">Online Number: 0</div>
 
 <fieldset class="cbi-section" id="cbi-table-table">
     <div class="cbi-section-node">

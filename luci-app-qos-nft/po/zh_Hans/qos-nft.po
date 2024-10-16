@@ -13,182 +13,122 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.17-dev\n"
 
-msgid "Bytes Total"
-msgstr "字节总数"
+msgid "QoS Nftables"
+msgstr "QoS网络"
 
-msgid "Collecting data..."
-msgstr "正在收集数据…"
+msgid "Qos Nft Settings"
+msgstr "Qos Nft设置"
 
-msgid "Comment"
-msgstr "注释"
+msgid "Limit speed based on address"
+msgstr "基于地址的限速"
 
-msgid "Default Download Rate"
-msgstr "默认下载速率"
-
-msgid "Default Download Unit"
-msgstr "默认下载速率单位"
-
-msgid "Default Network Interface"
-msgstr "默认网络接口"
-
-msgid "Default Upload Rate"
-msgstr "默认上传速率"
-
-msgid "Default Upload Unit"
-msgstr "默认上传速率单位"
-
-msgid "Default unit for download rate"
-msgstr "默认的下载速率单位"
-
-msgid "Default unit for upload rate"
-msgstr "默认的上传速率单位"
-
-msgid "Default value for download bandwidth"
-msgstr "下载带宽的默认值"
-
-msgid "Default value for download rate"
-msgstr "下载速率的默认值"
-
-msgid "Default value for upload bandwidth"
-msgstr "上传带宽的默认值"
-
-msgid "Default value for upload rate"
-msgstr "上传速率的默认值"
-
-msgid "Download Bandwidth (Mbps)"
-msgstr "下载带宽（Mbps）"
-
-msgid "Download Rate"
-msgstr "下载速率"
+msgid "Speed limit switch"
+msgstr "限速开关"
 
 msgid "Enable Limit Rate Feature"
-msgstr "开启速率限制功能"
-
-msgid "Enable Traffic Priority"
-msgstr "开启流量优先级"
-
-msgid "Enable this feature"
-msgstr "开启这个功能"
-
-msgid "Grant UCI access for luci-app-qos-nft"
-msgstr "授予UCI访问luci-app-qos-nft的权限"
-
-msgid "Hostname"
-msgstr "主机名"
-
-msgid "IP Address"
-msgstr "IP 地址"
-
-msgid "IP Address (v4 / v6)"
-msgstr "IP 地址（v4 / v6）"
-
-msgid "IP Address (v4 Only)"
-msgstr "IP 地址（仅 v4）"
-
-msgid "Limit Enable"
-msgstr "限速开启"
-
-msgid "Limit Rate by IP Address"
-msgstr "根据 IP 地址限制速率"
-
-msgid "Limit Rate by Mac Address"
-msgstr "根据 Mac 地址限制速率"
-
-msgid "Limit Traffic Rate By Mac Address"
-msgstr "按 Mac 地址限制通信量速率"
+msgstr "启用限制速率功能"
 
 msgid "Limit Type"
 msgstr "限速类型"
 
-msgid "MAC (optional)"
-msgstr "物理地址（可选）"
+msgid "Static"
+msgstr "静态"
+
+msgid "Dynamic"
+msgstr "动态"
+
+msgid "Static speed limit"
+msgstr "静态速度限制"
+
+msgid "Dynamic speed limit"
+msgstr "动态速度限制"
+
+msgid "Hostname"
+msgstr "主机名"
+
+msgid "Groupname"
+msgstr "小组名"
+
+msgid "IP Address"
+msgstr "IP 地址"
 
 msgid "MAC Address"
 msgstr "MAC 地址"
 
-msgid "MB"
-msgstr "MB"
+msgid "Upload Rate"
+msgstr "上传速率"
 
-msgid "qos-nft Settings"
-msgstr "qos-nft 设置"
+msgid "Download Rate"
+msgstr "下载速率"
 
-msgid "Network Interface for Traffic Shaping, e.g. br-lan, eth0.1, eth0, etc."
-msgstr "流量整形的目标网络接口，例如：br-lan、eth0.1、eth0 等。"
+msgid "Rate Unit"
+msgstr "速率单位"
 
-msgid "Network to be applied, e.g. 192.168.1.0/24, 10.2.0.0/16, etc."
-msgstr "要应用规则的网络，例如：192.168.1.0/24、10.2.0.0/16 等。"
+msgid "Burst size"
+msgstr "突发大小"
 
-msgid "Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."
-msgstr "要应用规则的网络，例如：AAAA::BBBB/64、CCCC::1/128 等。"
+msgid "Connections"
+msgstr "连接"
 
-msgid "No information available"
-msgstr "无可用信息"
+msgid "Comment"
+msgstr "注释"
 
-msgid "Packets Total"
-msgstr "数据包总数"
-
-msgid "Priority"
-msgstr "优先级"
-
-msgid "Protocol"
-msgstr "协议"
-
-msgid "QoS over Nftables"
-msgstr "QoS Nftables"
-
-msgid "Rate"
-msgstr "速率"
-
-msgid "Realtime Download Rate"
-msgstr "实时下载速率"
-
-msgid "Realtime Rate"
-msgstr "实时速率"
-
-msgid "Realtime Upload Rate"
-msgstr "实时上传速率"
-
-msgid "Service"
-msgstr "服务"
-
-msgid "Static QoS-Download Rate"
-msgstr "静态 QoS-下载速率"
-
-msgid "Static QoS-Upload Rate"
-msgstr "静态 QoS-上传速率"
-
-msgid "Target Network (IPv4/MASK)"
-msgstr "目标网络（IPv4 地址/掩码）"
-
-msgid "Target Network6 (IPv6/MASK)"
-msgstr "目标网络 v6（IPv6 地址/掩码）"
-
-msgid "This page gives an overview over currently upload/download rate."
-msgstr "该页面提供了当前上传和下载速率的一个总览。"
+msgid "White List"
+msgstr "白名单"
 
 msgid "Traffic Priority"
 msgstr "流量优先级"
 
+msgid "Traffic priority switch"
+msgstr "流量优先级开关"
+
+msgid "Enable Traffic Priority"
+msgstr "启用流量优先级"
+
+msgid "Network Interface"
+msgstr "网络接口"
+
 msgid "Traffic Priority Settings"
 msgstr "流量优先级设置"
 
-msgid "Type of Limit Rate"
-msgstr "限速的类型"
+msgid "Protocol"
+msgstr "协议"
 
-msgid "Unit"
-msgstr "单元"
+msgid "Priority"
+msgstr "优先级"
 
-msgid "Upload Bandwidth (Mbps)"
-msgstr "上传带宽（Mbps）"
+msgid "Service"
+msgstr "服务"
 
-msgid "Upload Rate"
-msgstr "上传速率"
+msgid "Port numbers can be separated by commas"
+msgstr "端口号可以用逗号分隔"
 
-msgid "White List for Limit Rate"
-msgstr "限速白名单"
+msgid "No information available"
+msgstr "无可用信息"
 
-msgid "e.g. https, 23, (separator is comma)"
-msgstr "例如https, 23（用逗号分隔）"
+msgid "Online host"
+msgstr "在线主机"
+
+msgid "Real time traffic statistics of online hosts"
+msgstr "在线主机实时流量统计"
+
+msgid "Online Number:"
+msgstr "在线数"
+
+msgid "Realtime Rate"
+msgstr "实时速率"
+
+msgid "Bytes Total"
+msgstr "字节总数"
+
+msgid "Packets Total"
+msgstr "数据包总数"
 
 msgid "kB"
 msgstr "kB"
+
+msgid "MB"
+msgstr "MB"
+
+msgid "Online Duration"
+msgstr "在线时长"

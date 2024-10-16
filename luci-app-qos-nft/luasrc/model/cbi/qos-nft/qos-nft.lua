@@ -45,7 +45,7 @@ s:tab("speedlimit", translate("Limit Rate by IP Address"))
 --
 -- Static
 --
-o = s:taboption("speedlimit", Flag, "qos_enable", translate("Speed limit"), translate("Enable Limit Rate Feature"))
+o = s:taboption("speedlimit", Flag, "qos_enable", translate("Speed limit switch"), translate("Enable Limit Rate Feature"))
 o.default = qos_enable or o.enabled
 o.rmempty = false
 
@@ -265,7 +265,7 @@ o = s:taboption(
 	"priority",
 	Flag,
 	"priority_enable",
-	translate("Traffic Priority"),
+	translate("Traffic priority switch"),
 	translate("Enable Traffic Priority")
 )
 o.default = enable_priority or o.enabled
@@ -275,7 +275,7 @@ o = s:taboption(
 	"priority",
 	ListValue,
 	"priority_netdev",
-	translate("Default Network Interface")
+	translate("Network Interface")
 )
 o:depends("priority_enable", "1")
 wa.cbi_add_networks(o)
@@ -314,7 +314,7 @@ if enable_priority == "1" then
 	o:value("225", "10")
 	o:value("300", "11")
 
-	o = s:option(Value, "service", translate("Service"))
+	o = s:option(Value, "service", translate("Service"), translate("Port numbers can be separated by commas"))
 	o:value("21", "21 FTP")
 	o:value("22", "22 SSH")
 	o:value("23", "23 TELNET")

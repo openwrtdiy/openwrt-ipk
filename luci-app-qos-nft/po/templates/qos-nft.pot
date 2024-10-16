@@ -1,182 +1,122 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-msgid "Bytes Total"
+msgid "QoS Nftables"
 msgstr ""
 
-msgid "Collecting data..."
+msgid "Qos Nft Settings"
 msgstr ""
 
-msgid "Comment"
+msgid "Limit speed based on address"
 msgstr ""
 
-msgid "Default Download Rate"
-msgstr ""
-
-msgid "Default Download Unit"
-msgstr ""
-
-msgid "Default Network Interface"
-msgstr ""
-
-msgid "Default Upload Rate"
-msgstr ""
-
-msgid "Default Upload Unit"
-msgstr ""
-
-msgid "Default unit for download rate"
-msgstr ""
-
-msgid "Default unit for upload rate"
-msgstr ""
-
-msgid "Default value for download bandwidth"
-msgstr ""
-
-msgid "Default value for download rate"
-msgstr ""
-
-msgid "Default value for upload bandwidth"
-msgstr ""
-
-msgid "Default value for upload rate"
-msgstr ""
-
-msgid "Download Bandwidth (Mbps)"
-msgstr ""
-
-msgid "Download Rate"
+msgid "Speed limit switch"
 msgstr ""
 
 msgid "Enable Limit Rate Feature"
 msgstr ""
 
-msgid "Enable Traffic Priority"
+msgid "Limit Type"
 msgstr ""
 
-msgid "Enable this feature"
+msgid "Static"
 msgstr ""
 
-msgid "Grant UCI access for luci-app-qos-nft"
+msgid "Dynamic"
+msgstr ""
+
+msgid "Static speed limit"
+msgstr ""
+
+msgid "Dynamic speed limit"
 msgstr ""
 
 msgid "Hostname"
 msgstr ""
 
+msgid "Groupname"
+msgstr ""
+
 msgid "IP Address"
-msgstr ""
-
-msgid "IP Address (v4 / v6)"
-msgstr ""
-
-msgid "IP Address (v4 Only)"
-msgstr ""
-
-msgid "Limit Enable"
-msgstr ""
-
-msgid "Limit Rate by IP Address"
-msgstr ""
-
-msgid "Limit Rate by Mac Address"
-msgstr ""
-
-msgid "Limit Traffic Rate By Mac Address"
-msgstr ""
-
-msgid "Limit Type"
-msgstr ""
-
-msgid "MAC (optional)"
 msgstr ""
 
 msgid "MAC Address"
 msgstr ""
 
-msgid "MB"
+msgid "Upload Rate"
 msgstr ""
 
-msgid "qos-nft Settings"
+msgid "Download Rate"
 msgstr ""
 
-msgid "Network Interface for Traffic Shaping, e.g. br-lan, eth0.1, eth0, etc."
+msgid "Rate Unit"
 msgstr ""
 
-msgid "Network to be applied, e.g. 192.168.1.0/24, 10.2.0.0/16, etc."
+msgid "Burst size"
 msgstr ""
 
-msgid "Network to be applied, e.g. AAAA::BBBB/64, CCCC::1/128, etc."
+msgid "Connections"
 msgstr ""
 
-msgid "No information available"
+msgid "Comment"
 msgstr ""
 
-msgid "Packets Total"
-msgstr ""
-
-msgid "Priority"
-msgstr ""
-
-msgid "Protocol"
-msgstr ""
-
-msgid "QoS over Nftables"
-msgstr ""
-
-msgid "Rate"
-msgstr ""
-
-msgid "Realtime Download Rate"
-msgstr ""
-
-msgid "Realtime Rate"
-msgstr ""
-
-msgid "Realtime Upload Rate"
-msgstr ""
-
-msgid "Service"
-msgstr ""
-
-msgid "Static QoS-Download Rate"
-msgstr ""
-
-msgid "Static QoS-Upload Rate"
-msgstr ""
-
-msgid "Target Network (IPv4/MASK)"
-msgstr ""
-
-msgid "Target Network6 (IPv6/MASK)"
-msgstr ""
-
-msgid "This page gives an overview over currently upload/download rate."
+msgid "White List"
 msgstr ""
 
 msgid "Traffic Priority"
 msgstr ""
 
+msgid "Traffic priority switch"
+msgstr ""
+
+msgid "Enable Traffic Priority"
+msgstr ""
+
+msgid "Network Interface"
+msgstr ""
+
 msgid "Traffic Priority Settings"
 msgstr ""
 
-msgid "Type of Limit Rate"
+msgid "Protocol"
 msgstr ""
 
-msgid "Unit"
+msgid "Priority"
 msgstr ""
 
-msgid "Upload Bandwidth (Mbps)"
+msgid "Service"
 msgstr ""
 
-msgid "Upload Rate"
+msgid "Port numbers can be separated by commas"
 msgstr ""
 
-msgid "White List for Limit Rate"
+msgid "No information available"
 msgstr ""
 
-msgid "e.g. https, 23, (separator is comma)"
+msgid "Online host"
+msgstr ""
+
+msgid "Real time traffic statistics of online hosts"
+msgstr ""
+
+msgid "Online Number:"
+msgstr ""
+
+msgid "Realtime Rate"
+msgstr ""
+
+msgid "Bytes Total"
+msgstr ""
+
+msgid "Packets Total"
+msgstr ""
+
+msgid "Online Duration"
 msgstr ""
 
 msgid "kB"
+msgstr ""
+
+msgid "MB"
 msgstr ""
