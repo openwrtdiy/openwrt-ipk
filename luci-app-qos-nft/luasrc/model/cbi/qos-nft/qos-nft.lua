@@ -201,8 +201,8 @@ if qos_enable == "1" and qos_type == "dynamic" then
 	o = y:option(Flag, "qos", translate("Enable"))
 	o.rmempty = false
 	
-	o = y:option(Value, "group", translate("Groupname"))
-	o.placeholder = translate("Groupname")
+	o = y:option(Value, "grouping", translate("Grouping"))
+	o.placeholder = translate("Grouping")
 	o.size = 6
 	
 	o = y:option(Value, "cidr4", translate("Subnet Mask(IPv4)"))

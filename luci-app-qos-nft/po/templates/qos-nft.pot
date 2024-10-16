@@ -40,7 +40,7 @@ msgstr ""
 msgid "Hostname"
 msgstr ""
 
-msgid "Groupname"
+msgid "Grouping"
 msgstr ""
 
 msgid "IP Address"

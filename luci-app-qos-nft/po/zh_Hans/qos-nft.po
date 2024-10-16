@@ -52,8 +52,8 @@ msgstr "启用"
 msgid "Hostname"
 msgstr "主机名"
 
-msgid "Groupname"
-msgstr "小组名"
+msgid "Grouping"
+msgstr "分组"
 
 msgid "IP Address"
 msgstr "IP 地址"
