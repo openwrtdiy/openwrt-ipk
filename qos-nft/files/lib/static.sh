@@ -3,9 +3,9 @@
 . /lib/qos-nft/core.sh
 
 qosdef_validate_static() {
-	uci_load_validate qos-nft default "$1" "$2" \
-		'qos_enable:bool:0' \
-		'qos_type:maxlength(8)'
+    uci_load_validate qos-nft default "$1" "$2" \
+        'qos_enable:bool:0' \
+        'qos_type:maxlength(8)' 
 }
 
 qosdef_append_rule_sta() {

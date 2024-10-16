@@ -3,10 +3,10 @@
 # for uci_validate_section()
 . /lib/functions/procd.sh
 
-NFT_QOS_HAS_BRIDGE=
-NFT_QOS_INET_FAMILY=ip
-NFT_QOS_SCRIPT_TEXT=
-NFT_QOS_SCRIPT_FILE=/tmp/qos.nft
+NFT_QOS_HAS_BRIDGE=""
+NFT_QOS_INET_FAMILY=""
+NFT_QOS_SCRIPT_TEXT=""
+NFT_QOS_SCRIPT_FILE="/tmp/qos.nft"
 
 qosdef_appendx() { # <string to be appended>
 	NFT_QOS_SCRIPT_TEXT="$NFT_QOS_SCRIPT_TEXT""$1"
@@ -82,22 +82,25 @@ qosdef_init_header() { # add header for nft script
 }
 
 qosdef_init_env() {
-	# check interface type of lan
-	local lt="$(uci_get "network.lan.device")"
-	[ "$lt" = "br-lan" ] && export NFT_QOS_HAS_BRIDGE="y"
+    local lt="$(uci_get "network.lan.device")"
+    [ "$lt" = "br-lan" ] && export NFT_QOS_HAS_BRIDGE="y"
 
-	# check if ipv6 support
-	[ -e /proc/sys/net/ipv6 ] && export NFT_QOS_INET_FAMILY="inet"
+    if [ "$(sysctl net.ipv6.conf.all.disable_ipv6)" != "1" ]; then
+        export NFT_QOS_INET_FAMILY="inet"
+    fi
 }
 
 qosdef_clean_cache() {
-	rm -f $NFT_QOS_SCRIPT_FILE
+    [ -f "$NFT_QOS_SCRIPT_FILE" ] && rm -f "$NFT_QOS_SCRIPT_FILE"
 }
 
 qosdef_init_done() {
-	echo -e $NFT_QOS_SCRIPT_TEXT > $NFT_QOS_SCRIPT_FILE 2>/dev/null
+	printf "%b" "$NFT_QOS_SCRIPT_TEXT" > "$NFT_QOS_SCRIPT_FILE" 2>/dev/null
 }
 
 qosdef_start() {
-	nft -f $NFT_QOS_SCRIPT_FILE 2>/dev/null
+    nft -f $NFT_QOS_SCRIPT_FILE 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo "Failed to start QoS with nft."
+    fi
 }

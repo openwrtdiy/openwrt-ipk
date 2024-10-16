@@ -58,7 +58,7 @@ function bytes_label(bytes) {
         kby = (kby / 1024);
     }
 
-    return String.format("%f %s", kby.toFixed(2), uby);
+    return `${kby.toFixed(2)} ${uby}`;
 }
 
 function print_combined_table(tbl, rs, ra_download, ra_upload) {
@@ -195,6 +195,7 @@ window.setTimeout(
                 <div class="th col-2" onclick="sortTable(1)"><%:Realtime Rate%></div>
                 <div class="th col-3" onclick="sortTable(2)"><%:Bytes Total%></div>
                 <div class="th col-4" onclick="sortTable(3)"><%:Packets Total%></div>
+                <div class="th col-5" onclick="sortTable(4)"><%:Online Duration%></div>
             </div>
         </div>
     </div>
