@@ -19,8 +19,8 @@ msgstr "QoS网络"
 msgid "Qos Nft Settings"
 msgstr "Qos Nft设置"
 
-msgid "Limit speed based on address"
-msgstr "基于地址的限速"
+msgid "IP and MAC address speed limit"
+msgstr "IP和MAC地址速度限制"
 
 msgid "Speed limit switch"
 msgstr "限速开关"

@@ -41,7 +41,7 @@ s = m:section(TypedSection, "default", translate("Qos Nft Settings"))
 s.addremove = false
 s.anonymous = true
 
-s:tab("speedlimit", translate("Limit speed based on address"))
+s:tab("speedlimit", translate("IP and MAC address speed limit"))
 --
 -- Static
 --
@@ -91,6 +91,7 @@ if qos_enable == "1" and qos_type == "static" then
 	end
 
 	o = y:option(Value, "ipaddr", translate("IP Address"))
+	o.placeholder = translate("IP Address")
 	o.datatype = "ipaddr"
 	o.optional = false
 	o.rmempty = true
@@ -110,8 +111,8 @@ if qos_enable == "1" and qos_type == "static" then
 
 	o = y:option(Value, "macaddr", translate("MAC Address"))
 	o.placeholder = translate("MAC Address")
-	o.rmempty = true
 	o.datatype = "macaddr"
+	o.rmempty = true
 	o.size = 6
 	if #dhcp_leases_v4 > 0 then
 		for _, lease in ipairs(dhcp_leases_v4) do
@@ -253,6 +254,7 @@ if qos_enable == "1" and qos_type == "dynamic" then
 	end
 	
 	o = y:option(DynamicList, "whitelist", translate("White List"))
+	o.placeholder = translate("IP Address")
 	o.datatype = "ipaddr"
 	o.readonly = true
 	o.size = 6

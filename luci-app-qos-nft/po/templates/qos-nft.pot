@@ -7,7 +7,7 @@ msgstr ""
 msgid "Qos Nft Settings"
 msgstr ""
 
-msgid "Limit speed based on address"
+msgid "IP and MAC address speed limit"
 msgstr ""
 
 msgid "Speed limit switch"
