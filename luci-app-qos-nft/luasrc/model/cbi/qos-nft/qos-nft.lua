@@ -41,7 +41,7 @@ s = m:section(TypedSection, "default", translate("Qos Nft Settings"))
 s.addremove = false
 s.anonymous = true
 
-s:tab("speedlimit", translate("Limit Rate by IP Address"))
+s:tab("speedlimit", translate("Limit speed based on address"))
 --
 -- Static
 --
@@ -70,7 +70,7 @@ if qos_enable == "1" and qos_type == "static" then
 	y.sortable = true
 	y.template = "cbi/tblsection"
 
-	o = y:option(Flag, "qos", translate("QOS"))
+	o = y:option(Flag, "qos", translate("Enable"))
 	o.rmempty = false
 
 	o = y:option(Value, "hostname", translate("Hostname"))
@@ -158,7 +158,7 @@ if qos_enable == "1" and qos_type == "static" then
 		Value.write(self, section, value)
 	end
 
-	o = y:option(Value, "burst", translate("Burst"))
+	o = y:option(Value, "burst", translate("Burst size"))
 	o.placeholder = translate("Burst size")
 	o.datatype = "range(10,1000)"
 	o.size = 6
@@ -179,6 +179,7 @@ if qos_enable == "1" and qos_type == "static" then
 	o:value("10240")
 
 	o = y:option(Value, "comment", translate("Comment"))
+	o.placeholder = translate("Comment")
 	o.size = 6
 end
 --
@@ -196,21 +197,21 @@ if qos_enable == "1" and qos_type == "dynamic" then
 	y.sortable = false
 	y.template = "cbi/tblsection"
 
-	o = y:option(Flag, "qos", translate("QOS"))
+	o = y:option(Flag, "qos", translate("Enable"))
 	o.rmempty = false
 	
-	o = y:option(Value, "group", translate("Group Name"))
-	o.placeholder = translate("Group Name")
+	o = y:option(Value, "group", translate("Groupname"))
+	o.placeholder = translate("Groupname")
 	o.size = 6
 	
-	o = y:option(Value, "cidr4", translate("IPv4/MASK"))
+	o = y:option(Value, "cidr4", translate("Subnet Mask(IPv4)"))
 	o.placeholder = translate("Target Network (IPv4/MASK)")
 	o.datatype = "cidr4"
 	o.optional = false
 	o.rmempty = true
 	o.size = 6
 	
-	o = y:option(Value, "cidr6", translate("IPv6/MASK"))
+	o = y:option(Value, "cidr6", translate("Subnet Mask(IPv6)"))
 	o.placeholder = translate("Target Network (IPv6/MASK)")
 	o.datatype = "cidr6"
 	o.optional = false
@@ -265,7 +266,7 @@ o = s:taboption(
 	"priority",
 	Flag,
 	"priority_enable",
-	translate("Traffic priority switch"),
+	translate("Priority switch"),
 	translate("Enable Traffic Priority")
 )
 o.default = enable_priority or o.enabled
@@ -289,7 +290,7 @@ if enable_priority == "1" then
 	s.addremove = true
 	s.template = "cbi/tblsection"
 	
-	o = s:option(Flag, "qos", translate("QOS"))
+	o = s:option(Flag, "qos", translate("Enable"))
 	o.rmempty = false
 	
 	o = s:option(ListValue, "protocol", translate("Protocol"))
@@ -339,6 +340,8 @@ if enable_priority == "1" then
 	o:value("6379", "6379 Redis")
 
 	o = s:option(Value, "comment", translate("Comment"))
+	o.placeholder = translate("Comment")
+	o.size = 6
 end
 
 return m

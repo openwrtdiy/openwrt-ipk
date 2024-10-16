@@ -43,6 +43,12 @@ msgstr "静态速度限制"
 msgid "Dynamic speed limit"
 msgstr "动态速度限制"
 
+msgid "Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
+msgstr "数据传输速率：1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
+
+msgid "Enable"
+msgstr "启用"
+
 msgid "Hostname"
 msgstr "主机名"
 
@@ -54,6 +60,12 @@ msgstr "IP 地址"
 
 msgid "MAC Address"
 msgstr "MAC 地址"
+
+msgid "Subnet Mask(IPv4)"
+msgstr "子网掩码(IPv4)"
+
+msgid "Subnet Mask(IPv6)"
+msgstr "子网掩码(IPv6)"
 
 msgid "Upload Rate"
 msgstr "上传速率"
@@ -79,8 +91,8 @@ msgstr "白名单"
 msgid "Traffic Priority"
 msgstr "流量优先级"
 
-msgid "Traffic priority switch"
-msgstr "流量优先级开关"
+msgid "Priority switch"
+msgstr "优先级开关"
 
 msgid "Enable Traffic Priority"
 msgstr "启用流量优先级"

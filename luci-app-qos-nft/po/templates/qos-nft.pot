@@ -31,6 +31,12 @@ msgstr ""
 msgid "Dynamic speed limit"
 msgstr ""
 
+msgid "Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
 msgid "Hostname"
 msgstr ""
 
@@ -41,6 +47,12 @@ msgid "IP Address"
 msgstr ""
 
 msgid "MAC Address"
+msgstr ""
+
+msgid "Subnet Mask(IPv4)"
+msgstr ""
+
+msgid "Subnet Mask(IPv6)"
 msgstr ""
 
 msgid "Upload Rate"
@@ -67,7 +79,7 @@ msgstr ""
 msgid "Traffic Priority"
 msgstr ""
 
-msgid "Traffic priority switch"
+msgid "Priority switch"
 msgstr ""
 
 msgid "Enable Traffic Priority"
