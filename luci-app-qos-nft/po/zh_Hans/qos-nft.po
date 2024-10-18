@@ -43,8 +43,8 @@ msgstr "静态速度限制"
 msgid "Dynamic speed limit"
 msgstr "动态速度限制"
 
-msgid "Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
-msgstr "数据传输速率：1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
+msgid "Data Transfer Rate: 1 Mbit/s = 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
+msgstr "数据传输速率：1 Mbit/s = 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
 
 msgid "Enable"
 msgstr "启用"

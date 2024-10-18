@@ -31,7 +31,7 @@ msgstr ""
 msgid "Dynamic speed limit"
 msgstr ""
 
-msgid "Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
+msgid "Data Transfer Rate: 1 Mbit/s = 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s"
 msgstr ""
 
 msgid "Enable"
