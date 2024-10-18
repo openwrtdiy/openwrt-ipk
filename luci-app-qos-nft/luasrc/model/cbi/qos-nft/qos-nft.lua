@@ -63,7 +63,7 @@ if qos_enable == "1" and qos_type == "static" then
 		TypedSection,
 		"host",
 		translate("Static speed limit"),
-		translate("Data Transfer Rate: 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
+		translate("Data Transfer Rate: 1 Mbit/s = 1 Mbps/s = 0.125 MBytes/s = 125 KBytes/s = 125000 Bytes/s")
 	)
 	y.anonymous = true
 	y.addremove = true
