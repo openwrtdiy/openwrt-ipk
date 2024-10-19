@@ -6,6 +6,10 @@ qosdef_monitor_get_ip_handle() { # <family> <chain> <ip>
     echo $(nft -a list chain $1 qos-monitor $2 2>/dev/null | grep $3 | awk '{print $11}')
 }
 
+qosdef_monitor_get_conn_count() { # <ip>
+    echo $(nft list ruleset | grep -A 5 $1 | grep "ct count" | awk '{print $9}')
+}
+
 qosdef_monitor_add() { # <mac> <ip> <hostname>
     for direction in upload download; do
         local key="saddr"

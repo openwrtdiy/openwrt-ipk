@@ -39,6 +39,9 @@ function init_bytes(rl, ra) {
 
     obj.rate = (bytes_pre > 0) ? (obj.bytes - bytes_pre) / 3 : 0;
 
+    // Add connection count retrieval
+    obj.connections = getConnectionCount(obj.ipaddr);
+
     if (!RC[obj.chain]) RC[obj.chain] = {};
     RC[obj.chain][obj.ipaddr] = {
         bytes: obj.bytes,
@@ -47,6 +50,13 @@ function init_bytes(rl, ra) {
 
     if (!ra[obj.chain]) ra[obj.chain] = [];
     ra[obj.chain].push(obj);
+}
+
+// Function to get connection count for an IP address (simulated here, needs backend support)
+function getConnectionCount(ipaddr) {
+    // In real case, make an XHR or similar request to fetch connection count from backend
+    // This is a placeholder
+    return Math.floor(Math.random() * 100); // Simulating connection count
 }
 
 function bytes_label(bytes) {
@@ -68,7 +78,8 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
         combinedData[entry.ipaddr] = {
             downloadRate: entry.rate,
             downloadPackets: entry.packets,
-            downloadBytes: entry.bytes
+            downloadBytes: entry.bytes,
+            connections: entry.connections
         };
     }
 
@@ -81,7 +92,8 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
             combinedData[entry.ipaddr] = {
                 uploadRate: entry.rate,
                 uploadPackets: entry.packets,
-                uploadBytes: entry.bytes
+                uploadBytes: entry.bytes,
+                connections: entry.connections
             };
         }
     }
@@ -93,7 +105,8 @@ function print_combined_table(tbl, rs, ra_download, ra_upload) {
             ip,
             '\u2191 ' + bytes_label(data.uploadRate) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadRate),
             '\u2191 ' + bytes_label(data.uploadBytes) + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + bytes_label(data.downloadBytes),
-            '\u2191 ' + data.uploadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadPackets + ' Pkts'
+            '\u2191 ' + data.uploadPackets + ' Pkts' + '&nbsp;&nbsp;&nbsp;&nbsp;' + '\u2193 ' + data.downloadPackets + ' Pkts',
+            data.connections
         ]);
     }
 
@@ -195,7 +208,8 @@ window.setTimeout(
                 <div class="th col-2" onclick="sortTable(1)"><%:Realtime Rate%></div>
                 <div class="th col-3" onclick="sortTable(2)"><%:Bytes Total%></div>
                 <div class="th col-4" onclick="sortTable(3)"><%:Packets Total%></div>
-                <div class="th col-5" onclick="sortTable(4)"><%:Online Duration%></div>
+                <div class="th col-5" onclick="sortTable(4)"><%:Active Connections%></div>
+                <div class="th col-6" onclick="sortTable(5)"><%:Online Duration%></div>
             </div>
         </div>
     </div>
