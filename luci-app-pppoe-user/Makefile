@@ -6,11 +6,11 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=PPPoE Server User Management
-LUCI_DEPENDS:=+luci-compat
+LUCI_DEPENDS:=+luci-compat +kmod-nft-connlimit
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
-PKG_RELEASE:=3
-PKG_DATE:=2024-10-24
+PKG_RELEASE:=4
+PKG_DATE:=2024-10-25
 
 define Package/luci-app-pppoe-user/preinst
 #!/bin/sh
