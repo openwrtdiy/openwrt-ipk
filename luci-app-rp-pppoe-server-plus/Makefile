@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022 OpenWrt.org
+# Copyright (C) 2024 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,8 +10,8 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Roaring Penguin PPPoE Server Plus
 LUCI_DEPENDS:=+luci-compat +rp-pppoe-server +libpcap
 PKG_VERSION:=1.0
-PKG_RELEASE:=3
-PKG_DATE:=2023-07-23
+PKG_RELEASE:=4
+PKG_DATE:=2024-10-26
 PKG_LICENSE:=GPL-2.0-or-later
 
 define Package/luci-app-rp-pppoe-server-plus/preinst

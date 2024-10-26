@@ -1,5 +1,5 @@
 #!/bin/sh /etc/rc.common
-# Copyright (C) 2006-2022 OpenWrt.org
+# Copyright (C) 2006-2024 OpenWrt.org
 
 START=50
 STOP=50
@@ -17,7 +17,7 @@ pppoe_triggers() {
 
 pppoe_instance() {
     local cfg="$1"
-    local enabled interface device ac_name service_names service_name maxsessionsperpeer localip firstremoteip maxsessions optionsfiles randomsession unit offset timeout mss sync OPTIONS
+    local enabled interface ac_name service_names service_name maxsessionsperpeer localip firstremoteip maxsessions optionsfile randomsession unit offset timeout mss sync OPTIONS
     config_get_bool enabled "$cfg" enabled 1
     [ "$enabled" -gt 0 ] || return 0
     config_get interface "$cfg" interface
@@ -39,13 +39,11 @@ pppoe_instance() {
     if [ "$use_non_uci_config" -gt 0 ]; then
 	. /etc/default/pppoe-server
     else
-	. /lib/functions/network.sh
-	network_get_physdev device $interface || return 1
 	[ -n "$ac_name" ] && append OPTIONS "-C $ac_name"
 	for service_name in $service_names; do
 	    append OPTIONS "-S $service_name"
 	done
-	append OPTIONS "-I $device"
+	append OPTIONS "-I $interface"
 	[ -n "$maxsessionsperpeer" ] && append OPTIONS "-x $maxsessionsperpeer"
 	[ -n "$localip" ] && append OPTIONS "-L $localip"
 	[ -n "$firstremoteip" ] && append OPTIONS "-R $firstremoteip"

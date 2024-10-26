@@ -1,7 +1,6 @@
 local nixio = require "nixio"
 local net = require "luci.model.network".init()
 local sys = require "luci.sys"
-local ifaces = sys.net:devices()
 local m, s, o
 
 m = Map("pppoe-server")
@@ -13,9 +12,12 @@ e = s:option(Flag, "enabled", translate("Enable"), translate("Enable PPPoE Serve
 e.rmempty = false
 e.default = 1
 
-o = s:option(Value, "interface", translate("Interface"), translate("Interface on which to listen."))
-o.template = "cbi/network_netlist"
-o.nocreate = true
+o = s:option(ListValue, "interface", translate("Interface"), translate("Interface on which to listen."))
+local ifaces = sys.net.devices()
+for _, iface in ipairs(ifaces) do
+    o:value(iface)
+end
+o.rmempty = true
 
 o = s:option(Value, "ac_name", translate("AC-Name"), translate("PPPOE Access Concentrator Name"))
 o.rmempty = true
