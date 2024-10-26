@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=Roaring Penguin PPPoE Server Plus
 LUCI_DEPENDS:=+luci-compat +rp-pppoe-server +libpcap
 PKG_VERSION:=1.0
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 PKG_DATE:=2024-10-26
 PKG_LICENSE:=GPL-2.0-or-later
 
