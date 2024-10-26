@@ -1,7 +1,7 @@
 
 config server
 	option enabled '1'
-	option interface 'lan'
+	option interface 'br-lan'
 	option ac_name 'access-concentrator-name'
 	list service_name 'service-name1'
 	list service_name 'service-name2'
