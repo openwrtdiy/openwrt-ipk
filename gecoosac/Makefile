@@ -1,34 +1,34 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gecoosac
-PKG_VERSION:=2.1
-PKG_RELEASE:=1
+PKG_VERSION:=2.2.20250103
+PKG_RELEASE:=2
 
 ifeq ($(ARCH),aarch64)
   PKG_ARCH:=ac_linux_arm64
-  PKG_HASH:=3c70bc50dc328d49fd6e6558f5a18712b3fc402f975560fbc490025408d6b5a5
+  PKG_HASH:=a005c37242788d83b4cab127deaf79370996b762daa3bd5e61f063a7fc90a2b8
 else ifeq ($(ARCH),arm)
   PKG_ARCH:=ac_linux_arm
-  PKG_HASH:=137d0e2a31182beecb28baab7bf4f3d80496d6fb98733b440754d18f93cd3b70
+  PKG_HASH:=ba6bb5bea1d38a27369cb8046e39db993c4d4e36db6db7a8f3782ed7b388e088
 else ifeq ($(ARCH),mips)
   PKG_ARCH:=ac_linux_mips
-  PKG_HASH:=cff5509d11253d30c8f88b3d5103f1e2edb9a46bd9dd36a5ed380bbe071c1023
+  PKG_HASH:=69b66841cac5dbf3b63d1cd4c6687326ea97e4befa9cd6c473bf5ee7e7d2458a
 else ifeq ($(ARCH),mipsel)
-  PKG_ARCH:=ac_linux_mipsel
-  PKG_HASH:=9d0ee8f1a09435c54b7b5de19dfe5f992b8d6f31638056822467b0b43aea6ab7
+  PKG_ARCH:=ac_linux_mipsle
+  PKG_HASH:=a1a14f369ec6e44d24d92b2b28740d97fbe300950c63ea2668a69baf815403da
 else ifeq ($(ARCH),i386)
   PKG_ARCH:=ac_linux_386
-  PKG_HASH:=0edc304f71715e71bc8e3f7f3317ae9ce18df713da6a3f584980461362eb6621
+  PKG_HASH:=2b89ee5c2d4da1a777cbb9e7cf4fcbac60781804387aeec3f1d237b1f66f5935
 else ifeq ($(ARCH),x86_64)
   PKG_ARCH:=ac_linux_amd64
-  PKG_HASH:=3a57501ec231a0099aff0c401b573a6ebeb04ed6ea3b29a25ebc4be130695825
+  PKG_HASH:=0f667d2e92dcb040959102fef75b8884238149807a6f3076a99014955a34f401
 else
   PKG_HASH:=dummy
 endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(ARCH_PACKAGES)
-PKG_SOURCE_URL:=https://github.com/lwb1978/openwrt-gecoosac/releases/download/V$(PKG_VERSION)/$(PKG_ARCH)?
-UNPACK_CMD=$(CP) $(DL_DIR)/$(PKG_SOURCE) $(PKG_BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=https://github.com/lwb1978/gecoosac-core/releases/download/V$(PKG_VERSION)/$(PKG_ARCH)?
+UNPACK_CMD=$(CP) $(DL_DIR)/$(PKG_SOURCE) $(PKG_BUILD_DIR)/$(PKG_NAME)
 
 PKG_LICENSE:=AGPL-3.0-only
 PKG_LICENSE_FILES:=LICENSE
@@ -36,20 +36,20 @@ PKG_MAINTAINER:=lwb1978 <lwb1978@gmail.com>
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/$(PKG_NAME)-$(PKG_VERSION)
+define Package/$(PKG_NAME)
   SECTION:=net
   CATEGORY:=Network
   TITLE:=gecoosac server (version $(PKG_VERSION))
   URL:=http://www.cnrouter.com/
-  DEPENDS:=@(aarch64||arm||i386||mips||mipsel||x86_64) @!(TARGET_x86_geode||TARGET_x86_legacy)
+  DEPENDS:=@(aarch64||arm||i386||mips||mipsel||x86_64)
 endef
 
 define Build/Compile
 endef
 
-define Package/$(PKG_NAME)-$(PKG_VERSION)/install
+define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/$(PKG_NAME) $(1)/usr/bin
 endef
 
-$(eval $(call BuildPackage,$(PKG_NAME)-$(PKG_VERSION)))
+$(eval $(call BuildPackage,$(PKG_NAME)))
