@@ -162,6 +162,17 @@ return view.extend({
 		o = s.taboption('basic', form.Flag, 'redirect', _('DNS Forward'), _('Forward Dnsmasq Domain Name resolution requests to MosDNS'));
 		o.default = false;
 
+		if (L.hasSystemFeature('firewall4')) {
+			o = s.taboption('basic', form.Flag, 'local_dns_redirect', _('DNS redirect'), _('Force redirect all local DNS queries to MosDNS, a.k.a. DNS Hijacking'));
+			o.default = false;
+			o.depends('redirect', '1');
+		}
+
+		o = s.taboption('basic', form.Flag, 'prefer_ipv4_cn', _('China DNS prefer IPv4'),
+			_('IPv4 is preferred for China DNS resolution of dual-stack addresses, and is not affected when the destination is IPv6 only'));
+		o.depends('configfile', '/var/etc/mosdns.json');
+		o.default = false;
+
 		o = s.taboption('basic', form.Flag, 'prefer_ipv4', _('Remote DNS prefer IPv4'),
 			_('IPv4 is preferred for Remote / Streaming Media DNS resolution of dual-stack addresses, and is not affected when the destination is IPv6 only'));
 		o.depends('configfile', '/var/etc/mosdns.json');
@@ -223,7 +234,7 @@ return view.extend({
 		o.default = 'tls://8.8.8.8';
 		o.depends('custom_stream_media_dns', '1');
 
-		o = s.taboption('basic', form.ListValue, 'bootstrap_dns', _('Bootstrap DNS servers'),
+		o = s.taboption('basic', form.Value, 'bootstrap_dns', _('Bootstrap DNS servers'),
 			_('Bootstrap DNS servers are used to resolve IP addresses of the DoH/DoT resolvers you specify as upstreams'));
 		o.value('119.29.29.29', _('Tencent Public DNS (119.29.29.29)'));
 		o.value('119.28.28.28', _('Tencent Public DNS (119.28.28.28)'));
@@ -411,7 +422,7 @@ return view.extend({
 			if (configeditor) {
 				var editorContent = configeditor.getValue();
 				if (editorContent === formvalue) {
-					return window.location.reload();
+					return;
 				}
 				return fs.write('/etc/mosdns/config_custom.yaml', editorContent.trim().replace(/\r\n/g, '\n') + '\n')
 					.then(function (i) {
