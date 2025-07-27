@@ -1,6 +1,9 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+msgid "Control"
+msgstr "管控"
+
 msgid "Gecoos AC"
 msgstr "集客AC控制器"
 
@@ -72,3 +75,6 @@ msgstr "打开管理页面"
 
 msgid "Collecting data..."
 msgstr "收集数据..."
+
+msgid "Clear Upload Directory"
+msgstr "清理上传目录"
