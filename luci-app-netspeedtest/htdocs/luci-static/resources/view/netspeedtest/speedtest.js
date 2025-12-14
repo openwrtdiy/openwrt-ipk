@@ -168,8 +168,5 @@ return view.extend({
             }, this), 5);
             return nodes;
         }, this, m));
-    },
-        handleSaveApply: null,
-    handleSave: null,
-    handleReset: null
+    }
 });
