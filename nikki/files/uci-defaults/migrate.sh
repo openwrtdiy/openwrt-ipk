@@ -12,7 +12,7 @@ mixin_rule_provider=$(uci -q get nikki.mixin.rule_provider); [ -z "$mixin_rule_p
 
 mixin_ui_path=$(uci -q get nikki.mixin.ui_path); [ -z "$mixin_ui_path" ] && uci set nikki.mixin.ui_path=ui
 
-uci show nikki | grep -E 'nikki.@rule\[[[:digit:]]+\].match=' | sed 's/nikki.@rule\[\([[:digit:]]\+\)\].match=.*/rename nikki.@rule[\1].match=matcher/' | uci batch
+uci show nikki | grep -E 'nikki\.@rule\[[[:digit:]]+\].match=' | sed 's/nikki.@rule\[\([[:digit:]]\+\)\].match=.*/rename nikki.@rule[\1].match=matcher/' | uci batch
 
 # since v1.19.1
 
@@ -111,6 +111,7 @@ proxy_transparent_proxy=$(uci -q get nikki.proxy.transparent_proxy); [ -n "$prox
 }
 
 # since v1.23.0
+
 routing=$(uci -q get nikki.routing); [ -z "$routing" ] && {
 	uci set nikki.routing=routing
 	uci set nikki.routing.tproxy_fw_mark=0x80
@@ -128,7 +129,8 @@ proxy_tun_timeout=$(uci -q get nikki.proxy.tun_timeout); [ -z "$proxy_tun_timeou
 proxy_tun_interval=$(uci -q get nikki.proxy.tun_interval); [ -z "$proxy_tun_interval" ] && uci set nikki.proxy.tun_interval=1
 
 # since v1.23.1
-uci show nikki | grep -o -E 'nikki.@router_access_control\[[[:digit:]]+\]=router_access_control' | cut -d '=' -f 1 | while read -r router_access_control; do
+
+uci show nikki | grep -o -E 'nikki\.@router_access_control\[[[:digit:]]+\]=router_access_control' | cut -d '=' -f 1 | while read -r router_access_control; do
 	for router_access_control_cgroup in $(uci -q get "$router_access_control.cgroup"); do
 		[ -d "/sys/fs/cgroup/$router_access_control_cgroup" ] && continue
 		[ -d "/sys/fs/cgroup/services/$router_access_control_cgroup" ] && {
@@ -138,23 +140,70 @@ uci show nikki | grep -o -E 'nikki.@router_access_control\[[[:digit:]]+\]=router
 	done
 done
 
-# since v1.23.2
-env_disable_safe_path_check=$(uci -q get nikki.env.disable_safe_path_check); [ -n "$env_disable_safe_path_check" ] && uci del nikki.env.disable_safe_path_check
-
-env_skip_system_ipv6_check=$(uci -q get nikki.env.skip_system_ipv6_check); [ -z "$env_skip_system_ipv6_check" ] && uci set nikki.env.skip_system_ipv6_check=0
-
 # since v1.23.3
-uci show nikki | grep -o -E 'nikki.@router_access_control\[[[:digit:]]+\]=router_access_control' | cut -d '=' -f 1 | while read -r router_access_control; do
+
+uci show nikki | grep -o -E 'nikki\.@router_access_control\[[[:digit:]]+\]=router_access_control' | cut -d '=' -f 1 | while read -r router_access_control; do
 	router_access_control_proxy=$(uci -q get "$router_access_control.proxy")
 	router_access_control_dns=$(uci -q get "$router_access_control.dns")
 	[ -z "$router_access_control_dns" ] && uci set "$router_access_control.dns=$router_access_control_proxy"
 done
 
-uci show nikki | grep -o -E 'nikki.@lan_access_control\[[[:digit:]]+\]=lan_access_control' | cut -d '=' -f 1 | while read -r lan_access_control; do
+uci show nikki | grep -o -E 'nikki\.@lan_access_control\[[[:digit:]]+\]=lan_access_control' | cut -d '=' -f 1 | while read -r lan_access_control; do
 	lan_access_control_proxy=$(uci -q get "$lan_access_control.proxy")
 	lan_access_control_dns=$(uci -q get "$lan_access_control.dns")
 	[ -z "$lan_access_control_dns" ] && uci set "$lan_access_control.dns=$lan_access_control_proxy"
 done
+
+# since v1.24.0
+
+proxy_reserved_ip=$(uci -q get nikki.proxy.reserved_ip); [ -z "$proxy_reserved_ip" ] && {
+	uci add_list nikki.proxy.reserved_ip=0.0.0.0/8
+	uci add_list nikki.proxy.reserved_ip=10.0.0.0/8
+	uci add_list nikki.proxy.reserved_ip=127.0.0.0/8
+	uci add_list nikki.proxy.reserved_ip=100.64.0.0/10
+	uci add_list nikki.proxy.reserved_ip=169.254.0.0/16
+	uci add_list nikki.proxy.reserved_ip=172.16.0.0/12
+	uci add_list nikki.proxy.reserved_ip=192.168.0.0/16
+	uci add_list nikki.proxy.reserved_ip=224.0.0.0/4
+	uci add_list nikki.proxy.reserved_ip=240.0.0.0/4
+}
+
+proxy_reserved_ip6=$(uci -q get nikki.proxy.reserved_ip6); [ -z "$proxy_reserved_ip6" ] && {
+	uci add_list nikki.proxy.reserved_ip6=::/128
+	uci add_list nikki.proxy.reserved_ip6=::1/128
+	uci add_list nikki.proxy.reserved_ip6=::ffff:0:0/96
+	uci add_list nikki.proxy.reserved_ip6=100::/64
+	uci add_list nikki.proxy.reserved_ip6=64:ff9b::/96
+	uci add_list nikki.proxy.reserved_ip6=2001::/32
+	uci add_list nikki.proxy.reserved_ip6=2001:10::/28
+	uci add_list nikki.proxy.reserved_ip6=2001:20::/28
+	uci add_list nikki.proxy.reserved_ip6=2001:db8::/32
+	uci add_list nikki.proxy.reserved_ip6=2002::/16
+	uci add_list nikki.proxy.reserved_ip6=fc00::/7
+	uci add_list nikki.proxy.reserved_ip6=fe80::/10
+	uci add_list nikki.proxy.reserved_ip6=ff00::/8
+}
+
+# since v1.24.3
+
+proxy_bypass_china_mainland_ip=$(uci -q get nikki.proxy.bypass_china_mainland_ip)
+proxy_bypass_china_mainland_ip6=$(uci -q get nikki.proxy.bypass_china_mainland_ip6)
+[ -z "$proxy_bypass_china_mainland_ip6" ] && uci set nikki.proxy.bypass_china_mainland_ip6=$proxy_bypass_china_mainland_ip
+
+routing_tproxy_fw_mask=$(uci -q get nikki.routing.tproxy_fw_mask); [ -z "$routing_tproxy_fw_mask" ] && uci set nikki.routing.tproxy_fw_mask=0xFF
+routing_tun_fw_mask=$(uci -q get nikki.routing.tun_fw_mask); [ -z "$routing_tun_fw_mask" ] && uci set nikki.routing.tun_fw_mask=0xFF
+
+procd=$(uci -q get nikki.procd); [ -z "$procd" ] && {
+	uci set nikki.procd=procd
+	uci set nikki.procd.fast_reload=$(uci -q get nikki.config.fast_reload)
+	uci set nikki.procd.env_safe_paths=$(uci -q get nikki.env.safe_paths)
+	uci set nikki.procd.env_disable_loopback_detector=$(uci -q get nikki.env.disable_loopback_detector)
+	uci set nikki.procd.env_disable_quic_go_gso=$(uci -q get nikki.env.disable_quic_go_gso)
+	uci set nikki.procd.env_disable_quic_go_ecn=$(uci -q get nikki.env.disable_quic_go_ecn)
+	uci set nikki.procd.env_skip_system_ipv6_check=$(uci -q get nikki.env.skip_system_ipv6_check)
+	uci del nikki.config.fast_reload
+	uci del nikki.env
+}
 
 # commit
 uci commit nikki
